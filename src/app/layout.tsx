@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import "bootstrap/dist/css/bootstrap.min.css";
+import classNames from "classnames";
 import "./../styles/globals.scss";
+import { poppins } from "@/shared/fonts";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LayoutCommonComponents from "@/components/layoutCommonComponents/LayoutCommonComponents";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={classNames(poppins.variable)}>
+          <LayoutCommonComponents >
+            {children}
+          </LayoutCommonComponents>
+      </body>
     </html>
   );
 }

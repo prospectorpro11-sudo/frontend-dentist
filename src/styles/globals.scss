@@ -1,7 +1,8 @@
-@use 'variables';
-@use "mixins";
-@use "normalize";
-@use 'overrides';
+@use "bootstrap/dist/css/bootstrap.min.css";
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./normalize";
+@use "./overrides";
 
 body {
   min-height: 100vh;

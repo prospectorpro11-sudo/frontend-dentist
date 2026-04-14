@@ -1,3 +1,55 @@
-@use "sass:color";
 @use "styles/variables" as *;
 @use "styles/mixins" as *;
+
+.wrapper {
+  background: var(--White, #FFF);
+  box-shadow: 0 4px 7.2px 0 rgba(0, 0, 0, 0.08);
+  padding: 21px 0;
+
+}
+
+.headerMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0;
+
+  li {
+    list-style-type: none;
+
+    a {
+      color: $text;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  }
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #E3E8EF;
+  width: max-content;
+  border-radius: 0.5rem;
+
+  svg {
+    color: #94A3B8;
+  }
+}
+
+.headerButton {
+  color: $white;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  background: linear-gradient(90deg, #0DA2E6 0%, #0386C9 100%);
+  width: max-content;
+  padding: 0.25rem 0.5rem;
+  border: unset;
+  border-radius: 11px;
+}
