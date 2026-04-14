@@ -1,0 +1,22 @@
+// Custom Bootstrap variable overrides
+// https://getbootstrap.com/docs/5.3/customize/sass/#variable-defaults
+$primary: #0284C7;
+$primaryHighlight: #B45309;
+$primaryDark: #01846E;
+$secondary: #0C1929;
+$fill: #EAF5F6;
+$text: #0C1929;
+$textLight: #1E3A5F;
+$textMuted: #5B7A9E;
+$border: #DBEAFE;
+$borderMuted: #E5EBF3;
+$textGradient: linear-gradient(90deg, #41547C 0%, #4B6D90 100%);
+$primaryGradient: linear-gradient(90deg, #33B099 0%, #48CDB1 100%);
+$gradientHighlight: linear-gradient(135deg, #F97316 14.64%, #FB923C 85.36%);
+$primaryGradientLight: linear-gradient(135deg, #0EA5E9 14.64%, #38BDF8 85.36%);
+$danger: #ED0000;
+$white: white;
+$success: #28a745;
+$warning: #faa703;
+$blue: #0EA5E9;
+$action: #10B69B;
