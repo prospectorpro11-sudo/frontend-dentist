@@ -1,8 +1,10 @@
+import HomeBanner from "./views/homeBanner/HomeBanner";
+
 const HomeMainView = () => {
     return (
-        <div>
-            Home Page
-        </div>
+        <>
+            <HomeBanner />
+        </>
     );
 };
 
