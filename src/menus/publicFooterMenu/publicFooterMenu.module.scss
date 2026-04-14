@@ -4,27 +4,47 @@
 .siteFooter {
   position: relative;
   background: linear-gradient(180deg, #071018 0%, #071018 5%, #0a1a2e 15%, #0c1929 30%, #0f2241 100%);
-  padding: 0;
+  padding: 3rem 0 0;
   overflow: hidden;
-  padding-top: 3rem;
-}
 
-/* ——— ANIMATED LIGHT LEAK LAYERS ——— */
+  /* ——— ANIMATED LIGHT LEAK LAYERS ——— */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 65% 50% at 75% 10%, rgba(14, 165, 233, 0.18) 0%, rgba(2, 105, 199, 0.06) 35%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 15% 45%, rgba(79, 70, 229, 0.12) 0%, rgba(10, 70, 180, 0.04) 30%, transparent 60%),
+      radial-gradient(ellipse 45% 35% at 85% 75%, rgba(20, 184, 166, 0.10) 0%, rgba(13, 148, 136, 0.03) 25%, transparent 55%),
+      radial-gradient(ellipse 30% 25% at 30% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
+    filter: blur(25px);
+    animation: footerLightLeaks 12s ease-in-out infinite alternate;
+  }
 
-/* Primary deep blue aurora sweep */
-.siteFooter::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 65% 50% at 75% 10%, rgba(14, 165, 233, 0.18) 0%, rgba(2, 105, 199, 0.06) 35%, transparent 65%),
-    radial-gradient(ellipse 50% 40% at 15% 45%, rgba(79, 70, 229, 0.12) 0%, rgba(10, 70, 180, 0.04) 30%, transparent 60%),
-    radial-gradient(ellipse 45% 35% at 85% 75%, rgba(20, 184, 166, 0.10) 0%, rgba(13, 148, 136, 0.03) 25%, transparent 55%),
-    radial-gradient(ellipse 30% 25% at 30% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
-  filter: blur(25px);
-  animation: footerLightLeaks 12s ease-in-out infinite alternate;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -30%;
+    width: 60%;
+    height: 200%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      rgba(14, 165, 233, 0.04) 25%,
+      rgba(56, 189, 248, 0.08) 40%,
+      rgba(14, 165, 233, 0.12) 50%,
+      rgba(56, 189, 248, 0.08) 60%,
+      rgba(14, 165, 233, 0.04) 75%,
+      transparent 100%
+    );
+    filter: blur(30px);
+    animation: lightLeakSweep 8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  }
 }
 
 @keyframes footerLightLeaks {
@@ -36,30 +56,6 @@
   100% { opacity: 0.9; transform: translate(-1%, 0%) scale(1); }
 }
 
-/* Sweeping light streak across footer */
-.siteFooter::after {
-  content: "";
-  position: absolute;
-  top: -60%;
-  left: -30%;
-  width: 60%;
-  height: 200%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    rgba(14, 165, 233, 0.04) 25%,
-    rgba(56, 189, 248, 0.08) 40%,
-    rgba(14, 165, 233, 0.12) 50%,
-    rgba(56, 189, 248, 0.08) 60%,
-    rgba(14, 165, 233, 0.04) 75%,
-    transparent 100%
-  );
-  filter: blur(30px);
-  animation: lightLeakSweep 8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-}
-
 @keyframes lightLeakSweep {
   0%   { transform: translateX(0) rotate(5deg) scaleX(0.6); opacity: 0; }
   15%  { opacity: 0.6; }
@@ -69,7 +65,6 @@
 }
 
 /* ——— LINE-BASED SQUARE GRID PATTERN ——— */
-/* Square grid via crossing repeating gradients, circularly masked */
 .ftPattern {
   position: absolute;
   inset: 0;
@@ -77,39 +72,12 @@
   pointer-events: none;
   opacity: 0.45;
   background:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 49px,
-      rgba(14, 165, 233, 0.12) 49px,
-      rgba(14, 165, 233, 0.12) 50px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 49px,
-      rgba(14, 165, 233, 0.12) 49px,
-      rgba(14, 165, 233, 0.12) 50px
-    );
-  -webkit-mask-image: radial-gradient(
-    ellipse 55% 55% at 50% 50%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.7) 45%,
-    rgba(0, 0, 0, 0.3) 60%,
-    rgba(0, 0, 0, 0.08) 75%,
-    transparent 90%
-  );
-  mask-image: radial-gradient(
-    ellipse 55% 55% at 50% 50%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.7) 45%,
-    rgba(0, 0, 0, 0.3) 60%,
-    rgba(0, 0, 0, 0.08) 75%,
-    transparent 90%
-  );
+    repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(14, 165, 233, 0.12) 49px, rgba(14, 165, 233, 0.12) 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(14, 165, 233, 0.12) 49px, rgba(14, 165, 233, 0.12) 50px);
+  -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.08) 75%, transparent 90%);
+  mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.08) 75%, transparent 90%);
 }
 
-/* Subtle secondary grid layer at smaller scale for depth */
 .ftPatternFt {
   position: absolute;
   inset: 0;
@@ -117,37 +85,12 @@
   pointer-events: none;
   opacity: 0.2;
   background:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 24px,
-      rgba(56, 189, 248, 0.08) 24px,
-      rgba(56, 189, 248, 0.08) 25px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 24px,
-      rgba(56, 189, 248, 0.08) 24px,
-      rgba(56, 189, 248, 0.08) 25px
-    );
-  -webkit-mask-image: radial-gradient(
-    ellipse 50% 50% at 50% 50%,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.5) 40%,
-    rgba(0, 0, 0, 0.15) 60%,
-    transparent 80%
-  );
-  mask-image: radial-gradient(
-    ellipse 50% 50% at 50% 50%,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.5) 40%,
-    rgba(0, 0, 0, 0.15) 60%,
-    transparent 80%
-  );
+    repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(56, 189, 248, 0.08) 24px, rgba(56, 189, 248, 0.08) 25px),
+    repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(56, 189, 248, 0.08) 24px, rgba(56, 189, 248, 0.08) 25px);
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.15) 60%, transparent 80%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.15) 60%, transparent 80%);
 }
 
-/* Fine noise/texture overlay for grain blend */
 .ftNoise {
   position: absolute;
   inset: 0;
@@ -155,19 +98,11 @@
   pointer-events: none;
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  -webkit-mask-image: radial-gradient(
-    ellipse 60% 60% at 50% 50%,
-    rgba(0, 0, 0, 0.6) 0%,
-    transparent 75%
-  );
-  mask-image: radial-gradient(
-    ellipse 60% 60% at 50% 50%,
-    rgba(0, 0, 0, 0.6) 0%,
-    transparent 75%
-  );
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0, 0, 0, 0.6) 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0, 0, 0, 0.6) 0%, transparent 75%);
 }
 
-/* Ambient blobs — stronger, more vivid */
+/* Ambient blobs */
 .ftBlob {
   position: absolute;
   border-radius: 50%;
@@ -178,13 +113,7 @@
 .ftBlob1 {
   width: 700px;
   height: 700px;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(14, 165, 233, 0.14) 0%,
-    rgba(2, 132, 199, 0.07) 30%,
-    rgba(2, 105, 199, 0.03) 55%,
-    transparent 75%
-  );
+  background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.14) 0%, rgba(2, 132, 199, 0.07) 30%, rgba(2, 105, 199, 0.03) 55%, transparent 75%);
   top: -220px;
   left: -180px;
   filter: blur(40px);
@@ -194,13 +123,7 @@
 .ftBlob2 {
   width: 550px;
   height: 550px;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(99, 102, 241, 0.10) 0%,
-    rgba(79, 70, 229, 0.05) 30%,
-    rgba(79, 70, 229, 0.02) 55%,
-    transparent 75%
-  );
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.10) 0%, rgba(79, 70, 229, 0.05) 30%, rgba(79, 70, 229, 0.02) 55%, transparent 75%);
   bottom: -150px;
   right: -120px;
   filter: blur(35px);
@@ -234,29 +157,10 @@
   padding: 4rem 0 3rem;
 }
 
-/* Brand Column */
 .ftBrandCol {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-}
-
-.ftBrand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  text-decoration: none;
-  color: #fff;
-}
-
-.ftBrandText {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .ftBrandDesc {
@@ -283,36 +187,33 @@
   color: rgba(255, 255, 255, 0.7);
   transition: all 0.3s ease;
   text-decoration: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &.ftSocFb:hover {
+    color: #1877f2;
+    border-color: #1877f2;
+  }
+
+  &.ftSocLi:hover {
+    color: #0a66c2;
+    border-color: #0a66c2;
+  }
+
+  &.ftSocWa:hover {
+    color: #25d366;
+    border-color: #25d366;
+  }
+
+  &.ftSocTw:hover {
+    color: #fff;
+    border-color: #fff;
+  }
 }
 
-.ftSoc:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(14, 165, 233, 0.5);
-  color: #0ea5e9;
-  transform: translateY(-2px);
-}
-
-.ftSocFb:hover {
-  color: #1877f2;
-  border-color: #1877f2;
-}
-
-.ftSocLi:hover {
-  color: #0a66c2;
-  border-color: #0a66c2;
-}
-
-.ftSocWa:hover {
-  color: #25d366;
-  border-color: #25d366;
-}
-
-.ftSocTw:hover {
-  color: #fff;
-  border-color: #fff;
-}
-
-/* Link Columns */
 .ftLinks {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -323,90 +224,84 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  h4 {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #0ea5e9;
+      transform: translateX(4px);
+    }
+  }
 }
 
-.ftLinkCol h4 {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.ftLinkCol a {
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.ftLinkCol a:hover {
-  color: #0ea5e9;
-  transform: translateX(4px);
-}
-
-/* Bottom */
 .ftBottom {
   padding: 1.2rem 0 1.6rem;
   border-top: none;
   text-align: center;
   position: relative;
   overflow: visible;
-}
 
-/* 1 — Divider line: blended edges, solid center */
-.ftBottom::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(14, 165, 233, 0.10) 10%,
-    rgba(14, 165, 233, 0.30) 22%,
-    rgba(14, 165, 233, 0.60) 32%,
-    rgba(56, 189, 248, 1) 43%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(56, 189, 248, 1) 57%,
-    rgba(14, 165, 233, 0.60) 68%,
-    rgba(14, 165, 233, 0.30) 78%,
-    rgba(14, 165, 233, 0.10) 90%,
-    transparent 100%
-  );
-  z-index: 1;
-}
-
-/* 2 — Main radiation orb: centered vertically on the 2px border */
-.ftBottom::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -18%;
-  width: 14%;
-  height: 50px;
-  margin-top: -24px;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse 36px 32px at 50% 50%,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.95) 8%,
-      rgba(210, 240, 255, 0.7) 18%,
-      rgba(100, 205, 255, 0.35) 32%,
-      rgba(14, 165, 233, 0.12) 48%,
-      transparent 65%
-    ),
-    radial-gradient(ellipse 100% 130% at 50% 50%,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(245, 252, 255, 0.82) 5%,
-      rgba(170, 228, 255, 0.45) 12%,
-      rgba(56, 189, 248, 0.18) 24%,
-      rgba(14, 165, 233, 0.06) 38%,
-      transparent 52%
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(14, 165, 233, 0.10) 10%,
+      rgba(14, 165, 233, 0.30) 22%,
+      rgba(14, 165, 233, 0.60) 32%,
+      rgba(56, 189, 248, 1) 43%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(56, 189, 248, 1) 57%,
+      rgba(14, 165, 233, 0.60) 68%,
+      rgba(14, 165, 233, 0.30) 78%,
+      rgba(14, 165, 233, 0.10) 90%,
+      transparent 100%
     );
-  animation: ftOrbSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-  z-index: 2;
+    z-index: 1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -18%;
+    width: 14%;
+    height: 50px;
+    margin-top: -24px;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse 36px 32px at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 8%, rgba(210, 240, 255, 0.7) 18%, rgba(100, 205, 255, 0.35) 32%, rgba(14, 165, 233, 0.12) 48%, transparent 65%),
+      radial-gradient(ellipse 100% 130% at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(245, 252, 255, 0.82) 5%, rgba(170, 228, 255, 0.45) 12%, rgba(56, 189, 248, 0.18) 24%, rgba(14, 165, 233, 0.06) 38%, transparent 52%);
+    animation: ftOrbSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    z-index: 2;
+  }
+
+  p {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.3);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  strong {
+    color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 @keyframes ftOrbSweep {
@@ -418,7 +313,6 @@
   100% { left: 100%; opacity: 0; transform: scale(0.8); }
 }
 
-/* 3 — Trailing comet tail behind the orb */
 .ftGlowTail {
   position: absolute;
   top: 0;
@@ -427,15 +321,7 @@
   height: 4px;
   margin-top: -2px;
   border-radius: 50%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(14, 165, 233, 0.04) 40%,
-    rgba(56, 189, 248, 0.15) 60%,
-    rgba(180, 230, 255, 0.40) 76%,
-    rgba(255, 255, 255, 0.7) 90%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(14, 165, 233, 0.04) 40%, rgba(56, 189, 248, 0.15) 60%, rgba(180, 230, 255, 0.40) 76%, rgba(255, 255, 255, 0.7) 90%, transparent 100%);
   filter: blur(1px);
   animation: ftTailSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   z-index: 1;
@@ -450,15 +336,10 @@
   100% { left: 100%; opacity: 0; }
 }
 
-/* 4 — Spark particles orbiting the glow */
 .ftGlowSparks {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   z-index: 3;
 }
 
@@ -466,50 +347,47 @@
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.85);
-  box-shadow:
-    0 0 4px 2px rgba(180, 230, 255, 0.4),
-    0 0 10px 4px rgba(14, 165, 233, 0.18);
+  box-shadow: 0 0 4px 2px rgba(180, 230, 255, 0.4), 0 0 10px 4px rgba(14, 165, 233, 0.18);
   animation: ftSparkSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-}
 
-.glowSpark1 {
-  left: -8%;
-  top: -6px;
-  width: 3px;
-  height: 3px;
-  animation-delay: 0s;
-}
+  &.glowSpark1 {
+    left: -8%;
+    top: -6px;
+    width: 3px;
+    height: 3px;
+  }
 
-.glowSpark2 {
-  left: -8%;
-  top: 8px;
-  width: 2px;
-  height: 2px;
-  animation-delay: 0.08s;
-}
+  &.glowSpark2 {
+    left: -8%;
+    top: 8px;
+    width: 2px;
+    height: 2px;
+    animation-delay: 0.08s;
+  }
 
-.glowSpark3 {
-  left: -8%;
-  top: -13px;
-  width: 1.5px;
-  height: 1.5px;
-  animation-delay: 0.04s;
-}
+  &.glowSpark3 {
+    left: -8%;
+    top: -13px;
+    width: 1.5px;
+    height: 1.5px;
+    animation-delay: 0.04s;
+  }
 
-.glowSpark4 {
-  left: -8%;
-  top: 13px;
-  width: 1px;
-  height: 1px;
-  animation-delay: 0.12s;
-}
+  &.glowSpark4 {
+    left: -8%;
+    top: 13px;
+    width: 1px;
+    height: 1px;
+    animation-delay: 0.12s;
+  }
 
-.glowSpark5 {
-  left: -8%;
-  top: -20px;
-  width: 1px;
-  height: 1px;
-  animation-delay: 0.02s;
+  &.glowSpark5 {
+    left: -8%;
+    top: -20px;
+    width: 1px;
+    height: 1px;
+    animation-delay: 0.02s;
+  }
 }
 
 @keyframes ftSparkSweep {
@@ -521,7 +399,6 @@
   100% { left: 108%; opacity: 0; }
 }
 
-/* 5 — Secondary reverse orb creating depth */
 .ftGlowReverse {
   position: absolute;
   top: 0;
@@ -530,16 +407,8 @@
   height: 20px;
   margin-top: -9px;
   border-radius: 50%;
-  background:
-    radial-gradient(ellipse 20px 16px at 50% 50%,
-      rgba(255, 255, 255, 0.7) 0%,
-      rgba(200, 235, 255, 0.4) 18%,
-      rgba(14, 165, 233, 0.15) 35%,
-      transparent 55%
-    );
-  box-shadow:
-    0 0 6px 3px rgba(200, 230, 255, 0.3),
-    0 0 16px 8px rgba(14, 165, 233, 0.15);
+  background: radial-gradient(ellipse 20px 16px at 50% 50%, rgba(255, 255, 255, 0.7) 0%, rgba(200, 235, 255, 0.4) 18%, rgba(14, 165, 233, 0.15) 35%, transparent 55%);
+  box-shadow: 0 0 6px 3px rgba(200, 230, 255, 0.3), 0 0 16px 8px rgba(14, 165, 233, 0.15);
   animation: ftOrbReverse 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   z-index: 2;
   display: none;
@@ -555,7 +424,6 @@
   100% { right: 100%; opacity: 0; transform: scale(0.7); }
 }
 
-/* 6 — Orbiting glow ring: translucent halo that follows the main orb */
 .ftGlowRing {
   position: absolute;
   top: 0;
@@ -565,9 +433,7 @@
   margin-top: -29px;
   border-radius: 50%;
   border: 1px solid rgba(130, 210, 255, 0.12);
-  box-shadow:
-    inset 0 0 15px 8px rgba(14, 165, 233, 0.06),
-    0 0 30px 15px rgba(56, 189, 248, 0.08);
+  box-shadow: inset 0 0 15px 8px rgba(14, 165, 233, 0.06), 0 0 30px 15px rgba(56, 189, 248, 0.08);
   animation: ftRingSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   z-index: 1;
 }
@@ -582,7 +448,6 @@
   100% { left: 100%; opacity: 0; transform: scale(0.8) rotate(0deg); }
 }
 
-/* 7 — Pulsing rings that emit from the orb as it moves */
 .ftPulseRing {
   position: absolute;
   top: 0;
@@ -595,11 +460,11 @@
   animation: ftPulseRing 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   pointer-events: none;
   z-index: 1;
-}
 
-.ftPulseRing:nth-child(1) { animation-delay: 0s; }
-.ftPulseRing:nth-child(2) { animation-delay: 1.3s; }
-.ftPulseRing:nth-child(3) { animation-delay: 2.6s; }
+  &:nth-child(1) { animation-delay: 0s; }
+  &:nth-child(2) { animation-delay: 1.3s; }
+  &:nth-child(3) { animation-delay: 2.6s; }
+}
 
 @keyframes ftPulseRing {
   0%   { left: -18%; opacity: 0; transform: scale(0.4); }
@@ -609,7 +474,6 @@
   100% { left: 100%; opacity: 0; transform: scale(0.4); }
 }
 
-/* 8 — Cross beam light that extends horizontally from the orb */
 .ftGlowBeam {
   position: absolute;
   top: 0;
@@ -617,14 +481,7 @@
   width: 14%;
   height: 1px;
   margin-top: -0.5px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.3) 30%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.3) 70%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.3) 70%, transparent 100%);
   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.3);
   animation: ftBeamSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   z-index: 2;
@@ -639,7 +496,6 @@
   100% { left: 100%; opacity: 0; }
 }
 
-/* 9 — Ambient floor glow beneath the orb path */
 .ftGlowFloor {
   position: absolute;
   top: 0;
@@ -647,12 +503,7 @@
   width: 18%;
   height: 2px;
   margin-top: 2px;
-  background: radial-gradient(
-    ellipse 100% 300% at 50% 0%,
-    rgba(14, 165, 233, 0.2) 0%,
-    rgba(56, 189, 248, 0.08) 30%,
-    transparent 60%
-  );
+  background: radial-gradient(ellipse 100% 300% at 50% 0%, rgba(14, 165, 233, 0.2) 0%, rgba(56, 189, 248, 0.08) 30%, transparent 60%);
   animation: ftFloorGlow 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   z-index: 1;
 }
@@ -666,43 +517,8 @@
   100% { left: 100%; opacity: 0; }
 }
 
-.ftBottom p {
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.3);
-  margin: 0;
-  font-weight: 500;
-}
-
-.ftBottom strong {
-  color: rgba(255, 255, 255, 0.5);
-}
-
 /* ——— RESPONSIVE ——— */
 @media (max-width: 991px) {
-  .ftCtaBanner {
-    flex-direction: column;
-    text-align: center;
-    padding: 2.2rem 2rem;
-    margin-top: -2.5rem;
-    border-radius: 18px;
-    gap: 1.5rem;
-  }
-
-  .ftCtaHeading {
-    font-size: 1.35rem;
-  }
-
-  .ftCtaSub {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-  }
-
-  .ftCtaVisual {
-    right: 50%;
-    transform: translateX(50%);
-  }
-
   .ftMain {
     flex-direction: column;
     gap: 2rem;
@@ -713,10 +529,6 @@
     max-width: 100%;
     text-align: center;
     align-items: center;
-  }
-
-  .ftBrand {
-    justify-content: center;
   }
 
   .ftBrandDesc {
@@ -744,30 +556,6 @@
 @media (max-width: 576px) {
   .siteFooter {
     padding-top: 2rem;
-  }
-
-  .ftCtaBanner {
-    padding: 1.8rem 1.5rem;
-    margin-top: -1.5rem;
-    border-radius: 16px;
-  }
-
-  .ftCtaHeading {
-    font-size: 1.15rem;
-  }
-
-  .ftCtaSub {
-    font-size: 0.82rem;
-  }
-
-  .ftCtaBtn {
-    width: 100%;
-    justify-content: center;
-    padding: 0.85rem 1.5rem;
-  }
-
-  .ftCtaVisual {
-    display: none;
   }
 
   .ftMain {
