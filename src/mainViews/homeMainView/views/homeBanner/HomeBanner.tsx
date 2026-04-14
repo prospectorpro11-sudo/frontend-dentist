@@ -90,7 +90,7 @@ const HomeBanner = () => {
                         </div>
 
                         <div className={classNames(styles.spRow, styles.spRowHighlight)}>
-                            <div className={classNames(styles.spIcon, styles.spIc1)}><BsPeopleFill size={22} /></div>
+                            <div className={classNames(styles.spIcon, styles.spIc1)}><BsPeopleFill size={18} /></div>
                             <div className={styles.spInfo}>
                                 <strong>930,285</strong>
                                 <span>Total Contacts</span>
@@ -99,7 +99,7 @@ const HomeBanner = () => {
                         </div>
 
                         <div className={styles.spRow}>
-                            <div className={classNames(styles.spIcon, styles.spIc2)}><BsEnvelopeCheckFill size={22} /></div>
+                            <div className={classNames(styles.spIcon, styles.spIc2)}><BsEnvelopeCheckFill size={18} /></div>
                             <div className={styles.spInfo}>
                                 <strong>930,285</strong>
                                 <span>Emails</span>
@@ -108,7 +108,7 @@ const HomeBanner = () => {
                         </div>
 
                         <div className={styles.spRow}>
-                            <div className={classNames(styles.spIcon, styles.spIc3)}><BsTelephoneForwardFill size={22} /></div>
+                            <div className={classNames(styles.spIcon, styles.spIc3)}><BsTelephoneForwardFill size={18} /></div>
                             <div className={styles.spInfo}>
                                 <strong>930,285</strong>
                                 <span>Phones</span>
@@ -117,7 +117,7 @@ const HomeBanner = () => {
                         </div>
 
                         <div className={styles.spRow}>
-                            <div className={classNames(styles.spIcon, styles.spIc4)}><BsPrinterFill size={22} /></div>
+                            <div className={classNames(styles.spIcon, styles.spIc4)}><BsPrinterFill size={18} /></div>
                             <div className={styles.spInfo}>
                                 <strong>930,285</strong>
                                 <span>Faxes</span>
@@ -126,7 +126,7 @@ const HomeBanner = () => {
                         </div>
 
                         <div className={classNames(styles.spRow, styles.spRowLast)}>
-                            <div className={classNames(styles.spIcon, styles.spIc5)}><BsPatchCheckFill size={22} /></div>
+                            <div className={classNames(styles.spIcon, styles.spIc5)}><BsPatchCheckFill size={18} /></div>
                             <div className={styles.spInfo}>
                                 <strong>930,285</strong>
                                 <span>Licenses</span>
