@@ -1,0 +1,584 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
+/* ============================================
+   DATA DESCRIBE SECTION — Clean Professional
+   ============================================ */
+.productDescribe {
+    position: relative;
+    padding: 7rem 0 8rem;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f4f9ff 0%, #edf6ff 100%);
+}
+
+/* Background blobs */
+.pdBlob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.pdBlob1 {
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle,
+            rgba(14, 165, 233, 0.06) 0%,
+            transparent 70%);
+    top: -200px;
+    left: -100px;
+    animation: gbFloat 20s ease-in-out infinite alternate;
+}
+
+.pdBlob2 {
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle,
+            rgba(20, 184, 166, 0.06) 0%,
+            transparent 70%);
+    bottom: -80px;
+    right: -60px;
+    animation: gbFloatB 18s ease-in-out infinite alternate;
+}
+
+.pdBlob3 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle,
+            rgba(56, 189, 248, 0.05) 0%,
+            transparent 70%);
+    top: 40%;
+    right: 10%;
+    animation: gbFloat 22s ease-in-out infinite alternate-reverse;
+}
+
+.decoOrb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.decoOrb7 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle,
+            rgba(14, 165, 233, 0.04) 0%,
+            transparent 70%);
+    bottom: 10%;
+    left: 5%;
+    animation: gbFloatB 16s ease-in-out infinite alternate;
+}
+
+.pdHeading {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+    color: #0c1929;
+    margin-bottom: 0;
+}
+
+.pdSub {
+    color: #5b7a9e;
+    font-size: 1.05rem;
+    line-height: 1.72;
+    margin-top: 1rem;
+}
+
+.pdCta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 2rem;
+    padding: 0.95rem 2rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #fff !important;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 6px 28px rgba(14, 165, 233, 0.28);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pdCta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(14, 165, 233, 0.35);
+    color: #fff !important;
+}
+
+.pdIllScene {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdIllImage {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 520px;
+    z-index: 2;
+}
+
+.pdIllGlow {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    background: conic-gradient(from 180deg,
+            rgba(14, 165, 233, 0.12),
+            rgba(3, 105, 161, 0.08),
+            rgba(56, 189, 248, 0.08),
+            rgba(2, 132, 199, 0.1),
+            rgba(14, 165, 233, 0.12));
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 0;
+    animation: wiGlowSpin 10s linear infinite;
+}
+
+/* Big white card */
+.pdBigCard {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(219, 234, 254, 0.65);
+    border-radius: 26px;
+    box-shadow:
+        0 20px 70px rgba(12, 25, 41, 0.07),
+        0 4px 14px rgba(12, 25, 41, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    padding: 3.5rem;
+}
+
+/* Inner panel */
+.pdInnerPanel {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    background: linear-gradient(135deg,
+            rgba(224, 242, 254, 0.5) 0%,
+            rgba(240, 249, 255, 0.4) 100%);
+    border-radius: 18px;
+    padding: 2.5rem;
+}
+
+.pdPanelText {
+    flex: 1;
+}
+
+.pdPanelHeading {
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    color: #0c1929;
+    margin-bottom: 0.75rem;
+    transition: opacity 0.3s ease;
+}
+
+.pdPanelSub {
+    color: #5b7a9e;
+    font-size: 0.95rem;
+    line-height: 1.68;
+    margin-bottom: 1.2rem;
+}
+
+.pdPanelLabel {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin-bottom: 0.7rem;
+}
+
+.pdPanelChks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.pdPanelChks li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1e3a5f;
+}
+
+.pdPanelChks li svg {
+    color: #10b981;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.pdPanelVisual {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Document card */
+.pdDocCardNew {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow:
+        0 12px 40px rgba(12, 25, 41, 0.06),
+        0 2px 8px rgba(12, 25, 41, 0.04);
+    width: 200px;
+    min-height: 140px;
+    transform: rotate(3deg);
+    transition: transform 0.35s;
+}
+
+.pdDocCardNew:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.pdDocNewLines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pdDnl {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #e0f2fe 0%, #bae6fd 100%);
+    width: 100%;
+}
+
+.pdDnl.w2 {
+    width: 80%;
+}
+
+.pdDnl.w3 {
+    width: 90%;
+}
+
+.pdDnl.w4 {
+    width: 70%;
+}
+
+.pdDnl.w1 {
+    width: 60%;
+}
+
+.pdDocNewChks {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.pdDnc {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #34d399);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.65rem;
+}
+
+.pdDocNewBadge {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: rotate(10deg);
+    animation: pdDocBadgeFloat 4s ease-in-out infinite alternate;
+}
+
+.pdDocNewBadge span {
+    white-space: nowrap;
+}
+
+@keyframes pdDocBadgeFloat {
+    0% {
+        transform: rotate(10deg) translateY(0);
+    }
+
+    100% {
+        transform: rotate(12deg) translateY(-5px);
+    }
+}
+
+/* Divider */
+.pdCardDivider {
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(219, 234, 254, 0.8) 20%,
+            rgba(219, 234, 254, 0.8) 80%,
+            transparent 100%);
+    margin: 3rem 0 2rem;
+}
+
+/* Radio buttons navigation */
+.pdRadioNav {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.pdRadioBtn {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(219, 234, 254, 0.6);
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pdRadioBtn:hover {
+    border-color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.08);
+    transform: scale(1.15);
+}
+
+.pdRadioActive {
+    border-color: #0ea5e9;
+    background: #0ea5e9;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.25);
+    transform: scale(1.2);
+}
+
+.pdRadioVisited {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.pdRadioInner {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 0.3s;
+}
+
+.pdRadioActive .pdRadioInner {
+    background: #fff;
+}
+
+/* Progress lines container */
+.pdProgressLines {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.pdProgressLineBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.pdProgressTrack {
+    width: 100%;
+    height: 4px;
+    background: rgba(219, 234, 254, 0.3);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+.pdProgressFillLine {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.05s linear;
+}
+
+.pdProgressActive .pdProgressTrack {
+    background: rgba(14, 165, 233, 0.15);
+}
+
+/* Feature grid - all cards visible */
+.pdFeatureGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+}
+
+.pdFeatureCard {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 1.5rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.pdFeatureCard:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.pdFeatureActive {
+    background: rgba(14, 165, 233, 0.06);
+}
+
+.pdFeatureVisited {
+    background: rgba(16, 185, 129, 0.03);
+}
+
+.pdFeatureDivider {
+    position: absolute;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: rgba(139, 164, 190, 0.4);
+    z-index: 0;
+}
+
+/* Feature column styles */
+.pdCol {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.85rem;
+}
+
+.pdColIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #bae6fd, #7dd3fc);
+    transition: all 0.3s;
+}
+
+.pdFeatureActive .pdColIcon {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
+}
+
+.pdFeatureVisited .pdColIcon {
+    background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+}
+
+.pdCol h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0c1929;
+    margin: 0;
+    line-height: 1.35;
+}
+
+.pdFeatureActive .pdCol h4 {
+    color: #0ea5e9;
+}
+
+.pdCol p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #5b7a9e;
+    margin: 0;
+}
+
+/* Icon color classes */
+.pdCi1 {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+}
+
+.pdCi2 {
+    background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+}
+
+.pdCi3 {
+    background: linear-gradient(135deg, #0284c7, #0ea5e9);
+}
+
+.pdCi4 {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+}
+
+.pdFeatureActive .pdCi1 {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
+}
+
+.pdFeatureActive .pdCi2 {
+    background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.3);
+}
+
+.pdFeatureActive .pdCi3 {
+    background: linear-gradient(135deg, #0284c7, #0ea5e9);
+    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+}
+
+.pdFeatureActive .pdCi4 {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+    .pdSub {
+        max-width: 100%;
+    }
+
+    .pdFeatureGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pdProgressLines {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .pdBigCard {
+        padding: 2rem;
+    }
+
+    .pdInnerPanel {
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    .pdFeatureGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .pdProgressLines {
+        grid-template-columns: 1fr;
+    }
+}

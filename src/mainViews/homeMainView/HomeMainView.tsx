@@ -3,6 +3,7 @@ import FreeSample from "@/components/freeSample/FreeSample";
 import ProductList from "@/components/productList/ProductList";
 import BeyondEmail from "@/components/beyondEmail/BeyondEmail";
 import WhatsIncluded from "@/components/whatsIncluded/WhatsIncluded";
+import DataDescribe from "@/components/dataDescribe/DataDescribe";
 
 const HomeMainView = () => {
     return (
@@ -12,6 +13,7 @@ const HomeMainView = () => {
             <ProductList />
             <BeyondEmail />
             <WhatsIncluded />
+            <DataDescribe />
         </>
     );
 };
