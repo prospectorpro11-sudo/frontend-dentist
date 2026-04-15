@@ -336,93 +336,93 @@
   100% { left: 100%; opacity: 0; }
 }
 
-.ftGlowSparks {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-}
+// .ftGlowSparks {
+//   position: absolute;
+//   inset: 0;
+//   pointer-events: none;
+//   z-index: 3;
+// }
 
-.glowSpark {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 0 4px 2px rgba(180, 230, 255, 0.4), 0 0 10px 4px rgba(14, 165, 233, 0.18);
-  animation: ftSparkSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+// .glowSpark {
+//   position: absolute;
+//   border-radius: 50%;
+//   background: rgba(255, 255, 255, 0.85);
+//   box-shadow: 0 0 4px 2px rgba(180, 230, 255, 0.4), 0 0 10px 4px rgba(14, 165, 233, 0.18);
+//   animation: ftSparkSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 
-  &.glowSpark1 {
-    left: -8%;
-    top: -6px;
-    width: 3px;
-    height: 3px;
-  }
+//   &.glowSpark1 {
+//     left: -8%;
+//     top: -6px;
+//     width: 3px;
+//     height: 3px;
+//   }
 
-  &.glowSpark2 {
-    left: -8%;
-    top: 8px;
-    width: 2px;
-    height: 2px;
-    animation-delay: 0.08s;
-  }
+//   &.glowSpark2 {
+//     left: -8%;
+//     top: 8px;
+//     width: 2px;
+//     height: 2px;
+//     animation-delay: 0.08s;
+//   }
 
-  &.glowSpark3 {
-    left: -8%;
-    top: -13px;
-    width: 1.5px;
-    height: 1.5px;
-    animation-delay: 0.04s;
-  }
+//   &.glowSpark3 {
+//     left: -8%;
+//     top: -13px;
+//     width: 1.5px;
+//     height: 1.5px;
+//     animation-delay: 0.04s;
+//   }
 
-  &.glowSpark4 {
-    left: -8%;
-    top: 13px;
-    width: 1px;
-    height: 1px;
-    animation-delay: 0.12s;
-  }
+//   &.glowSpark4 {
+//     left: -8%;
+//     top: 13px;
+//     width: 1px;
+//     height: 1px;
+//     animation-delay: 0.12s;
+//   }
 
-  &.glowSpark5 {
-    left: -8%;
-    top: -20px;
-    width: 1px;
-    height: 1px;
-    animation-delay: 0.02s;
-  }
-}
+//   &.glowSpark5 {
+//     left: -8%;
+//     top: -20px;
+//     width: 1px;
+//     height: 1px;
+//     animation-delay: 0.02s;
+//   }
+// }
 
-@keyframes ftSparkSweep {
-  0%   { left: -8%; opacity: 0; }
-  3%   { opacity: 1; }
-  45%  { opacity: 1; }
-  55%  { opacity: 1; }
-  97%  { opacity: 1; }
-  100% { left: 108%; opacity: 0; }
-}
+// @keyframes ftSparkSweep {
+//   0%   { left: -8%; opacity: 0; }
+//   3%   { opacity: 1; }
+//   45%  { opacity: 1; }
+//   55%  { opacity: 1; }
+//   97%  { opacity: 1; }
+//   100% { left: 108%; opacity: 0; }
+// }
 
-.ftGlowReverse {
-  position: absolute;
-  top: 0;
-  right: -12%;
-  width: 8%;
-  height: 20px;
-  margin-top: -9px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse 20px 16px at 50% 50%, rgba(255, 255, 255, 0.7) 0%, rgba(200, 235, 255, 0.4) 18%, rgba(14, 165, 233, 0.15) 35%, transparent 55%);
-  box-shadow: 0 0 6px 3px rgba(200, 230, 255, 0.3), 0 0 16px 8px rgba(14, 165, 233, 0.15);
-  animation: ftOrbReverse 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-  z-index: 2;
-  display: none;
-}
+// .ftGlowReverse {
+//   position: absolute;
+//   top: 0;
+//   right: -12%;
+//   width: 8%;
+//   height: 20px;
+//   margin-top: -9px;
+//   border-radius: 50%;
+//   background: radial-gradient(ellipse 20px 16px at 50% 50%, rgba(255, 255, 255, 0.7) 0%, rgba(200, 235, 255, 0.4) 18%, rgba(14, 165, 233, 0.15) 35%, transparent 55%);
+//   box-shadow: 0 0 6px 3px rgba(200, 230, 255, 0.3), 0 0 16px 8px rgba(14, 165, 233, 0.15);
+//   animation: ftOrbReverse 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+//   z-index: 2;
+//   display: none;
+// }
 
-@keyframes ftOrbReverse {
-  0%   { right: -12%; opacity: 0; transform: scale(0.7); }
-  3%   { opacity: 0.5; transform: scale(1); }
-  45%  { opacity: 0.5; transform: scale(1); }
-  55%  { opacity: 0.5; transform: scale(1.1); }
-  57%  { opacity: 0.5; transform: scale(1); }
-  97%  { opacity: 0.5; transform: scale(1); }
-  100% { right: 100%; opacity: 0; transform: scale(0.7); }
-}
+// @keyframes ftOrbReverse {
+//   0%   { right: -12%; opacity: 0; transform: scale(0.7); }
+//   3%   { opacity: 0.5; transform: scale(1); }
+//   45%  { opacity: 0.5; transform: scale(1); }
+//   55%  { opacity: 0.5; transform: scale(1.1); }
+//   57%  { opacity: 0.5; transform: scale(1); }
+//   97%  { opacity: 0.5; transform: scale(1); }
+//   100% { right: 100%; opacity: 0; transform: scale(0.7); }
+// }
 
 .ftGlowRing {
   position: absolute;

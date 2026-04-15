@@ -121,13 +121,13 @@ const PublicFooterMenu = () => {
                 <div className={styles.ftBottom}>
                     {/* Animated glow elements */}
                     {/* <div className={styles.ftGlowTail}></div> */}
-                    <div className={styles.ftGlowSparks}>
+                    {/* <div className={styles.ftGlowSparks}>
                         <div className={`${styles.glowSpark} ${styles.glowSpark1}`}></div>
                         <div className={`${styles.glowSpark} ${styles.glowSpark2}`}></div>
                         <div className={`${styles.glowSpark} ${styles.glowSpark3}`}></div>
                         <div className={`${styles.glowSpark} ${styles.glowSpark4}`}></div>
                         <div className={`${styles.glowSpark} ${styles.glowSpark5}`}></div>
-                    </div>
+                    </div> */}
                     {/* <div className={styles.ftGlowReverse}></div> */}
                     {/* <div className={styles.ftGlowRing}></div> */}
                     {/* <div className={styles.ftPulseRing}></div> */}
