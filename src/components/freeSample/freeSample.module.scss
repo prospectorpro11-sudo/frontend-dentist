@@ -1,11 +1,8 @@
-/* ============================================
-   FREE SAMPLE SECTION
-   ============================================ */
 .freeSample {
     position: relative;
     padding: 6rem 0 7rem;
     /* colors.text → Main background #f4f9ff */
-    background: #f4f9ff;
+    background: white;
     overflow: hidden;
 }
 
@@ -59,21 +56,6 @@
     top: 40%;
     right: 20%;
     animation: gbFloatC 14s ease-in-out infinite alternate;
-}
-
-.freeSampleContainer {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: flex-start;
-    gap: 3rem;
-}
-
-/* ---------- LEFT: Content ---------- */
-.fsContent {
-    flex: 0 0 40%;
-    max-width: 520px;
-    padding-top: 1.5rem;
 }
 
 .fsHeading {
