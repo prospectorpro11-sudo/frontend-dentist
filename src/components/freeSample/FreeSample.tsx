@@ -2,6 +2,53 @@ import classNames from 'classnames';
 import styles from './freeSample.module.scss';
 import { Col, Container, Row } from 'react-bootstrap';
 
+const dentistData = [
+    {
+        specialty: 'Orthodontics',
+        email: 'dr.smith@dentalcare.com',
+        phone: '(555) 019-2234',
+        dotClass: 'dot1',
+    },
+    {
+        specialty: 'Periodontics',
+        email: 'contact@janesperio.org',
+        phone: '(555) 021-8890',
+        dotClass: 'dot2',
+    },
+    {
+        specialty: 'Endodontics',
+        email: 'info@rootcanalpro.net',
+        phone: '(555) 018-4456',
+        dotClass: 'dot3',
+    },
+    {
+        specialty: 'Orthodontics',
+        email: 'dr.smith@dentalcare.com',
+        phone: '(555) 019-2234',
+        dotClass: 'dot1',
+    },
+    {
+        specialty: 'Periodontics',
+        email: 'contact@janesperio.org',
+        phone: '(555) 021-8890',
+        dotClass: 'dot2',
+    },
+];
+
+const ctaConfig = {
+    href: '#',
+    icon: 'bi bi-download',
+    text: 'Get free sample today',
+};
+
+const cardConfig = {
+    accuracyPercent: '99%',
+    cardTitle: 'Sample Data Preview — Dentist Contacts',
+    recordCount: '12,450+',
+    recordLabel: 'verified dentist records',
+    complianceText: 'GDPR Compliant',
+};
+
 const FreeSample = () => {
     return (
         <section className={styles.freeSample}>
@@ -69,7 +116,7 @@ const FreeSample = () => {
 
                                     {/* Floating 99% Accuracy Badge */}
                                     <div className={styles.fsAccBadge}>
-                                        <span className={styles.accPct}>99%</span>
+                                        <span className={styles.accPct}>{cardConfig.accuracyPercent}</span>
                                         <span className={styles.accLbl}>DATA<br />ACCURACY</span>
                                         <i className={classNames('bi', 'bi-star-fill', styles.accIcon)}></i>
                                     </div>
@@ -80,7 +127,7 @@ const FreeSample = () => {
                                             <div className={styles.fsHeadIcon}>
                                                 <i className="bi bi-database"></i>
                                             </div>
-                                            <span className={styles.fstLabel}>Sample Data Preview — Dentist Contacts</span>
+                                            <span className={styles.fstLabel}>{cardConfig.cardTitle}</span>
                                         </div>
                                     </div>
 
@@ -93,69 +140,31 @@ const FreeSample = () => {
                                             <span>Phone</span>
                                         </div>
 
-                                        {/* Row 1 */}
-                                        <div className={styles.fsDataRow}>
-                                            <div className={styles.fsDrSpecialty}>
-                                                <span className={classNames(styles.specDot, styles.dot1)}></span>
-                                                Orthodontics
+                                        {dentistData.map((item, index) => (
+                                            <div key={index} className={styles.fsDataRow}>
+                                                <div className={styles.fsDrSpecialty}>
+                                                    <span className={classNames(styles.specDot, styles[item.dotClass])}></span>
+                                                    {item.specialty}
+                                                </div>
+                                                <div className={styles.fsDrEmail}>{item.email}</div>
+                                                <div className={styles.fsDrPhone}>{item.phone}</div>
                                             </div>
-                                            <div className={styles.fsDrEmail}>dr.smith@dentalcare.com</div>
-                                            <div className={styles.fsDrPhone}>(555) 019-2234</div>
-                                        </div>
-
-                                        {/* Row 2 */}
-                                        <div className={styles.fsDataRow}>
-                                            <div className={styles.fsDrSpecialty}>
-                                                <span className={classNames(styles.specDot, styles.dot2)}></span>
-                                                Periodontics
-                                            </div>
-                                            <div className={styles.fsDrEmail}>contact@janesperio.org</div>
-                                            <div className={styles.fsDrPhone}>(555) 021-8890</div>
-                                        </div>
-
-                                        {/* Row 3 */}
-                                        <div className={styles.fsDataRow}>
-                                            <div className={styles.fsDrSpecialty}>
-                                                <span className={classNames(styles.specDot, styles.dot3)}></span>
-                                                Endodontics
-                                            </div>
-                                            <div className={styles.fsDrEmail}>info@rootcanalpro.net</div>
-                                            <div className={styles.fsDrPhone}>(555) 018-4456</div>
-                                        </div>
-                                        {/* Row 1 */}
-                                        <div className={styles.fsDataRow}>
-                                            <div className={styles.fsDrSpecialty}>
-                                                <span className={classNames(styles.specDot, styles.dot1)}></span>
-                                                Orthodontics
-                                            </div>
-                                            <div className={styles.fsDrEmail}>dr.smith@dentalcare.com</div>
-                                            <div className={styles.fsDrPhone}>(555) 019-2234</div>
-                                        </div>
-
-                                        {/* Row 2 */}
-                                        <div className={styles.fsDataRow}>
-                                            <div className={styles.fsDrSpecialty}>
-                                                <span className={classNames(styles.specDot, styles.dot2)}></span>
-                                                Periodontics
-                                            </div>
-                                            <div className={styles.fsDrEmail}>contact@janesperio.org</div>
-                                            <div className={styles.fsDrPhone}>(555) 021-8890</div>
-                                        </div>
+                                        ))}
                                     </div>
 
                                     {/* Footer: record count + compliance */}
                                     <div className={styles.fsCardFooter}>
-                                        <span className={styles.fsfRecords}><strong>12,450+</strong> verified dentist records</span>
+                                        <span className={styles.fsfRecords}><strong>{cardConfig.recordCount}</strong> {cardConfig.recordLabel}</span>
                                         <span className={styles.fsfVerified}>
-                                            <i className="bi bi-patch-check-fill"></i> GDPR Compliant
+                                            <i className="bi bi-patch-check-fill"></i> {cardConfig.complianceText}
                                         </span>
                                     </div>
 
                                     {/* CTA Button (inside card) */}
                                     <div className={styles.fsCtaWrap}>
-                                        <a href="#" className={classNames(styles.fsCta)}>
-                                            <i className="bi bi-download"></i>
-                                            Get free sample today
+                                        <a href={ctaConfig.href} className={classNames(styles.fsCta)}>
+                                            <i className={ctaConfig.icon}></i>
+                                            {ctaConfig.text}
                                         </a>
                                     </div>
                                 </div>
