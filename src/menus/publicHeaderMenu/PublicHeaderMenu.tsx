@@ -40,8 +40,8 @@ const PublicHeaderMenu = () => {
               <Image
                 src="/logo.png"
                 alt="Dentist Email List"
-                width={200}
-                height={40}
+                width={120}
+                height={50}
                 priority
                 style={{ objectFit: "scale-down" }}
               />
