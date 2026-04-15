@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 import styles from './productList.module.scss';
-import { FaTooth } from 'react-icons/fa';
+import { FaTeeth, FaTooth } from 'react-icons/fa';
 import {
     BsEmojiSmile,
-    BsClipboard2Pulse,
     BsHospital,
-    BsBraces,
     BsScissors,
+    BsBalloonHeartFill,
     BsGrid3X3GapFill,
     BsPeopleFill,
     BsCartPlus,
@@ -33,7 +32,7 @@ const products = [
     {
         category: 'Pediatric Dentists',
         description: 'Children & adolescent care',
-        icon: BsClipboard2Pulse,
+        icon: BsBalloonHeartFill,
         colorClass: 'plCatIndigo',
         count: '22,180',
     },
@@ -47,7 +46,7 @@ const products = [
     {
         category: 'Orthodontists',
         description: 'Braces & alignment specialists',
-        icon: BsBraces,
+        icon: FaTeeth,
         colorClass: 'plCatAmber',
         count: '19,870',
     },
