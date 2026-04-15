@@ -1,0 +1,307 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
+.beyondEmail {
+    position: relative;
+    padding: 7rem 0 8rem;
+    overflow: hidden;
+    background: $white;
+}
+
+.beyondEmailContainer {
+    position: relative;
+}
+
+/* Soft blobs */
+.beBlob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.beBlob1 {
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle,
+            rgba(99, 102, 241, 0.06) 0%,
+            transparent 70%);
+    top: -180px;
+    left: -120px;
+    animation: gbFloat 22s ease-in-out infinite alternate;
+}
+
+.beBlob2 {
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle,
+            rgba(14, 165, 233, 0.06) 0%,
+            transparent 70%);
+    bottom: -100px;
+    right: -60px;
+    animation: gbFloatB 18s ease-in-out infinite alternate;
+}
+
+.beBlob3 {
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle,
+            rgba(45, 212, 191, 0.05) 0%,
+            transparent 70%);
+    top: 35%;
+    left: 40%;
+    animation: gbFloatC 15s ease-in-out infinite alternate;
+}
+
+.beRow {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+/* --- LEFT Content --- */
+.beContent {
+    flex: 0 0 42%;
+    max-width: 560px;
+}
+
+.beHeading {
+    font-size: 2.45rem;
+    font-weight: 800;
+    line-height: 1.14;
+    letter-spacing: -0.7px;
+    color: #0c1929;
+}
+
+.beSub {
+    color: #5b7a9e;
+    font-size: 1rem;
+    line-height: 1.72;
+    margin-top: 1.1rem;
+    max-width: 460px;
+}
+
+/* Steps */
+.beSteps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2.8rem;
+}
+
+.beStep {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+    position: relative;
+}
+
+.beStep:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 26px;
+    top: 38px;
+    width: 1px;
+    height: calc(100% + 0.7rem);
+}
+
+.beStepNum {
+    font-size: 1.3rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    position: relative;
+    color: #E6E6E6;
+
+}
+
+.beStepNum::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.beStepText {
+    padding-top: 0.4rem;
+}
+
+.beStepText strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #142238;
+    margin-bottom: 0.25rem;
+}
+
+.beStepText span {
+    font-size: 0.8rem;
+    color: #8ba4be;
+    line-height: 1.55;
+}
+
+/* --- RIGHT Visual: 2x2 Card Grid --- */
+.beVisual {
+    flex: 1;
+}
+
+.beCardGrid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.4rem;
+    max-width: 600px;
+}
+
+/* Feature Cards */
+.beFcard {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid rgba(219, 234, 254, 0.65);
+    border-radius: 20px;
+    padding: 1.6rem 1.4rem 1.4rem;
+    box-shadow:
+        0 8px 36px rgba(12, 25, 41, 0.05),
+        0 2px 8px rgba(12, 25, 41, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.beFcard:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 16px 52px rgba(12, 25, 41, 0.08),
+        0 4px 14px rgba(12, 25, 41, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Staggered offsets for visual depth */
+.beFc1 {
+    animation: cardFloat 5s ease-in-out infinite alternate;
+}
+
+.beFc2 {
+    margin-top: 2rem;
+    animation: cardFloat 5s ease-in-out infinite alternate;
+    animation-delay: -1.2s;
+}
+
+.beFc3 {
+    animation: cardFloat 5s ease-in-out infinite alternate;
+    animation-delay: -2.4s;
+}
+
+.beFc4 {
+    margin-top: 2rem;
+    animation: cardFloat 5s ease-in-out infinite alternate;
+    animation-delay: -0.6s;
+}
+
+@keyframes cardFloat {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-6px);
+    }
+}
+
+/* Card icon */
+.beFcIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+.beCardGrid:hover .beFcIcon {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+/* Card heading */
+.beFcard h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    letter-spacing: -0.1px;
+    line-height: 1.35;
+    margin: 0;
+    transition: color 0.2s;
+}
+
+.beFcard:hover h4 {
+    color: #0c1929;
+}
+
+/* Icon colors from palette */
+.beFc1 .beFcIcon {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    box-shadow: 0 4px 18px rgba(14, 165, 233, 0.22);
+}
+
+.beFc2 .beFcIcon {
+    background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+    box-shadow: 0 4px 18px rgba(20, 184, 166, 0.22);
+}
+
+.beFc3 .beFcIcon {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    box-shadow: 0 4px 18px rgba(99, 102, 241, 0.22);
+}
+
+/* Dark card — fc-4 */
+.beFc4 {
+    background: linear-gradient(135deg, #142238, #1e3a5f);
+    border-color: rgba(44, 74, 110, 0.3);
+}
+
+.beFc4 .beFcIcon {
+    background: linear-gradient(135deg, #f43f5e, #fb7185);
+    box-shadow: 0 4px 18px rgba(244, 63, 94, 0.25);
+}
+
+.beFc4 h4 {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.beFc4:hover {
+    background: linear-gradient(135deg, #142238, #0c1929);
+}
+
+/* Decorative connector curve SVG */
+.beConnector {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: -1;
+}
