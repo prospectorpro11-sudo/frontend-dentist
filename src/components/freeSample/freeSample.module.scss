@@ -1,0 +1,691 @@
+/* ============================================
+   FREE SAMPLE SECTION
+   ============================================ */
+.freeSample {
+    position: relative;
+    padding: 6rem 0 7rem;
+    /* colors.text → Main background #f4f9ff */
+    background: #f4f9ff;
+    overflow: hidden;
+}
+
+/* Section bg gradient — palette backgrounds */
+.freeSample::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle,
+            rgba(14, 165, 233, 0.05) 1px,
+            transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+/* soft blobs — palette colors */
+.freeSample .fsBlob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.freeSample .fsBlob1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle,
+            rgba(45, 212, 191, 0.07) 0%,
+            transparent 70%);
+    top: -220px;
+    right: -80px;
+    animation: gbFloat 18s ease-in-out infinite alternate;
+}
+
+.freeSample .fsBlob2 {
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle,
+            rgba(14, 165, 233, 0.06) 0%,
+            transparent 70%);
+    bottom: -120px;
+    left: 5%;
+    animation: gbFloatB 16s ease-in-out infinite alternate;
+}
+
+.freeSample .fsBlob3 {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle,
+            rgba(245, 158, 11, 0.05) 0%,
+            transparent 70%);
+    top: 40%;
+    right: 20%;
+    animation: gbFloatC 14s ease-in-out infinite alternate;
+}
+
+.freeSampleContainer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+}
+
+/* ---------- LEFT: Content ---------- */
+.fsContent {
+    flex: 0 0 40%;
+    max-width: 520px;
+    padding-top: 1.5rem;
+}
+
+.fsHeading {
+    font-size: 2.55rem;
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.7px;
+    /* colors.text → n900 #0c1929 (deepest navy - heading fallback) */
+    color: #0c1929;
+}
+
+/* "sample access" with title accent gradient from palette */
+// .fsHeading span {
+//     /* colors.text → Title accent: #0ea5e9 → #38bdf8 → #14b8a6 */
+//     background: linear-gradient(135deg,
+//             #0ea5e9,
+//             #38bdf8,
+//             #14b8a6);
+//     background-size: 200% 200%;
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+//     background-clip: text;
+//     animation: accentShift 5s ease-in-out infinite;
+// }
+
+.fsSub {
+    /* colors.text → n700 #1e3a5f (primary text, headings) */
+    color: #1e3a5f;
+    font-size: 1.02rem;
+    line-height: 1.72;
+    margin-top: 1.1rem;
+    max-width: 440px;
+}
+
+/* feature grid */
+.fsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem 1.6rem;
+    margin-top: 2.2rem;
+}
+
+.fsFeature {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+}
+
+/* Feature icons — each uses a different palette color */
+.fsFeatIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.05rem;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* 1. Shield — Mint Teal (colors.text → teal-600 #0d9488 secondary CTA, trust icons) */
+.fsFi1 {
+    color: #0d9488;
+    background: linear-gradient(135deg,
+            rgba(45, 212, 191, 0.14),
+            rgba(20, 184, 166, 0.09));
+    border: 1px solid rgba(45, 212, 191, 0.2);
+}
+
+/* 2. Table — Primary Blue (colors.text → blue-500 #0ea5e9 logos, accents) */
+.fsFi2 {
+    color: #0ea5e9;
+    background: linear-gradient(135deg,
+            rgba(56, 189, 248, 0.14),
+            rgba(14, 165, 233, 0.09));
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* 3. Chart — Indigo (colors.text → indigo-600 #4f46e5 stat icons, accents) */
+.fsFi3 {
+    color: #4f46e5;
+    background: linear-gradient(135deg,
+            rgba(129, 140, 248, 0.14),
+            rgba(99, 102, 241, 0.09));
+    border: 1px solid rgba(129, 140, 248, 0.2);
+}
+
+/* 4. Lightning — Warm Amber (colors.text → amber-500 #f59e0b rating stars, trust icon) */
+.fsFi4 {
+    color: #f59e0b;
+    background: linear-gradient(135deg,
+            rgba(251, 191, 36, 0.14),
+            rgba(245, 158, 11, 0.09));
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.fsFeature:hover .fsFeatIcon {
+    transform: translateY(-2px) scale(1.06);
+}
+
+.fsFeature:hover .fsFi1 {
+    box-shadow: 0 6px 18px rgba(13, 148, 136, 0.22);
+}
+
+.fsFeature:hover .fsFi2 {
+    box-shadow: 0 6px 18px rgba(14, 165, 233, 0.22);
+}
+
+.fsFeature:hover .fsFi3 {
+    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.22);
+}
+
+.fsFeature:hover .fsFi4 {
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.22);
+}
+
+.fsFeatText h4 {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1px;
+    /* colors.text → n800 #142238 (dark navy) */
+    color: #142238;
+    line-height: 1.15;
+    margin-bottom: 0.22rem;
+    margin-top: 0;
+}
+
+.fsFeatText p {
+    font-size: 0.72rem;
+    /* colors.text → text3 #8ba4be (light muted - labels, tertiary text) */
+    color: #8ba4be;
+    line-height: 1.48;
+    margin: 0;
+}
+
+/* ---------- RIGHT: Unified Premium Card ---------- */
+.fsVisual {
+    flex: 1;
+    max-width: 620px;
+}
+
+.fsVisual .fsMainCard {
+    position: relative;
+    /* colors.text → Surface #ffffff (cards, surface) */
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    /* colors.text → Border #dbeafe */
+    border: 1.5px solid #dbeafe;
+    border-radius: 22px;
+    box-shadow:
+        0 16px 60px rgba(12, 25, 41, 0.06),
+        0 4px 16px rgba(12, 25, 41, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    /* Must be visible so floating badges aren't clipped */
+    overflow: visible;
+}
+
+/* ---- Verify Badge (top-left floating) ---- */
+.fsVerifyPill {
+    position: absolute;
+    top: -10px;
+    left: 22px;
+    z-index: 10;
+    /* colors.text → emerald-500 #10b981 (verification check icon) */
+    color: #fff;
+    background: linear-gradient(135deg, #10b981, #34d399);
+    border-radius: 50px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.28);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: 0.3px;
+    animation: pillFloat 4s ease-in-out infinite alternate;
+}
+
+.fsVerifyPill i {
+    font-size: 0.7rem;
+}
+
+/* ---- Accuracy badge (top-right) ---- */
+.fsAccBadge {
+    position: absolute;
+    top: -14px;
+    right: 22px;
+    z-index: 10;
+    /* colors.text → Surface #ffffff */
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 0.55rem 0.9rem;
+    box-shadow:
+        0 6px 24px rgba(12, 25, 41, 0.08),
+        0 1px 4px rgba(12, 25, 41, 0.04);
+    border: 1.5px solid rgba(45, 212, 191, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: pillFloat 4s ease-in-out infinite alternate;
+}
+
+.fsAccBadge .accPct {
+    font-size: 1.3rem;
+    font-weight: 800;
+    /* colors.text → n800 #142238 */
+    color: #0284c7;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.fsAccBadge .accLbl {
+    font-size: 0.45rem;
+    font-weight: 700;
+    /* colors.text → teal-600 #0d9488 (dark teal) */
+    color: #0284c7;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    text-align: center;
+    line-height: 1.3;
+    margin-top: 2px;
+}
+
+.fsAccBadge .accIcon {
+    font-size: 0.78rem;
+    /* colors.text → teal-400 #2dd4bf */
+    color: #0284c7;
+    margin-top: 2px;
+}
+
+/* ---- Card Header Bar ---- */
+.fsCardHead {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.6rem 0.7rem;
+    /* colors.text → gradient: ice-blue e0f2fe background zones */
+    background: linear-gradient(135deg, #e0eeff 0%, #e6f0fc 100%);
+    /* colors.text → Border #dbeafe */
+    border-bottom: 1px solid #dbeafe;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.fsHeadLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.fsHeadIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    /* colors.text → Primary CTA gradient: #0ea5e9 → #0369a1 */
+    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.22);
+}
+
+.fsCardHead .fstLabel {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    /* colors.text → n700 #1e3a5f (primary text) */
+    color: #1e3a5f;
+}
+
+/* ---- Column Headers ---- */
+.fsDataHead {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 0.5rem;
+    padding: 0.6rem 1.6rem;
+    align-items: center;
+    /* colors.text → #e8f4fd (soft blue background zones) */
+    background: rgba(232, 244, 253, 0.35);
+}
+
+.fsDataHead span {
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    /* colors.text → text3 #8ba4be (labels, tertiary text) */
+    color: #8ba4be;
+}
+
+.fsDataHead span:nth-child(3) {
+    text-align: right;
+}
+
+/* ---- Data Rows ---- */
+.fsDataBody {
+    padding: 0.25rem 0;
+}
+
+/* Row divider using palette border color */
+.fsDataRow {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    align-items: center;
+    position: relative;
+    transition: background 0.2s;
+}
+
+.fsDataRow+.fsDataRow::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.6rem;
+    right: 1.6rem;
+    height: 1px;
+    /* colors.text → Border #dbeafe */
+    background: linear-gradient(90deg, transparent, #dbeafe, transparent);
+}
+
+/* Stripe rows with palette background colors */
+.fsDataRow:nth-child(odd) {
+    background: transparent;
+}
+
+.fsDataRow:nth-child(even) {
+    /* colors.text → #e8f4fd soft blue background */
+    background: rgba(232, 244, 253, 0.3);
+}
+
+.fsDataRow:hover {
+    background: rgba(14, 165, 233, 0.03);
+}
+
+/* Specialty column */
+.fsDrSpecialty {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+/* Specialty colored dots from palette */
+.fsDrSpecialty .specDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Row 1: Primary Blues #0ea5e9 → #38bdf8 */
+.specDot.dot1 {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+}
+
+/* Row 2: Indigo #6366f1 → #818cf8 */
+.specDot.dot2 {
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+}
+
+/* Row 3: Mint Teal #2dd4bf → #14b8a6 */
+.specDot.dot3 {
+    background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+}
+
+.fsDrSpecialty .specName,
+.fsDrSpecialty {
+    font-size: 0.82rem;
+    font-weight: 600;
+    /* colors.text → n800 #142238 (dark navy) */
+    color: #142238;
+    line-height: 1;
+}
+
+/* Email — teal accent color */
+.fsDrEmail {
+    font-size: 0.82rem;
+    font-weight: 600;
+    /* colors.text → teal-600 #0d9488 (dark teal, secondary CTA) */
+    color: #0284c7;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+/* Phone — muted blue */
+.fsDrPhone {
+    font-size: 0.8rem;
+    font-weight: 500;
+    /* colors.text → text2 #5b7a9e (muted blue, secondary text) */
+    color: #5b7a9e;
+    text-align: right;
+    line-height: 1;
+}
+
+/* ---- Footer ---- */
+.fsCardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1.6rem 0.75rem;
+    /* colors.text → Border / divider #dbeafe */
+    border-top: 1px solid #dbeafe;
+    /* colors.text → #f8f6ff soft lavender hint */
+    background: rgba(248, 246, 255, 0.4);
+}
+
+.fsCardFooter .fsfRecords {
+    font-size: 0.7rem;
+    font-weight: 600;
+    /* colors.text → text3 #8ba4be */
+    color: #8ba4be;
+}
+
+.fsCardFooter .fsfRecords strong {
+    /* colors.text → n600 #2c4a6e (medium navy) */
+    color: #2c4a6e;
+}
+
+.fsCardFooter .fsfVerified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    /* colors.text → emerald-500 #10b981 (verification check icon) */
+    color: #10b981;
+}
+
+.fsCardFooter .fsfVerified i {
+    font-size: 0.7rem;
+}
+
+/* ---- CTA Button ---- */
+.fsCtaWrap {
+    padding: 0.6rem 1.6rem 1.2rem;
+}
+
+.fsCta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    /* colors.text → Mint Teal: teal-600 #0d9488 → teal-500 #14b8a6 (secondary CTA) */
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.88rem 1.6rem;
+    border-radius: 12px;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 6px 28px rgba(13, 148, 136, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Shimmer effect on button */
+.fsCta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.12),
+            transparent);
+    transform: translateX(-100%);
+    animation: ctaShimmer 3s ease-in-out infinite;
+}
+
+@keyframes ctaShimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    50% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.fsCta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(13, 148, 136, 0.32);
+    color: #fff !important;
+}
+
+.fsCta:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(13, 148, 136, 0.2);
+}
+
+.fsCta i {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 991px) {
+    .freeSample {
+        padding: 3.5rem 0 4rem;
+    }
+
+    .freeSampleContainer {
+        flex-direction: column;
+    }
+
+    .fsContent {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        padding-top: 0;
+    }
+
+    .fsSub {
+        margin: 1rem auto 0;
+    }
+
+    .fsGrid {
+        grid-template-columns: 1fr 1fr;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .fsVisual {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .freeSample {
+        padding: 2.5rem 0 3rem;
+    }
+
+    .fsHeading {
+        font-size: 1.85rem;
+    }
+
+    .fsSub {
+        font-size: 0.92rem;
+    }
+
+    .fsGrid {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+        max-width: 100%;
+    }
+
+    .fsAccBadge {
+        top: -10px;
+        right: 14px;
+        padding: 0.4rem 0.7rem;
+    }
+
+    .fsAccBadge .accPct {
+        font-size: 1.05rem;
+    }
+
+    .fsVerifyPill {
+        top: -8px;
+        left: 14px;
+        font-size: 0.56rem;
+        padding: 0.25rem 0.6rem;
+    }
+
+    .fsDataHead,
+    .fsDataRow {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 0.72rem;
+    }
+
+    .fsCardHead,
+    .fsCtaWrap,
+    .fsCardFooter {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .fsMainCard {
+        border-radius: 16px;
+    }
+
+    .fsCta {
+        font-size: 0.84rem;
+        padding: 0.78rem 1.2rem;
+    }
+
+    .fsHeadIcon {
+        width: 26px;
+        height: 26px;
+        font-size: 0.72rem;
+    }
+
+    .fsCardHead .fstLabel {
+        font-size: 0.48rem;
+    }
+}

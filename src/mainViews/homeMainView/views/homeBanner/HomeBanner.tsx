@@ -45,7 +45,7 @@ const HomeBanner = () => {
 
                     <h1 className={styles.heroH1}>
                         Build Your Targeted<br />
-                        <span className={styles.h1Accent}>Dentist Email List</span>
+                        <span className="shifting-accent">Dentist Email List</span>
                     </h1>
 
                     <p className={styles.heroP}>

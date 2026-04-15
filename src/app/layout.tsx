@@ -3,6 +3,7 @@ import classNames from "classnames";
 import "./../styles/globals.scss";
 import { poppins } from "@/shared/fonts";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import LayoutCommonComponents from "@/components/layoutCommonComponents/LayoutCommonComponents";
 
 export const metadata: Metadata = {
