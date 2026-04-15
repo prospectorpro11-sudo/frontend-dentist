@@ -1,0 +1,576 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.productList {
+    position: relative;
+    padding: 6rem 0 8rem;
+    background: linear-gradient(180deg, #f4f9ff 0%, #edf6ff 100%);
+    overflow: hidden;
+}
+
+.productListContainer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Background blobs */
+.plBlob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.plBlob1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle,
+            rgba(14, 165, 233, 0.06) 0%,
+            transparent 70%);
+    top: -150px;
+    left: -150px;
+    animation: gbFloat 20s ease-in-out infinite alternate;
+}
+
+.plBlob2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle,
+            rgba(99, 102, 241, 0.06) 0%,
+            transparent 70%);
+    bottom: -100px;
+    right: -80px;
+    animation: gbFloatB 18s ease-in-out infinite alternate;
+}
+
+.plBlob3 {
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle,
+            rgba(129, 140, 248, 0.05) 0%,
+            transparent 70%);
+    top: 30%;
+    right: 25%;
+    animation: gbFloatC 15s ease-in-out infinite alternate;
+}
+
+/* ---------- Section Header ---------- */
+.plBadgeWrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+
+.plBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.4rem 1.1rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg,
+            rgba(14, 165, 233, 0.08),
+            rgba(99, 102, 241, 0.06));
+    color: #0ea5e9;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    letter-spacing: 0.3px;
+}
+
+.plBadge i {
+    font-size: 0.82rem;
+}
+
+.plHeading {
+    font-size: 2.45rem;
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.7px;
+    color: #0c1929;
+    text-align: center;
+}
+
+.plHeading span {
+    background: linear-gradient(135deg,
+            #0ea5e9,
+            #38bdf8,
+            #6366f1);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: accentShift 5s ease-in-out infinite;
+}
+
+.plSub {
+    color: #5b7a9e;
+    font-size: 1.02rem;
+    line-height: 1.72;
+    margin-top: 0.85rem;
+    max-width: 520px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Trust Pills */
+.plTrustPills {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.6rem;
+}
+
+.plTrustPill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #5b7a9e;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(219, 234, 254, 0.6);
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    box-shadow: 0 2px 10px rgba(12, 25, 41, 0.03);
+    transition: all 0.25s;
+}
+
+.plTrustPill:hover {
+    border-color: #7dd3fc;
+    color: #1e3a5f;
+    box-shadow: 0 4px 16px rgba(14, 165, 233, 0.1);
+    transform: translateY(-1px);
+}
+
+.plTrustIcon {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.plTrustPill:nth-child(1) .plTrustIcon {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+}
+
+.plTrustPill:nth-child(2) .plTrustIcon {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+}
+
+.plTrustPill:nth-child(3) .plTrustIcon {
+    background: linear-gradient(135deg, #0284c7, #4f46e5);
+}
+
+/* ============================================
+   4-Column Product Table
+   ============================================ */
+.plTableSection {
+    margin-top: 3.5rem;
+}
+
+.plTableCardNew {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(219, 234, 254, 0.7);
+    border-radius: 22px;
+    box-shadow:
+        0 20px 60px rgba(12, 25, 41, 0.07),
+        0 4px 12px rgba(12, 25, 41, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.plTableCardNew:hover {
+    box-shadow:
+        0 25px 70px rgba(12, 25, 41, 0.1),
+        0 6px 18px rgba(12, 25, 41, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Table Header */
+.plNewTableHead {
+    display: flex;
+    align-items: center;
+    padding: 1.1rem 1.6rem;
+    background: linear-gradient(135deg, #d5dde7 0%, #e6e8f9 100%);
+    border-bottom: 1px solid rgba(219, 234, 254, 0.5);
+    gap: 1rem;
+}
+
+.plNewTh {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #2d425a;
+}
+
+/* Table Body */
+.plNewTableBody {
+    padding: 0.25rem 0;
+}
+
+/* Rows */
+.plNewRow {
+    display: flex;
+    align-items: center;
+    padding: 0.85rem 1.6rem;
+    gap: 1rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.plNewRow + .plNewRow::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.6rem;
+    right: 1.6rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #dbeafe, transparent);
+}
+
+.plNewRow:nth-child(even) {
+    background: rgba(232, 244, 253, 0.25);
+}
+
+.plNewRow:hover {
+    background: rgba(14, 165, 233, 0.04);
+}
+
+.plNewRow:last-child {
+    border-radius: 0 0 22px 22px;
+}
+
+/* Cells */
+.plNewCell {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Product Category Cell */
+.plCatIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #fff;
+    flex-shrink: 0;
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.plCatIcon svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.plNewRow:hover .plCatIcon {
+    transform: rotate(-5deg) scale(1.06);
+}
+
+.plCatBlue {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+}
+
+.plCatTeal {
+    background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+}
+
+.plCatIndigo {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+}
+
+.plCatRose {
+    background: linear-gradient(135deg, #f43f5e, #fb7185);
+}
+
+.plCatAmber {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.plCatPurple {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+.plCatCyan {
+    background: linear-gradient(135deg, #06b6d4, #67e8f9);
+}
+
+.plCatEmerald {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.plCatInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.plCatInfo strong {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    letter-spacing: -0.1px;
+    transition: color 0.2s;
+}
+
+.plNewRow:hover .plCatInfo strong {
+    color: #0c1929;
+}
+
+.plCatInfo span {
+    font-size: 0.68rem;
+    color: #8ba4be;
+    font-weight: 500;
+    margin-top: 1px;
+}
+
+/* Contacts Count Badge */
+.plCountBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg,
+            rgba(14, 165, 233, 0.06),
+            rgba(56, 189, 248, 0.04));
+    border: 1px solid rgba(56, 189, 248, 0.12);
+    border-radius: 10px;
+    padding: 0.4rem 0.75rem;
+    transition: all 0.2s;
+}
+
+.plNewRow:hover .plCountBadge {
+    background: linear-gradient(135deg,
+            rgba(14, 165, 233, 0.1),
+            rgba(56, 189, 248, 0.06));
+    border-color: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
+}
+
+.plCountBadge i {
+    font-size: 0.78rem;
+    color: #0ea5e9;
+}
+
+.plCountBadge strong {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #1e3a5f;
+    letter-spacing: -0.3px;
+}
+
+/* Action Cell */
+.plActionCell {
+    justify-content: flex-end;
+    gap: 0.65rem !important;
+}
+
+/* Add to Cart — Primary Button (Blue: #0ea5e9 → #38bdf8) */
+.plCartBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.45rem 0.95rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 3px 12px rgba(14, 165, 233, 0.22);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.plCartBtn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent);
+    transition: left 0.5s;
+}
+
+.plCartBtn:hover::before {
+    left: 100%;
+}
+
+.plCartBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.35);
+}
+
+.plCartBtn:active {
+    transform: translateY(0);
+}
+
+.plCartBtn i {
+    font-size: 0.82rem;
+}
+
+/* Customize — Text Variant Link */
+.plCustomizeLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #5b7a9e;
+    transition: all 0.2s;
+    white-space: nowrap;
+    padding: 0.45rem 0.55rem;
+    border-radius: 8px;
+}
+
+.plCustomizeLink:hover {
+    color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.06);
+}
+
+/* ============================================
+   RESPONSIVE — Product List
+   ============================================ */
+@media (max-width: 991px) {
+    .productList {
+        padding: 3.5rem 0 4.5rem;
+    }
+
+    .plHeading {
+        font-size: 1.85rem;
+    }
+
+    .plTableCardNew {
+        max-width: 640px;
+        margin: 0 auto;
+    }
+
+    .plNewTableHead,
+    .plNewRow {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+    }
+
+    .plCatIcon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+
+    .plCatInfo strong {
+        font-size: 0.82rem;
+    }
+
+    .plCountBadge strong {
+        font-size: 0.78rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .plNewRow {
+        flex-wrap: wrap;
+        padding: 1rem 1.2rem;
+    }
+
+    .plNewCell {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .plCatInfo span {
+        display: none;
+    }
+
+    .plActionCell {
+        flex: 1 1 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
+    .plCartBtn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.6rem 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .productList {
+        padding: 2.5rem 0 3.5rem;
+    }
+
+    .plHeading {
+        font-size: 1.6rem;
+    }
+
+    .plSub {
+        font-size: 0.9rem;
+    }
+
+    .plTrustPills {
+        gap: 0.6rem;
+    }
+
+    .plTrustPill {
+        font-size: 0.68rem;
+        padding: 0.3rem 0.75rem;
+    }
+
+    .plTableCardNew {
+        border-radius: 16px;
+    }
+
+    .plNewTableHead {
+        padding: 0.85rem 1rem;
+    }
+
+    .plNewTh {
+        font-size: 0.58rem;
+    }
+
+    .plNewRow {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+
+    .plNewCell {
+        flex: none;
+        width: 100%;
+    }
+
+    .plCountBadge {
+        width: 100%;
+    }
+
+    .plActionCell {
+        margin-top: 0.25rem;
+    }
+}
