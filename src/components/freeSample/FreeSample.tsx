@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import styles from './freeSample.module.scss';
 import { Col, Container, Row } from 'react-bootstrap';
 import { IFreeSample } from '../../shared/interface';
+import Button from '../button/Button';
+import { BUTTON_SIZE_ENUM } from '@/shared/enums';
 
 const FreeSample = (props: IFreeSample) => {
     const { dentistData, cta: ctaConfig, card: cardConfig, heading, subtitle, features, headingAccent } = props;
@@ -91,8 +93,7 @@ const FreeSample = (props: IFreeSample) => {
                                     {/* CTA Button (inside card) */}
                                     <div className={styles.fsCtaWrap}>
                                         <a href={ctaConfig.href} className={classNames(styles.fsCta)}>
-                                            <i className={ctaConfig.icon}></i>
-                                            {ctaConfig.text}
+                                            <Button isFullWidth size={BUTTON_SIZE_ENUM.LARGE}><i className={ctaConfig.icon}></i>  {ctaConfig.text}</Button>
                                         </a>
                                     </div>
                                 </div>
