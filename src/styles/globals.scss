@@ -5,6 +5,7 @@
 @use "./overrides";
 
 :root {
+  --primary: #{$primary};
   /* Primary — Ocean Blue */
   --blue-600: #0284c7;
   --blue-500: #0ea5e9;
@@ -36,7 +37,6 @@
   /* Emphasize */
   --emerald-500: #10b981;
   --emerald-400: #34d399;
-
 
   /* Neutrals — warm professional */
   --n900: #0c1929;

@@ -232,7 +232,7 @@
     position: relative;
 }
 
-.plNewRow + .plNewRow::before {
+.plNewRow+.plNewRow::before {
     content: "";
     position: absolute;
     top: 0;
@@ -355,6 +355,7 @@
     border-radius: 10px;
     padding: 0.4rem 0.75rem;
     transition: all 0.2s;
+    color: var(--primary);
 }
 
 .plNewRow:hover .plCountBadge {
@@ -365,16 +366,13 @@
     box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
 }
 
-.plCountBadge i {
-    font-size: 0.78rem;
-    color: var(--blue-500);
-}
+
 
 .plCountBadge strong {
     font-size: 0.88rem;
     font-weight: 800;
-    color: var(--n700);
     letter-spacing: -0.3px;
+    color: var(--primary);
 }
 
 /* Action Cell */

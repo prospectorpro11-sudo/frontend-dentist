@@ -1,0 +1,10 @@
+export const COLORS = {
+    PRIMARY: "#0284C7",
+    PRIMARY_LIGHT: "#B45309",
+    SECONDARY: "#0C1929",
+    FILL: "#EAF5F6",
+    TEXT: "#0C1929",
+    TEXT_LIGHT: "#1E3A5F",
+    TEXT_MUTED: "#5B7A9E",
+    BORDER: "#DBEAFE",
+}

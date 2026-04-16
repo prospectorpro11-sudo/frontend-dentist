@@ -14,6 +14,7 @@ import {
     BsEnvelopeCheckFill,
 } from 'react-icons/bs';
 import { IProductList } from '../../shared/interface';
+import { COLORS } from '@/shared/colors';
 
 const productIcons = {
     tooth: FaTooth,
@@ -97,7 +98,7 @@ const ProductList = (props: IProductList) => {
                                         </div>
                                         <div className={styles.plNewCell} style={{ flex: 0.8 }}>
                                             <div className={styles.plCountBadge}>
-                                                <BsPeopleFill />
+                                                <BsPeopleFill color={COLORS.PRIMARY} />
                                                 <strong>{product.count}</strong>
                                             </div>
                                         </div>
