@@ -5,6 +5,7 @@ import BeyondEmail from "@/components/beyondEmail/BeyondEmail";
 import WhatsIncluded from "@/components/whatsIncluded/WhatsIncluded";
 import DataDescribe from "@/components/dataDescribe/DataDescribe";
 import LocationSegmentation from "@/components/locationSegmentation/LocationSegmentation";
+import Faq from "@/components/faq/Faq";
 
 const HomeMainView = () => {
     return (
@@ -16,6 +17,7 @@ const HomeMainView = () => {
             <WhatsIncluded />
             <DataDescribe />
             <LocationSegmentation />
+            <Faq />
         </>
     );
 };
