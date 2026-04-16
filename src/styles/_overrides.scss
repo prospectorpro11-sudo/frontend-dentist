@@ -9,3 +9,14 @@
 // .card {
 //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 // }
+
+
+.leaflet-tooltip {
+    background-color: #fff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    top: -20px !important;
+    left: -4px !important;
+}

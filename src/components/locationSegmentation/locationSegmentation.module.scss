@@ -1,0 +1,1111 @@
+.locationSegmentation {
+    padding: 5.5rem 0 6rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.lsAmbientBg {
+    /* Ambient background container */
+}
+
+.locationSegmentation::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.07) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    border-radius: 50%;
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.locationSegmentation::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(2, 132, 199, 0.05) 0%, transparent 70%);
+    bottom: -150px;
+    left: -150px;
+    border-radius: 50%;
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.lsHead {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lsHeadInner {
+    /* Inner wrapper for head content */
+}
+
+.lsHeadLeft {
+    /* Left section of head */
+}
+
+.lsLiveBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #0ea5e9;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    background: rgba(14, 165, 233, 0.06);
+    border: 1px solid rgba(14, 165, 233, 0.12);
+    padding: 0.38rem 1.1rem;
+    border-radius: 50px;
+}
+
+.lsHeadBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #0ea5e9;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    background: rgba(14, 165, 233, 0.06);
+    border: 1px solid rgba(14, 165, 233, 0.12);
+    padding: 0.38rem 1.1rem;
+    border-radius: 50px;
+}
+
+.lsLiveDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    animation: lsPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+}
+
+@keyframes lsPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(1.4);
+    }
+}
+
+.lsMainTitle {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+    color: #0c1929;
+    margin: 0;
+}
+
+.lsTitleGlow {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8, #7dd3fc);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: accentShift 4s ease-in-out infinite;
+}
+
+.lsHeadDesc {
+    color: #5b7a9e;
+    font-size: 1.02rem;
+    line-height: 1.72;
+    margin-top: 1rem;
+}
+
+.lsGrid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.lsMapCard {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1.5px solid rgba(219, 234, 254, 0.55);
+    border-radius: 22px;
+    box-shadow:
+        0 20px 60px rgba(12, 25, 41, 0.04),
+        0 4px 14px rgba(12, 25, 41, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.lsMapCard:hover {
+    border-color: rgba(14, 165, 233, 0.18);
+    box-shadow:
+        0 28px 70px rgba(12, 25, 41, 0.06),
+        0 4px 16px rgba(14, 165, 233, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.lsMapHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1.5px solid rgba(219, 234, 254, 0.45);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #D6E5F6 14.64%, #DFE2FF 85.36%);
+    font-weight: 700;
+}
+
+.lsMapHLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #1e3a5f;
+}
+
+.lsMapHLeft i {
+    font-size: 1rem;
+    color: #0ea5e9;
+}
+
+.lsMapLegend {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.lsMapHRight {
+    display: flex;
+    align-items: center;
+}
+
+.lsLeg {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #8ba4be;
+}
+
+.lsLeg span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.lsLeg:first-child span {
+    background: #0ea5e9;
+    opacity: 0.9;
+}
+
+.lsLeg:nth-child(2) span {
+    background: #38bdf8;
+    opacity: 0.5;
+}
+
+.lsLeg:nth-child(3) span {
+    background: #7dd3fc;
+    opacity: 0.3;
+}
+
+.lsLegActive {
+    /* Active legend item state */
+}
+
+/* Map viewport */
+.lsMapViewport {
+    position: relative;
+    height: 520px;
+    /* overflow: hidden; */
+    background: linear-gradient(180deg, rgba(240, 249, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
+}
+
+/* Leaflet map container */
+.lsLeafletMap {
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1;
+}
+
+/* Clean/light tiles: desaturate + tint blue */
+.lsLeafletMap .leaflet-tile-pane {
+    filter: saturate(0.25) brightness(1.08) contrast(0.96);
+}
+
+/* Hide Leaflet attribution on small decorative map */
+.leaflet-control-attribution {
+    font-size: 7px !important;
+    opacity: 0.4;
+}
+
+/* Custom markers with breathing rings + visible names on map */
+.lsLocMarker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+.lsLocDot {
+    position: relative;
+    border-radius: 50%;
+    border: 2.5px solid #fff;
+}
+
+.lsDotState {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, #06b6d4, #0284c7);
+    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.18), 0 2px 10px rgba(6, 182, 212, 0.3);
+}
+
+.lsDotCity {
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15), 0 2px 8px rgba(14, 165, 233, 0.25);
+}
+
+.lsDotZip {
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15), 0 2px 6px rgba(56, 189, 248, 0.2);
+}
+
+/* Breathing ring around dot on map */
+.lsLocBreathe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lsBreatheRingState {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid rgba(6, 182, 212, 0.35);
+    animation: lsBreatheRing 2.5s ease-in-out infinite;
+}
+
+.lsBreatheRingCity {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid rgba(14, 165, 233, 0.3);
+    animation: lsBreatheRing 2.5s ease-in-out infinite 0.4s;
+}
+
+.lsBreatheRingZip {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid rgba(56, 189, 248, 0.25);
+    animation: lsBreatheRing 2.5s ease-in-out infinite 0.8s;
+}
+
+@keyframes lsBreatheRing {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* Name label shown on map surface below each dot */
+.lsLocLabel {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 800;
+    color: #0ea5e9;
+    white-space: nowrap;
+    margin-top: 2px;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+/* In-card inline breathing circle */
+.lsMcBreath {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    margin: 0.1rem 0 0.2rem;
+    position: relative;
+}
+
+.lsMapCardMini .lsMcBreath {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    margin: 0.1rem 0 0.2rem;
+    position: relative;
+}
+
+.lsMapCardMini .lsMcBreath::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.lsBreatheInlineState::after {
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%);
+    border: 1.5px solid rgba(6, 182, 212, 0.25);
+    animation: lsCardBreathe 2.5s ease-in-out infinite;
+}
+
+.lsBreatheInlineCity::after {
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, transparent 70%);
+    border: 1.5px solid rgba(14, 165, 233, 0.22);
+    animation: lsCardBreathe 2.5s ease-in-out infinite 0.4s;
+}
+
+.lsBreatheInlineZip::after {
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+    border: 1.5px solid rgba(56, 189, 248, 0.2);
+    animation: lsCardBreathe 2.5s ease-in-out infinite 0.8s;
+}
+
+@keyframes lsCardBreathe {
+
+    0%,
+    100% {
+        transform: scale(0.8);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Mini info card on map */
+.lsPinCard,
+.lsMapCardMini {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(219, 234, 254, 0.45);
+    border-radius: 12px;
+    padding: 0.55rem 0.6rem 0.45rem;
+    box-shadow: 0 8px 28px rgba(12, 25, 41, 0.08), 0 1px 4px rgba(12, 25, 41, 0.03);
+    min-width: 150px;
+    max-width: 170px;
+}
+
+.lsMapCardMini .lsMcTop {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lsMcTop {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lsMcType {
+    /* Inherits from parent lsMcTop */
+}
+
+.lsMapCardMini .lsMcTop i {
+    color: #0ea5e9;
+    font-size: 0.6rem;
+}
+
+.lsMapCardMini .lsMcName {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.15rem 0 0;
+}
+
+.lsMcName {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.15rem 0 0;
+}
+
+.lsMapCardMini .lsMcCount {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+}
+
+.lsMcCount {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+}
+
+.lsMapCardMini .lsMcCount span {
+    color: #0ea5e9;
+    font-weight: 700;
+}
+
+/* Leaflet tooltip base styles */
+.leaflet-tooltip {
+    color: #222;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    border-radius: 3px;
+    padding: 6px;
+    position: absolute;
+}
+
+/* Leaflet tooltip overrides (permanent cards) */
+.leaflet-tooltip.lsTooltipCard {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
+/* Scan line sweep (decorative overlay) */
+.lsScanLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(14, 165, 233, 0.06) 25%,
+            rgba(14, 165, 233, 0.14) 50%,
+            rgba(14, 165, 233, 0.06) 75%,
+            transparent 100%);
+    animation: lsScanSweep 8s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0.4;
+}
+
+@keyframes lsScanSweep {
+    0% {
+        left: -1px;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* Map footer */
+.lsMapFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    border-top: 1.5px solid rgba(219, 234, 254, 0.4);
+    background: rgba(248, 252, 255, 0.6);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.lsMfItem {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #5b7a9e;
+}
+
+.lsMfItem i {
+    color: #38bdf8;
+    font-size: 0.75rem;
+}
+
+.lsMfDot {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #7dd3fc;
+    margin: 0 0.2rem;
+    vertical-align: middle;
+}
+
+.lsFeatures {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.lsFcard {
+    flex: 1;
+    position: relative;
+    border-radius: 20px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lsFcard:hover {
+    transform: translateY(-4px);
+}
+
+.lsFcardInner {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1.5px solid rgba(219, 234, 254, 0.55);
+    border-radius: 20px;
+    padding: 1.5rem 1.4rem;
+    box-shadow:
+        0 8px 30px rgba(12, 25, 41, 0.03),
+        0 2px 8px rgba(12, 25, 41, 0.015),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.lsFcard:hover .lsFcardInner {
+    border-color: rgba(14, 165, 233, 0.2);
+    box-shadow:
+        0 16px 44px rgba(12, 25, 41, 0.06),
+        0 2px 8px rgba(14, 165, 233, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Glow behind card on hover */
+.lsFcardGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(14, 165, 233, 0.08);
+    filter: blur(50px);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.4s;
+}
+
+.lsFcard:hover .lsFcardGlow {
+    opacity: 1;
+}
+
+/* Card header: icon + badge */
+.lsFcHead {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+}
+
+.lsFcIconWrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(14, 165, 233, 0.04));
+    color: #0ea5e9;
+    border: 1px solid rgba(14, 165, 233, 0.14);
+    flex-shrink: 0;
+    transition: all 0.3s;
+}
+
+.lsFcard:hover .lsFcIconWrap {
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15);
+}
+
+.lsFcIc2 {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.04));
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.14);
+}
+
+.lsFcIc3 {
+    background: linear-gradient(135deg, rgba(125, 211, 252, 0.16), rgba(125, 211, 252, 0.04));
+    color: #7dd3fc;
+    border-color: rgba(125, 211, 252, 0.14);
+}
+
+.lsFcBadge {
+    margin-left: auto;
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.07);
+    border: 1px solid rgba(14, 165, 233, 0.12);
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.lsFcBadge2 {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.07);
+    border-color: rgba(56, 189, 248, 0.12);
+}
+
+.lsFcTitle {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #142238;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    margin: 0 0 0.4rem;
+}
+
+.lsFcDesc {
+    font-size: 0.78rem;
+    color: #5b7a9e;
+    line-height: 1.58;
+    margin: 0 0 0.9rem;
+    flex-grow: 1;
+}
+
+/* Visual decorations inside cards */
+.lsFcVisual {
+    margin-bottom: 1rem;
+    min-height: 48px;
+    position: relative;
+}
+
+/* Heatmap mini bars */
+.lsHeatmapBar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.6rem;
+    height: 46px;
+}
+
+.lsHmBar {
+    width: 24px;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+}
+
+.ls-hm-bar span {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #8ba4be;
+}
+
+.lsHm1 {
+    height: 46px;
+    background: linear-gradient(180deg, #0ea5e9, #0284c7);
+}
+
+.lsHm2 {
+    height: 40px;
+    background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+}
+
+.lsHm3 {
+    height: 32px;
+    background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+}
+
+.lsHm4 {
+    height: 28px;
+    background: linear-gradient(180deg, #0ea5e9, #0284c7);
+}
+
+.lsHm5 {
+    height: 24px;
+    background: linear-gradient(180deg, #38bdf8, #38bdf8);
+    opacity: 0.7;
+}
+
+/* Scatter dots */
+.lsHeatDots {
+    position: relative;
+    height: 48px;
+    width: 100%;
+}
+
+.ls-hd {
+    position: absolute;
+    border-radius: 50%;
+    background: #0ea5e9;
+    opacity: 0.15;
+    animation: lsHdPulse 4s ease-in-out infinite alternate;
+}
+
+.lsHd1 {
+    width: 8px;
+    height: 8px;
+    top: 8px;
+    left: 8%;
+}
+
+.lsHd2 {
+    width: 5px;
+    height: 5px;
+    top: 22px;
+    left: 18%;
+    animation-delay: -0.5s;
+}
+
+.lsHd3 {
+    width: 10px;
+    height: 10px;
+    top: 4px;
+    left: 30%;
+    animation-delay: -1s;
+}
+
+.lsHd4 {
+    width: 5px;
+    height: 5px;
+    top: 28px;
+    left: 42%;
+    animation-delay: -1.5s;
+}
+
+.lsHd5 {
+    width: 12px;
+    height: 12px;
+    top: 6px;
+    left: 52%;
+    animation-delay: -2s;
+    opacity: 0.22;
+}
+
+.lsHd6 {
+    width: 6px;
+    height: 6px;
+    top: 32px;
+    left: 65%;
+    animation-delay: -2.5s;
+}
+
+.lsHd7 {
+    width: 8px;
+    height: 8px;
+    top: 12px;
+    left: 72%;
+    animation-delay: -3s;
+}
+
+.lsHd8 {
+    width: 4px;
+    height: 4px;
+    top: 36px;
+    left: 82%;
+    animation-delay: -3.5s;
+}
+
+.lsHd9 {
+    width: 6px;
+    height: 6px;
+    top: 18px;
+    left: 90%;
+    animation-delay: -1.8s;
+}
+
+.lsHd10 {
+    width: 7px;
+    height: 7px;
+    top: 32px;
+    left: 10%;
+    animation-delay: -0.8s;
+}
+
+.lsHd11 {
+    width: 5px;
+    height: 5px;
+    top: 4px;
+    left: 78%;
+    animation-delay: -2.2s;
+}
+
+.lsHd12 {
+    width: 6px;
+    height: 6px;
+    top: 38px;
+    left: 55%;
+    animation-delay: -1.2s;
+}
+
+.lsHd13 {
+    width: 4px;
+    height: 4px;
+    top: 14px;
+    left: 45%;
+    animation-delay: -0.3s;
+    opacity: 0.2;
+}
+
+.lsHd14 {
+    width: 6px;
+    height: 6px;
+    top: 26px;
+    left: 60%;
+    animation-delay: -2.8s;
+}
+
+.lsHd15 {
+    width: 9px;
+    height: 9px;
+    top: 16px;
+    left: 38%;
+    animation-delay: -1.6s;
+    opacity: 0.2;
+}
+
+@keyframes lsHdPulse {
+
+    0%,
+    100% {
+        opacity: 0.12;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* Radius rings visual */
+.lsRadiusVisual {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto;
+}
+
+.lsRvDot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+}
+
+.lsRvRing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1.5px solid #38bdf8;
+}
+
+.lsRv1 {
+    width: 26px;
+    height: 26px;
+    opacity: 0.2;
+}
+
+.lsRv2 {
+    width: 48px;
+    height: 48px;
+    opacity: 0.1;
+}
+
+.lsRv3 {
+    width: 70px;
+    height: 70px;
+    opacity: 0.05;
+}
+
+/* Card links */
+.lsFcLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #0ea5e9;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-top: auto;
+}
+
+.lsFcLink:hover {
+    color: #0284c7;
+    gap: 0.6rem;
+}
+
+.lsFcLink i {
+    font-size: 0.7rem;
+    transition: transform 0.3s;
+}
+
+.lsFcLink:hover i {
+    transform: translateX(3px);
+}
+
+.lsFcLink2 {
+    color: #38bdf8;
+}
+
+.lsFcLink2:hover {
+    color: #0ea5e9;
+}
+
+.lsFcLink3 {
+    color: #7dd3fc;
+}
+
+.lsFcLink3:hover {
+    color: #38bdf8;
+}
+
+@media (max-width: 1199px) {
+    .lsMainTitle {
+        font-size: 2rem;
+    }
+
+    .lsMapViewport {
+        height: 420px;
+    }
+
+    .lsLeafletMap {
+        height: 420px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .locationSegmentation {
+        padding: 3.5rem 0;
+    }
+
+    .lsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .lsFeatures {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .lsFcard {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .lsMapViewport {
+        height: 380px;
+    }
+
+    .lsLeafletMap {
+        height: 380px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .lsFeatures {
+        flex-direction: column;
+    }
+
+    .lsFcard {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .locationSegmentation {
+        padding: 2.5rem 0;
+    }
+
+    .lsMainTitle {
+        font-size: 1.5rem;
+    }
+
+    .lsHeadDesc {
+        font-size: 0.9rem;
+    }
+
+    .lsMapViewport {
+        height: 280px;
+    }
+
+    .lsLeafletMap {
+        height: 280px !important;
+    }
+
+    .lsMapHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .lsFcardInner {
+        padding: 1.2rem 1rem;
+    }
+
+    .lsFcTitle {
+        font-size: 1rem;
+    }
+
+    .lsFcDesc {
+        font-size: 0.72rem;
+    }
+}
