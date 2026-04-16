@@ -5,7 +5,7 @@
     position: relative;
     padding: 7rem 0 6rem;
     overflow: hidden;
-    background: linear-gradient(180deg, #edf6ff 0%, #f4f9ff 40%, #f8faff 100%);
+    background: linear-gradient(180deg, #edf6ff 0%, var(--bg) 40%, #f8faff 100%);
 }
 
 /* Background blobs */
@@ -83,7 +83,7 @@
     padding: 0.4rem 1.1rem;
     border-radius: 50px;
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(14, 165, 233, 0.06));
-    color: #4f46e5;
+    color: var(--indigo-600);
     border: 1px solid rgba(99, 102, 241, 0.15);
     letter-spacing: 0.3px;
 }
@@ -97,12 +97,12 @@
     font-weight: 800;
     line-height: 1.14;
     letter-spacing: -0.7px;
-    color: #0c1929;
+    color: var(--n900);
     margin: 0;
 }
 
 .faqHeading span {
-    background: linear-gradient(135deg, #4f46e5, #0ea5e9, #14b8a6);
+    background: linear-gradient(135deg, var(--indigo-600), var(--blue-500), var(--teal-500));
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -142,8 +142,8 @@
 }
 
 .faqStatPill:hover {
-    border-color: #7dd3fc;
-    color: #1e3a5f;
+    border-color: var(--blue-300);
+    color: var(--n700);
     transform: translateY(-1px);
     box-shadow: 0 4px 14px rgba(14, 165, 233, 0.08);
 }
@@ -153,19 +153,19 @@
 }
 
 .faqStatPill:nth-child(1) i {
-    color: #f59e0b;
+    color: var(--amber-500);
 }
 
 .faqStatPill:nth-child(2) i {
-    color: #f43f5e;
+    color: var(--rose-500);
 }
 
 .faqStatPill:nth-child(3) i {
-    color: #0ea5e9;
+    color: var(--blue-500);
 }
 
 .faqStatPill strong {
-    color: #142238;
+    color: var(--n800);
     font-weight: 800;
 }
 
@@ -238,7 +238,7 @@
     align-items: center;
     gap: 0.6rem;
     padding: 0.75rem 1.2rem;
-    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    background: linear-gradient(135deg, var(--indigo-600), var(--blue-500));
     border-bottom: 1px solid rgba(99, 102, 241, 0.15);
 }
 
@@ -254,17 +254,17 @@
 }
 
 .faqCdotR {
-    background: #f43f5e;
+    background: var(--rose-500);
     box-shadow: 0 0 5px rgba(244, 63, 94, 0.35);
 }
 
 .faqCdotY {
-    background: #fbbf24;
+    background: var(--amber-400);
     box-shadow: 0 0 5px rgba(251, 191, 36, 0.35);
 }
 
 .faqCdotG {
-    background: #10b981;
+    background: var(--emerald-500);
     box-shadow: 0 0 5px rgba(16, 185, 129, 0.35);
 }
 
@@ -314,7 +314,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -329,7 +329,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -347,7 +347,7 @@
 }
 
 .faqMsgBubble {
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
     color: #fff;
     border-bottom-right-radius: 4px;
     box-shadow: 0 4px 14px rgba(14, 165, 233, 0.18);
@@ -356,7 +356,7 @@
 .faqMsgReply {
     background: rgba(232, 244, 253, 0.45);
     border: 1px solid rgba(219, 234, 254, 0.5);
-    color: #1e3a5f;
+    color: var(--n700);
     border-bottom-left-radius: 4px;
 }
 
@@ -413,7 +413,7 @@
     gap: 0.4rem;
     font-size: 0.65rem;
     font-weight: 700;
-    color: #1e3a5f;
+    color: var(--n700);
     box-shadow: 0 4px 16px rgba(12, 25, 41, 0.06);
     white-space: nowrap;
     animation: faqBadgeFloat 4s ease-in-out infinite alternate;
@@ -436,11 +436,11 @@
 }
 
 .faqFbBl i {
-    color: #14b8a6;
+    color: var(--teal-500);
 }
 
 .faqFbTr i {
-    color: #0ea5e9;
+    color: var(--blue-500);
 }
 
 @keyframes faqBadgeFloat {
@@ -533,15 +533,15 @@
 }
 
 .faqCat:hover {
-    border-color: #7dd3fc;
-    color: #1e3a5f;
+    border-color: var(--blue-300);
+    color: var(--n700);
     background: rgba(255, 255, 255, 0.85);
     transform: translateY(-1px);
     box-shadow: 0 4px 14px rgba(14, 165, 233, 0.06);
 }
 
 .faqCat.active {
-    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    background: linear-gradient(135deg, var(--indigo-600), var(--blue-500));
     color: #fff;
     border-color: transparent;
     box-shadow: 0 4px 18px rgba(99, 102, 241, 0.22);
@@ -595,7 +595,7 @@
 //     left: 0;
 //     width: 3px;
 //     height: 100%;
-//     background: linear-gradient(180deg, #0ea5e9, #4f46e5);
+//     background: linear-gradient(180deg, var(--blue-500), var(--indigo-600));
 //     opacity: 0.7;
 // }
 
@@ -607,7 +607,7 @@
     transform: translateY(-50%);
     font-size: 2.8rem;
     font-weight: 900;
-    color: #0c1929;
+    color: var(--n900);
     opacity: 0.03;
     line-height: 1;
     pointer-events: none;
@@ -634,14 +634,14 @@
     flex: 1;
     font-size: 0.88rem;
     font-weight: 700;
-    color: #142238;
+    color: var(--n800);
     line-height: 1.4;
     letter-spacing: -0.1px;
     transition: color 0.2s;
 }
 
 .faqItem:hover .faqQ {
-    color: #0c1929;
+    color: var(--n900);
 }
 
 .faqToggle {
@@ -658,12 +658,12 @@
 
 .faqToggle i {
     font-size: 0.78rem;
-    color: #0ea5e9;
+    color: var(--blue-500);
     transition: transform 0.3s;
 }
 
 .faqItem.open .faqToggle {
-    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    background: linear-gradient(135deg, var(--blue-500), var(--indigo-500));
 }
 
 .faqItem.open .faqToggle i {
@@ -694,7 +694,7 @@
 /* ========== BOTTOM CTA ========== */
 .faqCtaCard {
     position: relative;
-    background: linear-gradient(135deg, #4f46e5, #0284c7);
+    background: linear-gradient(135deg, var(--indigo-600), var(--blue-600));
     border-radius: 22px;
     padding: 3rem;
     text-align: center;
@@ -761,7 +761,7 @@
     gap: 0.5rem;
     padding: 0.85rem 1.8rem;
     background: #fff;
-    color: #4f46e5 !important;
+    color: var(--indigo-600) !important;
     font-weight: 700;
     font-size: 0.88rem;
     border-radius: 12px;
@@ -774,7 +774,7 @@
 .faqCtaBtn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 36px rgba(0, 0, 0, 0.14);
-    color: #4f46e5 !important;
+    color: var(--indigo-600) !important;
 }
 
 .faqCtaSecondary {

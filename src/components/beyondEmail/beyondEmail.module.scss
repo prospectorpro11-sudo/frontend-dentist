@@ -71,7 +71,7 @@
     font-weight: 800;
     line-height: 1.14;
     letter-spacing: -0.7px;
-    color: #0c1929;
+    color: var(--n900);
 }
 
 .beSub {
@@ -137,7 +137,7 @@
     display: block;
     font-size: 0.88rem;
     font-weight: 800;
-    color: #142238;
+    color: var(--n800);
     margin-bottom: 0.25rem;
 }
 
@@ -247,7 +247,7 @@
 .beFcard h4 {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #1e3a5f;
+    color: var(--n700);
     letter-spacing: -0.1px;
     line-height: 1.35;
     margin: 0;
@@ -255,33 +255,33 @@
 }
 
 .beFcard:hover h4 {
-    color: #0c1929;
+    color: var(--n900);
 }
 
 /* Icon colors from palette */
 .beFc1 .beFcIcon {
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
     box-shadow: 0 4px 18px rgba(14, 165, 233, 0.22);
 }
 
 .beFc2 .beFcIcon {
-    background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+    background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
     box-shadow: 0 4px 18px rgba(20, 184, 166, 0.22);
 }
 
 .beFc3 .beFcIcon {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
     box-shadow: 0 4px 18px rgba(99, 102, 241, 0.22);
 }
 
 /* Dark card — fc-4 */
 .beFc4 {
-    background: linear-gradient(135deg, #142238, #1e3a5f);
+    background: linear-gradient(135deg, var(--n800), var(--n700));
     border-color: rgba(44, 74, 110, 0.3);
 }
 
 .beFc4 .beFcIcon {
-    background: linear-gradient(135deg, #f43f5e, #fb7185);
+    background: linear-gradient(135deg, var(--rose-500), var(--rose-400));
     box-shadow: 0 4px 18px rgba(244, 63, 94, 0.25);
 }
 
@@ -290,7 +290,7 @@
 }
 
 .beFc4:hover {
-    background: linear-gradient(135deg, #142238, #0c1929);
+    background: linear-gradient(135deg, var(--n800), var(--n900));
 }
 
 /* Decorative connector curve SVG */

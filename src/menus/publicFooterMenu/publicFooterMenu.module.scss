@@ -3,7 +3,7 @@
    ============================================ */
 .siteFooter {
   position: relative;
-  background: linear-gradient(180deg, #071018 0%, #071018 5%, #0a1a2e 15%, #0c1929 30%, #0f2241 100%);
+  background: linear-gradient(180deg, #071018 0%, #071018 5%, #0a1a2e 15%, var(--n900) 30%, #0f2241 100%);
   padding: 3rem 0 0;
   overflow: hidden;
 
@@ -239,7 +239,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-      color: #0ea5e9;
+      color: var(--blue-500);
       transform: translateX(4px);
     }
   }

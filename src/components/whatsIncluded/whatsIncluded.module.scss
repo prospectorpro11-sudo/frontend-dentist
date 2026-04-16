@@ -5,7 +5,7 @@
     position: relative;
     padding: 7rem 0 8rem;
     overflow: hidden;
-    background: linear-gradient(180deg, #f4f9ff 0%, #edf6ff 100%);
+    background: linear-gradient(180deg, var(--bg) 0%, #edf6ff 100%);
 }
 
 /* Primary Blue background blobs */
@@ -75,7 +75,7 @@
     font-weight: 800;
     line-height: 1.14;
     letter-spacing: -0.7px;
-    color: #0c1929;
+    color: var(--n900);
 }
 
 .wiSub {
@@ -99,12 +99,12 @@
     gap: 0.4rem;
     font-size: 0.82rem;
     font-weight: 600;
-    color: #1e3a5f;
+    color: var(--n700);
 }
 
 .wiCheckItem i {
     font-size: 0.92rem;
-    color: #0284c7;
+    color: var(--blue-600);
     flex-shrink: 0;
 }
 
@@ -118,7 +118,7 @@
     font-weight: 700;
     color: #fff !important;
     /* #f97316 is coral orange from palette, #fb923c is light coral */
-    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    background: linear-gradient(135deg, var(--blue-500), #0369a1);
     border-radius: 12px;
     text-decoration: none;
     box-shadow: 0 6px 28px rgba(14, 165, 233, 0.28);
@@ -261,7 +261,7 @@
     gap: 0.45rem;
     padding: 0.6rem 0.9rem;
     /* Primary CTA gradient */
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
     position: relative;
 }
 
@@ -273,17 +273,17 @@
 }
 
 .wiIsoDotRd {
-    background: #f43f5e;
+    background: var(--rose-500);
     box-shadow: 0 0 6px rgba(244, 63, 94, 0.4);
 }
 
 .wiIsoDotYl {
-    background: #fbbf24;
+    background: var(--amber-400);
     box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);
 }
 
 .wiIsoDotGr {
-    background: #10b981;
+    background: var(--emerald-500);
     box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
 }
 
@@ -302,7 +302,7 @@
 }
 
 .wiIsoUrlBar i {
-    color: #34d399;
+    color: var(--emerald-400);
     font-size: 0.6rem;
 }
 
@@ -314,7 +314,7 @@
 
 .wiIsoTable thead {
     background: linear-gradient(135deg,
-            #e0f2fe,
+            var(--blue-100),
             rgba(224, 242, 254, 0.6));
     border-bottom: 1.5px solid rgba(14, 165, 233, 0.1);
 }
@@ -325,7 +325,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.7px;
-    color: #0284c7;
+    color: var(--blue-600);
     text-align: left;
     white-space: nowrap;
 }
@@ -338,7 +338,7 @@
 .wiIsoTable td {
     padding: 0.5rem 0.9rem;
     font-size: 0.65rem;
-    color: #1e3a5f;
+    color: var(--n700);
     white-space: nowrap;
     vertical-align: middle;
 }
@@ -361,7 +361,7 @@
     align-items: center;
     gap: 0.45rem;
     font-weight: 600;
-    color: #142238;
+    color: var(--n800);
 }
 
 .wiIsoAvatar {
@@ -379,27 +379,27 @@
 }
 
 .wiIa1 {
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
 }
 
 .wiIa2 {
-    background: linear-gradient(135deg, #0284c7, #0ea5e9);
+    background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
 }
 
 .wiIa3 {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
 }
 
 .wiIa4 {
-    background: linear-gradient(135deg, #38bdf8, #14b8a6);
+    background: linear-gradient(135deg, var(--blue-400), var(--teal-500));
 }
 
 .wiIa5 {
-    background: linear-gradient(135deg, #0d9488, #14b8a6);
+    background: linear-gradient(135deg, var(--teal-600), var(--teal-500));
 }
 
 .wiIsoEmail {
-    color: #0ea5e9 !important;
+    color: var(--blue-500) !important;
     font-weight: 500;
 }
 
@@ -428,7 +428,7 @@
 
 .wiIsoStatus i {
     margin-right: 0.2rem;
-    color: #10b981;
+    color: var(--emerald-500);
     font-size: 0.58rem;
 }
 
@@ -449,11 +449,11 @@
     white-space: nowrap;
     font-size: 0.72rem;
     font-weight: 700;
-    color: #1e3a5f;
+    color: var(--n700);
 }
 
 .wiStatPill strong {
-    color: #142238;
+    color: var(--n800);
     font-weight: 800;
 }
 
@@ -468,13 +468,13 @@
     font-size: 0.8rem;
     flex-shrink: 0;
     /* Primary gradient */
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
     box-shadow: 0 3px 10px rgba(14, 165, 233, 0.2);
 }
 
 .wiSpI2 {
-    /* Gradients Used → Nav CTA: #0ea5e9 → #0284c7 */
-    background: linear-gradient(135deg, #0284c7, #0284c7);
+    /* Gradients Used → Nav CTA: var(--blue-500) → var(--blue-600) */
+    background: linear-gradient(135deg, var(--blue-600), var(--blue-600));
     box-shadow: 0 3px 10px rgba(2, 132, 199, 0.25);
 }
 
@@ -549,7 +549,7 @@
     height: 30px;
     border-radius: 10px;
     /* Primary gradient */
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -582,7 +582,7 @@
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -626,13 +626,13 @@
     gap: 0.45rem;
     font-size: 0.78rem;
     font-weight: 600;
-    color: #2c4a6e;
+    color: var(--n600);
     white-space: nowrap;
 }
 
 .wiFooterItem i {
     font-size: 0.85rem;
     /* Primary blue */
-    color: #0ea5e9;
+    color: var(--blue-500);
     flex-shrink: 0;
 }

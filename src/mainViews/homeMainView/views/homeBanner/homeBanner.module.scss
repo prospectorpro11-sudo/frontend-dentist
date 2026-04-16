@@ -244,7 +244,7 @@
         rgba(14, 165, 233, 0.08),
         rgba(56, 189, 248, 0.05)
     );
-    color: #0284c7;
+    color: var(--blue-600);
     border: 1px solid rgba(56, 189, 248, 0.15);
     transition: box-shadow 0.3s ease;
 }
@@ -257,7 +257,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #0ea5e9;
+    background: var(--blue-500);
     animation: pulseDot 1.8s ease-in-out infinite;
     box-shadow: 0 0 6px rgba(14, 165, 233, 0.5);
 }
@@ -281,7 +281,7 @@
     font-size: 2.6rem;
     font-weight: 800;
     line-height: 1.1;
-    color: #1e3a5f;
+    color: var(--n700);
     margin-top: 1.3rem;
     letter-spacing: -0.8px;
     position: relative;
@@ -291,9 +291,9 @@
 .h1Accent {
     background: linear-gradient(
         135deg,
-        #0ea5e9,
-        #38bdf8,
-        #14b8a6
+        var(--blue-500),
+        var(--blue-400),
+        var(--teal-500)
     );
     background-size: 200% 200%;
     -webkit-background-clip: text;
@@ -317,7 +317,7 @@
 }
 
 .heroP strong {
-    color: #1e3a5f;
+    color: var(--n700);
     font-weight: 700;
 }
 
@@ -329,7 +329,7 @@
 }
 
 .btnPrimaryCustom {
-    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    background: linear-gradient(135deg, var(--blue-500), #0369a1);
     color: #fff !important;
     font-weight: 700;
     font-size: 0.86rem;
@@ -351,7 +351,7 @@
     position: absolute;
     inset: -2px;
     border-radius: inherit;
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8, #14b8a6);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400), var(--teal-500));
     z-index: -1;
     opacity: 0;
     filter: blur(8px);
@@ -374,7 +374,7 @@
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    color: #1e3a5f !important;
+    color: var(--n700) !important;
     font-weight: 700;
     font-size: 0.86rem;
     padding: 0.75rem 1.55rem;
@@ -389,10 +389,10 @@
 
 .btnSecondaryCustom:hover {
     transform: translateY(-2px);
-    border-color: #7dd3fc;
+    border-color: var(--blue-300);
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 6px 20px rgba(14, 165, 233, 0.1);
-    color: #1e3a5f !important;
+    color: var(--n700) !important;
 }
 
 .trustStrip {
@@ -422,15 +422,15 @@
 }
 
 .tsI1 {
-    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
 }
 
 .tsI2 {
-    background: linear-gradient(135deg, #0284c7, #6366f1);
+    background: linear-gradient(135deg, var(--blue-600), var(--indigo-500));
 }
 
 .tsI3 {
-    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    background: linear-gradient(135deg, var(--amber-500), var(--amber-400));
 }
 
 /* ============================================
@@ -472,7 +472,7 @@
     width: 36px;
     height: 36px;
     border-radius: 11px;
-    background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+    background: linear-gradient(135deg, var(--blue-500), var(--teal-500));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -483,7 +483,7 @@
 
 .spHeaderTitle strong {
     font-weight: 800;
-    color: #1e3a5f;
+    color: var(--n700);
     display: block;
     line-height: 1.15;
     letter-spacing: -0.2px;
@@ -532,11 +532,11 @@
     flex-shrink: 0;
 }
 
-.spIc1 { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
-.spIc2 { background: linear-gradient(135deg, #14b8a6, #2dd4bf); }
-.spIc3 { background: linear-gradient(135deg, #6366f1, #818cf8); }
-.spIc4 { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-.spIc5 { background: linear-gradient(135deg, #f43f5e, #fb7185); }
+.spIc1 { background: linear-gradient(135deg, var(--blue-500), var(--blue-400)); }
+.spIc2 { background: linear-gradient(135deg, var(--teal-500), var(--teal-400)); }
+.spIc3 { background: linear-gradient(135deg, var(--indigo-500), var(--indigo-400)); }
+.spIc4 { background: linear-gradient(135deg, var(--amber-500), var(--amber-400)); }
+.spIc5 { background: linear-gradient(135deg, var(--rose-500), var(--rose-400)); }
 
 .spIcon i {
     font-size: 0.78rem;
@@ -550,7 +550,7 @@
 .spInfo strong {
     // font-size: 0.88rem;
     font-weight: 800;
-    color: #1e3a5f;
+    color: var(--n700);
     line-height: 1.15;
     letter-spacing: -0.3px;
 }
@@ -565,7 +565,7 @@
 
 .spRow > i {
     margin-left: auto;
-    color: #38bdf8;
+    color: var(--blue-400);
     font-size: 0.85rem;
     flex-shrink: 0;
 }
@@ -591,7 +591,7 @@
 }
 
 .spVerifyLabel i {
-    color: #10b981;
+    color: var(--emerald-500);
     font-size: 0.72rem;
 }
 
@@ -607,7 +607,7 @@
     width: 100%;
     height: 100%;
     border-radius: 3px;
-    background: linear-gradient(90deg, #0ea5e9, #14b8a6);
+    background: linear-gradient(90deg, var(--blue-500), var(--teal-500));
     position: relative;
 }
 
@@ -816,9 +816,9 @@
     flex-shrink: 0;
 }
 
-.cpIc1 { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
-.cpIc2 { background: linear-gradient(135deg, #f43f5e, #fb7185); }
-.cpIc3 { background: linear-gradient(135deg, #6366f1, #818cf8); }
+.cpIc1 { background: linear-gradient(135deg, var(--blue-500), var(--blue-400)); }
+.cpIc2 { background: linear-gradient(135deg, var(--rose-500), var(--rose-400)); }
+.cpIc3 { background: linear-gradient(135deg, var(--indigo-500), var(--indigo-400)); }
 
 .chamberPill > div:last-child {
     display: flex;
@@ -828,7 +828,7 @@
 .chamberPill > div:last-child strong {
     font-size: 0.85rem;
     font-weight: 800;
-    color: #1e3a5f;
+    color: var(--n700);
     line-height: 1.15;
     letter-spacing: -0.3px;
 }
