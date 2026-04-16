@@ -30,9 +30,8 @@ const trustIcons = {
     deliverability: BsEnvelopeCheckFill,
 } as const;
 
-const ProductList = (seed: IProductList) => {
-    const products = seed.products;
-    const trustPills = seed.trustPills;
+const ProductList = (props: IProductList) => {
+    const { products: products, trustPills: trustPills, heading, headingAccent, subtitle } = props;
 
     return (
         <section className={styles.productList}>
@@ -49,10 +48,10 @@ const ProductList = (seed: IProductList) => {
                         <span className={styles.plBadge}><BsGrid3X3GapFill /> Email Lists</span>
                     </div>
                     <h2 className={styles.plHeading}>
-                        {seed.heading} <span>{seed.headingAccent}</span>
+                        {heading} <span>{headingAccent}</span>
                     </h2>
                     <p className={styles.plSub}>
-                        {seed.subtitle}
+                        {subtitle}
                     </p>
 
                     {/* Trust pills */}

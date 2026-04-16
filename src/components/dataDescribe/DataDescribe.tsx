@@ -22,10 +22,8 @@ const featureIconMap = {
 } as const;
 
 const PROGRESS_DURATION = 4000; // 4 seconds per slide
-const DataDescribe = (seed: IDataDescribe) => {
-    const TOP_SECTION = seed.topSection;
-    const PANEL_DATA = seed.panelData;
-    const FEATURE_COLUMNS = seed.featureColumns;
+const DataDescribe = (props: IDataDescribe) => {
+    const { topSection: TOP_SECTION, panelData: PANEL_DATA, featureColumns: FEATURE_COLUMNS } = props;
 
     const [activeFeature, setActiveFeature] = useState(0);
     const [progress, setProgress] = useState(0);

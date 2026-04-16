@@ -15,10 +15,8 @@ const featureCardIcons = {
     lock: BsShieldLockFill,
 } as const;
 
-const BeyondEmail = (seed: IBeyondEmail) => {
-    const sectionInfo = seed.sectionInfo;
-    const steps = seed.steps;
-    const featureCards = seed.featureCards;
+const BeyondEmail = (props: IBeyondEmail) => {
+    const { sectionInfo, steps, featureCards } = props;
 
     return (
         <section className={styles.beyondEmail}>

@@ -32,8 +32,8 @@ const breatheInlineClassMap = {
     zip: styles.lsBreatheInlineZip,
 } as const;
 
-const LocationSegmentation = (seed: ILocationSegmentation) => {
-    const CONTENT = seed.content;
+const LocationSegmentation = (props: ILocationSegmentation) => {
+    const { content: CONTENT, mapPoints } = props;
 
     useEffect(() => {
         const initializeMap = async () => {
@@ -97,7 +97,7 @@ const LocationSegmentation = (seed: ILocationSegmentation) => {
                     `</div>`;
             }
 
-            const points = seed.mapPoints.map((point) => ({
+            const points = mapPoints.map((point) => ({
                 coords: point.coords,
                 dot: dotMarker(
                     dotClassMap[point.dotType as keyof typeof dotClassMap],

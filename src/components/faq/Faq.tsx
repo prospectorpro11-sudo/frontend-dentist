@@ -1,13 +1,12 @@
 'use client';
 import { useState } from 'react';
 import classNames from 'classnames';
+
 import styles from './faq.module.scss';
 import { IFaq } from '../../shared/interface';
 
-const Faq = (seed: IFaq) => {
-    const stats = seed.stats;
-    const faqColumns = seed.columns;
-
+const Faq = (props: IFaq) => {
+    const { stats: stats, columns: faqColumns } = props;
     const [openItems, setOpenItems] = useState<Record<string, boolean>>(() =>
         faqColumns.flat().reduce((acc, item) => {
             acc[item.question] = true;

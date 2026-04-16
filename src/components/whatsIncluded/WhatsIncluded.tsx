@@ -25,12 +25,12 @@ const footerIconMap = {
     customize: BiCustomize,
 } as const;
 
-const WhatsIncluded = (seed: IWhatsIncluded) => {
-    const CHECKLIST_ITEMS = seed.checklistItems;
-    const TABLE_DATA = seed.tableData;
-    const FOOTER_ITEMS = seed.footerItems;
-    const STATS = seed.stats;
-    const CONTENT = seed.content;
+const WhatsIncluded = (props: IWhatsIncluded) => {
+    const { checklistItems: CHECKLIST_ITEMS,
+        tableData: TABLE_DATA,
+        footerItems: FOOTER_ITEMS,
+        stats: STATS,
+        content: CONTENT } = props;
 
     return (
         <section className={styles.whatsIncluded}>
@@ -132,7 +132,7 @@ const WhatsIncluded = (seed: IWhatsIncluded) => {
                                     <div className={classNames(styles.wiMiniCard, styles.wiMcLeft)}>
                                         <div className={styles.wiMcInner}>
                                             <div className={styles.wiMcAvatar}>
-                                                <BiUser color="#fff"/>
+                                                <BiUser color="#fff" />
                                             </div>
                                             <div className={styles.wiMcInfo}>
                                                 <div className={styles.wiMcNameLine}></div>

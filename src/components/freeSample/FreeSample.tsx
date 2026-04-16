@@ -3,10 +3,8 @@ import styles from './freeSample.module.scss';
 import { Col, Container, Row } from 'react-bootstrap';
 import { IFreeSample } from '../../shared/interface';
 
-const FreeSample = (seed: IFreeSample) => {
-    const dentistData = seed.dentistData;
-    const ctaConfig = seed.cta;
-    const cardConfig = seed.card;
+const FreeSample = (props: IFreeSample) => {
+    const { dentistData, cta: ctaConfig, card: cardConfig, heading, subtitle, features, headingAccent } = props;
 
     return (
         <section className={styles.freeSample}>
@@ -18,15 +16,15 @@ const FreeSample = (seed: IFreeSample) => {
                         <Col xs={12} lg={7}>
                             <div className={styles.fsContent}>
                                 <h2 className={styles.fsHeading}>
-                                    {seed.heading} <br />free <span className='shifting-accent'>{seed.headingAccent}</span>
+                                    {heading} <br />free <span className='shifting-accent'>{headingAccent}</span>
                                 </h2>
 
                                 <p className={styles.fsSub}>
-                                    {seed.subtitle}
+                                    {subtitle}
                                 </p>
 
                                 <div className={styles.fsGrid}>
-                                    {seed.features.map((feature) => (
+                                    {features.map((feature) => (
                                         <div key={feature.title} className={styles.fsFeature}>
                                             <div className={classNames(styles.fsFeatIcon, styles[feature.iconClass])}>
                                                 <i className={`bi bi-${feature.icon}`}></i>
