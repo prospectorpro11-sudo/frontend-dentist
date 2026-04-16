@@ -20,6 +20,8 @@ import {
     BsRocketTakeoffFill,
 } from 'react-icons/bs';
 import { IHomeBanner } from '../../../../shared/interface';
+import Button from '@/components/button/Button';
+import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
 
 const trustIconMap = {
     verified: BsPatchCheckFill,
@@ -88,10 +90,11 @@ const HomeBanner = (props: IHomeBanner) => {
 
                     <div className={styles.heroBtns}>
                         <a href={buttons.pricing.href} className={styles.btnPrimaryCustom}>
-                            <BsCurrencyDollar /> {buttons.pricing.text}
+                            <Button variant={BUTTON_VARIANT_ENUM.PRIMARY}><BsCurrencyDollar /> {buttons.pricing.text}</Button>
                         </a>
+
                         <a href={buttons.sample.href} className={styles.btnSecondaryCustom}>
-                            <BsGift /> {buttons.sample.text}
+                            <Button variant={BUTTON_VARIANT_ENUM.TERTIARY}><BsGift /> {buttons.sample.text}</Button>
                         </a>
                     </div>
 
