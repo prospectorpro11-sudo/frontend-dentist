@@ -13,59 +13,27 @@ import {
     BsFunnelFill,
     BsEnvelopeCheckFill,
 } from 'react-icons/bs';
+import { IProductList } from '../../shared/interface';
 
-const products = [
-    {
-        category: 'General Dentists',
-        description: 'Primary care & routine checkups',
-        icon: FaTooth,
-        colorClass: 'plCatBlue',
-        count: '45,320',
-    },
-    {
-        category: 'Family Dentists',
-        description: 'All-ages dental care',
-        icon: BsEmojiSmile,
-        colorClass: 'plCatTeal',
-        count: '38,750',
-    },
-    {
-        category: 'Pediatric Dentists',
-        description: 'Children & adolescent care',
-        icon: BsBalloonHeartFill,
-        colorClass: 'plCatIndigo',
-        count: '22,180',
-    },
-    {
-        category: 'Emergency Dentists',
-        description: 'Urgent & after-hours care',
-        icon: BsHospital,
-        colorClass: 'plCatRose',
-        count: '15,430',
-    },
-    {
-        category: 'Orthodontists',
-        description: 'Braces & alignment specialists',
-        icon: FaTeeth,
-        colorClass: 'plCatAmber',
-        count: '19,870',
-    },
-    {
-        category: 'Oral Surgeons',
-        description: 'Surgical & maxillofacial care',
-        icon: BsScissors,
-        colorClass: 'plCatPurple',
-        count: '8,920',
-    },
-];
+const productIcons = {
+    tooth: FaTooth,
+    smile: BsEmojiSmile,
+    balloon: BsBalloonHeartFill,
+    hospital: BsHospital,
+    teeth: FaTeeth,
+    scissors: BsScissors,
+} as const;
 
-const trustPills = [
-    { icon: BsCheckCircleFill, label: 'Verified Emails' },
-    { icon: BsFunnelFill, label: 'Specialty Filtered' },
-    { icon: BsEnvelopeCheckFill, label: '95% Deliverability' },
-];
+const trustIcons = {
+    check: BsCheckCircleFill,
+    filter: BsFunnelFill,
+    deliverability: BsEnvelopeCheckFill,
+} as const;
 
-const ProductList = () => {
+const ProductList = (seed: IProductList) => {
+    const products = seed.products;
+    const trustPills = seed.trustPills;
+
     return (
         <section className={styles.productList}>
             <div className={styles.productListContainer}>
@@ -81,17 +49,16 @@ const ProductList = () => {
                         <span className={styles.plBadge}><BsGrid3X3GapFill /> Email Lists</span>
                     </div>
                     <h2 className={styles.plHeading}>
-                        Choose Your <span>Dentist Email List</span>
+                        {seed.heading} <span>{seed.headingAccent}</span>
                     </h2>
                     <p className={styles.plSub}>
-                        Purchase targeted dentist email lists by specialty. All lists include
-                        verified emails and are ready for marketing.
+                        {seed.subtitle}
                     </p>
 
                     {/* Trust pills */}
                     <div className={styles.plTrustPills}>
                         {trustPills.map((pill, index) => {
-                            const Icon = pill.icon;
+                            const Icon = trustIcons[pill.icon as keyof typeof trustIcons];
                             return (
                                 <div key={index} className={styles.plTrustPill}>
                                     <div className={styles.plTrustIcon}><Icon /></div>
@@ -117,7 +84,7 @@ const ProductList = () => {
                         <div className={styles.plNewTableBody}>
 
                             {products.map((product, index) => {
-                                const Icon = product.icon;
+                                const Icon = productIcons[product.icon as keyof typeof productIcons];
                                 return (
                                     <div key={index} className={styles.plNewRow}>
                                         <div className={styles.plNewCell} style={{ flex: 1.2 }}>

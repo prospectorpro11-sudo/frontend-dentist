@@ -3,61 +3,38 @@ import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { BsGlobeAmericas, BsShieldCheck, BsGeoAltFill, BsArrowRepeat, BsMapFill, BsArrowRight, BsBuildingFill, BsBullseye } from 'react-icons/bs';
 import styles from './locationSegmentation.module.scss';
+import { ILocationSegmentation } from '../../shared/interface';
 
-const CONTENT = {
-    badge: "Real-Time Data",
-    title: {
-        prefix: "Geo-Targeted",
-        highlight: "Dentist Database"
-    },
-    description: "Every contact pinned on the map. Target by state, city, or radius with surgical precision.",
-    mapCard: {
-        title: "United States — Dentist Coverage",
-        legend: [
-            { label: "High Density", active: true },
-            { label: "Medium", active: false },
-            { label: "Low", active: false }
-        ],
-        footer: [
-            { icon: BsShieldCheck, text: "930K+ verified" },
-            { icon: BsGeoAltFill, text: "50 states", subtext: "25K cities" },
-            { icon: BsArrowRepeat, text: "Updated Jan 2026" }
-        ]
-    },
-    features: [
-        {
-            id: 1,
-            icon: BsMapFill,
-            badge: "Most Used",
-            title: "State-Wise Targeting",
-            desc: "Filter any state and pull contacts instantly. From broad regional campaigns to hyper-local outreach.",
-            linkText: "Explore by state",
-            linkUrl: "#"
-        },
-        {
-            id: 2,
-            icon: BsBuildingFill,
-            badge: "Precision",
-            title: "City-Level Drill",
-            desc: "Pinpoint dental professionals in any city. 25,000+ cities mapped with real density data.",
-            linkText: "Explore cities",
-            linkUrl: "#",
-            variant: "2"
-        },
-        {
-            id: 3,
-            icon: BsBullseye,
-            badge: null,
-            title: "Zip-Code Radius",
-            desc: "Drop a pin and grab every dentist within 5, 10, 25 or custom mile radius. Perfect territory coverage.",
-            linkText: "Try radius search",
-            linkUrl: "#",
-            variant: "3"
-        }
-    ]
-};
+const uiIconMap = {
+    shield: BsShieldCheck,
+    geo: BsGeoAltFill,
+    refresh: BsArrowRepeat,
+    map: BsMapFill,
+    building: BsBuildingFill,
+    target: BsBullseye,
+} as const;
 
-const LocationSegmentation = () => {
+const dotClassMap = {
+    state: styles.lsDotState,
+    city: styles.lsDotCity,
+    zip: styles.lsDotZip,
+} as const;
+
+const breatheRingClassMap = {
+    state: styles.lsBreatheRingState,
+    city: styles.lsBreatheRingCity,
+    zip: styles.lsBreatheRingZip,
+} as const;
+
+const breatheInlineClassMap = {
+    state: styles.lsBreatheInlineState,
+    city: styles.lsBreatheInlineCity,
+    zip: styles.lsBreatheInlineZip,
+} as const;
+
+const LocationSegmentation = (seed: ILocationSegmentation) => {
+    const CONTENT = seed.content;
+
     useEffect(() => {
         const initializeMap = async () => {
             const L = await import('leaflet');
@@ -120,24 +97,21 @@ const LocationSegmentation = () => {
                     `</div>`;
             }
 
-            // 3 always-visible pins with cards
-            const points = [
-                {
-                    coords: [37.75, -119.25] as [number, number],
-                    dot: dotMarker(styles.lsDotState, styles.lsBreatheRingState, "California"),
-                    card: makeCard("state", "bi-map-fill", "California", "45,320", styles.lsBreatheInlineState)
-                },
-                {
-                    coords: [38.97, -95.24] as [number, number],
-                    dot: dotMarker(styles.lsDotCity, styles.lsBreatheRingCity, "Lawrence"),
-                    card: makeCard("city", "bi-building-fill", "Lawrence, KS", "9,520", styles.lsBreatheInlineCity)
-                },
-                {
-                    coords: [40.75, -73.99] as [number, number],
-                    dot: dotMarker(styles.lsDotZip, styles.lsBreatheRingZip, "10001"),
-                    card: makeCard("zip", "bi-geo-alt-fill", "10001", "1,240", styles.lsBreatheInlineZip)
-                }
-            ];
+            const points = seed.mapPoints.map((point) => ({
+                coords: point.coords,
+                dot: dotMarker(
+                    dotClassMap[point.dotType as keyof typeof dotClassMap],
+                    breatheRingClassMap[point.dotType as keyof typeof breatheRingClassMap],
+                    point.label
+                ),
+                card: makeCard(
+                    point.card.type,
+                    point.card.icon,
+                    point.card.title,
+                    point.card.count,
+                    breatheInlineClassMap[point.card.breatheType as keyof typeof breatheInlineClassMap]
+                ),
+            }));
 
             for (let i = 0; i < points.length; i++) {
                 const marker = L.marker(points[i].coords, { icon: points[i].dot }).addTo(map);
@@ -202,7 +176,10 @@ const LocationSegmentation = () => {
                         <div className={styles.lsMapFooter}>
                             {CONTENT.mapCard.footer.map((item, idx) => (
                                 <div key={idx} className={styles.lsMfItem}>
-                                    <item.icon />
+                                    {(() => {
+                                        const Icon = uiIconMap[item.icon as keyof typeof uiIconMap];
+                                        return <Icon />;
+                                    })()}
                                     <span>
                                         {item.text}
                                         {item.subtext && <> <span className={styles.lsMfDot}></span> {item.subtext}</>}
@@ -219,7 +196,10 @@ const LocationSegmentation = () => {
                                 <div className={styles.lsFcardInner}>
                                     <div className={styles.lsFcHead}>
                                         <div className={`${styles.lsFcIconWrap} ${feature.variant ? styles[`lsFcIc${feature.variant}`] : ''}`}>
-                                            <feature.icon />
+                                            {(() => {
+                                                const Icon = uiIconMap[feature.icon as keyof typeof uiIconMap];
+                                                return <Icon />;
+                                            })()}
                                         </div>
                                         {feature.badge && (
                                             <div className={`${styles.lsFcBadge} ${feature.variant ? styles[`lsFcBadge${feature.variant}`] : ''}`}>

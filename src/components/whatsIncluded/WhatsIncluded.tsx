@@ -16,81 +16,22 @@ import {
 } from 'react-icons/bi';
 import styles from './whatsIncluded.module.scss';
 import { Container } from 'react-bootstrap';
+import { IWhatsIncluded } from '../../shared/interface';
 
-const CHECKLIST_ITEMS = [
-    { label: 'Full Name' },
-    { label: 'Email Address' },
-    { label: 'Phone Number' },
-    { label: 'Mailing Address' },
-    { label: 'License Number' },
-    { label: 'Specialty' },
-    { label: 'Workplace Information' },
-    { label: 'Years of Experience' },
-];
+const footerIconMap = {
+    check: BiCheckCircle,
+    download: BiSolidDownload,
+    time: BiTimeFive,
+    customize: BiCustomize,
+} as const;
 
-const TABLE_DATA = [
-    {
-        name: 'Dr. Sarah Mitchell',
-        initials: 'SM',
-        avatarClass: styles.wiIa1,
-        email: 'sarah.m@dentalcare.com',
-        phone: '(555) 012-3456',
-    },
-    {
-        name: 'Dr. James Park',
-        initials: 'JP',
-        avatarClass: styles.wiIa2,
-        email: 'jpark@smilepros.org',
-        phone: '(555) 034-7890',
-    },
-    {
-        name: 'Dr. Amy Lee',
-        initials: 'AL',
-        avatarClass: styles.wiIa3,
-        email: 'alee@brightteeth.net',
-        phone: '(555) 056-1234',
-    },
-    {
-        name: 'Dr. Richard Chen',
-        initials: 'RC',
-        avatarClass: styles.wiIa4,
-        email: 'rchen@pearldental.com',
-        phone: '(555) 078-5678',
-    },
-    {
-        name: 'Dr. Maria King',
-        initials: 'MK',
-        avatarClass: styles.wiIa5,
-        email: 'mking@familycare.org',
-        phone: '(555) 090-3456',
-        fade: true,
-    },
-];
+const WhatsIncluded = (seed: IWhatsIncluded) => {
+    const CHECKLIST_ITEMS = seed.checklistItems;
+    const TABLE_DATA = seed.tableData;
+    const FOOTER_ITEMS = seed.footerItems;
+    const STATS = seed.stats;
+    const CONTENT = seed.content;
 
-const FOOTER_ITEMS = [
-    { icon: BiCheckCircle, label: 'One time payment' },
-    { icon: BiSolidDownload, label: 'Instant delivery via secure download' },
-    { icon: BiTimeFive, label: 'Update January 2026' },
-    { icon: BiCustomize, label: 'Custom Count Available' },
-];
-
-const STATS = {
-    verifiedRecords: '930,285 verified records',
-    deliveryRate: { percentage: '95%', label: 'Delivery' },
-    contacts: { count: '930k+', label: 'Contacts' },
-    gdprCompliant: 'GDPR Compliant',
-};
-
-const CONTENT = {
-    heading: "What's",
-    headingHighlight: 'Included',
-    headingSuffix: 'in the Database?',
-    subtitle: 'Get complete and verified dentist contact information for effective, targeted marketing campaigns.',
-    ctaText: 'Download Sample Database',
-    websiteUrl: 'clinicalcurator.com/database',
-};
-
-const WhatsIncluded = () => {
     return (
         <section className={styles.whatsIncluded}>
             <Container>
@@ -158,7 +99,7 @@ const WhatsIncluded = () => {
                                                     <tr key={index} className={row.fade ? styles.wiTrFade : undefined}>
                                                         <td>
                                                             <div className={styles.wiIsoName}>
-                                                                <div className={classNames(styles.wiIsoAvatar, row.avatarClass)}>{row.initials}</div>
+                                                                <div className={classNames(styles.wiIsoAvatar, styles[row.avatarClass])}>{row.initials}</div>
                                                                 {row.name}
                                                             </div>
                                                         </td>
@@ -212,7 +153,10 @@ const WhatsIncluded = () => {
                     <div className={styles.wiFooter}>
                         {FOOTER_ITEMS.map((item, index) => (
                             <div key={index} className={styles.wiFooterItem}>
-                                <item.icon />
+                                {(() => {
+                                    const Icon = footerIconMap[item.icon as keyof typeof footerIconMap];
+                                    return <Icon />;
+                                })()}
                                 {item.label}
                             </div>
                         ))}

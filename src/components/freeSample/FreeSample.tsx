@@ -1,55 +1,13 @@
 import classNames from 'classnames';
 import styles from './freeSample.module.scss';
 import { Col, Container, Row } from 'react-bootstrap';
+import { IFreeSample } from '../../shared/interface';
 
-const dentistData = [
-    {
-        specialty: 'Orthodontics',
-        email: 'dr.smith@dentalcare.com',
-        phone: '(555) 019-2234',
-        dotClass: 'dot1',
-    },
-    {
-        specialty: 'Periodontics',
-        email: 'contact@janesperio.org',
-        phone: '(555) 021-8890',
-        dotClass: 'dot2',
-    },
-    {
-        specialty: 'Endodontics',
-        email: 'info@rootcanalpro.net',
-        phone: '(555) 018-4456',
-        dotClass: 'dot3',
-    },
-    {
-        specialty: 'Orthodontics',
-        email: 'dr.smith@dentalcare.com',
-        phone: '(555) 019-2234',
-        dotClass: 'dot1',
-    },
-    {
-        specialty: 'Periodontics',
-        email: 'contact@janesperio.org',
-        phone: '(555) 021-8890',
-        dotClass: 'dot2',
-    },
-];
+const FreeSample = (seed: IFreeSample) => {
+    const dentistData = seed.dentistData;
+    const ctaConfig = seed.cta;
+    const cardConfig = seed.card;
 
-const ctaConfig = {
-    href: '#',
-    icon: 'bi bi-download',
-    text: 'Get free sample today',
-};
-
-const cardConfig = {
-    accuracyPercent: '99%',
-    cardTitle: 'Sample Data Preview — Dentist Contacts',
-    recordCount: '12,450+',
-    recordLabel: 'verified dentist records',
-    complianceText: 'GDPR Compliant',
-};
-
-const FreeSample = () => {
     return (
         <section className={styles.freeSample}>
             <div className={classNames(styles.decoOrb, styles.decoOrb5)}></div>
@@ -60,53 +18,25 @@ const FreeSample = () => {
                         <Col xs={12} lg={7}>
                             <div className={styles.fsContent}>
                                 <h2 className={styles.fsHeading}>
-                                    Get your <br />free <span className='shifting-accent'>sample access</span>
+                                    {seed.heading} <br />free <span className='shifting-accent'>{seed.headingAccent}</span>
                                 </h2>
 
                                 <p className={styles.fsSub}>
-                                    Gain exclusive entry to thousands of verified dentist contacts. Our architectural verification process ensures precision that fuels your outreach strategy.
+                                    {seed.subtitle}
                                 </p>
 
                                 <div className={styles.fsGrid}>
-                                    <div className={styles.fsFeature}>
-                                        <div className={classNames(styles.fsFeatIcon, styles.fsFi1)}>
-                                            <i className="bi bi-shield-check"></i>
+                                    {seed.features.map((feature) => (
+                                        <div key={feature.title} className={styles.fsFeature}>
+                                            <div className={classNames(styles.fsFeatIcon, styles[feature.iconClass])}>
+                                                <i className={`bi bi-${feature.icon}`}></i>
+                                            </div>
+                                            <div className={styles.fsFeatText}>
+                                                <h4>{feature.title}</h4>
+                                                <p>{feature.description}</p>
+                                            </div>
                                         </div>
-                                        <div className={styles.fsFeatText}>
-                                            <h4>TRY BEFORE YOU BUY</h4>
-                                            <p>Risk-free quality assessment of our elite data sets.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.fsFeature}>
-                                        <div className={classNames(styles.fsFeatIcon, styles.fsFi2)}>
-                                            <i className="bi bi-table"></i>
-                                        </div>
-                                        <div className={styles.fsFeatText}>
-                                            <h4>AVAILABLE FOR ALL LISTS</h4>
-                                            <p>Uniform quality across every specialty and region.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.fsFeature}>
-                                        <div className={classNames(styles.fsFeatIcon, styles.fsFi3)}>
-                                            <i className="bi bi-bar-chart-line"></i>
-                                        </div>
-                                        <div className={styles.fsFeatText}>
-                                            <h4>CHECK QUALITY &amp; ACCURACY</h4>
-                                            <p>Real-time verification metrics at your fingertips.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.fsFeature}>
-                                        <div className={classNames(styles.fsFeatIcon, styles.fsFi4)}>
-                                            <i className="bi bi-lightning-charge"></i>
-                                        </div>
-                                        <div className={styles.fsFeatText}>
-                                            <h4>INSTANT ACCESS</h4>
-                                            <p>No delays. Immediate download for verified samples.</p>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </Col>

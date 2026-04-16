@@ -12,103 +12,21 @@ import {
 import styles from './dataDescribe.module.scss';
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { IDataDescribe } from '../../shared/interface';
 
-const TOP_SECTION = {
-    heading: 'Why Marketers Trust Our',
-    headingLine2: '<span class="shifting-accent">Dentist Database</span>',
-    subtitle: 'Gain confidence in your marketing campaigns with our comprehensive and reliable dentist email database.',
-    ctaText: 'Build Targeted Dentist List',
-    ctaHref: '#',
-};
-
-const PANEL_DATA = [
-    {
-        heading: 'Fully Verified & Continuously Updated Contacts',
-        subtitle: 'Access a reliable database of contacts that are regularly checked and updated to ensure accuracy and better campaign results.',
-        label: 'Our database optimize for:',
-        checklist: [
-            '95%+ email deliverability',
-            'Low bounce rate',
-            'Clean, permission-based records',
-        ],
-        panelVisual: {
-            title: '95% Verified',
-            accentColor: '#0ea5e9',
-        },
-    },
-    {
-        heading: 'Smart Targeting & Advanced Filters',
-        subtitle: 'Target your ideal customers with precision filters that help you reach the right audience at the right time.',
-        label: 'Our targeting options include:',
-        checklist: [
-            'Location-based filtering',
-            'Specialty-based targeting',
-            'Experience-level filters',
-        ],
-        panelVisual: {
-            title: 'Smart Filters',
-            accentColor: '#14b8a6',
-        },
-    },
-    {
-        heading: 'High Deliverability & Clean Lists',
-        subtitle: 'Maximize your campaign success with verified emails and phone numbers that reach real professionals.',
-        label: 'Our quality guarantees:',
-        checklist: [
-            'Low bounce rate guaranteed',
-            'Clean, verified records',
-            'Opt-in verified contacts',
-        ],
-        panelVisual: {
-            title: '95%+ Delivery',
-            accentColor: '#0284c7',
-        },
-    },
-    {
-        heading: 'Compliance & Data Security',
-        subtitle: 'Your marketing efforts are protected with industry-standard compliance and data security measures.',
-        label: 'Our security standards:',
-        checklist: [
-            'Data encrypted at rest',
-            'Consent tracking enabled',
-            'Secure cloud storage',
-        ],
-        panelVisual: {
-            title: 'GDPR Ready',
-            accentColor: '#4f46e5',
-        },
-    },
-];
-
-const FEATURE_COLUMNS = [
-    {
-        icon: BiShield,
-        iconClass: styles.pdCi1,
-        title: 'Verified & Updated Contacts',
-        description: 'Gain confidence in your marketing campaigns with our verified and current data.',
-    },
-    {
-        icon: BiFilterAlt,
-        iconClass: styles.pdCi2,
-        title: 'Advanced Targeting Options',
-        description: 'Gain confidence in your marketing campaigns with our precise targeting filters.',
-    },
-    {
-        icon: BiEnvelope,
-        iconClass: styles.pdCi3,
-        title: 'High Deliverability',
-        description: 'Gain confidence in your marketing campaigns with our 95%+ email delivery.',
-    },
-    {
-        icon: BiShieldQuarter,
-        iconClass: styles.pdCi4,
-        title: 'Compliance & Data Security',
-        description: 'Gain confidence in your marketing campaigns with full GDPR compliance.',
-    },
-];
+const featureIconMap = {
+    shield: BiShield,
+    filter: BiFilterAlt,
+    envelope: BiEnvelope,
+    shieldQuarter: BiShieldQuarter,
+} as const;
 
 const PROGRESS_DURATION = 4000; // 4 seconds per slide
-const DataDescribe = () => {
+const DataDescribe = (seed: IDataDescribe) => {
+    const TOP_SECTION = seed.topSection;
+    const PANEL_DATA = seed.panelData;
+    const FEATURE_COLUMNS = seed.featureColumns;
+
     const [activeFeature, setActiveFeature] = useState(0);
     const [progress, setProgress] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
@@ -316,8 +234,11 @@ const DataDescribe = () => {
                                     aria-label={`Feature ${index + 1}: ${col.title}`}
                                 >
                                     <div className={styles.pdCol}>
-                                        <div className={classNames(styles.pdColIcon, col.iconClass)}>
-                                            <col.icon />
+                                        <div className={classNames(styles.pdColIcon, styles[col.iconClass])}>
+                                            {(() => {
+                                                const Icon = featureIconMap[col.icon as keyof typeof featureIconMap];
+                                                return <Icon />;
+                                            })()}
                                         </div>
                                         <h4>{col.title}</h4>
                                         <p>{col.description}</p>

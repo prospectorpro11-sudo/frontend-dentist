@@ -6,64 +6,20 @@ import {
     BsPhoneFill,
     BsShieldLockFill,
 } from 'react-icons/bs';
+import { IBeyondEmail } from '../../shared/interface';
 
-const sectionInfo = {
-    headingLine: 'Go Beyond Just',
-    headingAccent: 'Email Address',
-    headingAccentClassName: 'shifting-accent',
-    sub: 'ClinicalCurator provides deep firmographic insights. Know what practice management software they use, their preferred equipment.',
+const featureCardIcons = {
+    download: BsCloudArrowDownFill,
+    phone: BsPhoneFill,
+    mail: BsEnvelopePaperFill,
+    lock: BsShieldLockFill,
 } as const;
 
-const steps = [
-    {
-        number: '01',
-        title: 'AI-Driven Sourcing',
-        description: 'We scan 500+ professional registries and public records daily.',
-    },
-    {
-        number: '02',
-        title: 'Human Verification',
-        description: 'Dedicated analysts validate each contact for accuracy and relevance.',
-    },
-    {
-        number: '03',
-        title: 'Real-time Cleansing',
-        description: 'Continuous hygiene to keep your data fresh and deliverable.',
-    },
-] as const;
+const BeyondEmail = (seed: IBeyondEmail) => {
+    const sectionInfo = seed.sectionInfo;
+    const steps = seed.steps;
+    const featureCards = seed.featureCards;
 
-const featureCards = [
-    {
-        id: 'delivery',
-        variantClass: 'beFc1',
-        icon: BsCloudArrowDownFill,
-        titleLine1: 'Instant delivery via',
-        titleLine2: 'secure download',
-    },
-    {
-        id: 'mobile',
-        variantClass: 'beFc2',
-        icon: BsPhoneFill,
-        titleLine1: 'Mobile-optimized',
-        titleLine2: 'data exports',
-    },
-    {
-        id: 'formats',
-        variantClass: 'beFc3',
-        icon: BsEnvelopePaperFill,
-        titleLine1: 'Multiple format',
-        titleLine2: 'support',
-    },
-    {
-        id: 'encrypted',
-        variantClass: 'beFc4',
-        icon: BsShieldLockFill,
-        titleLine1: 'End-to-end',
-        titleLine2: 'encrypted transit',
-    },
-] as const;
-
-const BeyondEmail = () => {
     return (
         <section className={styles.beyondEmail}>
             <div className={classNames('container', styles.beyondEmailContainer)}>
@@ -100,7 +56,7 @@ const BeyondEmail = () => {
                     <div className={styles.beVisual}>
                         <div className={styles.beCardGrid}>
                             {featureCards.map((card) => {
-                                const Icon = card.icon;
+                                const Icon = featureCardIcons[card.icon as keyof typeof featureCardIcons];
                                 return (
                                     <div
                                         key={card.id}
