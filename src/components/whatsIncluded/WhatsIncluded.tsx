@@ -62,7 +62,9 @@ const WhatsIncluded = (props: IWhatsIncluded) => {
                             </div>
                             <br />
                             <br />
-                            <Button size={BUTTON_SIZE_ENUM.LARGE}><BiGift /> {CONTENT.ctaText}</Button>
+                            <a href="#" className={styles.wiCta}>
+                                <Button size={BUTTON_SIZE_ENUM.LARGE}><BiGift /> {CONTENT.ctaText}</Button>
+                            </a>
                         </div>
 
                         {/* RIGHT: Isometric 3D Data Mockup */}
