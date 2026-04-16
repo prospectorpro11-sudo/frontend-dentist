@@ -13,6 +13,8 @@ import styles from './dataDescribe.module.scss';
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { IDataDescribe } from '../../shared/interface';
+import Button from '../button/Button';
+import { BUTTON_SIZE_ENUM } from '@/shared/enums';
 
 const featureIconMap = {
     shield: BiShield,
@@ -90,7 +92,7 @@ const DataDescribe = (props: IDataDescribe) => {
                         <p className={styles.pdSub}>
                             {TOP_SECTION.subtitle}
                         </p>
-                        <a href={TOP_SECTION.ctaHref} className={styles.pdCta}>{TOP_SECTION.ctaText}</a>
+                        <a href={TOP_SECTION.ctaHref}><Button size={BUTTON_SIZE_ENUM.LARGE}>{TOP_SECTION.ctaText}</Button></a>
                     </Col>
                     <Col xs={12} lg={5}>
                         <div className={styles.pdIllScene}>
