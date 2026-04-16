@@ -15,6 +15,8 @@ import {
 } from 'react-icons/bs';
 import { IProductList } from '../../shared/interface';
 import { COLORS } from '@/shared/colors';
+import Button from '../button/Button';
+import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from '@/shared/enums';
 
 const productIcons = {
     tooth: FaTooth,
@@ -103,7 +105,7 @@ const ProductList = (props: IProductList) => {
                                             </div>
                                         </div>
                                         <div className={classNames(styles.plNewCell, styles.plActionCell)} style={{ flex: 0.8 }}>
-                                            <a href="#" className={styles.plCartBtn}><BsCartPlus /> Add to Cart</a>
+                                            <a href="#"><Button size={BUTTON_SIZE_ENUM.SMALL} variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}><BsCartPlus /> Add to Cart</Button></a>
                                             <a href="#" className={styles.plCustomizeLink}>Customize</a>
                                         </div>
                                     </div>
