@@ -4,6 +4,8 @@ import classNames from 'classnames';
 
 import styles from './faq.module.scss';
 import { IFaq } from '../../shared/interface';
+import Button from '../button/Button';
+import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
 
 const Faq = (props: IFaq) => {
     const { stats: stats, columns: faqColumns } = props;
@@ -297,9 +299,11 @@ const Faq = (props: IFaq) => {
                             <i className="bi bi-envelope-fill"></i>
                             Contact Our Team
                         </a>
-                        <a href="#" className={styles.faqCtaSecondary}>
-                            <i className="bi bi-download"></i>
-                            Download Free Sample
+                        <a href="#">
+                            <Button variant={BUTTON_VARIANT_ENUM.GLASS}>
+                                <i className="bi bi-download"></i>
+                                Download Free Sample
+                            </Button>
                         </a>
                     </div>
                     <div className={styles.faqCtaTrusts}>

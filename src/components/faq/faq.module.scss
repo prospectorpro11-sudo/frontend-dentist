@@ -752,6 +752,10 @@
     flex-wrap: wrap;
     position: relative;
     z-index: 1;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 .faqCtaBtn {
@@ -774,28 +778,6 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 36px rgba(0, 0, 0, 0.14);
     color: var(--indigo-600) !important;
-}
-
-.faqCtaSecondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.8rem;
-    background: rgba(255, 255, 255, 0.12);
-    color: #fff !important;
-    font-weight: 700;
-    font-size: 0.88rem;
-    border-radius: 12px;
-    text-decoration: none;
-    border: 1.5px solid rgba(255, 255, 255, 0.25);
-    transition: all 0.3s;
-}
-
-.faqCtaSecondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-    color: #fff !important;
 }
 
 .faqCtaTrusts {
