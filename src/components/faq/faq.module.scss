@@ -758,28 +758,6 @@
     }
 }
 
-.faqCtaBtn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.8rem;
-    background: #fff;
-    color: var(--indigo-600) !important;
-    font-weight: 700;
-    font-size: 0.88rem;
-    border-radius: 12px;
-    text-decoration: none;
-    border: none;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.faqCtaBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.14);
-    color: var(--indigo-600) !important;
-}
-
 .faqCtaTrusts {
     display: flex;
     gap: 1.6rem;
@@ -908,12 +886,6 @@
         align-items: center;
     }
 
-    .faqCtaBtn,
-    .faqCtaSecondary {
-        width: 100%;
-        max-width: 280px;
-        justify-content: center;
-    }
 
     .faqCtaTrusts {
         flex-direction: column;

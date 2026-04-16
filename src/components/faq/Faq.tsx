@@ -295,9 +295,11 @@ const Faq = (props: IFaq) => {
                         solution.
                     </p>
                     <div className={styles.faqCtaGroup}>
-                        <a href="#" className={styles.faqCtaBtn}>
-                            <i className="bi bi-envelope-fill"></i>
-                            Contact Our Team
+                        <a href="#">
+                            <Button variant={BUTTON_VARIANT_ENUM.TERTIARY_SECONDARY}>
+                                <i className="bi bi-envelope-fill"></i>
+                                Contact Our Team
+                            </Button>
                         </a>
                         <a href="#">
                             <Button variant={BUTTON_VARIANT_ENUM.GLASS}>
