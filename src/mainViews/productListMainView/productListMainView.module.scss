@@ -270,16 +270,6 @@
         overflow: hidden;
     }
 
-    .statsFloatInner::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--blue-400), var(--teal-400));
-    }
-
     .statsGrid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -623,6 +613,87 @@
     .chip.active .count {
         background: rgba(255, 255, 255, .2);
         color: #fff;
+    }
+
+    .columnsChipBtn {
+        border-style: dashed;
+        font-weight: 700;
+    }
+
+    .columnsRow {
+        display: none;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .4rem;
+        margin-top: .65rem;
+        padding: .6rem .65rem;
+        border: 1px dashed var(--border);
+        border-radius: var(--r-md);
+        background: linear-gradient(180deg, #fff, var(--blue-50));
+    }
+
+    .columnsRow.visible {
+        display: flex;
+    }
+
+    .columnBadge {
+        border: 1.5px solid var(--n200);
+        background: var(--n50);
+        color: var(--n400);
+        border-radius: var(--r-full);
+        height: 30px;
+        padding: 0 .7rem;
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        font-size: .75rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: var(--font);
+        transition: all var(--t-base);
+    }
+
+    .columnBadge:hover {
+        border-color: var(--blue-200);
+        color: var(--blue-600);
+        background: #f7fbff;
+    }
+
+    .columnBadge.active {
+        background: var(--blue-100);
+        border-color: var(--blue-300);
+        color: var(--blue-700);
+        box-shadow: 0 1px 4px rgba(14, 165, 233, .14);
+    }
+
+    .columnBadge:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+
+    .columnCheckIcon {
+        font-size: .82rem;
+        opacity: .95;
+    }
+
+    .resetBadge {
+        margin-left: auto;
+        border-style: dashed;
+        background: #fff;
+        color: var(--n500);
+        border-color: var(--n300);
+    }
+
+    .resetBadge:hover {
+        border-color: var(--blue-300);
+        color: var(--blue-600);
+        background: var(--blue-50);
+    }
+
+    @media (max-width: 767px) {
+        .resetBadge {
+            margin-left: 0;
+        }
     }
 
     /* Active filter tags */
@@ -1015,7 +1086,8 @@
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--r-xl);
-        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
         box-shadow: var(--shadow-lg);
         margin-bottom: 2rem;
         position: relative;
@@ -1038,6 +1110,7 @@
     .thead {
         display: grid;
         grid-template-columns: .45fr 2.2fr .75fr .75fr .75fr .75fr .85fr 1.3fr;
+        min-width: 880px;
         padding: .9rem 1.4rem;
         background: linear-gradient(135deg, var(--blue-600), var(--blue-700), #0c6ba4);
         font-size: .72rem;
@@ -1069,6 +1142,7 @@
     .trow {
         display: grid;
         grid-template-columns: .45fr 2.2fr .75fr .75fr .75fr .75fr .85fr 1.3fr;
+        min-width: 880px;
         padding: .8rem 1.4rem;
         align-items: center;
         border-bottom: 1px solid #eef4fb;
@@ -1400,52 +1474,12 @@
         z-index: 1;
     }
 
-    /* Responsive adjustments for list view */
-
     @media (max-width: 991px) {
-
         .thead,
         .trow {
-            grid-template-columns: 2fr .7fr .7fr .7fr .7fr 1.1fr;
-        }
-
-        .thead> :nth-child(1),
-        .trow> :nth-child(1) {
-            display: none;
-        }
-
-        .thead> :nth-child(4),
-        .trow> :nth-child(4) {
-            display: none;
-        }
-
-        .thead> :nth-child(6),
-        .trow> :nth-child(6) {
-            display: none;
-        }
-    }
-
-    /* Responsive adjustments for list view */
-    @media (max-width: 991px) {
-
-        .thead,
-        .trow {
-            grid-template-columns: 2.2fr .85fr .85fr .85fr 1fr;
-        }
-
-        .thead> :nth-child(1),
-        .trow> :nth-child(1) {
-            display: none;
-        }
-
-        .thead> :nth-child(5),
-        .trow> :nth-child(5) {
-            display: none;
-        }
-
-        .thead> :nth-child(6),
-        .trow> :nth-child(6) {
-            display: none;
+            min-width: 760px;
+            padding-left: .8rem;
+            padding-right: .8rem;
         }
     }
 

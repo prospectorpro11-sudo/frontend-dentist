@@ -10,6 +10,7 @@ import {
     BsDownload,
     BsEnvelope,
     BsEnvelopeCheckFill,
+    BsCheck2,
     BsFileEarmarkCode,
     BsFire,
     BsFunnel,
@@ -37,6 +38,7 @@ import styles from "./productListMainView.module.scss";
 type FilterKey = "all" | "hot" | "popular" | "new" | "verified";
 type SortKey = "default" | "npis-desc" | "npis-asc" | "name-az" | "emails-desc";
 type ViewKey = "grid" | "list";
+type HideableColumnKey = "npis" | "emails" | "phones" | "faxes" | "licenses";
 
 type DbItem = {
     name: string;
@@ -116,6 +118,14 @@ const itemIcons = [
 
 const fmt = (n: number) => n.toLocaleString("en-US");
 
+const defaultHideableColumns: Record<HideableColumnKey, boolean> = {
+    npis: true,
+    emails: true,
+    phones: true,
+    faxes: true,
+    licenses: true,
+};
+
 const getPageTokens = (total: number, current: number): Array<number | "ellipsis"> => {
     if (total <= 1) return [1];
 
@@ -146,6 +156,8 @@ const ProductListMainView = () => {
     const [view, setView] = useState<ViewKey>("list");
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(12);
+    const [isColumnsMenuOpen, setIsColumnsMenuOpen] = useState(false);
+    const [visibleColumns, setVisibleColumns] = useState<Record<HideableColumnKey, boolean>>(defaultHideableColumns);
     const [animatedStats, setAnimatedStats] = useState({
         specialtyLists: 0,
         totalContacts: 0,
@@ -243,16 +255,47 @@ const ProductListMainView = () => {
 
     const pageEndIndex = Math.min(currentPage * perPage, filteredData.length);
 
-    const listHeaderColumns = [
-        { key: "hash", label: "", icon: <BsHash />, className: "" },
-        { key: "specialty", label: "Specialty", icon: <BsListUl />, className: "" },
-        { key: "npis", label: "NPIs", icon: <BsFileEarmarkCode />, className: styles.colCenter },
-        { key: "emails", label: "Emails", icon: <BsEnvelope />, className: styles.colCenter },
-        { key: "phones", label: "Phones", icon: <BsTelephone />, className: styles.colCenter },
-        { key: "faxes", label: "Faxes", icon: <BsPrinterFill />, className: styles.colCenter },
-        { key: "licenses", label: "Licenses", icon: <BsPatchCheck />, className: styles.colCenter },
-        { key: "action", label: "Action", icon: null, className: styles.colRight },
-    ];
+    const listHeaderColumns = useMemo(
+        () => [
+            { key: "hash" as const, label: "", icon: <BsHash />, className: "", width: ".45fr" },
+            { key: "specialty" as const, label: "Specialty", icon: <BsListUl />, className: "", width: "2.2fr" },
+            { key: "npis" as const, label: "NPIs", icon: <BsFileEarmarkCode />, className: styles.colCenter, width: ".75fr" },
+            { key: "emails" as const, label: "Emails", icon: <BsEnvelope />, className: styles.colCenter, width: ".75fr" },
+            { key: "phones" as const, label: "Phones", icon: <BsTelephone />, className: styles.colCenter, width: ".75fr" },
+            { key: "faxes" as const, label: "Faxes", icon: <BsPrinterFill />, className: styles.colCenter, width: ".75fr" },
+            { key: "licenses" as const, label: "Licenses", icon: <BsPatchCheck />, className: styles.colCenter, width: ".85fr" },
+            { key: "action" as const, label: "Action", icon: null, className: styles.colRight, width: "1.3fr" },
+        ],
+        [],
+    );
+
+    const visibleListColumns = useMemo(
+        () => listHeaderColumns.filter((column) => {
+            if (column.key === "hash" || column.key === "specialty" || column.key === "action") {
+                return true;
+            }
+
+            return visibleColumns[column.key as HideableColumnKey];
+        }),
+        [listHeaderColumns, visibleColumns],
+    );
+
+    const hideableColumns = useMemo(
+        () => listHeaderColumns.filter((column) => column.key !== "hash" && column.key !== "specialty" && column.key !== "action"),
+        [listHeaderColumns],
+    );
+
+    const listGridTemplateColumns = useMemo(
+        () => (visibleListColumns.length > 0 ? visibleListColumns.map((column) => column.width).join(" ") : "1fr"),
+        [visibleListColumns],
+    );
+
+    const toggleColumnVisibility = (columnKey: HideableColumnKey) => {
+        setVisibleColumns((prev) => ({
+            ...prev,
+            [columnKey]: !prev[columnKey],
+        }));
+    };
 
     const trustItems = [
         { key: "gdpr", label: "GDPR Compliant", icon: <BsShieldFillCheck className={styles.trustTeal} /> },
@@ -429,6 +472,37 @@ const ProductListMainView = () => {
                                 {chip.icon} {chip.label} <span className={styles.count}>{chip.count}</span>
                             </div>
                         ))}
+                        <button
+                            type="button"
+                            className={classNames(styles.chip, styles.columnsChipBtn, isColumnsMenuOpen && styles.active)}
+                            onClick={() => setIsColumnsMenuOpen((prev) => !prev)}
+                        >
+                            <BsListUl /> Columns
+                        </button>
+                    </div>
+
+                    <div className={classNames(styles.columnsRow, isColumnsMenuOpen && styles.visible)}>
+                        {hideableColumns.map((column) => {
+                            const checked = visibleColumns[column.key as HideableColumnKey];
+
+                            return (
+                                <button
+                                    key={column.key}
+                                    type="button"
+                                    className={classNames(styles.columnBadge, checked && styles.active)}
+                                    onClick={() => toggleColumnVisibility(column.key as HideableColumnKey)}
+                                >
+                                    <BsCheck2 className={styles.columnCheckIcon} /> {column.label || "#"}
+                                </button>
+                            );
+                        })}
+                        <button
+                            type="button"
+                            className={classNames(styles.columnBadge, styles.resetBadge)}
+                            onClick={() => setVisibleColumns(defaultHideableColumns)}
+                        >
+                            <BsArrowClockwise className={styles.columnCheckIcon} /> Reset
+                        </button>
                     </div>
 
                     <div className={classNames(styles.filterTags, filter !== "all" && styles.visible)} id="filterTags">
@@ -524,8 +598,8 @@ const ProductListMainView = () => {
                 )}
 
                 <div className={classNames(styles.listView, view === "list" && styles.active)} id="listView">
-                    <div className={styles.thead}>
-                        {listHeaderColumns.map((col) => (
+                    <div className={styles.thead} style={{ gridTemplateColumns: listGridTemplateColumns }}>
+                        {visibleListColumns.map((col) => (
                             <div key={col.key} className={col.className}>
                                 {col.icon ? <>{col.icon} {col.label}</> : col.label}
                             </div>
@@ -536,39 +610,70 @@ const ProductListMainView = () => {
                             const Icon = itemIcons[index % itemIcons.length];
                             const serial = (currentPage - 1) * perPage + index + 1;
                             return (
-                                <div key={item.name} className={styles.trow}>
-                                    <div className={styles.tSerial}><span className={styles.tSerialNum}>{serial}</span></div>
-                                    <div>
-                                        <div className={styles.tSpec}>
-                                            <div className={styles.tSpecIcon} style={{ background: iconGradients[item.color] }}>
-                                                <Icon />
-                                            </div>
-                                            <div>
-                                                <div className={styles.tSpecName}>
-                                                    {item.name}
-                                                    <span className={styles.tSpecExternal}>{">"}</span>
+                                <div key={item.name} className={styles.trow} style={{ gridTemplateColumns: listGridTemplateColumns }}>
+                                    {visibleListColumns.map((column) => {
+                                        if (column.key === "hash") {
+                                            return (
+                                                <div key={column.key} className={styles.tSerial}>
+                                                    <span className={styles.tSerialNum}>{serial}</span>
                                                 </div>
-                                                <div>
-                                                    {item.tags.map((tag) => (
-                                                        <span key={tag} className={classNames(styles.tTag, styles[tagMeta[tag].tcls])}>
-                                                            {tagMeta[tag].lbl}
-                                                        </span>
-                                                    ))}
+                                            );
+                                        }
+
+                                        if (column.key === "specialty") {
+                                            return (
+                                                <div key={column.key}>
+                                                    <div className={styles.tSpec}>
+                                                        <div className={styles.tSpecIcon} style={{ background: iconGradients[item.color] }}>
+                                                            <Icon />
+                                                        </div>
+                                                        <div>
+                                                            <div className={styles.tSpecName}>
+                                                                {item.name}
+                                                                <span className={styles.tSpecExternal}>{">"}</span>
+                                                            </div>
+                                                            <div>
+                                                                {item.tags.map((tag) => (
+                                                                    <span key={tag} className={classNames(styles.tTag, styles[tagMeta[tag].tcls])}>
+                                                                        {tagMeta[tag].lbl}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            );
+                                        }
+
+                                        if (column.key === "npis") {
+                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnBlue)}><span className={styles.tNumVal}>{fmt(item.npis)}</span></div>;
+                                        }
+
+                                        if (column.key === "emails") {
+                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnTeal)}><span className={styles.tNumVal}>{fmt(item.emails)}</span></div>;
+                                        }
+
+                                        if (column.key === "phones") {
+                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnIndigo)}><span className={styles.tNumVal}>{fmt(item.phones)}</span></div>;
+                                        }
+
+                                        if (column.key === "faxes") {
+                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnAmber)}><span className={styles.tNumVal}>{fmt(item.faxes)}</span></div>;
+                                        }
+
+                                        if (column.key === "licenses") {
+                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnIndigo)}><span className={styles.tNumVal}>{fmt(item.licenses)}</span></div>;
+                                        }
+
+                                        return (
+                                            <div key={column.key} style={{ display: "flex", justifyContent: "flex-end" }}>
+                                                <a href="#" className={styles.tActionBtn}>
+                                                    <span>Customize</span>
+                                                    <span>{">"}</span>
+                                                </a>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className={classNames(styles.tNum, styles.tnBlue)}><span className={styles.tNumVal}>{fmt(item.npis)}</span></div>
-                                    <div className={classNames(styles.tNum, styles.tnTeal)}><span className={styles.tNumVal}>{fmt(item.emails)}</span></div>
-                                    <div className={classNames(styles.tNum, styles.tnIndigo)}><span className={styles.tNumVal}>{fmt(item.phones)}</span></div>
-                                    <div className={classNames(styles.tNum, styles.tnAmber)}><span className={styles.tNumVal}>{fmt(item.faxes)}</span></div>
-                                    <div className={classNames(styles.tNum, styles.tnIndigo)}><span className={styles.tNumVal}>{fmt(item.licenses)}</span></div>
-                                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                                        <a href="#" className={styles.tActionBtn}>
-                                            <span>Customize</span>
-                                            <span>{">"}</span>
-                                        </a>
-                                    </div>
+                                        );
+                                    })}
                                 </div>
                             );
                         })}
