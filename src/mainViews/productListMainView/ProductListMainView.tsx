@@ -1,5 +1,4 @@
 'use client';
-import classNames from "classnames";
 import { useEffect, useMemo, useState } from "react";
 import {
     BsAt,
@@ -7,22 +6,17 @@ import {
     BsAwardFill,
     BsCollectionFill,
     BsDownload,
-    BsEnvelopeFill,
     BsEnvelopeCheckFill,
-    BsCheck2,
+    BsEnvelopeFill,
     BsFileEarmarkFill,
     BsFire,
-    BsFunnel,
     BsFunnelFill,
     BsGrid3X3GapFill,
     BsHeadset,
     BsLightningChargeFill,
-    BsListUl,
     BsPatchCheckFill,
     BsPatchCheck,
     BsPersonLinesFill,
-    BsSearch,
-    BsShieldLockFill,
     BsShieldFillCheck,
     BsStarFill,
     BsStars,
@@ -33,25 +27,19 @@ import { Container } from "react-bootstrap";
 import CtaSection from "@/components/ctaSection/CtaSection";
 import styles from "./productListMainView.module.scss";
 import { FaHashtag } from "react-icons/fa6";
+import HeroAndStatsSection from "./views/HeroAndStatsSection";
+import ProductControlsSection from "./views/ProductControlsSection";
+import ProductDataViewsSection from "./views/ProductDataViewsSection";
+import ProductTrustSection from "./views/ProductTrustSection";
+import { IProductListItem } from "@/shared/interface";
 
 type FilterKey = "all" | "hot" | "popular" | "new" | "verified";
 type SortKey = "default" | "npis-desc" | "npis-asc" | "name-az" | "emails-desc";
 type ViewKey = "grid" | "list";
 type HideableColumnKey = "npis" | "emails" | "phones" | "faxes" | "licenses";
 
-type DbItem = {
-    name: string;
-    npis: number;
-    emails: number;
-    phones: number;
-    faxes: number;
-    licenses: number;
-    color: "rose" | "teal" | "blue" | "amber" | "indigo" | "emerald";
-    tags: Array<"hot" | "popular" | "new" | "verified">;
-    cat: string;
-};
 
-const iconGradients: Record<DbItem["color"], string> = {
+const iconGradients: Record<IProductListItem["color"], string> = {
     rose: "linear-gradient(135deg, #f43f5e, #e11d48)",
     teal: "linear-gradient(135deg, #14b8a6, #0d9488)",
     blue: "linear-gradient(135deg, #0ea5e9, #0284c7)",
@@ -59,8 +47,8 @@ const iconGradients: Record<DbItem["color"], string> = {
     indigo: "linear-gradient(135deg, #6366f1, #4f46e5)",
     emerald: "linear-gradient(135deg, #10b981, #059669)",
 };
-
-const DB: DbItem[] = [
+//dummy data
+const DB: IProductListItem[] = [
     { name: "Allergist Email List", npis: 5072, emails: 889, phones: 3521, faxes: 2617, licenses: 5004, color: "rose", tags: ["hot"], cat: "Specialists" },
     { name: "Allergy Immunology Email List", npis: 5151, emails: 919, phones: 3582, faxes: 2656, licenses: 5079, color: "teal", tags: ["verified"], cat: "Specialists" },
     { name: "Anesthesiologist Email List", npis: 51351, emails: 18309, phones: 16771, faxes: 7785, licenses: 49549, color: "blue", tags: ["hot", "popular"], cat: "Surgical" },
@@ -271,375 +259,46 @@ const ProductListMainView = () => {
 
     return (
         <div>
-            <section className={styles.hero}>
-                <div className={styles.heroSurface}></div>
-                <Container>
-                    <div className={styles.heroContent}>
-                        <div className={styles.heroText}>
-                            <div className={styles.liveBadge}>
-                                <span className={styles.pulseDot}></span>
-                                24 Verified Specialty Databases — Updated Weekly
-                            </div>
-                            <h1 className={styles.heroTitle}>
-                                Premium <span className="shifting-accent">Specialty</span><br />
-                                Medical Contact Lists
-                            </h1>
-                            <p className={styles.heroSub}>
-                                Precision-targeted healthcare contact databases for B2B lead generation — verified, GDPR-compliant, and optimized for 95%+ email deliverability.
-                            </p>
-                            <div className={styles.heroActions}>
-                                <a href="#" className={classNames(styles.btn, styles.btnWhite)}>
-                                    <BsFunnelFill /> Open Prospector
-                                </a>
-                                <a href="#" className={classNames(styles.btn, styles.btnGhost)}>
-                                    <BsDownload /> Full Catalog
-                                </a>
-                            </div>
-                        </div>
-                        <div className={styles.heroVisual}>
-                            <div className={classNames(styles.heroFloat, styles.heroFloat1)}>
-                                <BsEnvelopeCheckFill />
-                                <div>
-                                    <div className={styles.val}>930K+</div>
-                                    <div className={styles.lbl}>Verified Contacts</div>
-                                </div>
-                            </div>
-                            <div className={classNames(styles.heroFloat, styles.heroFloat2)}>
-                                <BsPatchCheckFill />
-                                <div>
-                                    <div className={styles.val}>95%</div>
-                                    <div className={styles.lbl}>Deliverability</div>
-                                </div>
-                            </div>
-                            <div className={classNames(styles.heroFloat, styles.heroFloat3)}>
-                                <BsShieldLockFill />
-                                <div>
-                                    <div className={styles.val}>100%</div>
-                                    <div className={styles.lbl}>GDPR Compliant</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Container>
-            </section>
-
-            <Container className={styles.statsFloat}>
-                <div className={styles.statsFloatInner}>
-                    <div className={styles.statsGrid}>
-                        <div className={styles.statItem}>
-                            <div className={classNames(styles.statIcon, styles.gBlue)}>
-                                <BsCollectionFill />
-                            </div>
-                            <div className={styles.statInfo}>
-                                <div className={styles.statVal} data-target="24">{fmt(animatedStats.specialtyLists)}</div>
-                                <div className={styles.statLbl}>Specialty Lists</div>
-                            </div>
-                        </div>
-                        <div className={styles.statItem}>
-                            <div className={classNames(styles.statIcon, styles.gTeal)}>
-                                <BsPersonLinesFill />
-                            </div>
-                            <div className={styles.statInfo}>
-                                <div className={styles.statVal} data-target="930285">{fmt(animatedStats.totalContacts)}</div>
-                                <div className={styles.statLbl}>Total Contacts</div>
-                            </div>
-                        </div>
-                        <div className={styles.statItem}>
-                            <div className={classNames(styles.statIcon, styles.gIndigo)}>
-                                <BsAt />
-                            </div>
-                            <div className={styles.statInfo}>
-                                <div className={styles.statVal} data-target="885150">{fmt(animatedStats.emailAddresses)}</div>
-                                <div className={styles.statLbl}>Email Addresses</div>
-                            </div>
-                        </div>
-                        <div className={styles.statItem}>
-                            <div className={classNames(styles.statIcon, styles.gAmber)}>
-                                <BsTelephoneFill />
-                            </div>
-                            <div className={styles.statInfo}>
-                                <div className={styles.statVal} data-target="142350">{fmt(animatedStats.phoneNumbers)}</div>
-                                <div className={styles.statLbl}>Phone Numbers</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Container>
+            <HeroAndStatsSection animatedStats={animatedStats} fmt={fmt} styles={styles} />
 
             <Container as="main">
-                <div className={classNames(styles.tools)}>
-                    <div className={styles.toolsPrimary}>
-                        <div className={styles.toolsLeft}>
-                            <div className={styles.search}>
-                                <BsSearch />
-                                <input
-                                    type="text"
-                                    id="searchInput"
-                                    placeholder="Search specialties, categories..."
-                                    autoComplete="off"
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                />
-                            </div>
-                            <select
-                                className={styles.select}
-                                id="sortSelect"
-                                value={sort}
-                                onChange={(e) => setSort(e.target.value as SortKey)}
-                            >
-                                {sortOptions.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className={styles.viewToggle}>
-                            <button
-                                type="button"
-                                className={classNames(styles.viewToggleBtn, view === "list" && styles.active)}
-                                id="listBtn"
-                                title="List View"
-                                onClick={() => setView("list")}
-                            >
-                                <BsListUl />
-                            </button>
-                            <button
-                                type="button"
-                                className={classNames(styles.viewToggleBtn, view === "grid" && styles.active)}
-                                id="gridBtn"
-                                title="Grid View"
-                                onClick={() => setView("grid")}
-                            >
-                                <BsGrid3X3GapFill />
-                            </button>
-                        </div>
-                    </div>
+                <ProductControlsSection
+                    search={search}
+                    sort={sort}
+                    view={view}
+                    filter={filter}
+                    chips={chips}
+                    sortOptions={sortOptions}
+                    hideableColumns={hideableColumns}
+                    visibleColumns={visibleColumns}
+                    isColumnsMenuOpen={isColumnsMenuOpen}
+                    filteredCount={filteredData.length}
+                    tagMeta={tagMeta}
+                    defaultVisibleColumns={defaultHideableColumns}
+                    styles={styles}
+                    onSearchChange={setSearch}
+                    onSortChange={(value) => setSort(value as SortKey)}
+                    onViewChange={setView}
+                    onFilterChange={(value) => setFilter(value as FilterKey)}
+                    onToggleColumnsMenu={() => setIsColumnsMenuOpen((prev) => !prev)}
+                    onToggleColumnVisibility={(columnKey) => toggleColumnVisibility(columnKey as HideableColumnKey)}
+                    onResetColumns={() => setVisibleColumns(defaultHideableColumns)}
+                />
 
-                    <div className={styles.chips}>
-                        {chips.map((chip) => (
-                            <div
-                                key={chip.key}
-                                className={classNames(styles.chip, filter === chip.key && styles.active)}
-                                data-filter={chip.key}
-                                onClick={() => setFilter(chip.key)}
-                            >
-                                {chip.icon} {chip.label} <span className={styles.count}>{chip.count}</span>
-                            </div>
-                        ))}
-                        <button
-                            type="button"
-                            className={classNames(styles.chip, styles.columnsChipBtn, isColumnsMenuOpen && styles.active)}
-                            onClick={() => setIsColumnsMenuOpen((prev) => !prev)}
-                        >
-                            <BsListUl /> Columns
-                        </button>
-                    </div>
+                <ProductDataViewsSection
+                    view={view}
+                    filteredData={filteredData}
+                    itemIcons={itemIcons}
+                    iconGradients={iconGradients}
+                    featured={featured}
+                    fmt={fmt}
+                    tagMeta={tagMeta}
+                    styles={styles}
+                    visibleListColumns={visibleListColumns}
+                    listGridTemplateColumns={listGridTemplateColumns}
+                />
 
-                    <div className={classNames(styles.columnsRow, isColumnsMenuOpen && styles.visible)}>
-                        {hideableColumns.map((column) => {
-                            const checked = visibleColumns[column.key as HideableColumnKey];
-
-                            return (
-                                <button
-                                    key={column.key}
-                                    type="button"
-                                    className={classNames(styles.columnBadge, checked && styles.active)}
-                                    onClick={() => toggleColumnVisibility(column.key as HideableColumnKey)}
-                                >
-                                    <BsCheck2 className={styles.columnCheckIcon} /> {column.label || "#"}
-                                </button>
-                            );
-                        })}
-                        <button
-                            type="button"
-                            className={classNames(styles.columnBadge, styles.resetBadge)}
-                            onClick={() => setVisibleColumns(defaultHideableColumns)}
-                        >
-                            <BsArrowClockwise className={styles.columnCheckIcon} /> Reset
-                        </button>
-                    </div>
-
-                    <div className={classNames(styles.filterTags, filter !== "all" && styles.visible)} id="filterTags">
-                        <BsFunnel className={styles.filterIcon} />
-                        <span className={styles.filteringLabel}>Filtering:</span>
-                        <div id="activeTags">
-                            {filter !== "all" && (
-                                <span className={styles.filterTag}>
-                                    {tagMeta[filter].lbl}
-                                    <span
-                                        className={styles.remove}
-                                        role="button"
-                                        tabIndex={0}
-                                        onClick={() => setFilter("all")}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter" || e.key === " ") {
-                                                setFilter("all");
-                                            }
-                                        }}
-                                    >
-                                        x
-                                    </span>
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                <div className={classNames(styles.resultsBar)}>
-                    <div className={styles.resultsCount}>Showing <strong>{filteredData.length}</strong> specialty lists</div>
-                    <div className={classNames(styles.activeFilterLbl, filter !== "all" && styles.visible)} id="filterLbl">
-                        <BsFunnelFill />
-                        <span id="filterLblText">Showing {filteredData.length} results</span>
-                    </div>
-                </div>
-
-                {view === "grid" && (
-                    <div className={styles.grid} id="gridView">
-                        {filteredData.length === 0 && <div>No results found.</div>}
-                        {filteredData.map((item, index) => {
-                            const Icon = itemIcons[index % itemIcons.length];
-                            return (
-                                <div
-                                    key={item.name}
-                                    className={classNames(styles.card, featured.has(item.name) && styles.featured)}
-                                >
-                                    <div className={styles.cardTop}>
-                                        <div className={styles.cardIcon} style={{ background: iconGradients[item.color], position: "relative" }}>
-                                            <div className={styles.cardIconGlow}></div>
-                                            <Icon />
-                                        </div>
-                                        <div className={styles.cardMeta}>
-                                            <div className={styles.cardCat}>{item.cat}</div>
-                                            <div className={styles.cardName}>{item.name}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.cardStats}>
-                                        <div className={styles.cardStat}>
-                                            <div className={classNames(styles.statV, styles.svBlue)}>{fmt(item.npis)}</div>
-                                            <div className={styles.statL}>NPI Records</div>
-                                        </div>
-                                        <div className={styles.cardStat}>
-                                            <div className={classNames(styles.statV, styles.svTeal)}>{fmt(item.emails)}</div>
-                                            <div className={styles.statL}>Emails</div>
-                                        </div>
-                                        <div className={styles.cardStat}>
-                                            <div className={classNames(styles.statV, styles.svIndigo)}>{fmt(item.phones)}</div>
-                                            <div className={styles.statL}>Phones</div>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.cardDivider}></div>
-
-                                    <div className={styles.cardFoot}>
-                                        <div className={styles.cardRibbons}>
-                                            {item.tags.map((tag) => (
-                                                <span key={tag} className={classNames(styles.ribbon, styles[tagMeta[tag].cls])}>
-                                                    {tagMeta[tag].lbl}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <div className={styles.cardHoverArrow}>{">"}</div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
-
-                <div className={classNames(styles.listView, view === "list" && styles.active)} id="listView">
-                    <div className={styles.thead} style={{ gridTemplateColumns: listGridTemplateColumns }}>
-                        {visibleListColumns.map((col) => (
-                            <div key={col.key} className={col.className}>
-                                {col.icon ? <>{col.icon} {col.label}</> : col.label}
-                            </div>
-                        ))}
-                    </div>
-                    <div id="listBody">
-                        {view === "list" && filteredData.map((item, index) => {
-                            const Icon = itemIcons[index % itemIcons.length];
-                            const serial = index + 1;
-                            return (
-                                <div key={item.name} className={styles.trow} style={{ gridTemplateColumns: listGridTemplateColumns }}>
-                                    {visibleListColumns.map((column) => {
-                                        if (column.key === "hash") {
-                                            return (
-                                                <div key={column.key} className={styles.tSerial}>
-                                                    <span className={styles.tSerialNum}>{serial}</span>
-                                                </div>
-                                            );
-                                        }
-
-                                        if (column.key === "specialty") {
-                                            return (
-                                                <div key={column.key}>
-                                                    <div className={styles.tSpec}>
-                                                        <div className={styles.tSpecIcon} style={{ background: iconGradients[item.color] }}>
-                                                            <Icon />
-                                                        </div>
-                                                        <div>
-                                                            <div className={styles.tSpecName}>
-                                                                {item.name}
-                                                                <span className={styles.tSpecExternal}>{">"}</span>
-                                                            </div>
-                                                            <div>
-                                                                {item.tags.map((tag) => (
-                                                                    <span key={tag} className={classNames(styles.tTag, styles[tagMeta[tag].tcls])}>
-                                                                        {tagMeta[tag].lbl}
-                                                                    </span>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            );
-                                        }
-
-                                        if (column.key === "npis") {
-                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnBlue)}><span className={styles.tNumVal}>{fmt(item.npis)}</span></div>;
-                                        }
-
-                                        if (column.key === "emails") {
-                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnTeal)}><span className={styles.tNumVal}>{fmt(item.emails)}</span></div>;
-                                        }
-
-                                        if (column.key === "phones") {
-                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnIndigo)}><span className={styles.tNumVal}>{fmt(item.phones)}</span></div>;
-                                        }
-
-                                        if (column.key === "faxes") {
-                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnAmber)}><span className={styles.tNumVal}>{fmt(item.faxes)}</span></div>;
-                                        }
-
-                                        if (column.key === "licenses") {
-                                            return <div key={column.key} className={classNames(styles.tNum, styles.tnIndigo)}><span className={styles.tNumVal}>{fmt(item.licenses)}</span></div>;
-                                        }
-
-                                        return (
-                                            <div key={column.key} style={{ display: "flex", justifyContent: "flex-end" }}>
-                                                <a href="#" className={styles.tActionBtn}>
-                                                    <span>Customize</span>
-                                                    <span>{">"}</span>
-                                                </a>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                <div className={classNames(styles.trust)}>
-                    <div className={styles.trustInner}>
-                        {trustItems.map((item) => (
-                            <div key={item.key} className={styles.trustItem}>
-                                {item.icon}
-                                <span>{item.label}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <ProductTrustSection trustItems={trustItems} styles={styles} />
 
                 <CtaSection />
             </Container>

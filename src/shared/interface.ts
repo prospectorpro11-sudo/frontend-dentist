@@ -245,3 +245,15 @@ export interface IHomeSeeds {
 	locationSegmentation: ILocationSegmentation;
 	faq: IFaq;
 }
+
+export interface IProductListItem {
+	name: string;
+	npis: number;
+	emails: number;
+	phones: number;
+	faxes: number;
+	licenses: number;
+	color: "rose" | "teal" | "blue" | "amber" | "indigo" | "emerald";
+	tags: Array<"hot" | "popular" | "new" | "verified">;
+	cat: string;
+};
