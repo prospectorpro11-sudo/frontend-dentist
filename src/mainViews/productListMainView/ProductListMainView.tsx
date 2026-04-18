@@ -367,7 +367,7 @@ const ProductListMainView = () => {
             </Container>
 
             <Container as="main">
-                <div className={classNames(styles.tools, styles.reveal)}>
+                <div className={classNames(styles.tools)}>
                     <div className={styles.toolsPrimary}>
                         <div className={styles.toolsLeft}>
                             <div className={styles.search}>
@@ -486,7 +486,7 @@ const ProductListMainView = () => {
                     </div>
                 </div>
 
-                <div className={classNames(styles.resultsBar, styles.reveal)}>
+                <div className={classNames(styles.resultsBar)}>
                     <div className={styles.resultsCount}>Showing <strong>{filteredData.length}</strong> specialty lists</div>
                     <div className={classNames(styles.activeFilterLbl, filter !== "all" && styles.visible)} id="filterLbl">
                         <BsFunnelFill />
@@ -630,7 +630,7 @@ const ProductListMainView = () => {
                         })}
                     </div>
                 </div>
-                <div className={classNames(styles.trust, styles.reveal)}>
+                <div className={classNames(styles.trust)}>
                     <div className={styles.trustInner}>
                         {trustItems.map((item) => (
                             <div key={item.key} className={styles.trustItem}>
@@ -641,7 +641,7 @@ const ProductListMainView = () => {
                     </div>
                 </div>
 
-                <CtaSection className={styles.reveal} />
+                <CtaSection />
             </Container>
         </div>
     );
