@@ -33,7 +33,6 @@ import {
     BsPrinterFill,
 } from "react-icons/bs";
 import { Container } from "react-bootstrap";
-import Pagination from "@/components/pagination/Pagination";
 import styles from "./productListMainView.module.scss";
 
 type FilterKey = "all" | "hot" | "popular" | "new" | "verified";
@@ -132,8 +131,6 @@ const ProductListMainView = () => {
     const [filter, setFilter] = useState<FilterKey>("all");
     const [sort, setSort] = useState<SortKey>("default");
     const [view, setView] = useState<ViewKey>("list");
-    const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(12);
     const [isColumnsMenuOpen, setIsColumnsMenuOpen] = useState(false);
     const [visibleColumns, setVisibleColumns] = useState<Record<HideableColumnKey, boolean>>(defaultHideableColumns);
     const [animatedStats, setAnimatedStats] = useState({
@@ -222,16 +219,6 @@ const ProductListMainView = () => {
 
         return result;
     }, [filter, search, sort]);
-
-    const totalPages = Math.max(1, Math.ceil(filteredData.length / perPage));
-    const currentPage = Math.min(page, totalPages);
-
-    const pagedData = useMemo(() => {
-        const start = (currentPage - 1) * perPage;
-        return filteredData.slice(start, start + perPage);
-    }, [currentPage, filteredData, perPage]);
-
-    const pageEndIndex = Math.min(currentPage * perPage, filteredData.length);
 
     const listHeaderColumns = useMemo(
         () => [
@@ -392,20 +379,14 @@ const ProductListMainView = () => {
                                     placeholder="Search specialties, categories..."
                                     autoComplete="off"
                                     value={search}
-                                    onChange={(e) => {
-                                        setSearch(e.target.value);
-                                        setPage(1);
-                                    }}
+                                    onChange={(e) => setSearch(e.target.value)}
                                 />
                             </div>
                             <select
                                 className={styles.select}
                                 id="sortSelect"
                                 value={sort}
-                                onChange={(e) => {
-                                    setSort(e.target.value as SortKey);
-                                    setPage(1);
-                                }}
+                                onChange={(e) => setSort(e.target.value as SortKey)}
                             >
                                 {sortOptions.map((option) => (
                                     <option key={option.value} value={option.value}>
@@ -442,10 +423,7 @@ const ProductListMainView = () => {
                                 key={chip.key}
                                 className={classNames(styles.chip, filter === chip.key && styles.active)}
                                 data-filter={chip.key}
-                                onClick={() => {
-                                    setFilter(chip.key);
-                                    setPage(1);
-                                }}
+                                onClick={() => setFilter(chip.key)}
                             >
                                 {chip.icon} {chip.label} <span className={styles.count}>{chip.count}</span>
                             </div>
@@ -494,14 +472,10 @@ const ProductListMainView = () => {
                                         className={styles.remove}
                                         role="button"
                                         tabIndex={0}
-                                        onClick={() => {
-                                            setFilter("all");
-                                            setPage(1);
-                                        }}
+                                        onClick={() => setFilter("all")}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter" || e.key === " ") {
                                                 setFilter("all");
-                                                setPage(1);
                                             }
                                         }}
                                     >
@@ -523,8 +497,8 @@ const ProductListMainView = () => {
 
                 {view === "grid" && (
                     <div className={styles.grid} id="gridView">
-                        {pagedData.length === 0 && <div>No results found.</div>}
-                        {pagedData.map((item, index) => {
+                        {filteredData.length === 0 && <div>No results found.</div>}
+                        {filteredData.map((item, index) => {
                             const Icon = itemIcons[index % itemIcons.length];
                             return (
                                 <div
@@ -584,9 +558,9 @@ const ProductListMainView = () => {
                         ))}
                     </div>
                     <div id="listBody">
-                        {view === "list" && pagedData.map((item, index) => {
+                        {view === "list" && filteredData.map((item, index) => {
                             const Icon = itemIcons[index % itemIcons.length];
-                            const serial = (currentPage - 1) * perPage + index + 1;
+                            const serial = index + 1;
                             return (
                                 <div key={item.name} className={styles.trow} style={{ gridTemplateColumns: listGridTemplateColumns }}>
                                     {visibleListColumns.map((column) => {
@@ -657,20 +631,6 @@ const ProductListMainView = () => {
                         })}
                     </div>
                 </div>
-
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    pageEndIndex={pageEndIndex}
-                    totalResults={filteredData.length}
-                    perPage={perPage}
-                    onPageChange={setPage}
-                    onPerPageChange={(nextPerPage) => {
-                        setPerPage(nextPerPage);
-                        setPage(1);
-                    }}
-                />
-
                 <div className={classNames(styles.trust, styles.reveal)}>
                     <div className={styles.trustInner}>
                         {trustItems.map((item) => (
