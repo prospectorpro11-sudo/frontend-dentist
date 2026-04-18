@@ -33,6 +33,7 @@ import {
     BsPrinterFill,
 } from "react-icons/bs";
 import { Container } from "react-bootstrap";
+import Pagination from "@/components/pagination/Pagination";
 import styles from "./productListMainView.module.scss";
 
 type FilterKey = "all" | "hot" | "popular" | "new" | "verified";
@@ -124,29 +125,6 @@ const defaultHideableColumns: Record<HideableColumnKey, boolean> = {
     phones: true,
     faxes: true,
     licenses: true,
-};
-
-const getPageTokens = (total: number, current: number): Array<number | "ellipsis"> => {
-    if (total <= 1) return [1];
-
-    const pages: number[] = [];
-    for (let i = 1; i <= total; i += 1) {
-        if (total <= 6 || i <= 2 || i > total - 1 || Math.abs(i - current) <= 1) {
-            pages.push(i);
-        }
-    }
-
-    const uniquePages = [...new Set(pages)].sort((a, b) => a - b);
-    const tokens: Array<number | "ellipsis"> = [];
-    let last = 0;
-
-    uniquePages.forEach((p) => {
-        if (p - last > 1) tokens.push("ellipsis");
-        tokens.push(p);
-        last = p;
-    });
-
-    return tokens;
 };
 
 const ProductListMainView = () => {
@@ -680,60 +658,18 @@ const ProductListMainView = () => {
                     </div>
                 </div>
 
-                <div className={styles.paginationSection} id="paginationSection">
-                    <div className={styles.showingText}>
-                        Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong> -{" "}
-                        <span>Showing <strong>{pageEndIndex}</strong> of {filteredData.length} results</span>
-                    </div>
-                    <div className={styles.perPageGroup}>
-                        <span>Per page</span>
-                        <select
-                            value={perPage}
-                            onChange={(e) => {
-                                setPerPage(parseInt(e.target.value, 10));
-                                setPage(1);
-                            }}
-                        >
-                            {[6, 9, 12, 24].map((v) => (
-                                <option key={v} value={v}>{v}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className={styles.pageBtns}>
-                        <button
-                            type="button"
-                            className={styles.pageBtn}
-                            disabled={currentPage === 1}
-                            onClick={() => setPage(Math.max(1, currentPage - 1))}
-                        >
-                            {"<"}
-                        </button>
-                        {getPageTokens(totalPages, currentPage).map((token, idx) => {
-                            if (token === "ellipsis") {
-                                return <span key={`ellipsis-${idx}`}>...</span>;
-                            }
-
-                            return (
-                                <button
-                                    key={token}
-                                    type="button"
-                                    className={classNames(styles.pageBtn, token === currentPage && styles.active)}
-                                    onClick={() => setPage(token)}
-                                >
-                                    {token}
-                                </button>
-                            );
-                        })}
-                        <button
-                            type="button"
-                            className={styles.pageBtn}
-                            disabled={currentPage === totalPages}
-                            onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
-                        >
-                            {">"}
-                        </button>
-                    </div>
-                </div>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    pageEndIndex={pageEndIndex}
+                    totalResults={filteredData.length}
+                    perPage={perPage}
+                    onPageChange={setPage}
+                    onPerPageChange={(nextPerPage) => {
+                        setPerPage(nextPerPage);
+                        setPage(1);
+                    }}
+                />
 
                 <div className={classNames(styles.trust, styles.reveal)}>
                     <div className={styles.trustInner}>
