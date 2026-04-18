@@ -46,6 +46,7 @@ const Button = (props: IButton) => {
         [BUTTON_VARIANT_ENUM.TERTIARY]: styles.tertiary,
         [BUTTON_VARIANT_ENUM.ACTION]: styles.action,
         [BUTTON_VARIANT_ENUM.TERTIARY_SECONDARY]: styles.tertiarySecondary,
+        [BUTTON_VARIANT_ENUM.WHITE]: styles.white,
     }[variant];
 
     return (

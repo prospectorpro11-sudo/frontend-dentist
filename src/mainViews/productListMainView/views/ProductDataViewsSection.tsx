@@ -1,6 +1,7 @@
 import { IProductListItem } from "@/shared/interface";
 import classNames from "classnames";
 import type { IconType } from "react-icons";
+import { HiMiniArrowUpRight } from "react-icons/hi2";
 
 type TagMeta = Record<string, { lbl: string; cls: string; tcls: string }>;
 
@@ -164,7 +165,7 @@ const ProductDataViewsSection = ({
                                         <div key={column.key} style={{ display: "flex", justifyContent: "flex-end" }}>
                                             <a href="#" className={styles.tActionBtn}>
                                                 <span>Customize</span>
-                                                <span>{">"}</span>
+                                                <span><HiMiniArrowUpRight size={18} /></span>
                                             </a>
                                         </div>
                                     );

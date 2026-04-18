@@ -10,6 +10,7 @@ export enum BUTTON_VARIANT_ENUM {
     TERTIARY = "tertiary",
     ACTION = "action",
     TERTIARY_SECONDARY = "tertiary-secondary",
+    WHITE = "white"
 }
 
 export enum BUTTON_SIZE_ENUM {

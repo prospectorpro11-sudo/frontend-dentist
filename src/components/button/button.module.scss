@@ -228,6 +228,24 @@
         }
     }
 
+    &.white {
+        border-radius: var(--r-md);
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: all var(--t-base);
+        background: #fff;
+        color: var(--blue-700);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+
+        &:hover {
+            transform: translateY(-2px);
+            color: var(--blue-700);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+        }
+
+    }
+
     &.radiusNormal {
         border-radius: 10px;
     }

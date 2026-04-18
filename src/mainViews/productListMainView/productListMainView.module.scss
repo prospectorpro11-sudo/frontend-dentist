@@ -123,31 +123,6 @@
         transition: all var(--t-base);
     }
 
-    .btnWhite {
-        background: #fff;
-        color: var(--blue-700);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
-    }
-
-    .btnWhite:hover {
-        transform: translateY(-2px);
-        color: var(--blue-700);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
-    }
-
-    .btnGhost {
-        background: rgba(255, 255, 255, .1);
-        color: #fff;
-        border: 1.5px solid rgba(255, 255, 255, .2);
-        backdrop-filter: blur(8px);
-    }
-
-    .btnGhost:hover {
-        background: rgba(255, 255, 255, .2);
-        color: #fff;
-        transform: translateY(-1px);
-    }
-
     .btnPrimary {
         background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
         color: #fff;

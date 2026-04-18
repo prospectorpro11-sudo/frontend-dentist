@@ -1,3 +1,5 @@
+import Button from "@/components/button/Button";
+import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 import classNames from "classnames";
 import { Container } from "react-bootstrap";
 import {
@@ -45,11 +47,11 @@ const HeroAndStatsSection = ({ animatedStats, fmt, styles }: HeroAndStatsSection
                                 Precision-targeted healthcare contact databases for B2B lead generation - verified, GDPR-compliant, and optimized for 95%+ email deliverability.
                             </p>
                             <div className={styles.heroActions}>
-                                <a href="#" className={classNames(styles.btn, styles.btnWhite)}>
-                                    <BsFunnelFill /> Open Prospector
+                                <a href="#">
+                                    <Button variant={BUTTON_VARIANT_ENUM.WHITE}><BsFunnelFill /> Open Prospector</Button>
                                 </a>
-                                <a href="#" className={classNames(styles.btn, styles.btnGhost)}>
-                                    <BsDownload /> Full Catalog
+                                <a href="#">
+                                    <Button variant={BUTTON_VARIANT_ENUM.GLASS}><BsDownload /> Full Catalog</Button>
                                 </a>
                             </div>
                         </div>
