@@ -5,18 +5,16 @@ import {
     BsAt,
     BsArrowClockwise,
     BsAwardFill,
-    BsBullseye,
     BsCollectionFill,
     BsDownload,
-    BsEnvelope,
+    BsEnvelopeFill,
     BsEnvelopeCheckFill,
     BsCheck2,
-    BsFileEarmarkCode,
+    BsFileEarmarkFill,
     BsFire,
     BsFunnel,
     BsFunnelFill,
     BsGrid3X3GapFill,
-    BsHash,
     BsHeadset,
     BsLightningChargeFill,
     BsListUl,
@@ -28,12 +26,13 @@ import {
     BsShieldFillCheck,
     BsStarFill,
     BsStars,
-    BsTelephone,
     BsTelephoneFill,
     BsPrinterFill,
 } from "react-icons/bs";
 import { Container } from "react-bootstrap";
+import CtaSection from "@/components/ctaSection/CtaSection";
 import styles from "./productListMainView.module.scss";
+import { FaHashtag } from "react-icons/fa6";
 
 type FilterKey = "all" | "hot" | "popular" | "new" | "verified";
 type SortKey = "default" | "npis-desc" | "npis-asc" | "name-az" | "emails-desc";
@@ -222,13 +221,13 @@ const ProductListMainView = () => {
 
     const listHeaderColumns = useMemo(
         () => [
-            { key: "hash" as const, label: "", icon: <BsHash />, className: "", width: ".45fr" },
-            { key: "specialty" as const, label: "Specialty", icon: <BsListUl />, className: "", width: "2.2fr" },
-            { key: "npis" as const, label: "NPIs", icon: <BsFileEarmarkCode />, className: styles.colCenter, width: ".75fr" },
-            { key: "emails" as const, label: "Emails", icon: <BsEnvelope />, className: styles.colCenter, width: ".75fr" },
-            { key: "phones" as const, label: "Phones", icon: <BsTelephone />, className: styles.colCenter, width: ".75fr" },
+            { key: "hash" as const, label: "", icon: <FaHashtag />, className: "", width: ".45fr" },
+            { key: "specialty" as const, label: "Specialty", icon: <BsPersonLinesFill />, className: "", width: "2.2fr" },
+            { key: "npis" as const, label: "NPIs", icon: <BsFileEarmarkFill />, className: styles.colCenter, width: ".75fr" },
+            { key: "emails" as const, label: "Emails", icon: <BsEnvelopeFill />, className: styles.colCenter, width: ".75fr" },
+            { key: "phones" as const, label: "Phones", icon: <BsTelephoneFill />, className: styles.colCenter, width: ".75fr" },
             { key: "faxes" as const, label: "Faxes", icon: <BsPrinterFill />, className: styles.colCenter, width: ".75fr" },
-            { key: "licenses" as const, label: "Licenses", icon: <BsPatchCheck />, className: styles.colCenter, width: ".85fr" },
+            { key: "licenses" as const, label: "Licenses", icon: <BsPatchCheckFill />, className: styles.colCenter, width: ".85fr" },
             { key: "action" as const, label: "Action", icon: null, className: styles.colRight, width: "1.3fr" },
         ],
         [],
@@ -367,7 +366,7 @@ const ProductListMainView = () => {
                 </div>
             </Container>
 
-            <Container as="main" className={styles.mainSection}>
+            <Container as="main">
                 <div className={classNames(styles.tools, styles.reveal)}>
                     <div className={styles.toolsPrimary}>
                         <div className={styles.toolsLeft}>
@@ -642,25 +641,7 @@ const ProductListMainView = () => {
                     </div>
                 </div>
 
-                <div className={classNames(styles.cta, styles.reveal)}>
-                    <div className={styles.ctaInner}>
-                        <div className={styles.ctaRing}></div>
-                        <div className={styles.ctaIcon}><BsBullseye /></div>
-                        <h2>Build a Custom List from 930,000+ Contacts</h2>
-                        <p>
-                            Use the Prospector to filter by specialty, location, gender, license type, and more
-                            - one-time purchase, no subscription.
-                        </p>
-                        <div className={styles.ctaBtns}>
-                            <a href="#" className={classNames(styles.btn, styles.btnWhite)}>
-                                <BsFunnelFill /> Open Prospector
-                            </a>
-                            <a href="#" className={classNames(styles.btn, styles.btnGhost)}>
-                                <BsHeadset /> Talk to Sales
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <CtaSection className={styles.reveal} />
             </Container>
         </div>
     );
