@@ -156,6 +156,7 @@ section {
     position: relative;
     padding: 7rem 0;
     overflow: hidden;
+    z-index: 1;
 
     .surface {
       position: absolute;
@@ -163,7 +164,7 @@ section {
       background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 42%, #0f766e 100%);
       z-index: 0;
       background: linear-gradient(160deg, #0E2A4D 10.99%, #0C4A6E 34.4%, #0F766E 73.41%, #0D6C5E 89.01%);
-
+      z-index: -1;
     }
 
     .surface::before {

@@ -1,6 +1,64 @@
 @import "styles/variables";
 @import "styles/mixins";
 
-.heroSection{
-    
+.heroTitle {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: $white;
+}
+
+.heroDescription {
+    color: rgba($color: $white, $alpha: 0.65);
+}
+
+.productBadges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+
+    .productBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: var(--r-full);
+        font-size: 13px;
+        font-weight: 600;
+        border: 1px solid transparent;
+
+        .badgeIcon {
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badgeLabel {
+            line-height: 1.4;
+        }
+
+        &.productBadgeBlue {
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--blue-400);
+            border-color: rgba(14, 165, 233, 0.2);
+
+            .badgeIcon {
+                animation: pulse 2s infinite;
+            }
+        }
+
+        &.productBadgeAmber {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--orange-500);
+            border-color: rgba(251, 191, 36, 0.2);
+        }
+
+        &.productBadgeTeal {
+            background: rgba(20, 184, 166, 0.1);
+            color: var(--teal-300);
+            border-color: rgba(20, 184, 166, 0.2);
+        }
+    }
 }

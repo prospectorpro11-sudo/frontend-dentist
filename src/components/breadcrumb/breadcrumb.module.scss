@@ -1,0 +1,127 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.breadcrumb {
+    width: 100%;
+    margin-bottom: 24px;
+
+    .breadcrumbList {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .breadcrumbItem {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .breadcrumbLink {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text2);
+        text-decoration: none;
+        transition: color var(--t-fast);
+        padding: 4px 8px;
+        border-radius: var(--r-sm);
+
+        &:hover {
+            color: var(--blue-400);
+            background: rgba(14, 165, 233, 0.1);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--blue-400);
+            outline-offset: 2px;
+        }
+
+        .breadcrumbIcon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .breadcrumbLabel {
+            line-height: 1.4;
+        }
+    }
+
+    .breadcrumbCurrent {
+        display: inline-flex;
+        color: var(--text3);
+        align-items: center;
+        gap: 6px;
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: var(--r-sm);
+
+        .breadcrumbIcon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .breadcrumbLabel {
+            line-height: 1.4;
+        }
+    }
+
+    .breadcrumbSeparator {
+        color: var(--text3);
+        opacity: 0.5;
+        padding: 0 4px;
+        user-select: none;
+    }
+}
+
+// ============================================
+// Breadcrumb - Variants
+// ============================================
+.breadcrumb {
+    &.breadcrumbLight {
+        .breadcrumbLink {
+            color: var(--text2);
+
+            &:hover {
+                color: var(--blue-600);
+                background: var(--blue-50);
+            }
+        }
+
+        .breadcrumbCurrent {
+            color: var(--text);
+        }
+
+        .breadcrumbSeparator {
+            color: var(--text2);
+        }
+    }
+
+    &.breadcrumbCompact {
+        .breadcrumbList {
+            font-size: 13px;
+        }
+
+        .breadcrumbLink,
+        .breadcrumbCurrent {
+            padding: 2px 6px;
+        }
+    }
+
+    &.breadcrumbLarge {
+        .breadcrumbList {
+            font-size: 15px;
+        }
+
+        .breadcrumbLink,
+        .breadcrumbCurrent {
+            padding: 6px 10px;
+        }
+    }
+
+}
