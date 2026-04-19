@@ -3,6 +3,7 @@ import { PRODUCT_DETAILS_SEED_OBJECT } from "@/shared/seeds/productDetailsSeeds"
 import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBanner";
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
 import ProductPriceList from "./views/productPriceList/ProductPriceList";
+import CustomDentistList from "@/components/customDentistList/CustomDentistList";
 
 const ProductDetailsMainView = () => {
     return (
@@ -11,6 +12,7 @@ const ProductDetailsMainView = () => {
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
             <WhatsIncludedDetails />
             <ProductPriceList />
+            <CustomDentistList />
 
         </>
     );

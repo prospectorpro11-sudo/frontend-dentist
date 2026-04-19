@@ -1,3 +1,4 @@
+import Button from "@/components/button/Button";
 import styles from "./productPriceList.module.scss";
 import classnames from "classnames";
 import { Col, Container, Row } from "react-bootstrap";
@@ -11,6 +12,7 @@ import {
     BsCheck2,
     BsSliders,
 } from "react-icons/bs";
+import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 
 type PricingTier = {
     leads: string;
@@ -185,10 +187,10 @@ const ProductPriceList = () => {
                                     <div className={styles.starterCardPrice}>{pageContent.starterPrice}</div>
                                     <p className={styles.starterCardDescription}>{pageContent.starterDescription}</p>
 
-                                    <button type="button" className={styles.starterCardButton}>
+                                    <Button variant={BUTTON_VARIANT_ENUM.PRIMARY} className={styles.starterCardButton}>
                                         <BsSliders />
                                         {pageContent.starterButtonLabel}
-                                    </button>
+                                    </Button>
 
                                     <div className={styles.starterCardGuarantee}>
                                         <BsPatchCheck />
