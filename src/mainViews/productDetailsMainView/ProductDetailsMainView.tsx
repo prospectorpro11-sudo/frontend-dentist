@@ -12,12 +12,11 @@ const ProductDetailsMainView = () => {
         <>
             <ProductDetailsBanner />
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
-            <WhatsIncludedDetails />
-            <ProductPriceList />
-            <CustomDentistList />
-            <WhyChooseUs />
-            <DentalSpecialtyList />
-
+            <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetailsData} />
+            <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceListData} />
+            <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistListData} />
+            <WhyChooseUs {...PRODUCT_DETAILS_SEED_OBJECT.whyChooseUsData} />
+            <DentalSpecialtyList {...PRODUCT_DETAILS_SEED_OBJECT.dentalSpecialtyListData} />
         </>
     );
 };

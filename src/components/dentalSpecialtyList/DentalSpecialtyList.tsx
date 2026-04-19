@@ -10,79 +10,43 @@ import {
     BsArrowRight,
     BsPeopleFill,
     BsEnvelopeCheckFill,
-    BsGridFill,
 } from "react-icons/bs";
 import Button from "../button/Button";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 
-interface SpecialtyCard {
+type SpecialtyCard = {
     id: string;
     title: string;
     description: string;
-    icon: IconType;
+    icon: string;
     iconColor: "blue" | "teal" | "indigo" | "amber";
     contactCount: string;
     verificationRate: string;
-}
+};
 
-interface PageContent {
+type PageContent = {
     sectionTitle: string;
     sectionSubtitle: string;
     ctaTitle: string;
     ctaDescription: string;
     ctaButtonText: string;
-}
-
-const pageContent: PageContent = {
-    sectionTitle: "Explore <span class='shifting-accent'>Dental Specialty</span> Lists",
-    sectionSubtitle:
-        "Select a specialty to view available contacts and build your targeted marketing campaign.",
-    ctaTitle: "Need a Custom Dental Contact List?",
-    ctaDescription:
-        "Filter by location, specialty, experience level, and more. Build your perfect targeted list in minutes.",
-    ctaButtonText: "Explore All Dental Lists",
 };
 
-const specialtyCards: SpecialtyCard[] = [
-    {
-        id: "dental-surgeon",
-        title: "Dental Surgeon",
-        description: "Surgical procedures and oral surgery specialists",
-        icon: BsPersonBadge,
-        iconColor: "blue",
-        contactCount: "45,320 contacts",
-        verificationRate: "98% verified",
-    },
-    {
-        id: "oral-surgeon",
-        title: "Oral Surgeon",
-        description: "Advanced oral and maxillofacial surgery experts",
-        icon: BsScissors,
-        iconColor: "teal",
-        contactCount: "38,750 contacts",
-        verificationRate: "97% verified",
-    },
-    {
-        id: "general-dentist",
-        title: "General Dentist",
-        description: "Primary dental care and routine checkup providers",
-        icon: BsCheckCircle,
-        iconColor: "indigo",
-        contactCount: "52,180 contacts",
-        verificationRate: "99% verified",
-    },
-    {
-        id: "pediatric-dentist",
-        title: "Pediatric Dentist",
-        description: "Children and adolescent dental care specialists",
-        icon: BsEmojiSmile,
-        iconColor: "amber",
-        contactCount: "28,940 contacts",
-        verificationRate: "96% verified",
-    },
-];
+type DentalSpecialtyListData = {
+    pageContent: PageContent;
+    specialtyCards: SpecialtyCard[];
+};
 
-const DentalSpecialtyList = () => {
+const iconMap: Record<string, IconType> = {
+    BsPersonBadge,
+    BsScissors,
+    BsCheckCircle,
+    BsEmojiSmile,
+};
+
+const DentalSpecialtyList = (props: DentalSpecialtyListData) => {
+    const { pageContent, specialtyCards } = props;
+
     return (
         <section className={styles.mainContent}>
             {/* Section Header */}
@@ -94,7 +58,7 @@ const DentalSpecialtyList = () => {
                 {/* Specialty Cards Grid */}
                 <div className={styles.specialtyGrid}>
                     {specialtyCards.map((card) => {
-                        const Icon = card.icon;
+                        const Icon = iconMap[card.icon];
                         return (
                             <div key={card.id} className={styles.specialtyCard}>
                                 <div className={styles.specialtyHeader}>

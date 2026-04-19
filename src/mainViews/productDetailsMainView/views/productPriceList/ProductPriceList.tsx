@@ -12,6 +12,7 @@ import {
     BsCheck2,
     BsSliders,
 } from "react-icons/bs";
+import type { IconType } from "react-icons";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 
 type PricingTier = {
@@ -26,59 +27,46 @@ type DataField = {
     fullWidth?: boolean;
 };
 
-const pageContent = {
-    title: "Allergist & Dentist Contact List Pricing",
-    description:
-        "Access targeted healthcare contacts through our Prospector Tool with smart filters to ensure outreach precision. Volume discounts applied automatically.",
-    tableTitle: "Pricing Tiers",
-    tableSubtitle: "Select your preferred lead volume",
-    tableHeaders: ["Leads", "Cost / Lead", "Total Price"],
-    tabs: ["All Tiers", "Popular"],
-    includedTitle: "Included Data Fields",
-    starterOfferTitle: "STARTER OFFER",
-    starterSubtitle: "Start with",
-    starterLeads: "250",
-    starterLeadsLabel: "leads for only",
-    starterPrice: "$39",
-    starterDescription:
-        "Perfect for testing your outreach campaign before scaling up.",
-    starterButtonLabel: "Customize this List",
-    guaranteeLabel: "100% data accuracy guarantee",
-    footerBulkPricing: "Bulk pricing on prospector",
+type TrustBadge = {
+    label: string;
+    icon: string;
 };
 
-const pricingTiers: PricingTier[] = [
-    { leads: "66", costPerLead: "$0.06", totalPrice: "$3.96" },
-    { leads: "100", costPerLead: "$0.05", totalPrice: "$5.00" },
-    { leads: "500", costPerLead: "$0.035", totalPrice: "$17.50" },
-    { leads: "1,000", costPerLead: "$0.03", totalPrice: "$30.00" },
-    { leads: "2,500", costPerLead: "$0.025", totalPrice: "$62.50", isPopular: true },
-    { leads: "5,000", costPerLead: "$0.02", totalPrice: "$100.00" },
-    { leads: "10,000", costPerLead: "$0.015", totalPrice: "$150.00" },
-    { leads: "15,000", costPerLead: "$0.014", totalPrice: "$210.00" },
-    { leads: "20,000", costPerLead: "$0.013", totalPrice: "$260.00" },
-    { leads: "25,000", costPerLead: "$0.0125", totalPrice: "$312.50" },
-    { leads: "50,000", costPerLead: "$0.01", totalPrice: "$500.00" },
-    { leads: "100,000", costPerLead: "$0.008", totalPrice: "$800.00" },
-];
+type PageContent = {
+    title: string;
+    description: string;
+    tableTitle: string;
+    tableSubtitle: string;
+    tableHeaders: string[];
+    tabs: string[];
+    includedTitle: string;
+    starterOfferTitle: string;
+    starterSubtitle: string;
+    starterLeads: string;
+    starterLeadsLabel: string;
+    starterPrice: string;
+    starterDescription: string;
+    starterButtonLabel: string;
+    guaranteeLabel: string;
+    footerBulkPricing: string;
+};
 
-const includedDataFields: DataField[] = [
-    { label: "Full Name + Credentials" },
-    { label: "Verified Emails" },
-    { label: "NPI & License" },
-    { label: "Phone & Fax Numbers" },
-    { label: "Mailing Addresses" },
-    { label: "State, ZIP, City" },
-    { label: "Specialty, License State, Graduation Year", fullWidth: true },
-];
+type ProductPriceListData = {
+    pageContent: PageContent;
+    pricingTiers: PricingTier[];
+    includedDataFields: DataField[];
+    trustBadges: TrustBadge[];
+};
 
-const trustBadges = [
-    { label: "HIPAA Compliant", icon: BsShieldCheck },
-    { label: "Secure Data", icon: BsLock },
-    { label: "Verified Sources", icon: BsPatchCheck },
-];
+const iconMap: Record<string, IconType> = {
+    BsShieldCheck,
+    BsLock,
+    BsPatchCheck,
+};
 
-const ProductPriceList = () => {
+const ProductPriceList = (props: ProductPriceListData) => {
+    const { pageContent, pricingTiers, includedDataFields, trustBadges } = props;
+
     return (
         <section className={styles.pricingTiers}>
             <Container>
@@ -113,24 +101,21 @@ const ProductPriceList = () => {
                                 </div>
 
                                 <table className={styles.table}>
-                                    <thead className={styles.tableHead}>
+                                    <thead className={styles.tableHeader}>
                                         <tr>
-                                            {pageContent.tableHeaders.map((header, index) => (
-                                                <th key={header} className={classnames(styles.tableCell, index === 0 ? styles.leftCell : styles.centerCell)}>
-                                                    {header}
-                                                </th>
+                                            {pageContent.tableHeaders.map((header) => (
+                                                <th key={header} className={classnames(styles.tableCell, header === "Leads" && styles.leftCell)}>{header}</th>
                                             ))}
                                         </tr>
                                     </thead>
-
                                     <tbody className={styles.tableBody}>
                                         {pricingTiers.map((tier) => (
-                                            <tr key={tier.leads} className={styles.tableRow}>
-                                                <td className={classnames(styles.tableCell, styles.leftCell, styles.primaryCell)}>
-                                                    <span className={styles.leadCount}>
-                                                        {tier.leads}
-                                                        {tier.isPopular && <span className={styles.popularBadge}>Popular</span>}
-                                                    </span>
+                                            <tr key={tier.leads} className={classnames(styles.tableRow, tier.isPopular && styles.popularRow)}>
+                                                <td className={classnames(styles.tableCell, styles.leftCell)}>
+                                                    {tier.leads}
+                                                    {tier.isPopular && (
+                                                        <span className={styles.popularBadge}>Popular</span>
+                                                    )}
                                                 </td>
                                                 <td className={classnames(styles.tableCell, styles.centerCell)}>{tier.costPerLead}</td>
                                                 <td className={classnames(styles.tableCell, styles.centerCell)}>{tier.totalPrice}</td>
@@ -200,7 +185,7 @@ const ProductPriceList = () => {
 
                                 <div className={styles.badges}>
                                     {trustBadges.map((badge) => {
-                                        const Icon = badge.icon;
+                                        const Icon = iconMap[badge.icon];
 
                                         return (
                                             <div key={badge.label} className={styles.badge}>

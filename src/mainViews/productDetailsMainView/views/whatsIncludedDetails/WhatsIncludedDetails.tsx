@@ -2,192 +2,112 @@ import { Col, Container, Row } from "react-bootstrap";
 import styles from "./whatsIncludedDetails.module.scss";
 import classnames from "classnames";
 
-interface FilterSectionData {
+type Tag = {
+    id: number;
     label: string;
-    tags: { id: number; label: string; removable: boolean; className: string }[];
-}
+    removable: boolean;
+    className: string;
+};
 
-interface DentistData {
+type FilterSection = {
+    label: string;
+    tags: Tag[];
+};
+
+type DentistDataItem = {
     id: number;
     initials: string;
     name: string;
     specialty: string;
     verified: boolean;
     avatarClass: string;
-}
+};
 
-interface PersonalizeSectionData {
+type LoadingContent = {
+    text: string;
+    count: string;
+    suffix: string;
+};
+
+type PersonalizeSection = {
     label: string;
-    tags: { id: number; label: string; removable: boolean; className: string }[];
-}
+    tags: Tag[];
+};
 
-interface DataCardData {
+type DataCard = {
     id: number;
     title: string;
     titleSuffix: string;
     description: string;
     isLast: boolean;
-}
-
-const headerContent = {
-    title: "What's Included in Our Dentist Email List?",
-    description: "Designed for outreach, education, and promotional purposes, this list includes verified data that's routinely cleaned and structured for usability.",
 };
 
-const buildListTitle = 'Build List';
-
-const filterSections: FilterSectionData[] = [
-    {
-        label: 'State',
-        tags: [
-            { id: 1, label: 'California', removable: true, className: styles.filterTagState },
-            { id: 2, label: 'Texas', removable: true, className: styles.filterTagState },
-            { id: 3, label: 'Florida', removable: true, className: styles.filterTagState },
-        ],
-    },
-    {
-        label: 'Specialty',
-        tags: [
-            { id: 4, label: 'General Dentistry', removable: true, className: styles.filterTagSpecialty },
-            { id: 5, label: 'Orthodontics', removable: true, className: styles.filterTagSpecialtyPurple },
-        ],
-    },
-    {
-        label: 'Practice Type',
-        tags: [
-            { id: 6, label: 'Private Practice', removable: true, className: styles.filterTagPractice },
-            { id: 7, label: 'Group Practice', removable: true, className: styles.filterTagPractice },
-        ],
-    },
-];
-
-const dentistData: DentistData[] = [
-    {
-        id: 1,
-        initials: 'DS',
-        name: 'Dr. Sarah Mitchell',
-        specialty: 'Orthodontist · San Francisco, CA',
-        verified: false,
-        avatarClass: styles.avatarBlue,
-    },
-    {
-        id: 2,
-        initials: 'RJ',
-        name: 'Dr. Robert Johnson',
-        specialty: 'General Dentist · Houston, TX',
-        verified: false,
-        avatarClass: styles.avatarGreen,
-    },
-    {
-        id: 3,
-        initials: 'LP',
-        name: 'Dr. Lisa Patel',
-        specialty: 'Oral Surgeon · Miami, FL',
-        verified: true,
-        avatarClass: styles.avatarPurple,
-    },
-];
-
-const loadingContent = {
-    text: 'Loading',
-    count: '930,285',
-    suffix: 'dentist contacts...',
+type HeaderContent = {
+    title: string;
+    description: string;
 };
 
-const personalizeTitle = 'Personalize List';
+type WhatsIncludedDetailsData = {
+    headerContent: HeaderContent;
+    buildListTitle: string;
+    filterSections: FilterSection[];
+    dentistData: DentistDataItem[];
+    loadingContent: LoadingContent;
+    personalizeTitle: string;
+    personalizeSections: PersonalizeSection[];
+    verifiedTitle: string;
+    dataCards: DataCard[];
+    footerStats: string[];
+};
 
-const personalizeSections: PersonalizeSectionData[] = [
-    {
-        label: 'Location',
-        tags: [
-            { id: 1, label: 'State: California, Texas, Florida', removable: true, className: styles.pTagBlue },
-            { id: 2, label: 'City: San Francisco, Houston', removable: true, className: styles.pTagBlue },
-            { id: 3, label: 'ZIP: 94102, 77001', removable: true, className: styles.pTagBlue },
-        ],
-    },
-    {
-        label: 'Specialty',
-        tags: [
-            { id: 4, label: 'General Dentistry', removable: true, className: styles.pTagGreen },
-            { id: 5, label: 'Orthodontics', removable: true, className: styles.pTagPurple },
-            { id: 6, label: 'Oral Surgery', removable: true, className: styles.pTagBlue },
-            { id: 7, label: 'Endodontics', removable: true, className: styles.pTagGreen },
-        ],
-    },
-    {
-        label: 'Gender',
-        tags: [
-            { id: 8, label: 'Male', removable: true, className: styles.genderTagMale },
-            { id: 9, label: 'Female', removable: true, className: styles.genderTagFemale },
-        ],
-    },
-    {
-        label: 'Association',
-        tags: [
-            { id: 10, label: 'ADA Member', removable: true, className: styles.associationTag },
-            { id: 11, label: 'AAOMS', removable: true, className: styles.associationTag },
-            { id: 12, label: 'AAO Member', removable: true, className: styles.associationTagPurple },
-        ],
-    },
-];
+const styleClassMap: Record<string, string> = {
+    filterTagState: styles.filterTagState,
+    filterTagSpecialty: styles.filterTagSpecialty,
+    filterTagSpecialtyPurple: styles.filterTagSpecialtyPurple,
+    filterTagPractice: styles.filterTagPractice,
+    avatarBlue: styles.avatarBlue,
+    avatarGreen: styles.avatarGreen,
+    avatarPurple: styles.avatarPurple,
+    pTagBlue: styles.pTagBlue,
+    pTagGreen: styles.pTagGreen,
+    pTagPurple: styles.pTagPurple,
+    genderTagMale: styles.genderTagMale,
+    genderTagFemale: styles.genderTagFemale,
+    associationTag: styles.associationTag,
+    associationTagPurple: styles.associationTagPurple,
+};
 
-const verifiedTitle = 'Verified & Structured Data';
+const WhatsIncludedDetails = (props: WhatsIncludedDetailsData) => {
+    const {
+        headerContent,
+        buildListTitle,
+        filterSections,
+        dentistData,
+        loadingContent,
+        personalizeTitle,
+        personalizeSections,
+        verifiedTitle,
+        dataCards,
+        footerStats,
+    } = props;
 
-const dataCards: DataCardData[] = [
-    {
-        id: 1,
-        title: 'Full Professional Profile',
-        titleSuffix: '— Includes full name, credentials (suffix, prefix, title), gender, and NPI number.',
-        description: 'Complete dentist profiles with all identifying information for precise targeting.',
-        isLast: false,
-    },
-    {
-        id: 2,
-        title: 'Specializations',
-        titleSuffix: '— Primary and secondary specialties with associated specialty codes.',
-        description: '50+ dental specialties including orthodontics, oral surgery, endodontics, and more.',
-        isLast: false,
-    },
-    {
-        id: 3,
-        title: 'Contact Information',
-        titleSuffix: '— Verified email, phone, and fax numbers.',
-        description: '95%+ email deliverability with validated phone and fax for multi-channel outreach.',
-        isLast: false,
-    },
-    {
-        id: 4,
-        title: 'Practice Location',
-        titleSuffix: '— Full mailing address (Address, City, State, ZIP, County, MSA).',
-        description: 'Geo-target your campaigns with complete location data for all practice addresses.',
-        isLast: false,
-    },
-    {
-        id: 5,
-        title: 'Licensing & Certifications',
-        titleSuffix: '— State license details, license number, and any certifications.',
-        description: 'Verify compliance and credentials with up-to-date licensing information.',
-        isLast: true,
-    },
-];
+    const resolveClassName = (className: string): string => {
+        return styleClassMap[className] || className;
+    };
 
-const footerStats: string[] = [
-    '95%+ Deliverability',
-    'GDPR Compliant',
-    '930K+ Contacts',
-    'One-Time Purchase',
-];
-
-const WhatsIncludedDetails = () => {
     return (
         <>
-            <section className={styles.wrapper}>
+            <section className={styles.dataSection}>
                 <Container>
                     <Row>
                         <Col xs={12} lg={5}>
                             <div className={styles.leftPanel}>
+                                {/* Build List Card */}
                                 <div className={styles.buildListCard}>
-                                    <h3 className={styles.buildListTitle}>{buildListTitle}</h3>
+                                    <div className={styles.buildListHeader}>
+                                        <div className={styles.buildListIcon}></div>
+                                        <span className={styles.buildListText}>{buildListTitle}</span>
+                                    </div>
 
                                     {filterSections.map(function (section) {
                                         return (
@@ -197,12 +117,12 @@ const WhatsIncludedDetails = () => {
                                                     {section.tags.map(function (tag) {
                                                         return (
                                                             <span
-                                                                className={classnames(styles.filterTag, tag.className)}
+                                                                className={classnames(styles.filterTag, resolveClassName(tag.className))}
                                                                 key={tag.id}
                                                             >
-                                                                {tag.label}{' '}
+                                                                {tag.label}
                                                                 {tag.removable && (
-                                                                    <span className={styles.tagClose}>✕</span>
+                                                                    <span className={styles.tagClose}>?</span>
                                                                 )}
                                                             </span>
                                                         );
@@ -211,44 +131,43 @@ const WhatsIncludedDetails = () => {
                                             </div>
                                         );
                                     })}
+                                </div>
 
+                                {/* Dentist Data Card */}
+                                <div className={styles.dentistCard}>
                                     <div className={styles.dentistList}>
                                         {dentistData.map(function (dentist) {
                                             return (
-                                                <div className={styles.dentistCard} key={dentist.id}>
-                                                    <div className={classnames(styles.dentistAvatar, dentist.avatarClass)}>
+                                                <div className={styles.dentistItem} key={dentist.id}>
+                                                    <div className={classnames(styles.dentistAvatar, resolveClassName(dentist.avatarClass))}>
                                                         {dentist.initials}
                                                     </div>
                                                     <div className={styles.dentistInfo}>
-                                                        <div className={styles.dentistName}>{dentist.name}</div>
-                                                        <div className={styles.dentistSpecialty}>
-                                                            {dentist.specialty}
+                                                        <div className={styles.dentistNameRow}>
+                                                            <span className={styles.dentistName}>{dentist.name}</span>
+                                                            {dentist.verified && (
+                                                                <span className={styles.verifiedBadge}>Verified</span>
+                                                            )}
                                                         </div>
+                                                        <div className={styles.dentistSpecialty}>{dentist.specialty}</div>
                                                     </div>
-                                                    {dentist.verified && (
-                                                        <span className={styles.verifiedBadge}>Verified</span>
-                                                    )}
                                                 </div>
                                             );
                                         })}
                                     </div>
-
-                                    <div className={styles.loadingSection}>
-                                        <div className={styles.loadingSpinner} />
-                                        <span className={styles.loadingText}>
-                                            {loadingContent.text}{' '}
-                                            <span className={styles.loadingTextBold}>{loadingContent.count}</span>{' '}
-                                            {loadingContent.suffix}
-                                        </span>
-                                    </div>
                                     <div className={styles.loadingBar}>
-                                        <div className={styles.loadingBarFill} />
+                                        <span className={styles.loadingText}>{loadingContent.text}</span>
+                                        <span className={styles.loadingCount}>{loadingContent.count}</span>
+                                        <span className={styles.loadingSuffix}>{loadingContent.suffix}</span>
                                     </div>
                                 </div>
 
-                                <div className={styles.personalizePanel}>
-                                    <h4 className={styles.personalizeTitle}>{personalizeTitle}</h4>
-
+                                {/* Personalize Card */}
+                                <div className={styles.personalizeCard}>
+                                    <div className={styles.personalizeHeader}>
+                                        <div className={styles.personalizeIcon}></div>
+                                        <span className={styles.personalizeText}>{personalizeTitle}</span>
+                                    </div>
                                     {personalizeSections.map(function (section) {
                                         return (
                                             <div className={styles.personalizeSection} key={section.label}>
@@ -257,12 +176,12 @@ const WhatsIncludedDetails = () => {
                                                     {section.tags.map(function (tag) {
                                                         return (
                                                             <span
-                                                                className={classnames(styles.personalizeTag, tag.className)}
+                                                                className={classnames(styles.personalizeTag, resolveClassName(tag.className))}
                                                                 key={tag.id}
                                                             >
                                                                 {tag.label}{' '}
                                                                 {tag.removable && (
-                                                                    <span className={styles.pTagClose}>✕</span>
+                                                                    <span className={styles.pTagClose}>?</span>
                                                                 )}
                                                             </span>
                                                         );

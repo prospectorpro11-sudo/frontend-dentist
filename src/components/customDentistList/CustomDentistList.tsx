@@ -24,7 +24,7 @@ type Feature = {
     title: string;
     desc: string;
     color: string;
-    icon: IconType;
+    icon: string;
 };
 
 type SmartFilterItem = {
@@ -32,96 +32,38 @@ type SmartFilterItem = {
     desc: string;
     color: string;
     bg: string;
-    icon: IconType;
+    icon: string;
 };
 
-const CONTENT_DATA = {
+type CustomDentistListData = {
     header: {
-        title: "Build Custom Dentist Lists",
-        highlight: "In Minutes",
-        subtitle: "Quickly build a tailored list of dental specialists using our advanced filters — perfect for outreach, market research, or product promotion.",
-    },
+        title: string;
+        highlight: string;
+        subtitle: string;
+    };
     howItWorks: {
-        title: "How It Works",
-        steps: [
-            {
-                id: 1,
-                title: "Select Filters",
-                desc: "Choose from dental specialty, state, city, ZIP code, credentials, and more.",
-                color: "var(--blue-500)",
-            },
-            {
-                id: 2,
-                title: "Apply Segmentation",
-                desc: "Refine your search with precision targeting — cosmetic, pediatric, orthodontics, etc.",
-                color: "var(--teal-500)",
-            },
-            {
-                id: 3,
-                title: "Download Instantly",
-                desc: "Get your customized CSV with emails, phones, faxes & NPI numbers.",
-                color: "var(--blue-600)",
-            },
-        ] as Step[],
-    },
-    features: [
-        {
-            title: "Instant Results",
-            desc: "Build and download your custom list in seconds with real-time filtering.",
-            color: "var(--blue-500)",
-            icon: BsLightning,
-        },
-        {
-            title: "Verified Data",
-            desc: "95%+ deliverability rate with multi-source verification and regular updates.",
-            color: "var(--emerald-500)",
-            icon: BsCheckCircle,
-        },
-        {
-            title: "GDPR Compliant",
-            desc: "Fully compliant with GDPR, HIPAA, and CAN-SPAM regulations.",
-            color: "var(--indigo-500)",
-            icon: BsShieldCheck,
-        },
-    ] as Feature[],
+        title: string;
+        steps: Step[];
+    };
+    features: Feature[];
     smartFilters: {
-        title: "Smart Filters",
-        items: [
-            {
-                title: "Location",
-                desc: "State, city, ZIP code, radius targeting",
-                color: "var(--blue-500)",
-                bg: "var(--blue-100)",
-                icon: BsGeoAlt,
-            },
-            {
-                title: "Specialty",
-                desc: "Cosmetic, pediatric, orthodontics & more",
-                color: "var(--teal-500)",
-                bg: "var(--teal-100)",
-                icon: BsHeartPulse,
-            },
-            {
-                title: "Credentials",
-                desc: "License, NPI number, DDS/DMD degree",
-                color: "var(--indigo-500)",
-                bg: "var(--indigo-100)",
-                icon: BsPersonVcard,
-            },
-            {
-                title: "Practice Size",
-                desc: "Solo, group, hospital, clinic size",
-                color: "var(--amber-500)",
-                bg: "var(--amber-100)",
-                icon: BsBuilding,
-            },
-        ],
-    },
+        title: string;
+        items: SmartFilterItem[];
+    };
 };
 
+const iconMap: Record<string, IconType> = {
+    BsLightning,
+    BsCheckCircle,
+    BsShieldCheck,
+    BsGeoAlt,
+    BsHeartPulse,
+    BsPersonVcard,
+    BsBuilding,
+};
 
-const CustomDentistList = () => {
-    const { header, howItWorks, features, smartFilters } = CONTENT_DATA;
+const CustomDentistList = (props: CustomDentistListData) => {
+    const { header, howItWorks, features, smartFilters } = props;
 
     return (
         <section className={styles.dentistLists}>
@@ -163,7 +105,7 @@ const CustomDentistList = () => {
                             {/* Bottom Features */}
                             <div className={styles.featuresContainer}>
                                 {features.map((feature) => {
-                                    const Icon = feature.icon;
+                                    const Icon = iconMap[feature.icon];
 
                                     return (
                                         <div key={feature.title} className={styles.featureCard}>
@@ -193,7 +135,7 @@ const CustomDentistList = () => {
 
                                 <div className={styles.filterList}>
                                     {smartFilters.items.map((item, idx) => {
-                                        const Icon = item.icon;
+                                        const Icon = iconMap[item.icon];
                                         return (
                                             <div key={idx} className={styles.filterItem}>
                                                 <div

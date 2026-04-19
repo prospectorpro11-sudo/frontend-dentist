@@ -23,131 +23,75 @@ import type { IconType } from "react-icons";
 type PainPoint = {
     title: string;
     desc: string;
-    icon: IconType;
+    icon: string;
     delayClass: string;
 };
 
 type FloatingBadge = {
     title: string;
     subtitle: string;
-    icon: IconType;
+    icon: string;
     positionClass: string;
 };
 
 type MockupField = {
     label: string;
     value: string;
-    icon: IconType;
+    icon: string;
     masked?: boolean;
     danger?: boolean;
 };
 
 type MockupAction = {
     label: string;
-    icon: IconType;
+    icon: string;
     secondary?: boolean;
 };
 
-const content = {
-    badge: "The Problem",
-    title: "Why Other List Providers",
-    highlight: "Fall Short",
-    subtitle:
-        "Most email list providers leave you stranded with outdated data, no support, and zero guarantees.",
-    profile: {
-        initials: "DR",
-        name: "Dr. Sarah Mitchell",
-        specialty: "Cosmetic Dentistry • San Francisco, CA",
-        status: "Invalid",
-    },
+type ContentProfile = {
+    initials: string;
+    name: string;
+    specialty: string;
+    status: string;
 };
 
-const painPoints: PainPoint[] = [
-    {
-        title: "No Delivery Guarantee",
-        desc: "You're stuck if your messages bounce — no backup, no replacements, no recourse.",
-        icon: BsEnvelopeXFill,
-        delayClass: "fadeInDelay1",
-    },
-    {
-        title: "No Sending Support",
-        desc: "You have to manage all outreach on your own with zero guidance or assistance.",
-        icon: BsPersonXFill,
-        delayClass: "fadeInDelay2",
-    },
-    {
-        title: "High Bounce Rates",
-        desc: "Risk of blacklisting and poor sender reputation that damages your campaigns long-term.",
-        icon: BsGraphDownArrow,
-        delayClass: "fadeInDelay3",
-    },
-    {
-        title: "No Refunds",
-        desc: "Bad data? You're out of luck — most providers offer zero refund or replacement options.",
-        icon: BsCashStack,
-        delayClass: "fadeInDelay4",
-    },
-];
+type Content = {
+    badge: string;
+    title: string;
+    highlight: string;
+    subtitle: string;
+    profile: ContentProfile;
+};
 
-const floatingBadges: FloatingBadge[] = [
-    {
-        title: "Not Sending",
-        subtitle: "Delivery failed",
-        icon: BsSendXFill,
-        positionClass: "badge1",
-    },
-    {
-        title: "High Bounce Rate",
-        subtitle: "42% bounced",
-        icon: BsExclamationOctagonFill,
-        positionClass: "badge2",
-    },
-    {
-        title: "No Refund",
-        subtitle: "Request denied",
-        icon: BsXCircleFill,
-        positionClass: "badge3",
-    },
-    {
-        title: "Not Verified",
-        subtitle: "Data outdated",
-        icon: BsShieldX,
-        positionClass: "badge4",
-    },
-];
+type WhyChooseUsData = {
+    content: Content;
+    painPoints: PainPoint[];
+    floatingBadges: FloatingBadge[];
+    mockupFields: MockupField[];
+    mockupActions: MockupAction[];
+};
 
-const mockupFields: MockupField[] = [
-    {
-        label: "Email Address",
-        value: "sm***@oldclinic.com",
-        icon: BsEnvelopeFill,
-        masked: true,
-    },
-    {
-        label: "Phone Number",
-        value: "(415) ***-**89",
-        icon: BsTelephoneFill,
-        masked: true,
-    },
-    {
-        label: "NPI Number",
-        value: "1234567890",
-        icon: BsPersonVcardFill,
-    },
-    {
-        label: "Last Verified",
-        value: "18 months ago",
-        icon: BsCalendarEventFill,
-        danger: true,
-    },
-];
+const iconMap: Record<string, IconType> = {
+    BsEnvelopeXFill,
+    BsPersonXFill,
+    BsGraphDownArrow,
+    BsCashStack,
+    BsSendXFill,
+    BsExclamationOctagonFill,
+    BsXCircleFill,
+    BsShieldX,
+    BsEnvelopeFill,
+    BsTelephoneFill,
+    BsPersonVcardFill,
+    BsCalendarEventFill,
+    BsSendFill,
+    BsDownload,
+    BsExclamationTriangleFill,
+};
 
-const mockupActions: MockupAction[] = [
-    { label: "Send Email", icon: BsSendFill },
-    { label: "Export", icon: BsDownload, secondary: true },
-];
+const WhyChooseUs = (props: WhyChooseUsData) => {
+    const { content, painPoints, floatingBadges, mockupFields, mockupActions } = props;
 
-const WhyChooseUs = () => {
     return (
         <section className={styles.whyChooseUs}>
             <div className={styles.bgDecoration}>
@@ -172,37 +116,36 @@ const WhyChooseUs = () => {
                     <Col lg={7}>
                         <div className={styles.painContent}>
                             {painPoints.map((item) => {
-                                const Icon = item.icon;
+                                const Icon = iconMap[item.icon];
 
                                 return (
-                                    <article
+                                    <div
                                         key={item.title}
                                         className={classnames(
-                                            styles.painItem,
+                                            styles.painCard,
+                                            styles[item.delayClass],
                                             styles.fadeIn,
-                                            styles.visible,
-                                            styles[item.delayClass]
+                                            styles.visible
                                         )}
                                     >
-                                        <div className={styles.painIconWrap}>
+                                        <div className={styles.painCardIcon}>
                                             <Icon />
                                         </div>
-                                        <div className={styles.painText}>
-                                            <h3>{item.title}</h3>
+                                        <div className={styles.painCardContent}>
+                                            <h4>{item.title}</h4>
                                             <p>{item.desc}</p>
                                         </div>
-                                    </article>
+                                    </div>
                                 );
                             })}
                         </div>
                     </Col>
-
                     <Col lg={5}>
-                        <div className={classnames(styles.mockupScene, styles.fadeIn, styles.visible)}>
+                        <div className={styles.mockupScene}>
                             <div className={styles.mockupGlow}></div>
 
                             {floatingBadges.map((badge) => {
-                                const Icon = badge.icon;
+                                const Icon = iconMap[badge.icon];
 
                                 return (
                                     <div
@@ -236,7 +179,7 @@ const WhyChooseUs = () => {
 
                                     <div className={styles.mockupFields}>
                                         {mockupFields.map((field) => {
-                                            const Icon = field.icon;
+                                            const Icon = iconMap[field.icon];
 
                                             return (
                                                 <div key={field.label} className={styles.mockupField}>
@@ -260,7 +203,7 @@ const WhyChooseUs = () => {
 
                                     <div className={styles.mockupActions}>
                                         {mockupActions.map((action) => {
-                                            const Icon = action.icon;
+                                            const Icon = iconMap[action.icon];
 
                                             return (
                                                 <button
