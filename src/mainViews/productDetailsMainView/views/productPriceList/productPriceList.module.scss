@@ -1,0 +1,451 @@
+.pricingTiers {
+    padding: 5rem 0;
+
+    .header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .headerTitle {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--n900);
+        margin-bottom: 12px;
+        letter-spacing: -0.02em;
+    }
+
+    .headerDescription {
+        font-size: 15px;
+        color: var(--text2);
+        line-height: 1.6;
+        max-width: 560px;
+        margin: 0 auto;
+    }
+
+    .pricingCard {
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--r-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+    }
+
+    .pricingCardHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--n100);
+    }
+
+    .pricingCardHeaderTitle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--n900);
+    }
+
+    .pricingCardHeaderTitleIcon {
+        font-size: 18px;
+        color: var(--blue-600);
+    }
+
+    .pricingCardHeaderSubtitle {
+        font-size: 12px;
+        color: var(--text3);
+        margin-top: 2px;
+    }
+
+    .tabGroup {
+        display: flex;
+        gap: 4px;
+        background: var(--n50);
+        border-radius: var(--r-full);
+        padding: 3px;
+    }
+
+    .tab {
+        padding: 5px 14px;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: var(--r-full);
+        border: none;
+        cursor: pointer;
+        transition: all var(--t-fast);
+        background: transparent;
+        color: var(--text3);
+    }
+
+    .activeTab {
+        background: var(--surface);
+        color: var(--blue-600);
+        box-shadow: var(--shadow-xs);
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .tableHead {
+        background: var(--n50);
+    }
+
+    .tableBody {
+        .tableRow {
+            transition: background var(--t-fast);
+
+            &:hover {
+                background: var(--blue-50);
+            }
+
+            &:last-child {
+                .tableCell {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+    .tableFooter {
+        background: var(--n50);
+
+        .tableCell {
+            border-bottom: none;
+        }
+    }
+
+    .tableCell {
+        padding: 14px 24px;
+        border-bottom: 1px solid var(--n100);
+        font-size: 13px;
+        color: var(--n800);
+    }
+
+    .tableHead .tableCell {
+        padding: 12px 24px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text3);
+    }
+
+    .leftCell {
+        text-align: left;
+    }
+
+    .centerCell {
+        text-align: center;
+    }
+
+    .primaryCell {
+        font-weight: 600;
+        color: var(--n900);
+    }
+
+    .bulkCell {
+        color: var(--blue-600);
+        font-style: italic;
+        font-weight: 500;
+    }
+
+    .leadCount {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .popularBadge {
+        background: linear-gradient(135deg, var(--teal-500), var(--blue-500));
+        color: var(--surface);
+        font-size: 9px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: var(--r-full);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .rightPanel {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .dataFieldsCard {
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--r-xl);
+        padding: 24px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .dataFieldsCardTitle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--n900);
+        margin-bottom: 18px;
+    }
+
+    .dataFieldsCardIcon {
+        width: 28px;
+        height: 28px;
+        background: var(--blue-50);
+        border-radius: var(--r-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--blue-500);
+        font-size: 14px;
+    }
+
+    .dataFieldsCardGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .dataFieldsCardItem {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        background: var(--n50);
+        border-radius: var(--r-md);
+        transition: all var(--t-fast);
+
+        &:hover {
+            background: var(--blue-50);
+        }
+    }
+
+    .dataFieldsCardItemFullWidth {
+        grid-column: 1 / -1;
+    }
+
+    .dataFieldsCardCheck {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--emerald-400), var(--teal-600));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: var(--surface);
+
+        svg {
+            width: 10px;
+            height: 10px;
+        }
+    }
+
+    .dataFieldsCardLabel {
+        font-size: 12px;
+        color: var(--n700);
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    .starterCard {
+        background: linear-gradient(160deg, var(--n50), var(--teal-50), var(--blue-50));
+        border: 1.5px solid var(--blue-100);
+        border-radius: var(--r-xl);
+        padding: 32px 24px;
+        text-align: center;
+        box-shadow: var(--shadow-md), var(--shadow-glow);
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.06), transparent 60%);
+            pointer-events: none;
+        }
+    }
+
+    .starterCardOffer {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: var(--blue-500);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .starterCardOfferSparkle {
+        color: var(--amber-400);
+    }
+
+    .starterCardSubtitle {
+        font-size: 13px;
+        color: var(--text3);
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .starterCardLeads {
+        font-size: 44px;
+        font-weight: 800;
+        color: var(--teal-500);
+        letter-spacing: -1px;
+        line-height: 1.1;
+        position: relative;
+        z-index: 1;
+    }
+
+    .starterCardLeadsLabel {
+        font-size: 12px;
+        color: var(--text3);
+        margin-top: 4px;
+        margin-bottom: 4px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .starterCardPrice {
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--emerald-500);
+        letter-spacing: -1px;
+        line-height: 1.1;
+        position: relative;
+        z-index: 1;
+    }
+
+    .starterCardDescription {
+        font-size: 13px;
+        color: var(--text3);
+        margin-top: 12px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        position: relative;
+        z-index: 1;
+    }
+
+    .starterCardButton {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 14px 24px;
+        background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
+        color: var(--surface);
+        border: none;
+        border-radius: var(--r-md);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--t-base);
+        box-shadow: var(--shadow-md);
+        font-family: var(--font);
+        position: relative;
+        z-index: 1;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .starterCardGuarantee {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 16px;
+        font-size: 12px;
+        color: var(--text3);
+        position: relative;
+        z-index: 1;
+
+        svg {
+            width: 14px;
+            height: 14px;
+            color: var(--emerald-500);
+        }
+    }
+
+    .badges {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        background: var(--surface);
+        border: 1px solid var(--n100);
+        border-radius: var(--r-full);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text3);
+
+        svg {
+            width: 14px;
+            height: 14px;
+            color: var(--n400);
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .pricingTiers {
+        .pricingCardHeader {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .pricingTiers {
+        padding: 48px 16px;
+
+        .headerTitle {
+            font-size: 28px;
+        }
+
+        .tableCell {
+            padding: 12px 10px;
+        }
+
+        .dataFieldsCardGrid {
+            grid-template-columns: 1fr;
+        }
+
+        .dataFieldsCardItemFullWidth {
+            grid-column: auto;
+        }
+    }
+}

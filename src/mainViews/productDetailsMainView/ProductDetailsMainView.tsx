@@ -2,6 +2,7 @@ import FreeSample from "@/components/freeSample/FreeSample";
 import { PRODUCT_DETAILS_SEED_OBJECT } from "@/shared/seeds/productDetailsSeeds";
 import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBanner";
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
+import ProductPriceList from "./views/productPriceList/ProductPriceList";
 
 const ProductDetailsMainView = () => {
     return (
@@ -9,6 +10,7 @@ const ProductDetailsMainView = () => {
             <ProductDetailsBanner />
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
             <WhatsIncludedDetails />
+            <ProductPriceList />
 
         </>
     );
