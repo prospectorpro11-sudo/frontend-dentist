@@ -150,3 +150,40 @@ a {
     background-position: 0% 50%;
   }
 }
+
+section {
+  &.banner {
+    position: relative;
+    padding: 7rem 0;
+    overflow: hidden;
+
+    .surface {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 42%, #0f766e 100%);
+      z-index: 0;
+      background: linear-gradient(160deg, #0E2A4D 10.99%, #0C4A6E 34.4%, #0F766E 73.41%, #0D6C5E 89.01%);
+
+    }
+
+    .surface::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, .12), transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(45, 212, 191, .1), transparent 50%),
+        radial-gradient(ellipse at 60% 10%, rgba(255, 255, 255, .06), transparent 40%);
+    }
+
+    .surface::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+  }
+}

@@ -1,0 +1,221 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.statsPanel {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(219, 234, 254, 0.7);
+    border-radius: 22px;
+    width: 100%;
+    max-width: 290px;
+    overflow: hidden;
+    box-shadow:
+        0 8px 40px rgba(12, 25, 41, 0.06),
+        0 2px 8px rgba(12, 25, 41, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 2;
+
+    .spHeader {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.88rem 1.1rem 0.78rem;
+    }
+
+    &.isProductPage {
+        .spHeader {
+            background-color: rgba($color: $white, $alpha: 0.75);
+        }
+
+        max-width: unset;
+    }
+}
+
+
+.spHeaderIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--blue-500), var(--teal-500));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+}
+
+.spHeaderTitle strong {
+    font-weight: 800;
+    color: var(--n700);
+    display: block;
+    line-height: 1.15;
+    letter-spacing: -0.2px;
+}
+
+.spHeaderTitle span {
+    font-size: 14px;
+    color: #8ba4be;
+    font-weight: 500;
+}
+
+.spRow {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.58rem 1.1rem;
+    border-top: 1px solid rgba(219, 234, 254, 0.4);
+    transition: all 0.2s;
+}
+
+.spRow:hover {
+    background: rgba(14, 165, 233, 0.03);
+}
+
+.spRowHighlight {
+    background: linear-gradient(135deg,
+            rgba(14, 165, 233, 0.04),
+            rgba(56, 189, 248, 0.03));
+}
+
+.spRowLast {
+    border-bottom: none;
+}
+
+.spIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.spIc1 {
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+}
+
+.spIc2 {
+    background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
+}
+
+.spIc3 {
+    background: linear-gradient(135deg, var(--indigo-500), var(--indigo-400));
+}
+
+.spIc4 {
+    background: linear-gradient(135deg, var(--amber-500), var(--amber-400));
+}
+
+.spIc5 {
+    background: linear-gradient(135deg, var(--rose-500), var(--rose-400));
+}
+
+.spIcon i {
+    font-size: 0.78rem;
+}
+
+.spInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.spInfo strong {
+    // font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--n700);
+    line-height: 1.15;
+    letter-spacing: -0.3px;
+}
+
+.spInfo span {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8ba4be;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.spRow>i {
+    margin-left: auto;
+    color: var(--blue-400);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* Verification bar */
+.spVerify {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.65rem 1.1rem 0.9rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(219, 234, 254, 0.4);
+}
+
+.spVerifyLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: #5b7a9e;
+    white-space: nowrap;
+}
+
+.spVerifyLabel i {
+    color: var(--emerald-500);
+    font-size: 0.72rem;
+}
+
+.spVerifyTrack {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #e8f4fd;
+    overflow: hidden;
+}
+
+.spVerifyFill {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--blue-500), var(--teal-500));
+    position: relative;
+}
+
+.spVerifyFill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -40%;
+    width: 40%;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.5),
+            transparent);
+    animation: shimmerBar 2.2s ease-in-out infinite;
+}
+
+@keyframes shimmerBar {
+    0% {
+        left: -40%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.spVerify>span {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #5b7a9e;
+}

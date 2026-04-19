@@ -30,8 +30,8 @@ type HeroAndStatsSectionProps = {
 const HeroAndStatsSection = ({ animatedStats, fmt, styles }: HeroAndStatsSectionProps) => {
     return (
         <>
-            <section className={styles.hero}>
-                <div className={styles.heroSurface}></div>
+            <section className="banner">
+                <div className="surface"></div>
                 <Container>
                     <div className={styles.heroContent}>
                         <div className={styles.heroText}>

@@ -26,7 +26,7 @@ const homeBanner: IHomeBanner = {
         { icon: 'shield', label: 'GDPR Compliant', iconClass: 'tsI2' },
         { icon: 'star', label: '4.9 Rating', iconClass: 'tsI3' },
     ],
-    metrics: [
+    stats: [
         { icon: 'people', value: '930,285', label: 'Total Contacts', iconClass: 'spIc1', highlight: true },
         { icon: 'email', value: '930,285', label: 'Emails', iconClass: 'spIc2' },
         { icon: 'phone', value: '930,285', label: 'Phones', iconClass: 'spIc3' },

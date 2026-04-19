@@ -94,7 +94,7 @@ export interface ILocationFeature {
 	variant?: string;
 }
 
-export interface IBannerMetric {
+export interface IStat {
 	icon: string;
 	value: string;
 	label: string;
@@ -133,7 +133,7 @@ export interface IHomeBanner {
 		sample: ILink & { icon: string };
 	};
 	trustItems: Array<{ icon: string; label: string; iconClass: string }>;
-	metrics: IBannerMetric[];
+	stats: IStat[];
 	chamberPills: IBannerPill[];
 }
 

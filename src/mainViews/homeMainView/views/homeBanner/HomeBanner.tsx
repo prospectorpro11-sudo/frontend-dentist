@@ -22,6 +22,7 @@ import {
 import { IHomeBanner } from '../../../../shared/interface';
 import Button from '@/components/button/Button';
 import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
+import Stats from '@/components/stats/Stats';
 
 const trustIconMap = {
     verified: BsPatchCheckFill,
@@ -29,13 +30,7 @@ const trustIconMap = {
     star: BsStarFill,
 } as const;
 
-const metricIconMap = {
-    people: BsPeopleFill,
-    email: BsEnvelopeCheckFill,
-    phone: BsTelephoneForwardFill,
-    fax: BsPrinterFill,
-    license: BsPatchCheckFill,
-} as const;
+
 
 const chamberPillIconMap = {
     geo: BsGeoAltFill,
@@ -52,7 +47,7 @@ const HomeBanner = (props: IHomeBanner) => {
         description,
         buttons,
         trustItems,
-        metrics,
+        stats,
         chamberPills,
     } = props;
 
@@ -113,45 +108,7 @@ const HomeBanner = (props: IHomeBanner) => {
                 </div>
 
                 <div className={classNames(styles.heroCol, styles.heroColStats)}>
-                    <div className={styles.statsPanel}>
-                        <div className={styles.spHeader}>
-                            <div className={styles.spHeaderIcon}><BsGraphUpArrow /></div>
-                            <div className={styles.spHeaderTitle}>
-                                <strong>Database Metrics</strong>
-                                <span>Real-time overview</span>
-                            </div>
-                        </div>
-
-                        {metrics.map((metric) => {
-                            const Icon = metricIconMap[metric.icon as keyof typeof metricIconMap];
-                            return (
-                                <div
-                                    key={metric.label}
-                                    className={classNames(styles.spRow, {
-                                        [styles.spRowHighlight]: metric.highlight,
-                                        [styles.spRowLast]: metric.last,
-                                    })}
-                                >
-                                    <div className={classNames(styles.spIcon, styles[metric.iconClass])}><Icon size={18} /></div>
-                                    <div className={styles.spInfo}>
-                                        <strong>{metric.value}</strong>
-                                        <span>{metric.label}</span>
-                                    </div>
-                                    <BsArrowUpRight />
-                                </div>
-                            );
-                        })}
-
-                        <div className={styles.spVerify}>
-                            <div className={styles.spVerifyLabel}>
-                                <BsCheckCircleFill /> Verification
-                            </div>
-                            <div className={styles.spVerifyTrack}>
-                                <div className={styles.spVerifyFill}></div>
-                            </div>
-                            <span>100%</span>
-                        </div>
-                    </div>
+                    <Stats stats={stats} />
                 </div>
 
                 <div className={classNames(styles.heroCol, styles.heroColChamber)}>
