@@ -11,6 +11,7 @@ import {
     BsShieldCheck,
 } from "react-icons/bs";
 import type { IconType } from "react-icons";
+import { Col, Container, Row } from "react-bootstrap";
 
 type Step = {
     id: number;
@@ -124,7 +125,7 @@ const CustomDentistList = () => {
 
     return (
         <section className={styles.dentistLists}>
-            <div className={styles.wrapper}>
+            <Container>
                 {/* Header */}
                 <header className={styles.header}>
                     <h1 className={styles.title}>
@@ -132,95 +133,91 @@ const CustomDentistList = () => {
                     </h1>
                     <p className={styles.subtitle}>{header.subtitle}</p>
                 </header>
+                <Row>
+                    <Col xs={12} lg={8}>
+                        {/* Left Column */}
+                        <div className={styles.leftColumn}>
 
-                {/* Main Content Grid */}
-                <div className={styles.grid}>
-
-                    {/* Left Column */}
-                    <div className={styles.leftColumn}>
-
-                        {/* How It Works */}
-                        <div className={styles.howItWorksCard}>
-                            <h2 className={styles.sectionTitle}>
-                                <BsGear />
-                                {howItWorks.title}
-                            </h2>
-                            <div className={styles.stepsContainer}>
-                                {howItWorks.steps.map((step) => (
-                                    <div key={step.id} className={styles.step}>
-                                        <div
-                                            className={styles.stepIconWrapper}
-                                            style={{ backgroundColor: step.color }}
-                                        >
-                                            {step.id}
+                            {/* How It Works */}
+                            <div className={styles.howItWorksCard}>
+                                <h2 className={styles.sectionTitle}>
+                                    <BsGear />
+                                    {howItWorks.title}
+                                </h2>
+                                <div className={styles.stepsContainer}>
+                                    {howItWorks.steps.map((step) => (
+                                        <div key={step.id} className={styles.step}>
+                                            <div
+                                                className={styles.stepIconWrapper}
+                                                style={{ backgroundColor: step.color }}
+                                            >
+                                                {step.id}
+                                            </div>
+                                            <h3 className={styles.stepTitle}>{step.title}</h3>
+                                            <p className={styles.stepDesc}>{step.desc}</p>
                                         </div>
-                                        <h3 className={styles.stepTitle}>{step.title}</h3>
-                                        <p className={styles.stepDesc}>{step.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Bottom Features */}
-                        <div className={styles.featuresContainer}>
-                            {features.map((feature) => {
-                                const Icon = feature.icon;
-
-                                return (
-                                <div key={feature.title} className={styles.featureCard}>
-                                    <div
-                                        className={styles.featureIcon}
-                                        style={{ backgroundColor: feature.color }}
-                                    >
-                                        <Icon />
-                                    </div>
-                                    <h3 className={styles.featureTitle}>{feature.title}</h3>
-                                    <p className={styles.featureDesc}>{feature.desc}</p>
+                                    ))}
                                 </div>
-                                );
-                            })}
-                        </div>
-
-                    </div>
-
-                    {/* Right Column */}
-                    <div className={styles.rightColumn}>
-                        <div className={styles.smartFiltersCard}>
-                            <div className={styles.filterHeader}>
-                                <div className={styles.filterIconMain}>
-                                    <BsFilter />
-                                </div>
-                                <h2>{smartFilters.title}</h2>
                             </div>
 
-                            <div className={styles.filterList}>
-                                {smartFilters.items.map((item, idx) => {
-                                    const Icon = item.icon;
+                            {/* Bottom Features */}
+                            <div className={styles.featuresContainer}>
+                                {features.map((feature) => {
+                                    const Icon = feature.icon;
 
                                     return (
-                                        <div key={idx} className={styles.filterItem}>
+                                        <div key={feature.title} className={styles.featureCard}>
                                             <div
-                                                className={styles.filterItemIcon}
-                                                style={{
-                                                    backgroundColor: item.bg,
-                                                    color: item.color,
-                                                }}
+                                                className={styles.featureIcon}
+                                                style={{ backgroundColor: feature.color }}
                                             >
                                                 <Icon />
                                             </div>
-                                            <div className={styles.filterItemContent}>
-                                                <h4>{item.title}</h4>
-                                                <p>{item.desc}</p>
-                                            </div>
+                                            <h3 className={styles.featureTitle}>{feature.title}</h3>
+                                            <p className={styles.featureDesc}>{feature.desc}</p>
                                         </div>
                                     );
                                 })}
                             </div>
                         </div>
-                    </div>
+                    </Col>
+                    <Col xs={12} lg={4}>
+                        <div className={styles.rightColumn}>
+                            <div className={styles.smartFiltersCard}>
+                                <div className={styles.filterHeader}>
+                                    <div className={styles.filterIconMain}>
+                                        <BsFilter />
+                                    </div>
+                                    <h2>{smartFilters.title}</h2>
+                                </div>
 
-                </div>
-            </div>
+                                <div className={styles.filterList}>
+                                    {smartFilters.items.map((item, idx) => {
+                                        const Icon = item.icon;
+                                        return (
+                                            <div key={idx} className={styles.filterItem}>
+                                                <div
+                                                    className={styles.filterItemIcon}
+                                                    style={{
+                                                        backgroundColor: item.bg,
+                                                        color: item.color,
+                                                    }}
+                                                >
+                                                    <Icon />
+                                                </div>
+                                                <div className={styles.filterItemContent}>
+                                                    <h4>{item.title}</h4>
+                                                    <p>{item.desc}</p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         </section>
     );
 };

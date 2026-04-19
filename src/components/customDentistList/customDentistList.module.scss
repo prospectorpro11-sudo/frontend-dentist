@@ -5,11 +5,6 @@
     padding: 64px 24px 72px;
     box-sizing: border-box;
 
-    .wrapper {
-        max-width: 1120px;
-        margin: 0 auto;
-    }
-
     .header {
         text-align: center;
         margin-bottom: 42px;
@@ -46,16 +41,6 @@
         }
     }
 
-    .grid {
-        display: grid;
-        grid-template-columns: 1.75fr 1fr;
-        gap: 18px;
-        align-items: stretch;
-
-        @media (max-width: 900px) {
-            grid-template-columns: 1fr;
-        }
-    }
 
     .leftColumn {
         display: flex;
@@ -117,7 +102,7 @@
 
         .stepTitle {
             font-weight: 700;
-            font-size: 1.55rem;
+            font-size: 1.25rem;
             margin-bottom: 8px;
             color: var(--n900);
         }
@@ -199,7 +184,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
 
         h2 {
             margin: 0;
@@ -229,7 +214,7 @@
     .filterList {
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 16px;
     }
 
     .filterItem {
