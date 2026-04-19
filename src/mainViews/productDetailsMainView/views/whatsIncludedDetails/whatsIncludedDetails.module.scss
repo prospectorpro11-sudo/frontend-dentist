@@ -2,6 +2,24 @@
     background-color: var(--surface);
     color: var(--text);
     padding: 5.55rem 0;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -40%;
+        left: -20%;
+        z-index: -1;
+        width: 1000px;
+        height: 1000px;
+        background: radial-gradient(50% 50% at 50% 50%, #2DD4BF 0%, #FFFFFF 100%);
+        opacity: 0.2;
+        filter: blur(40px);
+        border-radius: 50px;
+
+    }
 }
 
 .headerSection {
@@ -354,6 +372,7 @@
     margin-top: 32px;
     padding-top: 24px;
     border-top: 1px solid var(--border);
+    justify-content: center;
 }
 
 .footerStat {
