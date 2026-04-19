@@ -4,6 +4,7 @@ import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBan
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
 import ProductPriceList from "./views/productPriceList/ProductPriceList";
 import CustomDentistList from "@/components/customDentistList/CustomDentistList";
+import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
 
 const ProductDetailsMainView = () => {
     return (
@@ -13,6 +14,7 @@ const ProductDetailsMainView = () => {
             <WhatsIncludedDetails />
             <ProductPriceList />
             <CustomDentistList />
+            <WhyChooseUs />
 
         </>
     );

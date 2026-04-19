@@ -137,6 +137,15 @@ a {
   animation: accentShift 5s ease-in-out infinite;
 }
 
+.shifting-accent-danger {
+  background: linear-gradient(135deg, var(--rose-500), var(--amber-500));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: accentShift 5s ease-in-out infinite;
+}
+
 @keyframes accentShift {
   0% {
     background-position: 0% 50%;

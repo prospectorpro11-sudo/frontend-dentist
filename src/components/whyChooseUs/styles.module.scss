@@ -1,0 +1,592 @@
+.whyChooseUs {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--n50) 100%);
+  background-color: red;
+
+  .bgDecoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bgBlob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.5;
+  }
+
+  .bgBlob1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(244, 63, 94, 0.08), transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation: blobFloat 22s ease-in-out infinite;
+  }
+
+  .bgBlob2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.06), transparent 70%);
+    bottom: -100px;
+    left: -100px;
+    animation: blobFloat 18s ease-in-out infinite reverse;
+  }
+
+  .bgGrid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 96px 24px;
+  }
+
+  .sectionHeader {
+    text-align: center;
+    margin-bottom: 64px;
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 900;
+      color: var(--n900);
+      letter-spacing: -0.04em;
+      line-height: 1.12;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 17px;
+      color: var(--text2);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+  }
+
+  .sectionBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(251, 113, 133, 0.04));
+    border: 1px solid rgba(244, 63, 94, 0.15);
+    padding: 8px 20px;
+    border-radius: var(--r-full);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--rose-500);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 20px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .sectionLayout {
+    align-items: center;
+    row-gap: 48px;
+  }
+
+  .painContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .painItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 24px;
+    // background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    transition: all var(--t-slow);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.01) 14.64%, rgba(244, 63, 94, 0.06) 85.36%);
+    border: 1px solid rgba(244, 63, 94, 0.09);
+    border-radius: 18px;
+
+    &:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 32px rgba(244, 63, 94, 0.1);
+      border-color: var(--rose-300);
+      background: var(--surface);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .painIconWrap {
+        background: linear-gradient(135deg, var(--rose-500), var(--rose-400));
+        color: var(--surface);
+        box-shadow: 0 4px 16px rgba(244, 63, 94, 0.3);
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  .painIconWrap {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(244, 63, 94, 0.05));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rose-500);
+    transition: all var(--t-base);
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .painText {
+    h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+
+  .mockupScene {
+    position: relative;
+    perspective: 1200px;
+    min-height: 520px;
+    margin-left: 2.5rem;
+  }
+
+  .mockupGlow {
+    position: absolute;
+    inset: -40px;
+    border-radius: 32px;
+    background: conic-gradient(from 180deg,
+        rgba(244, 63, 94, 0.08),
+        rgba(249, 115, 22, 0.06),
+        rgba(99, 102, 241, 0.06),
+        rgba(14, 165, 233, 0.08),
+        rgba(244, 63, 94, 0.08));
+    filter: blur(40px);
+    z-index: 0;
+    animation: glowSpin 12s linear infinite;
+  }
+
+  .mockupCard {
+    position: relative;
+    transform: rotateY(-8deg) rotateX(4deg);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+
+    &:hover {
+      transform: rotateY(-3deg) rotateX(2deg);
+    }
+  }
+
+  .mockupCardInner {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 24px 64px rgba(12, 25, 41, 0.12), 0 8px 24px rgba(12, 25, 41, 0.06);
+  }
+
+  .mockupUserHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .mockupAvatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--surface);
+    font-size: 22px;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    flex-shrink: 0;
+  }
+
+  .mockupUserInfo {
+    h4 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--n900);
+      letter-spacing: -0.3px;
+      margin: 0;
+    }
+
+    span {
+      font-size: 13px;
+      color: var(--text2);
+    }
+  }
+
+  .mockupStatus {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(244, 63, 94, 0.08);
+    border: 1px solid rgba(244, 63, 94, 0.15);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--rose-500);
+  }
+
+  .pulseDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rose-500);
+    animation: pulseDot 1.5s ease-in-out infinite;
+  }
+
+  .mockupFields {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .mockupField {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--blue-50);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .mockupFieldLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 500;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      color: var(--blue-500);
+    }
+  }
+
+  .mockupFieldValue {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--n900);
+  }
+
+  .masked {
+    color: var(--n500);
+    font-family: "Courier New", monospace;
+  }
+
+  .danger {
+    color: var(--rose-500);
+  }
+
+  .mockupActions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .mockupBtn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all var(--t-base);
+    border: none;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .mockupBtnPrimary {
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+    color: var(--surface);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+  }
+
+  .mockupBtnSecondary {
+    background: var(--blue-50);
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .floatingBadge {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 24px rgba(12, 25, 41, 0.1);
+    z-index: 10;
+    animation: floatBadge 4s ease-in-out infinite;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 16px;
+      background: inherit;
+      opacity: 0.3;
+      filter: blur(12px);
+      z-index: -1;
+    }
+  }
+
+  .floatingBadgeIcon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--surface);
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .floatingBadgeText {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--n900);
+    white-space: nowrap;
+
+    span {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--n500);
+      margin-top: 1px;
+    }
+  }
+
+  .badge1 {
+    top: 20px;
+    right: -30px;
+    animation-delay: 0s;
+
+    .floatingBadgeIcon {
+      background: linear-gradient(135deg, var(--rose-500), var(--rose-400));
+      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+    }
+  }
+
+  .badge2 {
+    bottom: 100px;
+    left: -40px;
+    animation-delay: -1s;
+
+    .floatingBadgeIcon {
+      background: linear-gradient(135deg, var(--amber-500), var(--amber-400));
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+  }
+
+  .badge3 {
+    bottom: 20px;
+    right: -20px;
+    animation-delay: -2s;
+
+    .floatingBadgeIcon {
+      background: linear-gradient(135deg, var(--indigo-500), var(--indigo-400));
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+  }
+
+  .badge4 {
+    top: 50%;
+    right: -50px;
+    transform: translateY(-50%);
+    animation-delay: -0.5s;
+
+    .floatingBadgeIcon {
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    }
+  }
+
+  .fadeIn {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fadeInDelay1 {
+    transition-delay: 0.1s;
+  }
+
+  .fadeInDelay2 {
+    transition-delay: 0.2s;
+  }
+
+  .fadeInDelay3 {
+    transition-delay: 0.3s;
+  }
+
+  .fadeInDelay4 {
+    transition-delay: 0.4s;
+  }
+}
+
+@keyframes blobFloat {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(20px, -15px) scale(1.03);
+  }
+}
+
+@keyframes pulseDot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes floatBadge {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes glowSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .whyChooseUs {
+    .mockupScene {
+      min-height: 480px;
+    }
+
+    .mockupCard {
+      transform: rotateY(0deg) rotateX(0deg);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .whyChooseUs {
+    .container {
+      padding: 60px 16px;
+    }
+
+    .sectionHeader h2 {
+      font-size: 30px;
+    }
+
+    .floatingBadge {
+      display: none;
+    }
+
+    .painItem {
+      padding: 18px;
+    }
+
+    .mockupCardInner {
+      padding: 20px;
+    }
+
+    .mockupUserHeader {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mockupStatus {
+      margin-left: 0;
+    }
+
+    .mockupField {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+}
