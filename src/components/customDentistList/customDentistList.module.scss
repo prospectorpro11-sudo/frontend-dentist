@@ -13,7 +13,7 @@
         margin-right: auto;
 
         .title {
-            font-size: clamp(2.4rem, 5vw, 3.4rem);
+            font-size: 2.5rem;
             font-weight: 800;
             line-height: 1.02;
             color: var(--n900);
@@ -21,14 +21,6 @@
             letter-spacing: -0.03em;
             display: inline-flex;
             flex-direction: column;
-
-            .highlight {
-                background: linear-gradient(135deg, var(--blue-500), var(--teal-500));
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                display: block;
-            }
         }
 
         .subtitle {

@@ -127,12 +127,12 @@ const CustomDentistList = () => {
         <section className={styles.dentistLists}>
             <Container>
                 {/* Header */}
-                <header className={styles.header}>
+                <div className={styles.header}>
                     <h1 className={styles.title}>
-                        {header.title} <span className={styles.highlight}>{header.highlight}</span>
+                        {header.title} <span className="shifting-accent">{header.highlight}</span>
                     </h1>
                     <p className={styles.subtitle}>{header.subtitle}</p>
-                </header>
+                </div>
                 <Row>
                     <Col xs={12} lg={8}>
                         {/* Left Column */}
