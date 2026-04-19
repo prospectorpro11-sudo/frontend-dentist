@@ -1,3 +1,4 @@
+import { Col, Container, Row } from "react-bootstrap";
 import styles from "./whatsIncludedDetails.module.scss";
 import classnames from "classnames";
 
@@ -176,155 +177,160 @@ const footerStats: string[] = [
     '930K+ Contacts',
     'One-Time Purchase',
 ];
+
 const WhatsIncludedDetails = () => {
     return (
         <>
-            <div className={styles.container}>
-                <div className={styles.innerContainer}>
-                    <div className={styles.headerSection}>
-                        <h1 className={styles.headerTitle}>
-                            {headerContent.title}
-                        </h1>
-                        <p className={styles.headerDescription}>
-                            {headerContent.description}
-                        </p>
-                    </div>
+            <section className={styles.wrapper}>
+                <Container>
+                    <Row>
+                        <Col xs={12} lg={5}>
+                            <div className={styles.leftPanel}>
+                                <div className={styles.buildListCard}>
+                                    <h3 className={styles.buildListTitle}>{buildListTitle}</h3>
 
-                    <div className={styles.mainContent}>
-                        <div className={styles.leftPanel}>
-                            <div className={styles.buildListCard}>
-                                <h3 className={styles.buildListTitle}>{buildListTitle}</h3>
-
-                                {filterSections.map(function (section) {
-                                    return (
-                                        <div className={styles.filterSection} key={section.label}>
-                                            <div className={styles.filterLabel}>{section.label}</div>
-                                            <div className={styles.filterTags}>
-                                                {section.tags.map(function (tag) {
-                                                    return (
-                                                        <span
-                                                            className={classnames(styles.filterTag, tag.className)}
-                                                            key={tag.id}
-                                                        >
-                                                            {tag.label}{' '}
-                                                            {tag.removable && (
-                                                                <span className={styles.tagClose}>✕</span>
-                                                            )}
-                                                        </span>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-
-                                <div className={styles.dentistList}>
-                                    {dentistData.map(function (dentist) {
+                                    {filterSections.map(function (section) {
                                         return (
-                                            <div className={styles.dentistCard} key={dentist.id}>
-                                                <div className={classnames(styles.dentistAvatar, dentist.avatarClass)}>
-                                                    {dentist.initials}
+                                            <div className={styles.filterSection} key={section.label}>
+                                                <div className={styles.filterLabel}>{section.label}</div>
+                                                <div className={styles.filterTags}>
+                                                    {section.tags.map(function (tag) {
+                                                        return (
+                                                            <span
+                                                                className={classnames(styles.filterTag, tag.className)}
+                                                                key={tag.id}
+                                                            >
+                                                                {tag.label}{' '}
+                                                                {tag.removable && (
+                                                                    <span className={styles.tagClose}>✕</span>
+                                                                )}
+                                                            </span>
+                                                        );
+                                                    })}
                                                 </div>
-                                                <div className={styles.dentistInfo}>
-                                                    <div className={styles.dentistName}>{dentist.name}</div>
-                                                    <div className={styles.dentistSpecialty}>
-                                                        {dentist.specialty}
+                                            </div>
+                                        );
+                                    })}
+
+                                    <div className={styles.dentistList}>
+                                        {dentistData.map(function (dentist) {
+                                            return (
+                                                <div className={styles.dentistCard} key={dentist.id}>
+                                                    <div className={classnames(styles.dentistAvatar, dentist.avatarClass)}>
+                                                        {dentist.initials}
+                                                    </div>
+                                                    <div className={styles.dentistInfo}>
+                                                        <div className={styles.dentistName}>{dentist.name}</div>
+                                                        <div className={styles.dentistSpecialty}>
+                                                            {dentist.specialty}
+                                                        </div>
+                                                    </div>
+                                                    {dentist.verified && (
+                                                        <span className={styles.verifiedBadge}>Verified</span>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+
+                                    <div className={styles.loadingSection}>
+                                        <div className={styles.loadingSpinner} />
+                                        <span className={styles.loadingText}>
+                                            {loadingContent.text}{' '}
+                                            <span className={styles.loadingTextBold}>{loadingContent.count}</span>{' '}
+                                            {loadingContent.suffix}
+                                        </span>
+                                    </div>
+                                    <div className={styles.loadingBar}>
+                                        <div className={styles.loadingBarFill} />
+                                    </div>
+                                </div>
+
+                                <div className={styles.personalizePanel}>
+                                    <h4 className={styles.personalizeTitle}>{personalizeTitle}</h4>
+
+                                    {personalizeSections.map(function (section) {
+                                        return (
+                                            <div className={styles.personalizeSection} key={section.label}>
+                                                <div className={styles.personalizeLabel}>{section.label}</div>
+                                                <div className={styles.personalizeTags}>
+                                                    {section.tags.map(function (tag) {
+                                                        return (
+                                                            <span
+                                                                className={classnames(styles.personalizeTag, tag.className)}
+                                                                key={tag.id}
+                                                            >
+                                                                {tag.label}{' '}
+                                                                {tag.removable && (
+                                                                    <span className={styles.pTagClose}>✕</span>
+                                                                )}
+                                                            </span>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </Col>
+                        <Col xs={12} lg={7}>
+                            <div className={styles.rightPanel}>
+
+                                {/* Section Title Description */}
+                                <div className={styles.headerSection}>
+                                    <h1 className={styles.headerTitle}>
+                                        {headerContent.title}
+                                    </h1>
+                                    <p className={styles.headerDescription}>
+                                        {headerContent.description}
+                                    </p>
+                                </div>
+                                {/* Section Content */}
+                                <h3 className={styles.verifiedTitle}>{verifiedTitle}</h3>
+
+                                <div className={styles.dataCards}>
+                                    {dataCards.map(function (card) {
+                                        return (
+                                            <div
+                                                className={classnames(
+                                                    styles.dataCard,
+                                                    card.isLast && styles.dataCardLast
+                                                )}
+                                                key={card.id}
+                                            >
+                                                <div className={styles.dataIcon}>
+                                                </div>
+                                                <div className={styles.dataContent}>
+                                                    <div className={styles.dataCardTitle}>
+                                                        {card.title}{' '}
+                                                        <span className={styles.dataCardTitleSpan}>
+                                                            {card.titleSuffix}
+                                                        </span>
+                                                    </div>
+                                                    <div className={styles.dataCardDesc}>
+                                                        {card.description}
                                                     </div>
                                                 </div>
-                                                {dentist.verified && (
-                                                    <span className={styles.verifiedBadge}>Verified</span>
-                                                )}
                                             </div>
                                         );
                                     })}
                                 </div>
 
-                                <div className={styles.loadingSection}>
-                                    <div className={styles.loadingSpinner} />
-                                    <span className={styles.loadingText}>
-                                        {loadingContent.text}{' '}
-                                        <span className={styles.loadingTextBold}>{loadingContent.count}</span>{' '}
-                                        {loadingContent.suffix}
-                                    </span>
-                                </div>
-                                <div className={styles.loadingBar}>
-                                    <div className={styles.loadingBarFill} />
+                                <div className={styles.footerStats}>
+                                    {footerStats.map(function (stat, index) {
+                                        return (
+                                            <span className={styles.footerStat} key={index}>
+                                                {stat}
+                                            </span>
+                                        );
+                                    })}
                                 </div>
                             </div>
-
-                            <div className={styles.personalizePanel}>
-                                <h4 className={styles.personalizeTitle}>{personalizeTitle}</h4>
-
-                                {personalizeSections.map(function (section) {
-                                    return (
-                                        <div className={styles.personalizeSection} key={section.label}>
-                                            <div className={styles.personalizeLabel}>{section.label}</div>
-                                            <div className={styles.personalizeTags}>
-                                                {section.tags.map(function (tag) {
-                                                    return (
-                                                        <span
-                                                            className={classnames(styles.personalizeTag, tag.className)}
-                                                            key={tag.id}
-                                                        >
-                                                            {tag.label}{' '}
-                                                            {tag.removable && (
-                                                                <span className={styles.pTagClose}>✕</span>
-                                                            )}
-                                                        </span>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                        <div className={styles.rightPanel}>
-                            <h3 className={styles.verifiedTitle}>{verifiedTitle}</h3>
-
-                            <div className={styles.dataCards}>
-                                {dataCards.map(function (card) {
-                                    return (
-                                        <div
-                                            className={classnames(
-                                                styles.dataCard,
-                                                card.isLast && styles.dataCardLast
-                                            )}
-                                            key={card.id}
-                                        >
-                                            <div className={styles.dataIcon}>
-                                                <div className={styles.dataIconDot} />
-                                            </div>
-                                            <div className={styles.dataContent}>
-                                                <div className={styles.dataCardTitle}>
-                                                    {card.title}{' '}
-                                                    <span className={styles.dataCardTitleSpan}>
-                                                        {card.titleSuffix}
-                                                    </span>
-                                                </div>
-                                                <div className={styles.dataCardDesc}>
-                                                    {card.description}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-
-                            <div className={styles.footerStats}>
-                                {footerStats.map(function (stat, index) {
-                                    return (
-                                        <span className={styles.footerStat} key={index}>
-                                            {stat}
-                                        </span>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
         </>
     );
 };
