@@ -3,6 +3,7 @@
 
 .mainContent {
     padding: 5rem 0;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--n50) 100%);
 
     @include breakpoint(tablet) {
         padding: 0 1.5rem 3rem;
