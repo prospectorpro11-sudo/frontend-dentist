@@ -4,6 +4,12 @@
 .wrapper {
     padding: 5rem 0;
     background-color: $white;
+
+    .heading {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
 }
 
 .mockupWrapper {

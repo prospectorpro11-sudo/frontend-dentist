@@ -210,7 +210,7 @@ const CrmIntegration = (props: ICrmIntegration) => {
                         </div>
                     </Col>
                     <Col xs={12} lg={7}>
-                        <h2>Effortless CRM Integration for <br /> <span className="shifting-accent">Dental Professionals</span></h2>
+                        <h2 className={styles.heading}>Effortless CRM Integration for <br /> <span className="shifting-accent">Dental Professionals</span></h2>
                         <p>Our medical email lists are available in CSV format, making them seamlessly compatible with top healthcare CRMs like Salesforce Health Cloud, HubSpot, and email marketing platforms such as Mailchimp. </p>
                         <p>Streamline your physician outreach, automate follow-ups, and optimize engagement with a hassle-free integration process.</p>
                         <br />
