@@ -157,131 +157,132 @@ const WhyChooseUs = () => {
             </div>
 
             <Container className={styles.container}>
-                <header className={classnames(styles.sectionHeader, styles.fadeIn, styles.visible)}>
-                    <div className={styles.sectionBadge}>
-                        <BsExclamationTriangleFill />
-                        {content.badge}
-                    </div>
-                    <h2>
-                        {content.title} <span className="shifting-accent-danger">{content.highlight}</span>
-                    </h2>
-                    <p>{content.subtitle}</p>
-                </header>
-
-                <Row className={styles.sectionLayout}>
-                    <Col lg={7}>
-                        <div className={styles.painContent}>
-                            {painPoints.map((item) => {
-                                const Icon = item.icon;
-
-                                return (
-                                    <article
-                                        key={item.title}
-                                        className={classnames(
-                                            styles.painItem,
-                                            styles.fadeIn,
-                                            styles.visible,
-                                            styles[item.delayClass]
-                                        )}
-                                    >
-                                        <div className={styles.painIconWrap}>
-                                            <Icon />
-                                        </div>
-                                        <div className={styles.painText}>
-                                            <h3>{item.title}</h3>
-                                            <p>{item.desc}</p>
-                                        </div>
-                                    </article>
-                                );
-                            })}
+                <div className={styles.contentWrapper}>
+                    <header className={classnames(styles.sectionHeader, styles.fadeIn, styles.visible)}>
+                        <div className={styles.sectionBadge}>
+                            <BsExclamationTriangleFill />
+                            {content.badge}
                         </div>
-                    </Col>
+                        <h2>
+                            {content.title} <span className="shifting-accent-danger">{content.highlight}</span>
+                        </h2>
+                        <p>{content.subtitle}</p>
+                    </header>
+                    <Row className={styles.sectionLayout}>
+                        <Col lg={6}>
+                            <div className={styles.painContent}>
+                                {painPoints.map((item) => {
+                                    const Icon = item.icon;
 
-                    <Col lg={5}>
-                        <div className={classnames(styles.mockupScene, styles.fadeIn, styles.visible)}>
-                            <div className={styles.mockupGlow}></div>
+                                    return (
+                                        <article
+                                            key={item.title}
+                                            className={classnames(
+                                                styles.painItem,
+                                                styles.fadeIn,
+                                                styles.visible,
+                                                styles[item.delayClass]
+                                            )}
+                                        >
+                                            <div className={styles.painIconWrap}>
+                                                <Icon />
+                                            </div>
+                                            <div className={styles.painText}>
+                                                <h3>{item.title}</h3>
+                                                <p>{item.desc}</p>
+                                            </div>
+                                        </article>
+                                    );
+                                })}
+                            </div>
+                        </Col>
 
-                            {floatingBadges.map((badge) => {
-                                const Icon = badge.icon;
+                        <Col lg={6}>
+                            <div className={classnames(styles.mockupScene, styles.fadeIn, styles.visible)}>
+                                <div className={styles.mockupGlow}></div>
 
-                                return (
-                                    <div
-                                        key={badge.title}
-                                        className={classnames(styles.floatingBadge, styles[badge.positionClass])}
-                                    >
-                                        <div className={styles.floatingBadgeIcon}>
-                                            <Icon />
+                                {floatingBadges.map((badge) => {
+                                    const Icon = badge.icon;
+
+                                    return (
+                                        <div
+                                            key={badge.title}
+                                            className={classnames(styles.floatingBadge, styles[badge.positionClass])}
+                                        >
+                                            <div className={styles.floatingBadgeIcon}>
+                                                <Icon />
+                                            </div>
+                                            <div className={styles.floatingBadgeText}>
+                                                {badge.title}
+                                                <span>{badge.subtitle}</span>
+                                            </div>
                                         </div>
-                                        <div className={styles.floatingBadgeText}>
-                                            {badge.title}
-                                            <span>{badge.subtitle}</span>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
 
-                            <div className={styles.mockupCard}>
-                                <div className={styles.mockupCardInner}>
-                                    <div className={styles.mockupUserHeader}>
-                                        <div className={styles.mockupAvatar}>{content.profile.initials}</div>
-                                        <div className={styles.mockupUserInfo}>
-                                            <h4>{content.profile.name}</h4>
-                                            <span>{content.profile.specialty}</span>
+                                <div className={styles.mockupCard}>
+                                    <div className={styles.mockupCardInner}>
+                                        <div className={styles.mockupUserHeader}>
+                                            <div className={styles.mockupAvatar}>{content.profile.initials}</div>
+                                            <div className={styles.mockupUserInfo}>
+                                                <h4>{content.profile.name}</h4>
+                                                <span>{content.profile.specialty}</span>
+                                            </div>
+                                            <div className={styles.mockupStatus}>
+                                                <div className={styles.pulseDot}></div>
+                                                {content.profile.status}
+                                            </div>
                                         </div>
-                                        <div className={styles.mockupStatus}>
-                                            <div className={styles.pulseDot}></div>
-                                            {content.profile.status}
-                                        </div>
-                                    </div>
 
-                                    <div className={styles.mockupFields}>
-                                        {mockupFields.map((field) => {
-                                            const Icon = field.icon;
+                                        <div className={styles.mockupFields}>
+                                            {mockupFields.map((field) => {
+                                                const Icon = field.icon;
 
-                                            return (
-                                                <div key={field.label} className={styles.mockupField}>
-                                                    <div className={styles.mockupFieldLabel}>
-                                                        <Icon />
-                                                        {field.label}
+                                                return (
+                                                    <div key={field.label} className={styles.mockupField}>
+                                                        <div className={styles.mockupFieldLabel}>
+                                                            <Icon />
+                                                            {field.label}
+                                                        </div>
+                                                        <div
+                                                            className={classnames(
+                                                                styles.mockupFieldValue,
+                                                                field.masked && styles.masked,
+                                                                field.danger && styles.danger
+                                                            )}
+                                                        >
+                                                            {field.value}
+                                                        </div>
                                                     </div>
-                                                    <div
+                                                );
+                                            })}
+                                        </div>
+
+                                        <div className={styles.mockupActions}>
+                                            {mockupActions.map((action) => {
+                                                const Icon = action.icon;
+
+                                                return (
+                                                    <button
+                                                        key={action.label}
+                                                        type="button"
                                                         className={classnames(
-                                                            styles.mockupFieldValue,
-                                                            field.masked && styles.masked,
-                                                            field.danger && styles.danger
+                                                            styles.mockupBtn,
+                                                            action.secondary ? styles.mockupBtnSecondary : styles.mockupBtnPrimary
                                                         )}
                                                     >
-                                                        {field.value}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-
-                                    <div className={styles.mockupActions}>
-                                        {mockupActions.map((action) => {
-                                            const Icon = action.icon;
-
-                                            return (
-                                                <button
-                                                    key={action.label}
-                                                    type="button"
-                                                    className={classnames(
-                                                        styles.mockupBtn,
-                                                        action.secondary ? styles.mockupBtnSecondary : styles.mockupBtnPrimary
-                                                    )}
-                                                >
-                                                    <Icon />
-                                                    {action.label}
-                                                </button>
-                                            );
-                                        })}
+                                                        <Icon />
+                                                        {action.label}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
+                </div>
             </Container>
         </section>
     );

@@ -1,3 +1,6 @@
+@import "styles/variables";
+@import "styles/mixins";
+
 .whyChooseUs {
   position: relative;
   overflow: hidden;
@@ -10,6 +13,14 @@
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
+  }
+
+  .contentWrapper {
+    padding: 2rem;
+    padding-right: 5rem;
+    background: $white;
+    box-shadow: 0px 0px 60px rgba(167, 203, 228, 0.55);
+    border-radius: 32px;
   }
 
   .bgBlob {
