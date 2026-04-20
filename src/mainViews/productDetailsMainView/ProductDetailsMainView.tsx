@@ -9,6 +9,8 @@ import DentalSpecialtyList from "@/components/dentalSpecialtyList/DentalSpecialt
 import CrmIntegration from "@/components/crmIntegration/CrmIntegration";
 import VerifiedSource from "@/components/verifiedSource/VerifiedSource";
 import DataBeneficiaries from "@/components/dataBeneficiaries/DataBeneficiaries";
+import ComparisonTable from "@/components/comparisonTable/ComparisonTable";
+import AboutDentistEmailList from "@/components/aboutDentistEmailList/AboutDentistEmailList";
 
 const ProductDetailsMainView = () => {
     return (
@@ -23,6 +25,8 @@ const ProductDetailsMainView = () => {
             <CrmIntegration />
             <VerifiedSource />
             <DataBeneficiaries />
+            <ComparisonTable />
+            <AboutDentistEmailList />
         </>
     );
 };
