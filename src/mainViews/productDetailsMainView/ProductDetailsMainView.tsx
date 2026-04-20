@@ -6,6 +6,7 @@ import ProductPriceList from "./views/productPriceList/ProductPriceList";
 import CustomDentistList from "@/components/customDentistList/CustomDentistList";
 import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
 import DentalSpecialtyList from "@/components/dentalSpecialtyList/DentalSpecialtyList";
+import CrmIntegration from "@/components/crmIntegration/CrmIntegration";
 
 const ProductDetailsMainView = () => {
     return (
@@ -17,7 +18,7 @@ const ProductDetailsMainView = () => {
             <CustomDentistList />
             <WhyChooseUs />
             <DentalSpecialtyList />
-
+            <CrmIntegration />
         </>
     );
 };
