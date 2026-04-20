@@ -8,13 +8,6 @@ import {
     BsPatchCheckFill,
     BsShieldFillCheck,
     BsStarFill,
-    BsGraphUpArrow,
-    BsPeopleFill,
-    BsEnvelopeCheckFill,
-    BsTelephoneForwardFill,
-    BsPrinterFill,
-    BsCheckCircleFill,
-    BsArrowUpRight,
     BsGeoAltFill,
     BsShieldLockFill,
     BsRocketTakeoffFill,
@@ -23,12 +16,41 @@ import { IHomeBanner } from '../../../../shared/interface';
 import Button from '@/components/button/Button';
 import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
 import Stats from '@/components/stats/Stats';
+import { RiShieldCheckFill } from 'react-icons/ri';
+import { BiSolidCheckShield } from 'react-icons/bi';
 
-const trustIconMap = {
-    verified: BsPatchCheckFill,
-    shield: BsShieldFillCheck,
-    star: BsStarFill,
-} as const;
+// const trustIconMap = {
+//     verified: BsPatchCheckFill,
+//     shield: BsShieldFillCheck,
+//     star: BsStarFill,
+// } as const;
+
+const trustStrip2Items = [
+    {
+        label: 'Verified Contacts',
+        icon: RiShieldCheckFill,
+        iconClass: 't2ShieldBlue',
+        starCount: 9,
+        starClass: 't2StarsBlue',
+        iconSize: 24,
+    },
+    {
+        label: 'GDPR Compliant',
+        icon: BiSolidCheckShield,
+        iconClass: 't2ShieldAmber',
+        starCount: 9,
+        starClass: 't2StarsBlue',
+        iconSize: 26,
+    },
+    {
+        label: '4.9 Rating',
+        icon: BsStarFill,
+        iconClass: 't2StarAmber',
+        starCount: 5,
+        starClass: 't2StarsAmber',
+        iconSize: 22,
+    },
+] as const;
 
 
 
@@ -93,7 +115,7 @@ const HomeBanner = (props: IHomeBanner) => {
                         </a>
                     </div>
 
-                    <div className={styles.trustStrip}>
+                    {/* <div className={styles.trustStrip}>
                         {trustItems.map((item) => {
                             const Icon = trustIconMap[item.icon as keyof typeof trustIconMap];
 
@@ -101,6 +123,27 @@ const HomeBanner = (props: IHomeBanner) => {
                                 <div className={styles.tsItem} key={item.label}>
                                     <div className={classNames(styles.tsIcon, styles[item.iconClass])}><Icon /></div>
                                     <span>{item.label}</span>
+                                </div>
+                            );
+                        })}
+                    </div> */}
+                    <div className={styles.trustStrip2}>
+                        {trustStrip2Items.map((item) => {
+                            const Icon = item.icon;
+
+                            return (
+                                <div className={styles.t2Item} key={item.label}>
+                                    <div className={classNames(styles.t2Icon, styles[item.iconClass])}>
+                                        <Icon size={item.iconSize} />
+                                    </div>
+                                    <div className={styles.t2Content}>
+                                        <span className={styles.t2Label}>{item.label}</span>
+                                        <div className={classNames(styles.t2Stars, styles[item.starClass])}>
+                                            {Array.from({ length: item.starCount }).map((_, idx) => (
+                                                <BsStarFill key={`${item.label}-${idx}`} />
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             );
                         })}
