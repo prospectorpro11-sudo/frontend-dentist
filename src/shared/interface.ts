@@ -132,7 +132,6 @@ export interface IHomeBanner {
 		pricing: ILink & { icon: string };
 		sample: ILink & { icon: string };
 	};
-	trustItems: Array<{ icon: string; label: string; iconClass: string }>;
 	stats: IStat[];
 	chamberPills: IBannerPill[];
 }

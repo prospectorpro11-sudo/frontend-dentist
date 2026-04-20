@@ -1,0 +1,206 @@
+.trustStripWrapper {
+    &.v1 {
+        .tsItem {
+            font-size: 0.68rem;
+        }
+
+        .trustStrip {
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trustStrip {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.6rem;
+        }
+
+        .tsItem {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #8ba4be;
+        }
+
+        .tsIcon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+
+        .tsI1 {
+            background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+        }
+
+        .tsI2 {
+            background: linear-gradient(135deg, var(--blue-600), var(--indigo-500));
+        }
+
+        .tsI3 {
+            background: linear-gradient(135deg, var(--amber-500), var(--amber-400));
+        }
+    }
+
+    &.v2 {
+
+        .trustStrip2 {
+            grid-template-columns: 1fr;
+        }
+
+        .t2Item {
+            justify-content: flex-start;
+        }
+
+
+        .trustStrip2 {
+            gap: 0.7rem;
+        }
+
+        .trustStrip {
+            justify-content: center;
+        }
+
+
+
+        .trustStrip2 {
+            gap: 0.7rem;
+        }
+
+        .t2Item {
+            min-height: 84px;
+            padding: 0.78rem 0.85rem;
+            gap: 0.72rem;
+        }
+
+        .t2Icon {
+            width: 48px;
+            height: 48px;
+            font-size: 1rem;
+        }
+
+        .t2StarAmber {
+            border-radius: 13px;
+            font-size: 1.3rem;
+        }
+
+        .t2Label {
+            font-size: 0.74rem;
+        }
+
+        .t2Stars {
+            font-size: 0.6rem;
+        }
+
+
+        .trustStrip2 {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+
+        .t2Item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            // background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(247, 251, 255, 0.9));
+            border: 1px solid rgba(217, 232, 248, 0.75);
+
+            // box-shadow: 0 8px 24px rgba(12, 25, 41, 0.06);
+            &:first-child {
+                background-color: #F5F6FC;
+            }
+
+            &:nth-child(2) {
+                background-color: #F7F6FC;
+            }
+
+            &:last-child {
+                background-color: #F8F7FB;
+            }
+        }
+
+        .t2Icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .t2ShieldBlue {
+            color: #fff;
+            background: linear-gradient(165deg, #5ea0e3, #2e77db);
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='74' height='84' viewBox='0 0 74 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M46.3371 80.2255C40.4131 84.0276 32.8165 84.0276 26.8925 80.2255L8.27686 68.278C3.11832 64.9672 -0.000862942 59.259 -0.000817226 53.1294L-0.000568817 19.8225C-0.000501218 10.7588 6.73878 3.10888 15.7302 1.96622L26.7438 0.566572C32.499 -0.164833 38.3223 -0.188074 44.0832 0.497369L57.3571 2.07671C66.4118 3.15405 73.2305 10.8321 73.2305 19.9506L73.2305 53.1295C73.2305 59.259 70.1113 64.9672 64.9528 68.278L46.3371 80.2255Z' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg width='74' height='84' viewBox='0 0 74 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M46.3371 80.2255C40.4131 84.0276 32.8165 84.0276 26.8925 80.2255L8.27686 68.278C3.11832 64.9672 -0.000862942 59.259 -0.000817226 53.1294L-0.000568817 19.8225C-0.000501218 10.7588 6.73878 3.10888 15.7302 1.96622L26.7438 0.566572C32.499 -0.164833 38.3223 -0.188074 44.0832 0.497369L57.3571 2.07671C66.4118 3.15405 73.2305 10.8321 73.2305 19.9506L73.2305 53.1295C73.2305 59.259 70.1113 64.9672 64.9528 68.278L46.3371 80.2255Z' fill='black'/%3E%3C/svg%3E");
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-position: center;
+            mask-position: center;
+            filter: drop-shadow(0 8px 10px rgba(33, 150, 243, 0.22));
+        }
+
+        .t2ShieldAmber {
+            color: #fff;
+            background: linear-gradient(165deg, #f9c64c, #f4aa1c);
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='74' height='84' viewBox='0 0 74 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M46.3371 80.2255C40.4131 84.0276 32.8165 84.0276 26.8925 80.2255L8.27686 68.278C3.11832 64.9672 -0.000862942 59.259 -0.000817226 53.1294L-0.000568817 19.8225C-0.000501218 10.7588 6.73878 3.10888 15.7302 1.96622L26.7438 0.566572C32.499 -0.164833 38.3223 -0.188074 44.0832 0.497369L57.3571 2.07671C66.4118 3.15405 73.2305 10.8321 73.2305 19.9506L73.2305 53.1295C73.2305 59.259 70.1113 64.9672 64.9528 68.278L46.3371 80.2255Z' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg width='74' height='84' viewBox='0 0 74 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M46.3371 80.2255C40.4131 84.0276 32.8165 84.0276 26.8925 80.2255L8.27686 68.278C3.11832 64.9672 -0.000862942 59.259 -0.000817226 53.1294L-0.000568817 19.8225C-0.000501218 10.7588 6.73878 3.10888 15.7302 1.96622L26.7438 0.566572C32.499 -0.164833 38.3223 -0.188074 44.0832 0.497369L57.3571 2.07671C66.4118 3.15405 73.2305 10.8321 73.2305 19.9506L73.2305 53.1295C73.2305 59.259 70.1113 64.9672 64.9528 68.278L46.3371 80.2255Z' fill='black'/%3E%3C/svg%3E");
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-position: center;
+            mask-position: center;
+            filter: drop-shadow(0 8px 10px rgba(244, 183, 57, 0.25));
+        }
+
+        .t2StarAmber {
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.55rem;
+            background: linear-gradient(150deg, #f8c443, #f59e0b);
+        }
+
+        .t2Content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.32rem;
+        }
+
+        .t2Label {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #0f2d57;
+            letter-spacing: -0.1px;
+        }
+
+        .t2Stars {
+            display: flex;
+            align-items: center;
+            gap: 0.18rem;
+            font-size: 0.66rem;
+        }
+
+        .t2StarsBlue {
+            color: #9ec6ef;
+        }
+
+        .t2StarsAmber {
+            color: #f3b32f;
+        }
+    }
+}

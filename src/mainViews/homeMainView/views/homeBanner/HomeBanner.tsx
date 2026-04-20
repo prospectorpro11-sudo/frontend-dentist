@@ -1,58 +1,19 @@
-import styles from './homeBanner.module.scss';
-import classNames from 'classnames';
 import Image from 'next/image';
+import classNames from 'classnames';
 import {
     BsCalendar3,
     BsCurrencyDollar,
     BsGift,
-    BsPatchCheckFill,
-    BsShieldFillCheck,
-    BsStarFill,
     BsGeoAltFill,
     BsShieldLockFill,
     BsRocketTakeoffFill,
 } from 'react-icons/bs';
-import { IHomeBanner } from '../../../../shared/interface';
-import Button from '@/components/button/Button';
-import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
 import Stats from '@/components/stats/Stats';
-import { RiShieldCheckFill } from 'react-icons/ri';
-import { BiSolidCheckShield } from 'react-icons/bi';
-
-// const trustIconMap = {
-//     verified: BsPatchCheckFill,
-//     shield: BsShieldFillCheck,
-//     star: BsStarFill,
-// } as const;
-
-const trustStrip2Items = [
-    {
-        label: 'Verified Contacts',
-        icon: RiShieldCheckFill,
-        iconClass: 't2ShieldBlue',
-        starCount: 9,
-        starClass: 't2StarsBlue',
-        iconSize: 24,
-    },
-    {
-        label: 'GDPR Compliant',
-        icon: BiSolidCheckShield,
-        iconClass: 't2ShieldAmber',
-        starCount: 9,
-        starClass: 't2StarsBlue',
-        iconSize: 26,
-    },
-    {
-        label: '4.9 Rating',
-        icon: BsStarFill,
-        iconClass: 't2StarAmber',
-        starCount: 5,
-        starClass: 't2StarsAmber',
-        iconSize: 22,
-    },
-] as const;
-
-
+import styles from './homeBanner.module.scss';
+import Button from '@/components/button/Button';
+import TrustStrip from '@/components/trustStrip/TrustStrip';
+import { IHomeBanner } from '../../../../shared/interface';
+import { BUTTON_VARIANT_ENUM, TRUST_STRIP_VARIANT } from '@/shared/enums';
 
 const chamberPillIconMap = {
     geo: BsGeoAltFill,
@@ -68,7 +29,6 @@ const HomeBanner = (props: IHomeBanner) => {
         headingAccent,
         description,
         buttons,
-        trustItems,
         stats,
         chamberPills,
     } = props;
@@ -114,40 +74,7 @@ const HomeBanner = (props: IHomeBanner) => {
                             <Button variant={BUTTON_VARIANT_ENUM.TERTIARY}><BsGift /> {buttons.sample.text}</Button>
                         </a>
                     </div>
-
-                    {/* <div className={styles.trustStrip}>
-                        {trustItems.map((item) => {
-                            const Icon = trustIconMap[item.icon as keyof typeof trustIconMap];
-
-                            return (
-                                <div className={styles.tsItem} key={item.label}>
-                                    <div className={classNames(styles.tsIcon, styles[item.iconClass])}><Icon /></div>
-                                    <span>{item.label}</span>
-                                </div>
-                            );
-                        })}
-                    </div> */}
-                    <div className={styles.trustStrip2}>
-                        {trustStrip2Items.map((item) => {
-                            const Icon = item.icon;
-
-                            return (
-                                <div className={styles.t2Item} key={item.label}>
-                                    <div className={classNames(styles.t2Icon, styles[item.iconClass])}>
-                                        <Icon size={item.iconSize} />
-                                    </div>
-                                    <div className={styles.t2Content}>
-                                        <span className={styles.t2Label}>{item.label}</span>
-                                        <div className={classNames(styles.t2Stars, styles[item.starClass])}>
-                                            {Array.from({ length: item.starCount }).map((_, idx) => (
-                                                <BsStarFill key={`${item.label}-${idx}`} />
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+                    <TrustStrip variant={TRUST_STRIP_VARIANT.V2} />
                 </div>
 
                 <div className={classNames(styles.heroCol, styles.heroColStats)}>

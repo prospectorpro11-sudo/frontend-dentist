@@ -25,3 +25,7 @@ export enum BUTTON_RADIUS_ENUM {
     LARGE = "large",
     FULL = "full",
 }
+export enum TRUST_STRIP_VARIANT {
+    V1 = "v1",
+    V2 = "v2",
+}

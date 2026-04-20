@@ -21,11 +21,6 @@ const homeBanner: IHomeBanner = {
         pricing: { href: '#', text: 'View Pricing', icon: 'currency' },
         sample: { href: '#', text: 'Download Free Sample', icon: 'gift' },
     },
-    trustItems: [
-        { icon: 'verified', label: 'Verified Contacts', iconClass: 'tsI1' },
-        { icon: 'shield', label: 'GDPR Compliant', iconClass: 'tsI2' },
-        { icon: 'star', label: '4.9 Rating', iconClass: 'tsI3' },
-    ],
     stats: [
         { icon: 'people', value: '930,285', label: 'Total Contacts', iconClass: 'spIc1', highlight: true },
         { icon: 'email', value: '930,285', label: 'Emails', iconClass: 'spIc2' },
