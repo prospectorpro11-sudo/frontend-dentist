@@ -13,78 +13,24 @@ import {
     BsSliders,
 } from "react-icons/bs";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import { IProductPriceListSeed } from "@/shared/interface";
+import type { IconType } from "react-icons";
 
-type PricingTier = {
-    leads: string;
-    costPerLead: string;
-    totalPrice: string;
-    isPopular?: boolean;
+const TRUST_ICON_MAP: Record<string, IconType> = {
+    'shield-check': BsShieldCheck,
+    lock: BsLock,
+    'patch-check': BsPatchCheck,
 };
 
-type DataField = {
-    label: string;
-    fullWidth?: boolean;
-};
+const ProductPriceList = (props: IProductPriceListSeed) => {
+    const { content, pricingTiers, includedDataFields, trustBadges } = props;
 
-const pageContent = {
-    title: "Allergist & Dentist Contact List Pricing",
-    description:
-        "Access targeted healthcare contacts through our Prospector Tool with smart filters to ensure outreach precision. Volume discounts applied automatically.",
-    tableTitle: "Pricing Tiers",
-    tableSubtitle: "Select your preferred lead volume",
-    tableHeaders: ["Leads", "Cost / Lead", "Total Price"],
-    tabs: ["All Tiers", "Popular"],
-    includedTitle: "Included Data Fields",
-    starterOfferTitle: "STARTER OFFER",
-    starterSubtitle: "Start with",
-    starterLeads: "250",
-    starterLeadsLabel: "leads for only",
-    starterPrice: "$39",
-    starterDescription:
-        "Perfect for testing your outreach campaign before scaling up.",
-    starterButtonLabel: "Customize this List",
-    guaranteeLabel: "100% data accuracy guarantee",
-    footerBulkPricing: "Bulk pricing on prospector",
-};
-
-const pricingTiers: PricingTier[] = [
-    { leads: "66", costPerLead: "$0.06", totalPrice: "$3.96" },
-    { leads: "100", costPerLead: "$0.05", totalPrice: "$5.00" },
-    { leads: "500", costPerLead: "$0.035", totalPrice: "$17.50" },
-    { leads: "1,000", costPerLead: "$0.03", totalPrice: "$30.00" },
-    { leads: "2,500", costPerLead: "$0.025", totalPrice: "$62.50", isPopular: true },
-    { leads: "5,000", costPerLead: "$0.02", totalPrice: "$100.00" },
-    { leads: "10,000", costPerLead: "$0.015", totalPrice: "$150.00" },
-    { leads: "15,000", costPerLead: "$0.014", totalPrice: "$210.00" },
-    { leads: "20,000", costPerLead: "$0.013", totalPrice: "$260.00" },
-    { leads: "25,000", costPerLead: "$0.0125", totalPrice: "$312.50" },
-    { leads: "50,000", costPerLead: "$0.01", totalPrice: "$500.00" },
-    { leads: "100,000", costPerLead: "$0.008", totalPrice: "$800.00" },
-];
-
-const includedDataFields: DataField[] = [
-    { label: "Full Name + Credentials" },
-    { label: "Verified Emails" },
-    { label: "NPI & License" },
-    { label: "Phone & Fax Numbers" },
-    { label: "Mailing Addresses" },
-    { label: "State, ZIP, City" },
-    { label: "Specialty, License State, Graduation Year", fullWidth: true },
-];
-
-const trustBadges = [
-    { label: "HIPAA Compliant", icon: BsShieldCheck },
-    { label: "Secure Data", icon: BsLock },
-    { label: "Verified Sources", icon: BsPatchCheck },
-];
-
-const ProductPriceList = () => {
     return (
         <section className={styles.pricingTiers}>
             <Container>
                 <div className={styles.header}>
-                    <h1 className={styles.headerTitle}>{pageContent.title}</h1>
-                    <p className={styles.headerDescription}>{pageContent.description}</p>
+                    <h1 className={styles.headerTitle}>{content.title}</h1>
+                    <p className={styles.headerDescription}>{content.description}</p>
                 </div>
                 <Col xs={12} lg={9} className="mx-auto" >
                     <Row>
@@ -94,13 +40,13 @@ const ProductPriceList = () => {
                                     <div>
                                         <div className={styles.pricingCardHeaderTitle}>
                                             <BsCashCoin className={styles.pricingCardHeaderTitleIcon} />
-                                            {pageContent.tableTitle}
+                                            {content.tableTitle}
                                         </div>
-                                        <div className={styles.pricingCardHeaderSubtitle}>{pageContent.tableSubtitle}</div>
+                                        <div className={styles.pricingCardHeaderSubtitle}>{content.tableSubtitle}</div>
                                     </div>
 
                                     <div className={styles.tabGroup}>
-                                        {pageContent.tabs.map((tab, index) => (
+                                        {content.tabs.map((tab, index) => (
                                             <button
                                                 key={tab}
                                                 type="button"
@@ -115,7 +61,7 @@ const ProductPriceList = () => {
                                 <table className={styles.table}>
                                     <thead className={styles.tableHead}>
                                         <tr>
-                                            {pageContent.tableHeaders.map((header, index) => (
+                                            {content.tableHeaders.map((header, index) => (
                                                 <th key={header} className={classnames(styles.tableCell, index === 0 ? styles.leftCell : styles.centerCell)}>
                                                     {header}
                                                 </th>
@@ -142,7 +88,7 @@ const ProductPriceList = () => {
                                         <tr>
                                             <td className={classnames(styles.tableCell, styles.leftCell, styles.primaryCell)}>&gt; 100,000</td>
                                             <td className={classnames(styles.tableCell, styles.centerCell)}>-</td>
-                                            <td className={classnames(styles.tableCell, styles.centerCell, styles.bulkCell)}>{pageContent.footerBulkPricing}</td>
+                                            <td className={classnames(styles.tableCell, styles.centerCell, styles.bulkCell)}>{content.footerBulkPricing}</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -155,7 +101,7 @@ const ProductPriceList = () => {
                                         <div className={styles.dataFieldsCardIcon}>
                                             <BsFileEarmarkText />
                                         </div>
-                                        {pageContent.includedTitle}
+                                        {content.includedTitle}
                                     </div>
 
                                     <div className={styles.dataFieldsCardGrid}>
@@ -179,28 +125,31 @@ const ProductPriceList = () => {
                                 <div className={styles.starterCard}>
                                     <div className={styles.starterCardOffer}>
                                         <BsStars className={styles.starterCardOfferSparkle} />
-                                        {pageContent.starterOfferTitle}
+                                        {content.starterOfferTitle}
                                     </div>
-                                    <div className={styles.starterCardSubtitle}>{pageContent.starterSubtitle}</div>
-                                    <div className={styles.starterCardLeads}>{pageContent.starterLeads}</div>
-                                    <div className={styles.starterCardLeadsLabel}>{pageContent.starterLeadsLabel}</div>
-                                    <div className={styles.starterCardPrice}>{pageContent.starterPrice}</div>
-                                    <p className={styles.starterCardDescription}>{pageContent.starterDescription}</p>
+                                    <div className={styles.starterCardSubtitle}>{content.starterSubtitle}</div>
+                                    <div className={styles.starterCardLeads}>{content.starterLeads}</div>
+                                    <div className={styles.starterCardLeadsLabel}>{content.starterLeadsLabel}</div>
+                                    <div className={styles.starterCardPrice}>{content.starterPrice}</div>
+                                    <p className={styles.starterCardDescription}>{content.starterDescription}</p>
 
                                     <Button variant={BUTTON_VARIANT_ENUM.PRIMARY} className={styles.starterCardButton}>
                                         <BsSliders />
-                                        {pageContent.starterButtonLabel}
+                                        {content.starterButtonLabel}
                                     </Button>
 
                                     <div className={styles.starterCardGuarantee}>
                                         <BsPatchCheck />
-                                        {pageContent.guaranteeLabel}
+                                        {content.guaranteeLabel}
                                     </div>
                                 </div>
 
                                 <div className={styles.badges}>
                                     {trustBadges.map((badge) => {
-                                        const Icon = badge.icon;
+                                        const Icon = TRUST_ICON_MAP[badge.icon];
+                                        if (!Icon) {
+                                            return null;
+                                        }
 
                                         return (
                                             <div key={badge.label} className={styles.badge}>

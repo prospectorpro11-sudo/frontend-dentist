@@ -1,97 +1,61 @@
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./crmIntegration.module.scss";
 import classNames from "classnames";
-import { BsArrowRepeat, BsFiletypeCsv, BsFillDiagram3Fill, BsFillEnvelopeHeartFill, BsFillLightningChargeFill, BsFillPlugFill } from "react-icons/bs";
-import { BiBluetooth, BiCheck, BiDownload } from "react-icons/bi";
-import { FaBolt, FaRepeat, FaTooth } from "react-icons/fa6";
+import {
+    BsArrowRepeat,
+    BsFiletypeCsv,
+    BsFillDiagram3Fill,
+    BsFillEnvelopeHeartFill,
+    BsFillLightningChargeFill,
+} from "react-icons/bs";
+import { BiCheck, BiDownload } from "react-icons/bi";
+import { FaBolt, FaRepeat } from "react-icons/fa6";
 import { IoMdCloud } from "react-icons/io";
 import Button from "../button/Button";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 import Image from "next/image";
 import { FiDownload } from "react-icons/fi";
+import { ICrmIntegrationSeed } from "@/shared/interface";
 
-interface ICrmIntegration {
-    title?: string;
-    description?: string;
-}
+const CrmIntegration = (props: ICrmIntegrationSeed) => {
+    const { left, right } = props;
 
-const CrmIntegration = (props: ICrmIntegration) => {
-    const { title, description } = props;
     return (
         <section className={styles.wrapper}>
             <Container>
                 <Row className="align-items-center">
                     <Col xs={12} lg={5}>
                         <div className="d-flex justify-content-center">
-                            {/* Mockup */}
                             <div className={styles.mockupWrapper}>
-                                {/* Background Blobs */}
                                 <div className={styles.mockupBg}>
                                     <div className={classNames(styles.blob, styles.blob1)}></div>
                                     <div className={classNames(styles.blob, styles.blob2)}></div>
                                 </div>
 
-                                {/* Mockup Card */}
                                 <div className={styles.mockupCard}>
                                     <div className={styles.chips}>
                                         <div className={classNames(styles.chip, styles.chip1)}>
                                             <div className={styles.icon}>
                                                 <FiDownload />
                                             </div>
-                                            <div className={styles.label}>Export</div>
+                                            <div className={styles.label}>{left.chips[0]}</div>
                                         </div>
                                         <div className={classNames(styles.chip, styles.chip2)}>
                                             <div className={styles.icon}>
                                                 <FaRepeat />
                                             </div>
-                                            <div className={styles.label}>Import</div>
+                                            <div className={styles.label}>{left.chips[1]}</div>
                                         </div>
                                         <div className={classNames(styles.chip, styles.chip3)}>
                                             <div className={styles.icon}>
                                                 <FaBolt />
                                             </div>
-                                            <div className={styles.label}>Launch</div>
+                                            <div className={styles.label}>{left.chips[2]}</div>
                                         </div>
-
-
-                                        {/* <div className={styles.featurePill}>
-                                                <div className={classNames(styles.featurePillIcon, styles.blue)}>
-                                                    <BiDownload />
-                                                </div>
-                                                <div className={styles.featurePillText}>Export</div>
-                                            </div>
-                                            <div className={styles.featurePill}>
-                                                <div className={classNames(styles.featurePillIcon, styles.teal)}>
-                                                    <BsArrowRepeat />
-                                                </div>
-                                                <div className={styles.featurePillText}>Import</div>
-                                            </div>
-                                            <div className={styles.featurePill}>
-                                                <div className={classNames(styles.featurePillIcon, styles.indigo)}>
-                                                    <BsFillLightningChargeFill />
-                                                </div>
-                                                <div className={styles.featurePillText}>Launch</div>
-                                            </div> */}
                                     </div>
-                                    {/* Glows */}
                                     <div className={classNames(styles.cardGlow, styles.glow1)}></div>
                                     <div className={classNames(styles.cardGlow, styles.glow2)}></div>
-
-                                    {/* Dot Pattern */}
                                     <div className={styles.dotPattern}></div>
-
-                                    {/* Floating Elements */}
-                                    {/* <div className={classNames(styles.floatEl, styles.float1)}>
-                                        <svg className={styles.toothSvg} viewBox="0 0 40 56">
-                                            <path d="M20 4C14 4 8 9 6 15C4 21 5 29 6 35C7 41 9 44 12 44C15 44 15 38 18 38C21 38 21 44 22 44C23 44 23 38 26 38C29 38 29 44 32 44C35 44 37 41 38 35C39 29 40 21 38 15C36 9 30 4 20 4Z" fill="url(#toothGrad)" />
-                                            <defs>
-                                                <linearGradient id="toothGrad" x1="20" y1="4" x2="20" y2="44">
-                                                    <stop offset="0%" stopColor="#0ea5e9" />
-                                                    <stop offset="100%" stopColor="#0284c7" />
-                                                </linearGradient>
-                                            </defs>
-                                        </svg>
-                                    </div> */}
 
                                     <div className={classNames(styles.floatEl, styles.float2)}>
                                         <svg className={styles.starSvg} viewBox="0 0 24 24">
@@ -99,44 +63,28 @@ const CrmIntegration = (props: ICrmIntegration) => {
                                         </svg>
                                     </div>
 
-                                    {/* <div className={classNames(styles.floatEl, styles.float3)}>
-                                        <div className={styles.circleEl}></div>
-                                    </div> */}
-
-                                    {/* Content */}
                                     <div className={styles.mockupContent}>
-                                        {/* Header */}
                                         <div className={styles.mockupHeader}>
                                             <div className={styles.headerIcon}>
-                                                {/* <FaTooth /> */}
                                                 <Image src="/logo-icon-white.png" width={25} height={25} alt="logo icon" style={{ objectFit: "scale-down" }} />
                                             </div>
                                             <div>
-                                                <div className={styles.headerTitle}>Dentist Email List</div>
-                                                <div className={styles.headerSubtitle}>930K+ verified contacts</div>
+                                                <div className={styles.headerTitle}>{left.headerTitle}</div>
+                                                <div className={styles.headerSubtitle}>{left.headerSubtitle}</div>
                                             </div>
                                         </div>
 
-                                        {/* Flow Visual */}
                                         <div className={styles.flowVisual}>
-                                            {/* Data Panel */}
                                             <div className={styles.dataPanel}>
-                                                <div className={styles.dataPanelTitle}>Contacts</div>
-                                                <div className={styles.dataItem}>
-                                                    <div className={classNames(styles.dataAvatar, styles.blue)}>JE</div>
-                                                    Dr. Evans
-                                                </div>
-                                                <div className={styles.dataItem}>
-                                                    <div className={classNames(styles.dataAvatar, styles.teal)}>CM</div>
-                                                    Dr. Martinez
-                                                </div>
-                                                <div className={styles.dataItem}>
-                                                    <div className={classNames(styles.dataAvatar, styles.indigo)}>EW</div>
-                                                    Dr. Wilson
-                                                </div>
+                                                <div className={styles.dataPanelTitle}>{left.dataPanelTitle}</div>
+                                                {left.contacts.map((contact) => (
+                                                    <div key={contact.name} className={styles.dataItem}>
+                                                        <div className={classNames(styles.dataAvatar, styles[contact.color])}>{contact.initials}</div>
+                                                        {contact.name}
+                                                    </div>
+                                                ))}
                                             </div>
 
-                                            {/* Center Flow */}
                                             <div className={styles.centerFlow}>
                                                 <div className={styles.flowLine}></div>
                                                 <div className={styles.flowLine}></div>
@@ -144,64 +92,48 @@ const CrmIntegration = (props: ICrmIntegration) => {
                                                     <div className={styles.csvIcon}>
                                                         <BsFiletypeCsv />
                                                     </div>
-                                                    <div className={styles.csvText}>CSV</div>
+                                                    <div className={styles.csvText}>{left.csvText}</div>
                                                 </div>
                                                 <div className={styles.flowLine}></div>
                                                 <div className={styles.flowLine}></div>
                                             </div>
 
-                                            {/* Integration Panel */}
                                             <div className={styles.integrationPanel}>
-                                                <div className={styles.integrationPanelTitle}>Platforms</div>
-                                                <div className={styles.integrationItem}>
-                                                    <div className={classNames(styles.integrationIcon, styles.sf)}>
-                                                        <IoMdCloud />
+                                                <div className={styles.integrationPanelTitle}>{left.integrationPanelTitle}</div>
+                                                {left.platforms.map((platform) => (
+                                                    <div key={platform.name} className={styles.integrationItem}>
+                                                        <div className={classNames(styles.integrationIcon, styles[platform.color])}>
+                                                            {platform.icon === 'cloud' && <IoMdCloud />}
+                                                            {platform.icon === 'diagram' && <BsFillDiagram3Fill />}
+                                                            {platform.icon === 'envelope-heart' && <BsFillEnvelopeHeartFill />}
+                                                        </div>
+                                                        <div className={styles.integrationName}>{platform.name}</div>
+                                                        <div className={styles.integrationCheck}>
+                                                            <BiCheck />
+                                                        </div>
                                                     </div>
-                                                    <div className={styles.integrationName}>Salesforce</div>
-                                                    <div className={styles.integrationCheck}>
-                                                        <BiCheck />
-                                                    </div>
-                                                </div>
-                                                <div className={styles.integrationItem}>
-                                                    <div className={classNames(styles.integrationIcon, styles.hub)}>
-                                                        <BsFillDiagram3Fill />
-                                                    </div>
-                                                    <div className={styles.integrationName}>HubSpot</div>
-                                                    <div className={styles.integrationCheck}>
-                                                        <BiCheck />
-                                                    </div>
-                                                </div>
-                                                <div className={styles.integrationItem}>
-                                                    <div className={classNames(styles.integrationIcon, styles.mc)}>
-                                                        <BsFillEnvelopeHeartFill />
-                                                    </div>
-                                                    <div className={styles.integrationName}>Mailchimp</div>
-                                                    <div className={styles.integrationCheck}>
-                                                        <BiCheck />
-                                                    </div>
-                                                </div>
+                                                ))}
                                             </div>
                                         </div>
 
-                                        {/* Features Footer */}
                                         <div className={styles.featuresFooter}>
                                             <div className={styles.featurePill}>
                                                 <div className={classNames(styles.featurePillIcon, styles.blue)}>
                                                     <BiDownload />
                                                 </div>
-                                                <div className={styles.featurePillText}>Export</div>
+                                                <div className={styles.featurePillText}>{left.featuresFooter[0]}</div>
                                             </div>
                                             <div className={styles.featurePill}>
                                                 <div className={classNames(styles.featurePillIcon, styles.teal)}>
                                                     <BsArrowRepeat />
                                                 </div>
-                                                <div className={styles.featurePillText}>Import</div>
+                                                <div className={styles.featurePillText}>{left.featuresFooter[1]}</div>
                                             </div>
                                             <div className={styles.featurePill}>
                                                 <div className={classNames(styles.featurePillIcon, styles.indigo)}>
                                                     <BsFillLightningChargeFill />
                                                 </div>
-                                                <div className={styles.featurePillText}>Launch</div>
+                                                <div className={styles.featurePillText}>{left.featuresFooter[2]}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -210,11 +142,11 @@ const CrmIntegration = (props: ICrmIntegration) => {
                         </div>
                     </Col>
                     <Col xs={12} lg={7}>
-                        <h2 className={styles.heading}>Effortless CRM Integration for <br /> <span className="shifting-accent">Dental Professionals</span></h2>
-                        <p>Our medical email lists are available in CSV format, making them seamlessly compatible with top healthcare CRMs like Salesforce Health Cloud, HubSpot, and email marketing platforms such as Mailchimp. </p>
-                        <p>Streamline your physician outreach, automate follow-ups, and optimize engagement with a hassle-free integration process.</p>
+                        <h2 className={styles.heading}>{right.title} <br /> <span className="shifting-accent">{right.titleAccent}</span></h2>
+                        <p>{right.description1}</p>
+                        <p>{right.description2}</p>
                         <br />
-                        <Button variant={BUTTON_VARIANT_ENUM.PRIMARY}>Discover More</Button>
+                        <Button variant={BUTTON_VARIANT_ENUM.PRIMARY}>{right.buttonText}</Button>
                     </Col>
                 </Row>
             </Container>

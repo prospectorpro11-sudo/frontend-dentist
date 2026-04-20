@@ -256,3 +256,322 @@ export interface IProductListItem {
 	tags: Array<"hot" | "popular" | "new" | "verified">;
 	cat: string;
 };
+
+export interface IWhatsIncludedDetailsTag {
+	id: number;
+	label: string;
+	removable: boolean;
+	variant: string;
+}
+
+export interface IWhatsIncludedDetailsSection {
+	label: string;
+	tags: IWhatsIncludedDetailsTag[];
+}
+
+export interface IWhatsIncludedDetailsDentist {
+	id: number;
+	initials: string;
+	name: string;
+	specialty: string;
+	verified: boolean;
+	avatarVariant: string;
+}
+
+export interface IWhatsIncludedDetailsCard {
+	id: number;
+	title: string;
+	titleSuffix: string;
+	description: string;
+	isLast: boolean;
+}
+
+export interface IWhatsIncludedDetailsSeed {
+	header: {
+		title: string;
+		description: string;
+	};
+	buildListTitle: string;
+	filterSections: IWhatsIncludedDetailsSection[];
+	dentistData: IWhatsIncludedDetailsDentist[];
+	loadingContent: {
+		text: string;
+		count: string;
+		suffix: string;
+	};
+	personalizeTitle: string;
+	personalizeSections: IWhatsIncludedDetailsSection[];
+	verifiedTitle: string;
+	dataCards: IWhatsIncludedDetailsCard[];
+	footerStats: string[];
+}
+
+export interface IProductPriceTier {
+	leads: string;
+	costPerLead: string;
+	totalPrice: string;
+	isPopular?: boolean;
+}
+
+export interface IProductPriceField {
+	label: string;
+	fullWidth?: boolean;
+}
+
+export interface IProductPriceBadge {
+	label: string;
+	icon: string;
+}
+
+export interface IProductPriceListSeed {
+	content: {
+		title: string;
+		description: string;
+		tableTitle: string;
+		tableSubtitle: string;
+		tableHeaders: string[];
+		tabs: string[];
+		includedTitle: string;
+		starterOfferTitle: string;
+		starterSubtitle: string;
+		starterLeads: string;
+		starterLeadsLabel: string;
+		starterPrice: string;
+		starterDescription: string;
+		starterButtonLabel: string;
+		guaranteeLabel: string;
+		footerBulkPricing: string;
+	};
+	pricingTiers: IProductPriceTier[];
+	includedDataFields: IProductPriceField[];
+	trustBadges: IProductPriceBadge[];
+}
+
+export interface ICustomDentistListStep {
+	id: number;
+	title: string;
+	desc: string;
+	color: string;
+}
+
+export interface ICustomDentistListFeature {
+	title: string;
+	desc: string;
+	color: string;
+	icon: string;
+}
+
+export interface ICustomDentistListFilterItem {
+	title: string;
+	desc: string;
+	color: string;
+	bg: string;
+	icon: string;
+}
+
+export interface ICustomDentistListSeed {
+	header: {
+		title: string;
+		highlight: string;
+		subtitle: string;
+	};
+	howItWorks: {
+		title: string;
+		steps: ICustomDentistListStep[];
+	};
+	features: ICustomDentistListFeature[];
+	smartFilters: {
+		title: string;
+		items: ICustomDentistListFilterItem[];
+	};
+}
+
+export interface IWhyChooseUsItem {
+	title: string;
+	desc: string;
+	icon: string;
+	delayClass?: string;
+	positionClass?: string;
+	subtitle?: string;
+}
+
+export interface IWhyChooseUsField {
+	label: string;
+	value: string;
+	icon: string;
+	masked?: boolean;
+	danger?: boolean;
+}
+
+export interface IWhyChooseUsAction {
+	label: string;
+	icon: string;
+	secondary?: boolean;
+}
+
+export interface IWhyChooseUsSeed {
+	content: {
+		badge: string;
+		title: string;
+		highlight: string;
+		subtitle: string;
+		profile: {
+			initials: string;
+			name: string;
+			specialty: string;
+			status: string;
+		};
+	};
+	painPoints: IWhyChooseUsItem[];
+	floatingBadges: IWhyChooseUsItem[];
+	mockupFields: IWhyChooseUsField[];
+	mockupActions: IWhyChooseUsAction[];
+}
+
+export interface IDentalSpecialtyCard {
+	id: string;
+	title: string;
+	description: string;
+	icon: string;
+	iconColor: "blue" | "teal" | "indigo" | "amber";
+	contactCount: string;
+	verificationRate: string;
+}
+
+export interface IDentalSpecialtySeed {
+	content: {
+		sectionTitle: string;
+		sectionTitleAccent: string;
+		sectionSubtitle: string;
+		ctaTitle: string;
+		ctaDescription: string;
+		ctaButtonText: string;
+	};
+	specialtyCards: IDentalSpecialtyCard[];
+}
+
+export interface ICrmIntegrationSeed {
+	left: {
+		chips: string[];
+		headerTitle: string;
+		headerSubtitle: string;
+		dataPanelTitle: string;
+		contacts: Array<{ initials: string; name: string; color: "blue" | "teal" | "indigo" }>;
+		csvText: string;
+		integrationPanelTitle: string;
+		platforms: Array<{ name: string; icon: string; color: "sf" | "hub" | "mc" }>;
+		featuresFooter: string[];
+	};
+	right: {
+		title: string;
+		titleAccent: string;
+		description1: string;
+		description2: string;
+		buttonText: string;
+	};
+}
+
+export interface IVerifiedSourceItem {
+	label: string;
+	color: "blue" | "teal" | "indigo" | "amber" | "emerald";
+	iconClass?: string;
+}
+
+export interface IVerifiedSourceSeed {
+	content: {
+		badge: string;
+		title: string;
+		titleAccent: string;
+		subtitle: string;
+		sourcesListTitle: string;
+		ctaText: string;
+		diagramLabel: string;
+	};
+	sourceNodes: IVerifiedSourceItem[];
+	verifiedDataSources: IVerifiedSourceItem[];
+}
+
+export interface IDataBeneficiaryNode {
+	iconClass: string;
+	label: string;
+	color: "blue" | "teal" | "indigo" | "amber" | "emerald" | "rose";
+	positionClass: "node1" | "node2" | "node3" | "node4" | "node5" | "node6";
+}
+
+export interface IDataBeneficiariesSeed {
+	content: {
+		title: string;
+		titleAccent: string;
+		titleSuffix: string;
+		subtitle: string;
+		dataHubText: string;
+	};
+	nodes: IDataBeneficiaryNode[];
+}
+
+export interface IComparisonRow {
+	feature: string;
+	featureIcon: string;
+	featureColor: "blue" | "teal" | "indigo" | "emerald" | "amber" | "rose";
+	oursStatus: "yes" | "no" | "soon";
+	oursLabel: string;
+	oursDetail?: string;
+	otherLabel: string;
+	otherDetail?: string;
+}
+
+export interface IComparisonTableSeed {
+	content: {
+		badge: string;
+		title: string;
+		titleAccent: string;
+		subtitle: string;
+		featuresHeader: string;
+		recommendedLabel: string;
+		oursTitle: string;
+		oursSubtitle: string;
+		othersTitle: string;
+		othersSubtitle: string;
+		ctaTitle: string;
+		ctaDescription: string;
+		ctaButtonText: string;
+	};
+	rows: IComparisonRow[];
+}
+
+export interface IAboutTrustCard {
+	iconClass: string;
+	title: string;
+	description: string;
+	color: "blue" | "teal" | "indigo";
+}
+
+export interface IAboutStatCard {
+	iconClass: string;
+	value: string;
+	label: string;
+	color: "blue" | "teal" | "indigo" | "emerald";
+	positionClass: "card1" | "card2" | "card3" | "card4";
+}
+
+export interface IAboutCategory {
+	name: string;
+	color: "blue" | "teal" | "indigo" | "amber" | "emerald" | "rose";
+}
+
+export interface IAboutDentistEmailListSeed {
+	content: {
+		title: string;
+		titleAccent: string;
+		subtitle: string;
+		mockupTitle: string;
+		mockupSubtitle: string;
+		verifyTitle: string;
+		verifySubtitle: string;
+		verifyBadge: string;
+		ctaButtonText: string;
+	};
+	trustCards: IAboutTrustCard[];
+	statCards: IAboutStatCard[];
+	categories: IAboutCategory[];
+}

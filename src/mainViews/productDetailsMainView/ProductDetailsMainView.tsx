@@ -18,16 +18,16 @@ const ProductDetailsMainView = () => {
         <>
             <ProductDetailsBanner />
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
-            <WhatsIncludedDetails />
-            <ProductPriceList />
-            <CustomDentistList />
-            <WhyChooseUs />
-            <DentalSpecialtyList />
-            <CrmIntegration />
-            <VerifiedSource />
-            <DataBeneficiaries />
-            <ComparisonTable />
-            <AboutDentistEmailList />
+            <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} />
+            <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />
+            <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistList} />
+            <WhyChooseUs {...PRODUCT_DETAILS_SEED_OBJECT.whyChooseUs} />
+            <DentalSpecialtyList {...PRODUCT_DETAILS_SEED_OBJECT.dentalSpecialtyList} />
+            <CrmIntegration {...PRODUCT_DETAILS_SEED_OBJECT.crmIntegration} />
+            <VerifiedSource {...PRODUCT_DETAILS_SEED_OBJECT.verifiedSource} />
+            <DataBeneficiaries {...PRODUCT_DETAILS_SEED_OBJECT.dataBeneficiaries} />
+            <ComparisonTable {...PRODUCT_DETAILS_SEED_OBJECT.comparisonTable} />
+            <AboutDentistEmailList {...PRODUCT_DETAILS_SEED_OBJECT.aboutDentistEmailList} />
             <Faq {...PRODUCT_DETAILS_SEED_OBJECT.faq} />
         </>
     );

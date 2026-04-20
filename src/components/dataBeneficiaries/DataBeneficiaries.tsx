@@ -3,20 +3,11 @@ import classname from 'classnames';
 import styles from './dataBeneficiaries.module.scss';
 import { Container } from 'react-bootstrap';
 import Image from 'next/image';
+import { IDataBeneficiariesSeed } from '@/shared/interface';
 
-type NodeColor = 'blue' | 'teal' | 'indigo' | 'amber' | 'emerald' | 'rose';
-type NodePosition = 'node1' | 'node2' | 'node3' | 'node4' | 'node5' | 'node6';
+const DataBeneficiaries = (props: IDataBeneficiariesSeed) => {
+    const { content, nodes } = props;
 
-const beneficiaryNodes: Array<{ iconClass: string; label: string; color: NodeColor; positionClass: NodePosition }> = [
-    { iconClass: 'bi bi-megaphone', label: 'Healthcare Marketers', color: 'blue', positionClass: 'node1' },
-    { iconClass: 'bi bi-briefcase', label: 'Recruiters & Staffing', color: 'teal', positionClass: 'node2' },
-    { iconClass: 'bi bi-tools', label: 'Device Suppliers', color: 'indigo', positionClass: 'node3' },
-    { iconClass: 'bi bi-capsule', label: 'Pharma Companies', color: 'amber', positionClass: 'node4' },
-    { iconClass: 'bi bi-mortarboard', label: 'CME Providers', color: 'emerald', positionClass: 'node5' },
-    { iconClass: 'bi bi-clipboard2-pulse', label: 'Clinical Studies', color: 'rose', positionClass: 'node6' },
-];
-
-const DataBeneficiaries = () => {
     return (
         <section>
             <Container>
@@ -35,9 +26,9 @@ const DataBeneficiaries = () => {
                     <div className={styles.mockupContent}>
                         <div className={styles.mockupHeader}>
                             <h2 className={styles.mockupTitle}>
-                                Who Can <span className='shifting-accent'>Benefit</span> from this Data?
+                                {content.title} <span className='shifting-accent'>{content.titleAccent}</span> {content.titleSuffix}
                             </h2>
-                            <p className={styles.mockupSubtitle}>Verified dentist contacts for targeted outreach</p>
+                            <p className={styles.mockupSubtitle}>{content.subtitle}</p>
                         </div>
 
                         <div className={styles.centerVisual}>
@@ -53,7 +44,7 @@ const DataBeneficiaries = () => {
                             </div>
 
                             <div className={styles.beneficiaryNodes}>
-                                {beneficiaryNodes.map((node) => (
+                                {nodes.map((node) => (
                                     <div key={node.label} className={classname(styles.node, styles[node.positionClass])}>
                                         <div className={classname(styles.nodeIcon, styles[node.color])}>
                                             <i className={node.iconClass}></i>
@@ -64,8 +55,8 @@ const DataBeneficiaries = () => {
                             </div>
 
                             <div className={styles.dataHub}>
-                                 <Image src="/logo-icon-white.png" width={60} height={60} alt='Logo Icon' style={{ objectFit: "scale-down" }} />
-                                <div className={styles.dataHubText}>930K+ Dentist Contacts</div>
+                                 <Image src="/logo-icon-white.png" width={60} height={60} alt='Logo Icon' style={{ objectFit: 'scale-down' }} />
+                                <div className={styles.dataHubText}>{content.dataHubText}</div>
                             </div>
                         </div>
                     </div>

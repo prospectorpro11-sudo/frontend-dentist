@@ -12,121 +12,24 @@ import {
 } from "react-icons/bs";
 import type { IconType } from "react-icons";
 import { Col, Container, Row } from "react-bootstrap";
+import { ICustomDentistListSeed } from "@/shared/interface";
 
-type Step = {
-    id: number;
-    title: string;
-    desc: string;
-    color: string;
+const ICON_MAP: Record<string, IconType> = {
+    lightning: BsLightning,
+    'check-circle': BsCheckCircle,
+    'shield-check': BsShieldCheck,
+    'geo-alt': BsGeoAlt,
+    'heart-pulse': BsHeartPulse,
+    'person-vcard': BsPersonVcard,
+    building: BsBuilding,
 };
 
-type Feature = {
-    title: string;
-    desc: string;
-    color: string;
-    icon: IconType;
-};
-
-type SmartFilterItem = {
-    title: string;
-    desc: string;
-    color: string;
-    bg: string;
-    icon: IconType;
-};
-
-const CONTENT_DATA = {
-    header: {
-        title: "Build Custom Dentist Lists",
-        highlight: "In Minutes",
-        subtitle: "Quickly build a tailored list of dental specialists using our advanced filters — perfect for outreach, market research, or product promotion.",
-    },
-    howItWorks: {
-        title: "How It Works",
-        steps: [
-            {
-                id: 1,
-                title: "Select Filters",
-                desc: "Choose from dental specialty, state, city, ZIP code, credentials, and more.",
-                color: "var(--blue-500)",
-            },
-            {
-                id: 2,
-                title: "Apply Segmentation",
-                desc: "Refine your search with precision targeting — cosmetic, pediatric, orthodontics, etc.",
-                color: "var(--teal-500)",
-            },
-            {
-                id: 3,
-                title: "Download Instantly",
-                desc: "Get your customized CSV with emails, phones, faxes & NPI numbers.",
-                color: "var(--blue-600)",
-            },
-        ] as Step[],
-    },
-    features: [
-        {
-            title: "Instant Results",
-            desc: "Build and download your custom list in seconds with real-time filtering.",
-            color: "var(--blue-500)",
-            icon: BsLightning,
-        },
-        {
-            title: "Verified Data",
-            desc: "95%+ deliverability rate with multi-source verification and regular updates.",
-            color: "var(--emerald-500)",
-            icon: BsCheckCircle,
-        },
-        {
-            title: "GDPR Compliant",
-            desc: "Fully compliant with GDPR, HIPAA, and CAN-SPAM regulations.",
-            color: "var(--indigo-500)",
-            icon: BsShieldCheck,
-        },
-    ] as Feature[],
-    smartFilters: {
-        title: "Smart Filters",
-        items: [
-            {
-                title: "Location",
-                desc: "State, city, ZIP code, radius targeting",
-                color: "var(--blue-500)",
-                bg: "var(--blue-100)",
-                icon: BsGeoAlt,
-            },
-            {
-                title: "Specialty",
-                desc: "Cosmetic, pediatric, orthodontics & more",
-                color: "var(--teal-500)",
-                bg: "var(--teal-100)",
-                icon: BsHeartPulse,
-            },
-            {
-                title: "Credentials",
-                desc: "License, NPI number, DDS/DMD degree",
-                color: "var(--indigo-500)",
-                bg: "var(--indigo-100)",
-                icon: BsPersonVcard,
-            },
-            {
-                title: "Practice Size",
-                desc: "Solo, group, hospital, clinic size",
-                color: "var(--amber-500)",
-                bg: "var(--amber-100)",
-                icon: BsBuilding,
-            },
-        ],
-    },
-};
-
-
-const CustomDentistList = () => {
-    const { header, howItWorks, features, smartFilters } = CONTENT_DATA;
+const CustomDentistList = (props: ICustomDentistListSeed) => {
+    const { header, howItWorks, features, smartFilters } = props;
 
     return (
         <section className={styles.dentistLists}>
             <Container>
-                {/* Header */}
                 <div className={styles.header}>
                     <h1 className={styles.title}>
                         {header.title} <span className="shifting-accent">{header.highlight}</span>
@@ -135,10 +38,7 @@ const CustomDentistList = () => {
                 </div>
                 <Row>
                     <Col xs={12} lg={8}>
-                        {/* Left Column */}
                         <div className={styles.leftColumn}>
-
-                            {/* How It Works */}
                             <div className={styles.howItWorksCard}>
                                 <h2 className={styles.sectionTitle}>
                                     <BsGear />
@@ -160,10 +60,12 @@ const CustomDentistList = () => {
                                 </div>
                             </div>
 
-                            {/* Bottom Features */}
                             <div className={styles.featuresContainer}>
                                 {features.map((feature) => {
-                                    const Icon = feature.icon;
+                                    const Icon = ICON_MAP[feature.icon];
+                                    if (!Icon) {
+                                        return null;
+                                    }
 
                                     return (
                                         <div key={feature.title} className={styles.featureCard}>
@@ -193,7 +95,11 @@ const CustomDentistList = () => {
 
                                 <div className={styles.filterList}>
                                     {smartFilters.items.map((item, idx) => {
-                                        const Icon = item.icon;
+                                        const Icon = ICON_MAP[item.icon];
+                                        if (!Icon) {
+                                            return null;
+                                        }
+
                                         return (
                                             <div key={idx} className={styles.filterItem}>
                                                 <div
