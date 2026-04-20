@@ -7,6 +7,7 @@ import { FaTooth } from "react-icons/fa6";
 import { IoMdCloud } from "react-icons/io";
 import Button from "../button/Button";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import Image from "next/image";
 
 interface ICrmIntegration {
     title?: string;
@@ -66,7 +67,8 @@ const CrmIntegration = (props: ICrmIntegration) => {
                                         {/* Header */}
                                         <div className={styles.mockupHeader}>
                                             <div className={styles.headerIcon}>
-                                                <FaTooth />
+                                                {/* <FaTooth /> */}
+                                                <Image src="/logo-icon-white.png" width={25} height={25} alt="logo icon" style={{ objectFit: "scale-down" }} />
                                             </div>
                                             <div>
                                                 <div className={styles.headerTitle}>Dentist Email List</div>
