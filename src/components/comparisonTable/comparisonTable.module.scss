@@ -29,15 +29,7 @@
             font-weight: 800;
             color: var(--n800);
             margin-bottom: 0.75rem;
-            letter-spacing: -0.5px;
             animation: fadeInDown 0.6s ease-out 0.1s both;
-
-            span {
-                background: linear-gradient(135deg, var(--blue-500), var(--teal-500));
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
         }
 
         .sectionSubtitle {
@@ -189,7 +181,7 @@
         }
 
         .headerCellFeatures {
-            background: linear-gradient(135deg, var(--n50), var(--blue-50));
+            background: #F8FAFC;
             text-align: left;
             padding-left: 2.5rem;
             position: relative;
@@ -466,10 +458,7 @@
                     content: '';
                     position: absolute;
                     inset: 0;
-                    background:
-                        radial-gradient(circle at 30% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
-                    pointer-events: none;
+                    background: linear-gradient(135deg, #142238 14.64%, #1E3A5F 85.36%);
                 }
             }
         }
@@ -498,49 +487,6 @@
                 font-size: 0.85rem;
                 color: var(--n400);
                 margin-bottom: 1.5rem;
-            }
-        }
-
-        .ctaBtn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 1rem 2.25rem;
-            background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.92rem;
-            border-radius: 14px;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.35);
-            position: relative;
-            overflow: hidden;
-
-            &::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-                transform: translateX(-100%);
-                transition: transform 0.5s;
-            }
-
-            &:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 14px 36px rgba(14, 165, 233, 0.45);
-
-                &::before {
-                    transform: translateX(100%);
-                }
-
-                i:last-child {
-                    transform: translateX(4px);
-                }
-            }
-
-            i:last-child {
-                transition: transform 0.3s;
             }
         }
     }
@@ -593,6 +539,7 @@
 }
 
 @keyframes pulseIcon {
+
     0%,
     100% {
         box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);

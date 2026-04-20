@@ -1,6 +1,8 @@
 import classnames from 'classnames';
 import { Container } from 'react-bootstrap';
 import styles from './aboutDentistEmailList.module.scss';
+import Button from '../button/Button';
+import { BUTTON_SIZE_ENUM } from '@/shared/enums';
 
 type TrustColor = 'blue' | 'teal' | 'indigo';
 
@@ -30,12 +32,8 @@ const AboutDentistEmailList = () => {
         <section className={styles.wrapper}>
             <Container className={styles.container}>
                 <div className={styles.sectionHeader}>
-                    <div className={styles.sectionBadge}>
-                        <i className="bi bi-info-circle-fill"></i>
-                        ABOUT US
-                    </div>
                     <h2 className={styles.sectionTitle}>
-                        About Us – <span>Who We Are</span>
+                        About Us – <span className="shifting-accent">Who We Are</span>
                     </h2>
                     <p className={styles.sectionSubtitle}>
                         Dentist Email List specializes in providing accurate, up-to-date, and compliant dentist contact databases for healthcare marketers, recruiters, and research firms.
@@ -180,9 +178,9 @@ const AboutDentistEmailList = () => {
                 </div>
 
                 <div className={styles.ctaSection}>
-                    <a href="#" className={styles.ctaBtn}>
-                        Learn More About Us
-                        <i className="bi bi-arrow-right"></i>
+                    <a href="#">
+                        <Button size={BUTTON_SIZE_ENUM.LARGE}>Learn More About Us
+                            <i className="bi bi-arrow-right"></i></Button>
                     </a>
                 </div>
             </Container>
