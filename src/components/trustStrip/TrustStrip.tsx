@@ -24,7 +24,7 @@ const TrustStrip = (props: ITrustStrip) => {
             iconClass: 't2ShieldBlue',
             starCount: 9,
             starClass: 't2StarsBlue',
-            iconSize: 24,
+            iconSize: 22,
         },
         {
             label: 'GDPR Compliant',
@@ -32,7 +32,7 @@ const TrustStrip = (props: ITrustStrip) => {
             iconClass: 't2ShieldAmber',
             starCount: 9,
             starClass: 't2StarsBlue',
-            iconSize: 26,
+            iconSize: 24,
         },
         {
             label: '4.9 Rating',
@@ -40,7 +40,7 @@ const TrustStrip = (props: ITrustStrip) => {
             iconClass: 't2StarAmber',
             starCount: 5,
             starClass: 't2StarsAmber',
-            iconSize: 22,
+            iconSize: 20,
         },
     ] as const;
 

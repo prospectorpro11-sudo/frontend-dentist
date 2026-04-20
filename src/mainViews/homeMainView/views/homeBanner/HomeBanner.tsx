@@ -51,7 +51,7 @@ const HomeBanner = (props: IHomeBanner) => {
 
             {/* <div className={classNames('container', styles.heroContainer)}> */}
             <Container >
-                <Row>
+                <Row className='align-items-center'>
                     <Col xs={12} lg={7}>
                         <div className={classNames(styles.heroCol, styles.heroColText)}>
                             <div className={styles.textBadges}>
