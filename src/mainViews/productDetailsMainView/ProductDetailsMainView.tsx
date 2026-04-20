@@ -11,6 +11,7 @@ import VerifiedSource from "@/components/verifiedSource/VerifiedSource";
 import DataBeneficiaries from "@/components/dataBeneficiaries/DataBeneficiaries";
 import ComparisonTable from "@/components/comparisonTable/ComparisonTable";
 import AboutDentistEmailList from "@/components/aboutDentistEmailList/AboutDentistEmailList";
+import Faq from "@/components/faq/Faq";
 
 const ProductDetailsMainView = () => {
     return (
@@ -27,6 +28,7 @@ const ProductDetailsMainView = () => {
             <DataBeneficiaries />
             <ComparisonTable />
             <AboutDentistEmailList />
+            <Faq {...PRODUCT_DETAILS_SEED_OBJECT.faq} />
         </>
     );
 };
