@@ -5,6 +5,8 @@ import { BsArrowRepeat, BsFiletypeCsv, BsFillDiagram3Fill, BsFillEnvelopeHeartFi
 import { BiBluetooth, BiCheck, BiDownload } from "react-icons/bi";
 import { FaTooth } from "react-icons/fa6";
 import { IoMdCloud } from "react-icons/io";
+import Button from "../button/Button";
+import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 
 interface ICrmIntegration {
     title?: string;
@@ -16,9 +18,9 @@ const CrmIntegration = (props: ICrmIntegration) => {
     return (
         <section className={styles.wrapper}>
             <Container>
-                <Row>
+                <Row className="align-items-center">
                     <Col xs={12} lg={5}>
-                        <div>
+                        <div className="d-flex justify-content-center">
                             {/* Mockup */}
                             <div className={styles.mockupWrapper}>
                                 {/* Background Blobs */}
@@ -97,7 +99,7 @@ const CrmIntegration = (props: ICrmIntegration) => {
                                                 <div className={styles.flowLine}></div>
                                                 <div className={styles.csvBadge}>
                                                     <div className={styles.csvIcon}>
-                                                        <BsFiletypeCsv/>
+                                                        <BsFiletypeCsv />
                                                     </div>
                                                     <div className={styles.csvText}>CSV</div>
                                                 </div>
@@ -168,7 +170,8 @@ const CrmIntegration = (props: ICrmIntegration) => {
                         <h2>Effortless CRM Integration for <br /> <span className="shifting-accent">Dental Professionals</span></h2>
                         <p>Our medical email lists are available in CSV format, making them seamlessly compatible with top healthcare CRMs like Salesforce Health Cloud, HubSpot, and email marketing platforms such as Mailchimp. </p>
                         <p>Streamline your physician outreach, automate follow-ups, and optimize engagement with a hassle-free integration process.</p>
-
+                        <br />
+                        <Button variant={BUTTON_VARIANT_ENUM.PRIMARY}>Discover More</Button>
                     </Col>
                 </Row>
             </Container>
