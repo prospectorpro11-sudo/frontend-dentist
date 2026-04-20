@@ -156,7 +156,7 @@ const WhyChooseUs = () => {
                 <div className={styles.bgGrid}></div>
             </div>
 
-            <Container className={styles.container}>
+            <Container>
                 <div className={styles.contentWrapper}>
                     <header className={classnames(styles.sectionHeader, styles.fadeIn, styles.visible)}>
                         <div className={styles.sectionBadge}>
