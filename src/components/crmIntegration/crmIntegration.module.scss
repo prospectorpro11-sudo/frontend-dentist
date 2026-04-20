@@ -56,12 +56,92 @@
         border: 1px solid var(--border);
         padding: 1.5rem;
         position: relative;
-        overflow: hidden;
+        // overflow: hidden;
         transform: rotateX(-0deg) rotateY(29deg) translateZ(0);
         transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
 
         &:hover {
             transform: rotateX(-0deg) rotateY(20deg) translateZ(0)
+        }
+
+        .chips {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 111111;
+
+            .chip {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.5rem;
+                animation: chipFloat 3.8s ease-in-out infinite alternate;
+                will-change: transform;
+
+                .icon {
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    // background-color: #0284C7;
+                    border-radius: 0.5rem;
+
+                    svg {
+                        color: $white;
+                    }
+                }
+
+                .label {
+                    font-weight: 700;
+                }
+
+                position: relative;
+                width: 142.05px;
+                height: 55.53px;
+
+                background: #FFFFFF;
+                box-shadow: 0px 0px 17.9397px rgba(0, 0, 0, 0.12);
+                border-radius: 8.22923px;
+            }
+
+            .chip1 {
+                animation-delay: 0s;
+
+                .icon {
+                    background-color: #0284C7;
+                }
+
+                top: 12%;
+                right: calc(-100% + 7rem);
+
+            }
+
+            .chip2 {
+                animation-delay: -1.2s;
+
+                .icon {
+                    background-color: #14B8A6;
+                }
+
+                top: 20%;
+                left: -1.5rem;
+
+            }
+
+            .chip3 {
+                animation-delay: -2.4s;
+
+                .icon {
+                    background-color: #6366F1;
+                }
+
+                top: 32%;
+                left: -3rem;
+            }
+
         }
 
         .cardGlow {
@@ -548,6 +628,20 @@
 
     100% {
         transform: translateY(-8px) rotate(5deg);
+    }
+}
+
+@keyframes chipFloat {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0px);
     }
 }
 

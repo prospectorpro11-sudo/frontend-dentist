@@ -3,11 +3,12 @@ import styles from "./crmIntegration.module.scss";
 import classNames from "classnames";
 import { BsArrowRepeat, BsFiletypeCsv, BsFillDiagram3Fill, BsFillEnvelopeHeartFill, BsFillLightningChargeFill, BsFillPlugFill } from "react-icons/bs";
 import { BiBluetooth, BiCheck, BiDownload } from "react-icons/bi";
-import { FaTooth } from "react-icons/fa6";
+import { FaBolt, FaRepeat, FaTooth } from "react-icons/fa6";
 import { IoMdCloud } from "react-icons/io";
 import Button from "../button/Button";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 import Image from "next/image";
+import { FiDownload } from "react-icons/fi";
 
 interface ICrmIntegration {
     title?: string;
@@ -32,6 +33,46 @@ const CrmIntegration = (props: ICrmIntegration) => {
 
                                 {/* Mockup Card */}
                                 <div className={styles.mockupCard}>
+                                    <div className={styles.chips}>
+                                        <div className={classNames(styles.chip, styles.chip1)}>
+                                            <div className={styles.icon}>
+                                                <FiDownload />
+                                            </div>
+                                            <div className={styles.label}>Export</div>
+                                        </div>
+                                        <div className={classNames(styles.chip, styles.chip2)}>
+                                            <div className={styles.icon}>
+                                                <FaRepeat />
+                                            </div>
+                                            <div className={styles.label}>Import</div>
+                                        </div>
+                                        <div className={classNames(styles.chip, styles.chip3)}>
+                                            <div className={styles.icon}>
+                                                <FaBolt />
+                                            </div>
+                                            <div className={styles.label}>Launch</div>
+                                        </div>
+
+
+                                        {/* <div className={styles.featurePill}>
+                                                <div className={classNames(styles.featurePillIcon, styles.blue)}>
+                                                    <BiDownload />
+                                                </div>
+                                                <div className={styles.featurePillText}>Export</div>
+                                            </div>
+                                            <div className={styles.featurePill}>
+                                                <div className={classNames(styles.featurePillIcon, styles.teal)}>
+                                                    <BsArrowRepeat />
+                                                </div>
+                                                <div className={styles.featurePillText}>Import</div>
+                                            </div>
+                                            <div className={styles.featurePill}>
+                                                <div className={classNames(styles.featurePillIcon, styles.indigo)}>
+                                                    <BsFillLightningChargeFill />
+                                                </div>
+                                                <div className={styles.featurePillText}>Launch</div>
+                                            </div> */}
+                                    </div>
                                     {/* Glows */}
                                     <div className={classNames(styles.cardGlow, styles.glow1)}></div>
                                     <div className={classNames(styles.cardGlow, styles.glow2)}></div>
