@@ -162,6 +162,11 @@ a {
 
 section {
   padding: 5rem 0;
+
+  &.fill {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--n50) 100%);
+  }
+
   &.banner {
     position: relative;
     padding: 7rem 0;

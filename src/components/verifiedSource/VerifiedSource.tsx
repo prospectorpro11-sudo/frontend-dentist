@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import styles from './verifiedSource.module.scss';
 import { Col, Container, Row } from 'react-bootstrap';
 import Image from 'next/image';
+import classNames from 'classnames';
 
 type ThemeColor = 'blue' | 'teal' | 'indigo' | 'amber' | 'emerald';
 
@@ -38,7 +39,7 @@ const trustStats: Array<{ iconClass: string; value: string; label: string; color
 
 const VerifiedSource = () => {
     return (
-        <section className={styles.wrapper}>
+        <section className={classNames(styles.wrapper, "fill")}>
             <Container>
                 <div className={styles.sectionHeader}>
                     <div className={styles.sectionBadge}>
@@ -87,7 +88,7 @@ const VerifiedSource = () => {
                                     <div className={styles.hubRing}></div>
                                     <div className={styles.hubRing}></div>
                                 </div>
-
+                                <br />
                                 <div className={styles.sourceNodes}>
                                     {sourceNodes.map((node) => (
                                         <div key={node.label} className={styles.sourceNode}>
