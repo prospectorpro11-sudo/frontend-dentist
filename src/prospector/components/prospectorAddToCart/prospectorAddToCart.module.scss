@@ -1,0 +1,60 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.checkout {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.cprice {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+}
+
+.cprice small {
+    font-size: 10.5px;
+    color: #64748b;
+    font-weight: 600;
+    display: block;
+}
+
+.cartbtn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    background: linear-gradient(135deg, var(--teal-500), var(--blue-600));
+    color: #fff;
+    border: none;
+    border-radius: var(--r-sm);
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.22s;
+    box-shadow: 0 3px 14px rgba(2, 132, 199, 0.28);
+    position: relative;
+    overflow: hidden;
+}
+
+.cartbtn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.15));
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.cartbtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(2, 132, 199, 0.38);
+}
+
+.cartbtn:hover::after {
+    opacity: 1;
+}

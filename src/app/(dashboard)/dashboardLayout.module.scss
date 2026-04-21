@@ -535,7 +535,7 @@
     min-height: 0;
     overflow: auto;
     overscroll-behavior: contain;
-    scrollbar-gutter: stable;
+    // scrollbar-gutter: stable;
 }
 
 @include breakpoint(tablet) {
