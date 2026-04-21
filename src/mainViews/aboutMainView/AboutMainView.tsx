@@ -6,6 +6,7 @@ import OurMission from "./views/ourMission/OurMission";
 import DataBeneficiaries from "@/components/dataBeneficiaries/DataBeneficiaries";
 import { ABOUT_SEED_OBJECT } from "@/shared/seeds/aboutSeeds";
 import VerifiedContacts from "./views/VerifiedContacts";
+import TeamMembers from "@/components/teamMembers/TeamMembers";
 
 const AboutMainView = () => {
     return (
@@ -15,6 +16,7 @@ const AboutMainView = () => {
             <OurMission />
             <DataBeneficiaries {...ABOUT_SEED_OBJECT.dataBeneficiaries} bgVariant="fill" />
             <JoinWithUs />
+            <TeamMembers />
             <ComplianceDataIntegrity />
         </>
     );
