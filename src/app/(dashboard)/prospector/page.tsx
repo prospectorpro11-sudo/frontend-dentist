@@ -1,4 +1,4 @@
-import ProspectorMainView from "@/mainViews/prospectorMainView/ProspectorMainView";
+import ProspectorMainView from "@/prospector/mainViews/prospectorMainView/ProspectorMainView";
 
 const ProspectorPage = () => {
     return (
