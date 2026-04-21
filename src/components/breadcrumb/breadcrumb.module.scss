@@ -77,6 +77,14 @@
         padding: 0 4px;
         user-select: none;
     }
+
+    .breadcrumbEllipsis {
+        display: inline-flex;
+        align-items: center;
+        color: var(--text3);
+        padding: 4px 8px;
+        line-height: 1.4;
+    }
 }
 
 // ============================================
@@ -121,6 +129,40 @@
         .breadcrumbLink,
         .breadcrumbCurrent {
             padding: 6px 10px;
+        }
+    }
+
+    &.breadcrumbDashboard {
+        .breadcrumbList {
+            font-size: 12px;
+            gap: 0;
+        }
+
+        .breadcrumbLink {
+            color: var(--text3);
+            padding: 0;
+
+            &:hover {
+                color: var(--text2);
+                background: transparent;
+            }
+        }
+
+        .breadcrumbCurrent {
+            color: var(--text3);
+            padding: 0;
+            font-weight: 500;
+        }
+
+        .breadcrumbSeparator {
+            color: var(--text3);
+            opacity: 0.5;
+            padding: 0 2px;
+        }
+
+        .breadcrumbEllipsis {
+            color: var(--n400);
+            padding: 0 6px;
         }
     }
 

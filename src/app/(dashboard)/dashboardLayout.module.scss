@@ -390,6 +390,17 @@
     padding: 0 20px;
 }
 
+.topbarHeading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.topbarBreadcrumb {
+    margin-bottom: 0;
+}
+
 .mobileMenuBtn {
     display: none;
     width: 36px;
@@ -420,6 +431,13 @@
     font-size: 11px;
     color: var(--n6);
     font-weight: 500;
+}
+
+.topbarSubtitle {
+    font-size: 11px;
+    color: var(--n6);
+    font-weight: 500;
+    margin-top: 2px;
 }
 
 .topbar .spacer {
@@ -573,7 +591,11 @@
         font-size: 18px;
     }
 
-    .crumb {
+    .topbarBreadcrumb {
+        margin-bottom: 2px;
+    }
+
+    .topbarSubtitle {
         display: none;
     }
 

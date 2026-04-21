@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { FaMagnifyingGlassLocation } from "react-icons/fa6";
 
+import Breadcrumb, { type BreadcrumbItem, type BreadcrumbVariant } from "@/components/breadcrumb/Breadcrumb";
 import styles from "./dashboardLayout.module.scss";
 
 type DashboardContentMode = "scrollable" | "static";
@@ -65,6 +66,8 @@ export default function DashboardLayout({
     children,
     navTitle = "Prospector",
     navSubtitle = "Dashboard &rsaquo; Prospector &rsaquo; Results",
+    breadcrumbs,
+    breadcrumbVariant = "dashboard",
     menuItems = defaultMenuItems,
     userName = "Franklin Carter",
     userRole = "Pro Subscriber",
@@ -73,6 +76,8 @@ export default function DashboardLayout({
     children: React.ReactNode;
     navTitle?: string;
     navSubtitle?: string;
+    breadcrumbs?: BreadcrumbItem[];
+    breadcrumbVariant?: BreadcrumbVariant;
     menuItems?: DashboardMenuItem[];
     userName?: string;
     userRole?: string;
@@ -81,6 +86,10 @@ export default function DashboardLayout({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const closeMenu = () => setIsMenuOpen(false);
+    const resolvedBreadcrumbs = breadcrumbs ?? [
+        { label: "Dashboard", href: "/dashboard" },
+        { label: navTitle, href: null },
+    ];
 
     return (
         <div className={styles.wrapper}>
@@ -140,9 +149,15 @@ export default function DashboardLayout({
                 >
                     <FaBars />
                 </button>
-                <div>
-                    <h1>{navTitle}</h1>
-                    <div className={styles.crumb}>{navSubtitle}</div>
+                <div className={styles.topbarHeading}>
+                    <h1 className="mb-0">{navTitle}</h1>
+                    <Breadcrumb
+                        items={resolvedBreadcrumbs}
+                        variant={breadcrumbVariant}
+                        separator="›"
+                        className={styles.topbarBreadcrumb}
+                    />
+                    {/* {navSubtitle ? <div className={styles.topbarSubtitle}>{navSubtitle}</div> : null} */}
                 </div>
                 <div className={styles.spacer}></div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
