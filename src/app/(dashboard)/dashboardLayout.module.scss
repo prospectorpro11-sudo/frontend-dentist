@@ -1,0 +1,498 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
+.wrapper {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(175deg, #0f1b2d 0%, #0c1525 40%, #0a1120 100%);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.sidebar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 200px 150px at 20% 0%,
+            rgba(14, 165, 233, 0.12) 0%,
+            transparent 70%),
+        radial-gradient(ellipse 180px 120px at 80% 15%,
+            rgba(99, 102, 241, 0.08) 0%,
+            transparent 70%),
+        radial-gradient(ellipse 200px 100px at 50% 90%,
+            rgba(20, 184, 166, 0.06) 0%,
+            transparent 70%);
+}
+
+/* Animated grid pattern on sidebar bg */
+.sidebar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 60%);
+    -webkit-mask-image: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 1) 60%);
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.sideLogo {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 18px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sideLogo .logoMark {
+    width: 42px;
+    height: 42px;
+    position: relative;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--b3), var(--b2));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    box-shadow:
+        0 4px 18px rgba(14, 165, 233, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.sideLogo .logoMark::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 14px;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--b3), var(--t2));
+    opacity: 0.3;
+    filter: blur(8px);
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 0.25;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(1.08);
+    }
+}
+
+.sideLogo .logoLabel {
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.sideLogo .logoLabel i {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--n6);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.sideLabel {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    color: var(--n6);
+    padding: 16px 14px 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.sideNav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    z-index: 1;
+    padding: 0 10px;
+}
+
+.sideNav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.sideNav a i {
+    width: 20px;
+    text-align: center;
+    font-size: 14px;
+    transition: all 0.25s;
+    position: relative;
+    z-index: 1;
+}
+
+.sideNav a .navText {
+    position: relative;
+    z-index: 1;
+}
+
+.sideNav a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.25s;
+    border-radius: 10px;
+}
+
+.sideNav a:hover {
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.sideNav a:hover i {
+    color: var(--b4);
+}
+
+.sideNav a.active {
+    color: #fff;
+    font-weight: 700;
+    border-color: rgba(14, 165, 233, 0.2);
+    background: linear-gradient(135deg,
+            rgba(14, 165, 233, 0.25) 0%,
+            rgba(14, 165, 233, 0.08) 100%);
+    box-shadow:
+        0 4px 20px rgba(14, 165, 233, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.sideNav a.active i {
+    color: var(--b4);
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
+}
+
+.sideNav a.active::after {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 50%;
+    background: linear-gradient(180deg, var(--b4), var(--t3));
+    border-radius: 0 6px 6px 0;
+}
+
+.sideNav .badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--b3), var(--b2));
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+}
+
+.sideNav .badge.badgeR {
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
+    box-shadow: 0 2px 8px rgba(244, 63, 94, 0.3);
+}
+
+/* Mini usage card */
+.sideUsage {
+    position: relative;
+    z-index: 1;
+    margin: 8px 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg,
+            rgba(99, 102, 241, 0.1),
+            rgba(14, 165, 233, 0.08));
+    border: 1px solid rgba(99, 102, 241, 0.12);
+}
+
+.sideUsage .suHead {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--b5);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.sideUsage .suHead i {
+    font-size: 11px;
+}
+
+.sideUsage .suBar {
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.sideUsage .suFill {
+    height: 100%;
+    width: 67%;
+    background: linear-gradient(90deg, var(--b3), var(--t3));
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(20, 184, 166, 0.3);
+}
+
+.sideUsage .suMeta {
+    font-size: 10px;
+    color: var(--n5);
+}
+
+.sideUsage .suMeta b {
+    color: var(--b4);
+}
+
+.sideBottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+}
+
+.sideBottom .sbAvatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--b3), var(--t2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 2px 10px rgba(14, 165, 233, 0.25);
+}
+
+.sideBottom .sbInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.sideBottom .sbName {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sideBottom .sbRole {
+    font-size: 9.5px;
+    color: var(--n5);
+}
+
+.sideBottom .sbBtn {
+    width: 28px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--n5);
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.sideBottom .sbBtn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+
+
+// Top Bar
+.topbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 240px;
+    height: 56px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    background: #fff;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.08);
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.05);
+    padding: 0 20px;
+}
+
+.topbar h1 {
+    font-size: 21px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--n1), var(--b2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.topbar .crumb {
+    font-size: 11px;
+    color: var(--n6);
+    font-weight: 500;
+}
+
+.topbar .spacer {
+    flex: 1;
+}
+
+.notibtn {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(14, 165, 233, 0.1);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--n5);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.notibtn:hover {
+    background: var(--b7);
+    color: var(--b3);
+}
+
+.notibtn .dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 7px;
+    height: 7px;
+    background: var(--rose);
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.userchip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px 5px 5px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(14, 165, 233, 0.12);
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.userchip:hover {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
+}
+
+.userchip .ava {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--b3), var(--t2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+}
+
+.userchip .uname {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--n2);
+}
+
+.main {
+    position: relative;
+    z-index: 1;
+    margin-left: 240px;
+    margin-top: 56px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px 14px;
+    background: linear-gradient(130deg, #EDF6FF 14.51%, #E8F4FD 39.35%, #DBEAFE 60.65%, #E0F2FE 85.49%);
+    overflow: hidden;
+}
+
+.mainScrollable {
+    height: calc(100vh - 56px);
+}
+
+.mainStatic {
+    height: auto;
+    overflow: visible;
+}
+
+.mainInner {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
