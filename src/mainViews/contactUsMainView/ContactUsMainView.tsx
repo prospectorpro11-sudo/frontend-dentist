@@ -1,9 +1,9 @@
 'use client';
-import axios from "axios";
 import Swal from "sweetalert2";
 import Reaptcha from "reaptcha";
 import { useState } from "react";
 import classNames from "classnames";
+import instance from "@/services/baseServices";
 import Button from "@/components/button/Button";
 import { BUTTON_SIZE_ENUM } from "@/shared/enums";
 import { Col, Container, Row, Form } from "react-bootstrap";
@@ -127,7 +127,7 @@ const ContactUsMainView = () => {
         return;
       }
 
-      await axios.post("/update-contact-us", values);
+      await instance.post("/update-contact-us", values);
 
       await Swal.fire({
         title: "",
