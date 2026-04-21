@@ -124,8 +124,7 @@
 
 .formSection,
 .welcomeCard,
-.contactMethods,
-.faqTeaser {
+.contactMethods {
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.7s ease-out forwards;
@@ -139,7 +138,9 @@
     padding: 52px;
     box-shadow: 0 12px 48px color-mix(in srgb, var(--blue-600) 10%, transparent),
         0 0 0 1px color-mix(in srgb, var(--surface) 50%, transparent) inset;
-    position: relative;
+    position: sticky;
+    top: 96px;
+    align-self: flex-start;
     overflow: hidden;
     animation-delay: 0.1s;
 
@@ -315,7 +316,7 @@
 }
 
 .welcomeCard {
-    background: linear-gradient(135deg, var(--blue-500) 0%, var(--blue-600) 50%, var(--teal-600) 100%);
+    // background: linear-gradient(135deg, var(--blue-500) 0%, var(--blue-600) 50%, var(--teal-600) 100%);
     border-radius: 28px;
     padding: 40px;
     color: var(--surface);
@@ -323,6 +324,7 @@
     overflow: hidden;
     box-shadow: 0 16px 48px color-mix(in srgb, var(--blue-500) 25%, transparent);
     animation-delay: 0.2s;
+    background: linear-gradient(160deg, #0E2A4D 10.99%, #0C4A6E 34.4%, #0F766E 73.41%, #0D6C5E 89.01%);
 
     &::before {
         content: "";
@@ -497,66 +499,6 @@
     }
 }
 
-.faqTeaser {
-    background: color-mix(in srgb, var(--surface) 85%, transparent);
-    backdrop-filter: blur(20px);
-    border: 1px solid color-mix(in srgb, var(--surface) 60%, transparent);
-    border-radius: 28px;
-    padding: 36px;
-    box-shadow: 0 8px 32px color-mix(in srgb, var(--blue-600) 6%, transparent);
-    position: relative;
-    overflow: hidden;
-    animation-delay: 0.4s;
-
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--blue-500), var(--teal-500));
-    }
-}
-
-.faqTitle {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--n900);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    i {
-        color: var(--blue-500);
-    }
-}
-
-.faqItem {
-    padding: 16px;
-    background: color-mix(in srgb, var(--blue-500) 3%, transparent);
-    border-radius: 14px;
-    margin-bottom: 12px;
-    border: 1px solid color-mix(in srgb, var(--blue-500) 6%, transparent);
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-}
-
-.faqQuestion {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--n900);
-    margin-bottom: 6px;
-}
-
-.faqAnswer {
-    font-size: 13px;
-    color: var(--n500);
-    line-height: 1.6;
-}
 
 @include breakpoint(tablet) {
     .pageTitle {
@@ -564,6 +506,8 @@
     }
 
     .formSection {
+        position: relative;
+        top: auto;
         padding: 32px 24px;
     }
 

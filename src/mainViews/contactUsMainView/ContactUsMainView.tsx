@@ -70,25 +70,7 @@ const pageContent = {
         </>
       ),
     },
-  ],
-  faqTitle: "Quick Answers",
-  faqs: [
-    {
-      question: "How do I get a custom lead list?",
-      answer:
-        "Use our Prospector tool to filter by specialty, location, and more. Or contact us for a tailored solution.",
-    },
-    {
-      question: "Is the data GDPR compliant?",
-      answer:
-        "Yes, all our contacts are verified and fully compliant with GDPR, HIPAA, and CCPA regulations.",
-    },
-    {
-      question: "What's your refund policy?",
-      answer:
-        "We offer free replacements if deliverability falls below 95%. Your satisfaction is guaranteed.",
-    },
-  ],
+  ]
 };
 
 interface ContactFormValues {
@@ -407,20 +389,6 @@ const ContactUsMainView = () => {
                       <div className={styles.methodName}>{method.name}</div>
                       <div className={styles.methodDetail}>{method.content}</div>
                     </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.faqTeaser}>
-                <h3 className={styles.faqTitle}>
-                  <i className="bi bi-question-circle" />
-                  {pageContent.faqTitle}
-                </h3>
-
-                {pageContent.faqs.map((faq) => (
-                  <div key={faq.question} className={styles.faqItem}>
-                    <div className={styles.faqQuestion}>{faq.question}</div>
-                    <div className={styles.faqAnswer}>{faq.answer}</div>
                   </div>
                 ))}
               </div>
