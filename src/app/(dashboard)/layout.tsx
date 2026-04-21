@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { FaMagnifyingGlassLocation, FaUser } from "react-icons/fa6";
 
+import "react-loading-skeleton/dist/skeleton.css";
 import Breadcrumb, { type BreadcrumbItem, type BreadcrumbVariant } from "@/components/breadcrumb/Breadcrumb";
 import DropdownMenu, { type DropdownItem } from "@/components/dropdownMenu/DropdownMenu";
 import styles from "./dashboardLayout.module.scss";
