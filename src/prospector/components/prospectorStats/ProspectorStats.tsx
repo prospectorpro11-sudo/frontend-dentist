@@ -1,11 +1,12 @@
+"use client";
+
 import styles from "./prospectorStats.module.scss";
 import { numberWithCommas } from "@/shared/InternalService";
 import { useProspectorContext } from "@/contexts/ProspectorContext";
 import { FaAddressBook, FaEnvelope, FaFax, FaPhone } from "react-icons/fa6";
 
 const ProspectorStats = () => {
-    const { stats, prospectorLoading } = useProspectorContext();
-    // const shouldShowSkeleton = prospectorLoading;
+    const { stats } = useProspectorContext();
     const statsData = [
         { label: "Contacts", value: stats?.totalContacts, Icon: FaAddressBook },
         { label: "Emails", value: stats?.Unique_Emails, Icon: FaEnvelope },
