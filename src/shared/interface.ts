@@ -599,3 +599,66 @@ export interface IProspectorFilter {
 	category?: string;
 	subCategory?: string;
 }
+export interface InitialProspectorFilters {
+	states?: IProspectorFilter[];
+	counties?: IProspectorFilter[];
+	cities?: IProspectorFilter[];
+	zipCodes?: IProspectorFilter[];
+	jobTitles?: IProspectorFilter[];
+	specialties?: IProspectorFilter[];
+	offices?: IProspectorFilter[];
+	gender?: IProspectorFilter[];
+	// associations?: IProspectorFilter[];
+	licenseStates?: IProspectorFilter[];
+};
+export interface IProspectorStats {
+	totalContacts: number;
+	Unique_Emails: number;
+	Unique_Phones: number;
+	Unique_Faxes: number;
+	Unique_License_Numbers: number;
+	Unique_NPI: number;
+}
+
+export interface IProspectorData {
+	NPI: null | string;
+	"Full Name": string;
+	"First Name": string;
+	"Middle Name": null | string;
+	"Last Name": string;
+	Email: string;
+	Suffix: null | string;
+	Title: null | string;
+	Gender: string;
+	"Specialty Code": string;
+	Specialty: string;
+	Specialty2: null | string;
+	Address1: string;
+	Address2: null | string;
+	City: string;
+	State: string;
+	"Zip Code": string;
+	Phone: string;
+	Fax: string;
+	"License Number": null | string;
+	"License State": string;
+	Certifications: null | string;
+	Category: string;
+	Address: string;
+	FullName: string;
+	County?: string | null;
+	Office?: string | null;
+	"Cell Number"?: string | null;
+	"Cell Numbers"?: string | null;
+}
+
+export interface IUserPrivateInfo {
+	country_code: string;
+	country_name: string;
+	city: string;
+	postal: string;
+	latitude: number;
+	longitude: number;
+	IPv4: string;
+	state: string;
+}
