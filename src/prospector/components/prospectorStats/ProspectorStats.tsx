@@ -1,13 +1,16 @@
 import styles from "./prospectorStats.module.scss";
 import { numberWithCommas } from "@/shared/InternalService";
+import { useProspectorContext } from "@/contexts/ProspectorContext";
 import { FaAddressBook, FaEnvelope, FaFax, FaPhone } from "react-icons/fa6";
 
 const ProspectorStats = () => {
+    const { stats, prospectorLoading } = useProspectorContext();
+    // const shouldShowSkeleton = prospectorLoading;
     const statsData = [
-        { label: "Contacts", value: 930285, Icon: FaAddressBook },
-        { label: "Emails", value: 930285, Icon: FaEnvelope },
-        { label: "Phones", value: 930285, Icon: FaPhone },
-        { label: "Faxes", value: 930285, Icon: FaFax },
+        { label: "Contacts", value: stats?.totalContacts, Icon: FaAddressBook },
+        { label: "Emails", value: stats?.Unique_Emails, Icon: FaEnvelope },
+        { label: "Phones", value: stats?.Unique_Phones, Icon: FaPhone },
+        { label: "Faxes", value: stats?.Unique_Faxes, Icon: FaFax },
     ];
 
     return (
@@ -18,7 +21,7 @@ const ProspectorStats = () => {
                         <Icon />
                     </div>
                     <div>
-                        <div className={styles.sval}>{numberWithCommas(value.toString())}</div>
+                        <div className={styles.sval}>{numberWithCommas(value?.toString() || "0")}</div>
                         <div className={styles.slab}>{label}</div>
                     </div>
                 </div>
