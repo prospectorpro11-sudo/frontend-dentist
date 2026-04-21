@@ -1,9 +1,9 @@
 import { ICartItem } from "@/shared/interface";
-const SUPPORT_GUEST_SESSION_KEY = "nursingreach-support-guest-session";
+const SUPPORT_GUEST_SESSION_KEY = "dentistemaillist-support-guest-session";
 
 export const addToCartLocal = (cartItems: ICartItem[]) => {
     localStorage.setItem(
-        "addToCart-NursingReach",
+        "addToCart-DentistEmailList",
         JSON.stringify(cartItems)
     );
 };
@@ -11,29 +11,29 @@ export const addToCartLocal = (cartItems: ICartItem[]) => {
 export const getUser = () => {
     return (
         typeof localStorage !== "undefined" &&
-        JSON.parse(localStorage.getItem("NursingReach")!)
+        JSON.parse(localStorage.getItem("DentistEmailList")!)
     );
 };
 
 export const setUser = (user: null) => {
-    localStorage.setItem("NursingReach", JSON.stringify(user));
+    localStorage.setItem("DentistEmailList", JSON.stringify(user));
 };
 
 export const getAddToCartLocal = () => {
     return (
         typeof localStorage !== "undefined" &&
-        JSON.parse(localStorage.getItem("addToCart-NursingReach")!)
+        JSON.parse(localStorage.getItem("addToCart-DentistEmailList")!)
     );
 };
 
 export const setPlisioLocal = (plisioObject: any) => {
-    localStorage.setItem("plisioLocal-NursingReachUser", JSON.stringify(plisioObject));
+    localStorage.setItem("plisioLocal-DentistEmailListUser", JSON.stringify(plisioObject));
 };
 
 export const getPlisioLocal = () => {
     return (
         typeof localStorage !== "undefined" &&
-        JSON.parse(localStorage.getItem("plisioLocal-NursingReachUser")!)
+        JSON.parse(localStorage.getItem("plisioLocal-DentistEmailListUser")!)
     );
 };
 

@@ -1,7 +1,7 @@
 import { DATABASE_MAIN_TYPES } from "./enums";
 
 export const ADMIN_EMAIL = "support@medioutreach.com";
-export const WEBSITE_SEO_TITLE = "NursingReach";
+export const WEBSITE_SEO_TITLE = "DentistEmailList";
 export const SITE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const CATEGORIES_TO_URLS = {
