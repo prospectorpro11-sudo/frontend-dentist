@@ -1,6 +1,8 @@
 import classnames from 'classnames';
 import { Container } from 'react-bootstrap';
 import styles from './complianceDataIntegrity.module.scss';
+import Button from '../button/Button';
+import { BUTTON_SIZE_ENUM } from '@/shared/enums';
 
 type Certificate = {
     name: string;
@@ -136,10 +138,9 @@ const ComplianceDataIntegrity = () => {
                         <p className={styles.ctaDescription}>
                             When you choose Dentist Email List, you&apos;re choosing quality, compliance, and reliability, ensuring that your healthcare outreach campaigns succeed without legal risks.
                         </p>
-                        <button className={styles.ctaButton}>
-                            Get Started Today
-                            <i className="bi bi-arrow-right"></i>
-                        </button>
+                        <a href="#">
+                            <Button size={BUTTON_SIZE_ENUM.LARGE}> Get Started Today <i className="bi bi-arrow-right"></i></Button>
+                        </a>
                     </div>
                 </div>
             </Container>
