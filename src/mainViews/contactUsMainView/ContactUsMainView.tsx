@@ -1,15 +1,15 @@
 'use client';
-import { useState } from "react";
-
 import axios from "axios";
-import classNames from "classnames";
-import { Field, Form as FormikForm, Formik, type FormikHelpers } from "formik";
-import { Col, Container, Row, Form } from "react-bootstrap";
-import Reaptcha from "reaptcha";
 import Swal from "sweetalert2";
-
-import styles from "./contactUsMainView.module.scss";
+import Reaptcha from "reaptcha";
+import { useState } from "react";
+import classNames from "classnames";
+import Button from "@/components/button/Button";
+import { BUTTON_SIZE_ENUM } from "@/shared/enums";
+import { Col, Container, Row, Form } from "react-bootstrap";
+import { Field, Form as FormikForm, Formik, type FormikHelpers } from "formik";
 import { validateEmail, validateRequired, validURL } from "@/shared/InternalService";
+import styles from "./contactUsMainView.module.scss";
 
 const pageContent = {
   badge: "Get In Touch",
@@ -277,13 +277,14 @@ const ContactUsMainView = () => {
                         name="companyName"
                         className={styles.formInput}
                         placeholder="Your Company"
+                        validate={validateRequired}
                       />
                       {errors.companyName && touched.companyName && (
                         <span className={styles.errorText}>{errors.companyName}</span>
                       )}
                     </div>
 
-                    <div className={styles.formGroup}>
+                    <div className={classNames(styles.formGroup, styles.fullWidth)}>
                       <Form.Label className={styles.formLabel} htmlFor="companyWebsite">
                         <i className="bi bi-globe" />
                         Company Website
@@ -302,7 +303,7 @@ const ContactUsMainView = () => {
                       )}
                     </div>
 
-                    <div className={styles.formGroup}>
+                    {/* <div className={styles.formGroup}>
                       <Form.Label className={styles.formLabel} htmlFor="phoneNumber">
                         <i className="bi bi-telephone" />
                         Phone Number
@@ -315,7 +316,7 @@ const ContactUsMainView = () => {
                         className={styles.formInput}
                         placeholder="+1 (555) 000-0000"
                       />
-                    </div>
+                    </div> */}
 
                     <div className={classNames(styles.formGroup, styles.fullWidth)}>
                       <Form.Label className={styles.formLabel} htmlFor="message">
@@ -353,10 +354,10 @@ const ContactUsMainView = () => {
 
                     <div className={classNames(styles.formGroup, styles.fullWidth)}>
                       <div className={styles.formFooter}>
-                        <button type="submit" className={styles.submitBtn} disabled={loading}>
+                        <Button type="submit" size={BUTTON_SIZE_ENUM.LARGE}>
                           {loading ? "Sending..." : "Send Message"}
                           <i className="bi bi-send" />
-                        </button>
+                        </Button>
                         <span className={styles.formNote}>
                           <i className="bi bi-shield-check" />
                           {pageContent.form.secureNote}
