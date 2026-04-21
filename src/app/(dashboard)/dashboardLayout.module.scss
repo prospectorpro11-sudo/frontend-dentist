@@ -7,6 +7,24 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
+}
+
+.menuOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    border: 0;
+    padding: 0;
+    background: rgba(10, 22, 40, 0.42);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.menuOverlayOpen {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* ========== SIDEBAR ========== */
@@ -22,6 +40,11 @@
     flex-direction: column;
     z-index: 100;
     overflow: hidden;
+    transition: transform 0.28s ease;
+}
+
+.sidebarOpen {
+    transform: translateX(0);
 }
 
 .sidebar::before {
@@ -226,21 +249,6 @@
     border-radius: 0 6px 6px 0;
 }
 
-.sideNav .badge {
-    margin-left: auto;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 1px 8px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--b3), var(--b2));
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
-}
-
-.sideNav .badge.badgeR {
-    background: linear-gradient(135deg, #f43f5e, #e11d48);
-    box-shadow: 0 2px 8px rgba(244, 63, 94, 0.3);
-}
 
 /* Mini usage card */
 .sideUsage {
@@ -382,10 +390,28 @@
     padding: 0 20px;
 }
 
+.mobileMenuBtn {
+    display: none;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(14, 165, 233, 0.14);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--n700);
+    cursor: pointer;
+    flex-shrink: 0;
+
+    svg {
+        font-size: 16px;
+    }
+}
+
 .topbar h1 {
     font-size: 21px;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--n1), var(--b2));
+    background: linear-gradient(135deg, var(--n900), var(--blue-600));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -495,4 +521,71 @@
     overflow: auto;
     overscroll-behavior: contain;
     scrollbar-gutter: stable;
+}
+
+@include breakpoint(tablet) {
+    .menuOverlay {
+        display: block;
+    }
+
+    .sidebar {
+        left: 0;
+        transform: translateX(-100%);
+        z-index: 110;
+    }
+
+    .sidebarOpen {
+        transform: translateX(0);
+    }
+
+    .topbar {
+        left: 0;
+        gap: 12px;
+        padding: 0 14px;
+    }
+
+    .mobileMenuBtn {
+        display: inline-flex;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 12px 14px 14px;
+    }
+
+    .mainScrollable {
+        height: calc(100vh - 56px);
+    }
+}
+
+@include breakpoint(mobile) {
+    .sidebar {
+        width: 288px;
+    }
+
+    .topbar {
+        height: auto;
+        min-height: 56px;
+        align-items: center;
+    }
+
+    .topbar h1 {
+        font-size: 18px;
+    }
+
+    .crumb {
+        display: none;
+    }
+
+    .userchip {
+        padding-right: 8px;
+    }
+
+    .uname {
+        display: none;
+    }
+
+    .main {
+        padding: 10px 10px 12px;
+    }
 }
