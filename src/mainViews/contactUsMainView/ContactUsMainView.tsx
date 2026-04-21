@@ -1,8 +1,15 @@
+'use client';
+import { useState } from "react";
 
+import axios from "axios";
 import classNames from "classnames";
-import { Col, Container, Row } from "react-bootstrap";
+import { Field, Form as FormikForm, Formik, type FormikHelpers } from "formik";
+import { Col, Container, Row, Form } from "react-bootstrap";
+import Reaptcha from "reaptcha";
+import Swal from "sweetalert2";
 
 import styles from "./contactUsMainView.module.scss";
+import { validateEmail, validateRequired, validURL } from "@/shared/InternalService";
 
 const pageContent = {
   badge: "Get In Touch",
@@ -84,7 +91,65 @@ const pageContent = {
   ],
 };
 
+interface ContactFormValues {
+  subject: string;
+  name: string;
+  email: string;
+  companyName: string;
+  message: string;
+  companyWebsite: string;
+  phoneNumber: string;
+}
+
+
 const ContactUsMainView = () => {
+  const [loading, setLoading] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+
+  const handleCaptchaChange = (value: string | null) => {
+    setCaptchaValue(value);
+  };
+
+  const handleSubmit = async (
+    values: ContactFormValues,
+    { resetForm }: FormikHelpers<ContactFormValues>,
+  ) => {
+    try {
+      setLoading(true);
+
+      if (!captchaValue) {
+        await Swal.fire({
+          text: "Captcha field is empty",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        setLoading(false);
+        return;
+      }
+
+      await axios.post("/update-contact-us", values);
+
+      await Swal.fire({
+        title: "",
+        text: "Successfully Sent the Message",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
+      resetForm();
+      setCaptchaValue(null);
+      setLoading(false);
+    } catch {
+      await Swal.fire({
+        title: "",
+        text: "Oops! Something went wrong!",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      setLoading(false);
+    }
+  };
+
   return (
     <section className={classNames("mt-5", styles.contactSection)}>
       <div className={styles.bgGradient} />
@@ -130,80 +195,177 @@ const ContactUsMainView = () => {
                 </div>
               </div>
 
-              <form className={styles.formGrid} id="contactForm">
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>
-                    <i className="bi bi-person" />
-                    Full Name <span className={styles.required}>*</span>
-                  </label>
-                  <input type="text" className={styles.formInput} placeholder="John Doe" required />
-                </div>
+              <Formik<ContactFormValues>
+                validateOnMount={false}
+                validateOnChange
+                validateOnBlur
+                initialValues={{
+                  subject: "",
+                  name: "",
+                  email: "",
+                  companyName: "",
+                  message: "",
+                  companyWebsite: "",
+                  phoneNumber: "",
+                }}
+                onSubmit={handleSubmit}
+              >
+                {({ errors, touched, values }) => (
+                  <FormikForm className={styles.formGrid} id="contactForm">
+                    <div className={styles.formGroup}>
+                      <Form.Label className={styles.formLabel} htmlFor="name">
+                        <i className="bi bi-person" />
+                        Full Name <span className={styles.required}>*</span>
+                      </Form.Label>
+                      <Field
+                        as="input"
+                        type="text"
+                        id="name"
+                        name="name"
+                        className={styles.formInput}
+                        placeholder="John Doe"
+                        validate={validateRequired}
+                      />
+                      {errors.name && touched.name && <span className={styles.errorText}>{errors.name}</span>}
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>
-                    <i className="bi bi-envelope" />
-                    Email Address <span className={styles.required}>*</span>
-                  </label>
-                  <input type="email" className={styles.formInput} placeholder="jane@acme.com" required />
-                </div>
+                    <div className={styles.formGroup}>
+                      <Form.Label className={styles.formLabel} htmlFor="email">
+                        <i className="bi bi-envelope" />
+                        Email Address <span className={styles.required}>*</span>
+                      </Form.Label>
+                      <Field
+                        as="input"
+                        id="email"
+                        name="email"
+                        placeholder="jane@acme.com"
+                        type="email"
+                        className={styles.formInput}
+                        validate={validateEmail}
+                      />
+                      {errors.email && touched.email && <span className={styles.errorText}>{errors.email}</span>}
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>
-                    <i className="bi bi-tag" />
-                    Subject <span className={styles.required}>*</span>
-                  </label>
-                  <input type="text" className={styles.formInput} placeholder="How can we help?" required />
-                </div>
+                    <div className={styles.formGroup}>
+                      <Form.Label className={styles.formLabel} htmlFor="subject">
+                        <i className="bi bi-tag" />
+                        Subject <span className={styles.required}>*</span>
+                      </Form.Label>
+                      <Field
+                        as="input"
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        className={styles.formInput}
+                        placeholder="How can we help?"
+                        validate={validateRequired}
+                      />
+                      {errors.subject && touched.subject && (
+                        <span className={styles.errorText}>{errors.subject}</span>
+                      )}
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>
-                    <i className="bi bi-building" />
-                    Company Name
-                  </label>
-                  <input type="text" className={styles.formInput} placeholder="Your Company" />
-                </div>
+                    <div className={styles.formGroup}>
+                      <Form.Label className={styles.formLabel} htmlFor="companyName">
+                        <i className="bi bi-building" />
+                        Company Name
+                      </Form.Label>
+                      <Field
+                        as="input"
+                        type="text"
+                        id="companyName"
+                        name="companyName"
+                        className={styles.formInput}
+                        placeholder="Your Company"
+                      />
+                      {errors.companyName && touched.companyName && (
+                        <span className={styles.errorText}>{errors.companyName}</span>
+                      )}
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>
-                    <i className="bi bi-globe" />
-                    Company Website
-                  </label>
-                  <input type="url" className={styles.formInput} placeholder="https://example.com" />
-                </div>
+                    <div className={styles.formGroup}>
+                      <Form.Label className={styles.formLabel} htmlFor="companyWebsite">
+                        <i className="bi bi-globe" />
+                        Company Website
+                      </Form.Label>
+                      <Field
+                        as="input"
+                        type="url"
+                        id="companyWebsite"
+                        name="companyWebsite"
+                        className={styles.formInput}
+                        placeholder="https://example.com"
+                        validate={validURL}
+                      />
+                      {errors.companyWebsite && touched.companyWebsite && (
+                        <span className={styles.errorText}>{errors.companyWebsite}</span>
+                      )}
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>
-                    <i className="bi bi-telephone" />
-                    Phone Number
-                  </label>
-                  <input type="tel" className={styles.formInput} placeholder="+1 (555) 000-0000" />
-                </div>
+                    <div className={styles.formGroup}>
+                      <Form.Label className={styles.formLabel} htmlFor="phoneNumber">
+                        <i className="bi bi-telephone" />
+                        Phone Number
+                      </Form.Label>
+                      <Field
+                        as="input"
+                        type="tel"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        className={styles.formInput}
+                        placeholder="+1 (555) 000-0000"
+                      />
+                    </div>
 
-                <div className={classNames(styles.formGroup, styles.fullWidth)}>
-                  <label className={styles.formLabel}>
-                    <i className="bi bi-chat-left-text" />
-                    Message <span className={styles.required}>*</span>
-                  </label>
-                  <textarea
-                    className={styles.formTextarea}
-                    placeholder="Tell us about your project or requirements..."
-                    required
-                  />
-                </div>
+                    <div className={classNames(styles.formGroup, styles.fullWidth)}>
+                      <Form.Label className={styles.formLabel} htmlFor="message">
+                        <i className="bi bi-chat-left-text" />
+                        Message <span className={styles.required}>*</span>
+                      </Form.Label>
+                      <Field
+                        as="textarea"
+                        id="message"
+                        name="message"
+                        className={styles.formTextarea}
+                        placeholder="Tell us about your project or requirements..."
+                        validate={validateRequired}
+                      />
+                      {errors.message && touched.message && (
+                        <span className={styles.errorText}>{errors.message}</span>
+                      )}
+                    </div>
 
-                <div className={classNames(styles.formGroup, styles.fullWidth)}>
-                  <div className={styles.submitWrapper}>
-                    <button type="submit" className={styles.submitBtn}>
-                      Send Message
-                      <i className="bi bi-send" />
-                    </button>
-                    <span className={styles.formNote}>
-                      <i className="bi bi-shield-check" />
-                      {pageContent.form.secureNote}
-                    </span>
-                  </div>
-                </div>
-              </form>
+                    {values.name &&
+                      values.companyName &&
+                      values.companyWebsite &&
+                      values.email &&
+                      values.message &&
+                      values.subject && (
+                        <div className={classNames(styles.formGroup, styles.fullWidth)}>
+                          <div className={styles.captchaWrap}>
+                            <Reaptcha
+                              sitekey={process.env.NEXT_PUBLIC_CAPTCHA_API_KEY as string}
+                              onVerify={handleCaptchaChange}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                    <div className={classNames(styles.formGroup, styles.fullWidth)}>
+                      <div className={styles.formFooter}>
+                        <button type="submit" className={styles.submitBtn} disabled={loading}>
+                          {loading ? "Sending..." : "Send Message"}
+                          <i className="bi bi-send" />
+                        </button>
+                        <span className={styles.formNote}>
+                          <i className="bi bi-shield-check" />
+                          {pageContent.form.secureNote}
+                        </span>
+                      </div>
+                    </div>
+                  </FormikForm>
+                )}
+              </Formik>
             </div>
           </Col>
           <Col>

@@ -576,3 +576,26 @@ export interface IAboutDentistEmailListSeed {
 	statCards: IAboutStatCard[];
 	categories: IAboutCategory[];
 }
+export interface IBuilFilteList {
+	field: string;
+	value: string | null;
+}
+export interface ICartItem {
+	id: string;
+	productName: string;
+	contacts: number;
+	price: number;
+	databaseMainType?: "DATABASE_MAIN_TYPES" | null;
+	filterItems?: IBuilFilteList[] | null;
+}
+
+export interface IProspectorFilter {
+	id: string;
+	modifiedLabel?: string;
+	label: string;
+	value: string;
+	city?: string;
+	state?: string;
+	category?: string;
+	subCategory?: string;
+}

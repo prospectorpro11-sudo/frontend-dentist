@@ -4,7 +4,7 @@ import AboutBanner from "./views/AboutBanner";
 import JoinWithUs from "./views/joinWithUs/JoinWithUs";
 import OurMission from "./views/ourMission/OurMission";
 import DataBeneficiaries from "@/components/dataBeneficiaries/DataBeneficiaries";
-import { ABOUT_SEED_OBJECT } from "@/shared/seeds/aboutSeeds";
+import { ABOUT_SEED_OBJECT } from "@/seeds/aboutSeeds";
 import VerifiedContacts from "./views/VerifiedContacts";
 import TeamMembers from "@/components/teamMembers/TeamMembers";
 

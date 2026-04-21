@@ -11,7 +11,7 @@ import {
     IVerifiedSourceSeed,
     IWhatsIncludedDetailsSeed,
     IWhyChooseUsSeed,
-} from "../interface";
+} from "../shared/interface";
 
 const freeSample: IFreeSample = {
     heading: 'Get your',

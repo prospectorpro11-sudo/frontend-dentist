@@ -1,4 +1,4 @@
-import { IDataBeneficiariesSeed } from "../interface";
+import { IDataBeneficiariesSeed } from "../shared/interface";
 
 const dataBeneficiaries: IDataBeneficiariesSeed = {
     content: {

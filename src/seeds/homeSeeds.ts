@@ -8,7 +8,7 @@ import {
     ILocationSegmentation,
     IProductList,
     IWhatsIncluded
-} from '../interface';
+} from '../shared/interface';
 
 const homeBanner: IHomeBanner = {
     liveBadgeText: 'Live Database',

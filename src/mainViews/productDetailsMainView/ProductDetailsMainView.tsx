@@ -5,7 +5,7 @@ import CrmIntegration from "@/components/crmIntegration/CrmIntegration";
 import VerifiedSource from "@/components/verifiedSource/VerifiedSource";
 import ProductPriceList from "./views/productPriceList/ProductPriceList";
 import ComparisonTable from "@/components/comparisonTable/ComparisonTable";
-import { PRODUCT_DETAILS_SEED_OBJECT } from "@/shared/seeds/productDetailsSeeds";
+import { PRODUCT_DETAILS_SEED_OBJECT } from "@/seeds/productDetailsSeeds";
 import CustomDentistList from "@/components/customDentistList/CustomDentistList";
 import DataBeneficiaries from "@/components/dataBeneficiaries/DataBeneficiaries";
 import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBanner";
