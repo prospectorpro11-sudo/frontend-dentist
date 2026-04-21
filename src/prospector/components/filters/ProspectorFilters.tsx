@@ -1,6 +1,6 @@
-import { FaBriefcase, FaChevronDown, FaFilter, FaHospital, FaIdCard, FaMap, FaMapPin, FaStethoscope, FaVenusMars } from "react-icons/fa6";
 import styles from "./prospectorFilters.module.scss";
 import { FaMapMarkerAlt, FaTimes } from "react-icons/fa";
+import { FaBriefcase, FaChevronDown, FaFilter, FaHospital, FaIdCard, FaMap, FaMapPin, FaStethoscope, FaVenusMars } from "react-icons/fa6";
 
 const ProspectorFilters = () => {
     return (

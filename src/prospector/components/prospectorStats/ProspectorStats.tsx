@@ -1,4 +1,4 @@
-import { FaAddressBook, FaCartPlus, FaEnvelope, FaFax, FaPhone } from "react-icons/fa6";
+import { FaAddressBook, FaEnvelope, FaFax, FaPhone } from "react-icons/fa6";
 import styles from "./prospectorStats.module.scss";
 
 const ProspectorStats = () => {

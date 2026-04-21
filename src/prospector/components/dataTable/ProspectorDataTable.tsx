@@ -1,5 +1,5 @@
-import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
 import styles from "./prospectorDataTable.module.scss";
+import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight, FaEnvelope, FaPhone, FaSort } from "react-icons/fa6";
 
 const ProspectorDataTable = () => {
