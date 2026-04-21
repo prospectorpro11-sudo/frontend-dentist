@@ -1,0 +1,88 @@
+@use "styles/variables" as *;
+
+.dropdown {
+    position: relative;
+    display: inline-flex;
+}
+
+.menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    min-width: 200px;
+    background: color-mix(in srgb, var(--surface) 96%, transparent);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-xl);
+    padding: 10px;
+    display: none;
+    z-index: 120;
+    backdrop-filter: blur(14px);
+}
+
+.menuSm {
+    min-width: 176px;
+    padding: 6px;
+    top: calc(100% + 8px);
+}
+
+.menuOpen {
+    display: block;
+}
+
+.alignRight {
+    right: 0;
+}
+
+.alignLeft {
+    left: 0;
+}
+
+.alignCenter {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: var(--r-lg);
+    background: transparent;
+    border: none;
+    color: var(--n700);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    text-align: left;
+    font: inherit;
+
+    &:hover {
+        background: var(--blue-50);
+        color: var(--blue-700);
+    }
+}
+
+.menuSm .item {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+    gap: 6px;
+}
+
+.itemDanger {
+    color: var(--rose-500);
+
+    &:hover {
+        background: var(--rose-50);
+        color: var(--rose-500);
+    }
+}
+
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 8px;
+}

@@ -2,21 +2,23 @@
 import { useState } from "react";
 import classNames from "classnames";
 import {
-    FaBell,
     FaBox,
+    FaChevronDown,
     FaChartPie,
     FaCog,
     FaBars,
     FaDownload,
     FaFileInvoiceDollar,
     FaTooth,
-    FaUser,
+    FaUserCircle,
     FaUsers,
 } from "react-icons/fa";
-import { FaMagnifyingGlassLocation } from "react-icons/fa6";
+import { FaMagnifyingGlassLocation, FaUser } from "react-icons/fa6";
 
 import Breadcrumb, { type BreadcrumbItem, type BreadcrumbVariant } from "@/components/breadcrumb/Breadcrumb";
+import DropdownMenu, { type DropdownItem } from "@/components/dropdownMenu/DropdownMenu";
 import styles from "./dashboardLayout.module.scss";
+import { IoCaretDown } from "react-icons/io5";
 
 type DashboardContentMode = "scrollable" | "static";
 
@@ -27,6 +29,8 @@ type DashboardMenuItem = {
     badge?: React.ReactNode;
     active?: boolean;
 };
+
+type DashboardUserMenuItem = DropdownItem;
 
 const defaultMenuItems: DashboardMenuItem[] = [
     {
@@ -62,6 +66,25 @@ const defaultMenuItems: DashboardMenuItem[] = [
     },
 ];
 
+const defaultUserMenuItems: DashboardUserMenuItem[] = [
+    {
+        label: "Profile",
+        href: "/dashboard/profile",
+    },
+    {
+        label: "Settings",
+        href: "/dashboard/settings",
+    },
+    {
+        type: "divider",
+    },
+    {
+        label: "Sign out",
+        href: "/logout",
+        variant: "danger",
+    },
+];
+
 export default function DashboardLayout({
     children,
     navTitle = "Prospector",
@@ -69,6 +92,7 @@ export default function DashboardLayout({
     breadcrumbs,
     breadcrumbVariant = "dashboard",
     menuItems = defaultMenuItems,
+    userMenuItems = defaultUserMenuItems,
     userName = "Franklin Carter",
     userRole = "Pro Subscriber",
     contentMode = "scrollable",
@@ -79,6 +103,7 @@ export default function DashboardLayout({
     breadcrumbs?: BreadcrumbItem[];
     breadcrumbVariant?: BreadcrumbVariant;
     menuItems?: DashboardMenuItem[];
+    userMenuItems?: DashboardUserMenuItem[];
     userName?: string;
     userRole?: string;
     contentMode?: DashboardContentMode;
@@ -160,13 +185,30 @@ export default function DashboardLayout({
                     {/* {navSubtitle ? <div className={styles.topbarSubtitle}>{navSubtitle}</div> : null} */}
                 </div>
                 <div className={styles.spacer}></div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <button className={styles.notibtn}><i aria-hidden="true"><FaBell /></i><span className={styles.dot}></span></button>
-                    <div className={styles.userchip}>
-                        <span className={styles.uname}>{userName}</span>
-                        <div className={styles.ava}><i aria-hidden="true" style={{ fontSize: "11px" }}><FaUser /></i></div>
-                    </div>
-                </div>
+                <DropdownMenu
+                    items={userMenuItems}
+                    align="right"
+                    size="sm"
+                    className={styles.userMenu}
+                    menuClassName={styles.userMenuDropdown}
+                    trigger={({ onClick, ariaExpanded, ariaHaspopup }) => (
+                        <button
+                            type="button"
+                            className={styles.userMenuTrigger}
+                            onClick={onClick}
+                            aria-expanded={ariaExpanded}
+                            aria-haspopup={ariaHaspopup}
+                        >
+                            <span className={styles.userMenuAvatar}>
+                                <FaUser />
+                            </span>
+                            <span className={styles.userMenuName}>{userName}</span>
+                            <span className={styles.userMenuChevron} aria-hidden="true">
+                                <IoCaretDown />
+                            </span>
+                        </button>
+                    )}
+                />
             </div>
 
             <main
