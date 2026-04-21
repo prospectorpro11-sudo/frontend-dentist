@@ -507,6 +507,7 @@ export interface IDataBeneficiariesSeed {
 		dataHubText: string;
 	};
 	nodes: IDataBeneficiaryNode[];
+	bgVariant?: "white" | "fill";
 }
 
 export interface IComparisonRow {

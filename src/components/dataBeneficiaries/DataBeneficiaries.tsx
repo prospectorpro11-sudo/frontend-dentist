@@ -6,10 +6,10 @@ import Image from 'next/image';
 import { IDataBeneficiariesSeed } from '@/shared/interface';
 
 const DataBeneficiaries = (props: IDataBeneficiariesSeed) => {
-    const { content, nodes } = props;
+    const { content, nodes, bgVariant = "white" } = props;
 
     return (
-        <section>
+        <section className={bgVariant}>
             <Container>
                 <div className={styles.mockupContainer}>
                     <div className={classname(styles.blob, styles.blob1)}></div>
