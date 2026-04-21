@@ -1,9 +1,8 @@
+import ProspectorMainView from "@/mainViews/prospectorMainView/ProspectorMainView";
 
 const ProspectorPage = () => {
     return (
-        <div>
-            <h2>Prospector</h2>
-        </div>
+        <ProspectorMainView />
     );
 };
 
