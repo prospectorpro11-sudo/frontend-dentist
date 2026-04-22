@@ -6,6 +6,7 @@ import { FaChevronDown, FaFilter, FaIdCard, FaMap, FaMapPin, FaStethoscope, FaVe
 import { PROSPECTOR_FILTER_ENDPOINTS } from "@/shared/constant";
 import { useProspectorContext } from "@/contexts/ProspectorContext";
 import FilterDropdown from "../filterDropdown/FilterDropdown";
+import EmailAvailability from "./views/EmailAvailability";
 
 const ProspectorFilters = () => {
     const { states, setStates, cities, setCities, zipCodes, setZipCodes, specialties, setSpecialties, licenseStates, setLicenseStates, gender, setGender } = useProspectorContext();
@@ -141,8 +142,8 @@ const ProspectorFilters = () => {
                 <div className={styles.ftitle}><div className={styles.fi}><FaFilter /></div><b>Smart Filters</b></div>
                 {activeFilterCount > 0 && <div className={styles.fcnt}>{activeFilterCount} Active</div>}
             </div>
-
             <div className={styles.chips}>
+                <EmailAvailability />
                 {FILTERS.map(({ variant, chipLabel, icon: Icon, filterValues }) => {
                     const selectedCount = Array.isArray(filterValues) ? filterValues.length : 0;
                     const isActive = selectedCount > 0;
