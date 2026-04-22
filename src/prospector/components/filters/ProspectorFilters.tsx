@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { PROSPECTOR_FILTER_VARIANT_ENUM } from "@/shared/enums";
 import styles from "./prospectorFilters.module.scss";
 import { FaMapMarkerAlt, FaTimes } from "react-icons/fa";
@@ -111,7 +111,7 @@ const ProspectorFilters = () => {
     };
 
     const activeFilterTags = FILTERS
-        .map(({ label, filterValues }) => {
+        .map(({ label, filterValues, setFilterValues }) => {
             const values = Array.isArray(filterValues) ? filterValues : [];
             const displayValues = values.map(getDisplayValue).filter(Boolean);
 
@@ -126,9 +126,14 @@ const ProspectorFilters = () => {
             return {
                 label,
                 valueText: `${visibleValues}${suffix}`,
+                setFilterValues,
             };
         })
-        .filter(Boolean) as { label: string; valueText: string }[];
+        .filter(Boolean) as {
+            label: string;
+            valueText: string;
+            setFilterValues: Dispatch<SetStateAction<null>>;
+        }[];
 
     return (
         <div ref={filtersContainerRef} className={`${styles.filtSec} ${openFilter ? styles.filtSecOpen : ""}`.trim()}>
@@ -199,8 +204,8 @@ const ProspectorFilters = () => {
             )}
 
             <div className={styles.tags}>
-                {activeFilterTags.map(({ label, valueText }) => (
-                    <div key={label} className={styles.tag}><b>{label}</b> {valueText} <span className={styles.rx}><FaTimes /></span></div>
+                {activeFilterTags.map(({ label, valueText, setFilterValues }) => (
+                    <div key={label} className={styles.tag}><b>{label}</b> {valueText} <span className={styles.rx} onClick={() => setFilterValues(null)}><FaTimes /></span></div>
                 ))}
             </div>
         </div>
