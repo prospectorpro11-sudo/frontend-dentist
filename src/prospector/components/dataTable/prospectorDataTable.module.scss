@@ -230,14 +230,15 @@
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     position: relative;
     background: linear-gradient(180deg, transparent 0%, rgba(248, 250, 252, 0.3) 100%);
     padding: 8px 12px;
 }
 
 .gridWrap::-webkit-scrollbar {
-    width: 6px;
+    width: 3px;
+    height: 3px;
 }
 
 .gridWrap::-webkit-scrollbar-track {
@@ -246,25 +247,21 @@
 }
 
 .gridWrap::-webkit-scrollbar-thumb {
-    background: rgba(14, 165, 233, 0.12);
-    border-radius: 10px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
+    background: linear-gradient(90deg, #0EA5E9 0%, #14B8A6 100%);
+    border-radius: 4px;
 }
 
 .gridWrap::-webkit-scrollbar-thumb:hover {
-    background: rgba(14, 165, 233, 0.25);
-    border: 2px solid transparent;
-    background-clip: padding-box;
+    background: linear-gradient(90deg, #0EA5E9 0%, #14B8A6 100%);
 }
 
 /* TABLE */
 .grid {
-    width: 100%;
+    width: max-content;
     border-collapse: separate;
     border-spacing: 0;
-    min-width: 100%;
-    table-layout: fixed;
+    min-width: 1200px;
+    table-layout: auto;
 }
 
 /* Header */
@@ -291,8 +288,6 @@
     transition: color 0.2s;
     box-shadow: 0 1px 0 #e2e8f0;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .grid thead th::after {
@@ -419,8 +414,6 @@
     border-left: 2px solid transparent;
     transition: border-color 0.2s, background 0.2s;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .grid tbody tr:last-child td {

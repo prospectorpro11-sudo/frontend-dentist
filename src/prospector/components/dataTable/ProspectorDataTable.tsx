@@ -66,21 +66,9 @@ const columns: ColumnConfig[] = [
     { key: "Cell Numbers", label: "Cell Numbers", render: (row) => row["Cell Numbers"] ?? "-" },
 ];
 
-const defaultVisibleColumns = new Set<keyof IProspectorData>([
-    "NPI",
-    "First Name",
-    "Last Name",
-    "Gender",
-    "Specialty",
-    "City",
-    "State",
-    "Phone",
-    "License State",
-]);
-
 const getInitialVisibility = () =>
     columns.reduce<Record<string, boolean>>((accumulator, column) => {
-        accumulator[column.key] = column.required || defaultVisibleColumns.has(column.key);
+        accumulator[column.key] = true;
         return accumulator;
     }, {});
 
@@ -101,6 +89,7 @@ const ProspectorDataTable = () => {
     const rows = useMemo(() => exposedRows.slice(startIndex, startIndex + PAGE_SIZE), [exposedRows, startIndex]);
 
     const visibleColumnsList = columns.filter((column) => visibleColumns[column.key]);
+    const hasHiddenColumns = columns.some((column) => !visibleColumns[column.key]);
 
     const visibleCount = visibleColumnsList.length + 1;
     const totalColumnCount = columns.length + 1;
@@ -114,6 +103,10 @@ const ProspectorDataTable = () => {
             ...current,
             [column.key]: !current[column.key],
         }));
+    };
+
+    const resetColumns = () => {
+        setVisibleColumns(getInitialVisibility());
     };
 
     return (
@@ -133,9 +126,11 @@ const ProspectorDataTable = () => {
                     </button>
                 </div>
                 <div className={styles.gtright}>
-                    <button className={styles.gtact} type="button" title="Refresh">
-                        <FaSyncAlt />
-                    </button>
+                    {hasHiddenColumns && (
+                        <button className={styles.gtact} type="button" title="Reset columns" onClick={resetColumns}>
+                            <FaSyncAlt />
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -283,6 +278,7 @@ const ProspectorDataTable = () => {
                     fullWidth
                     onPageChange={(page) => setCurrentPage(Math.min(totalPages, Math.max(1, page)))}
                     onPerPageChange={() => undefined}
+                    className="p-0"
                 />
             </div>
         </div>
