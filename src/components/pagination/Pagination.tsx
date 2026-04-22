@@ -8,6 +8,9 @@ type PaginationProps = {
   totalResults: number;
   perPage: number;
   perPageOptions?: number[];
+  showPerPage?: boolean;
+  fullWidth?: boolean;
+  className?: string;
   onPageChange: (page: number) => void;
   onPerPageChange: (perPage: number) => void;
 };
@@ -42,11 +45,14 @@ const Pagination = ({
   totalResults,
   perPage,
   perPageOptions = [6, 9, 12, 24],
+  showPerPage = true,
+  fullWidth = false,
+  className,
   onPageChange,
   onPerPageChange,
 }: PaginationProps) => {
   return (
-    <div className={styles.paginationSection}>
+    <div className={classNames(styles.paginationSection, fullWidth && styles.fullWidth, className)}>
       <div className={styles.showingText}>
         Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong> -{" "}
         <span>
@@ -54,16 +60,18 @@ const Pagination = ({
         </span>
       </div>
 
-      <div className={styles.perPageGroup}>
-        <span>Per page</span>
-        <select value={perPage} onChange={(e) => onPerPageChange(parseInt(e.target.value, 10))}>
-          {perPageOptions.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
+      {showPerPage && (
+        <div className={styles.perPageGroup}>
+          <span>Per page</span>
+          <select value={perPage} onChange={(e) => onPerPageChange(parseInt(e.target.value, 10))}>
+            {perPageOptions.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div className={styles.pageBtns}>
         <button

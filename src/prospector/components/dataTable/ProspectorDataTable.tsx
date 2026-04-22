@@ -8,6 +8,18 @@ import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
 import { FaEnvelope, FaPhone, FaSort } from "react-icons/fa6";
 
 const PAGE_SIZE = 10;
+const AVATAR_COLORS = [
+    "#0284C7",
+    "#0EA5E9",
+    "#6366F1",
+    "#14B8A6",
+    "#EA580C",
+    "#F43F5E",
+    "#10B981",
+    "#0EA5E9",
+    "#EA580C",
+    "#F43F5E",
+];
 
 type ColumnConfig = {
     key: keyof IProspectorData;
@@ -184,6 +196,8 @@ const ProspectorDataTable = () => {
                                                                 round
                                                                 maxInitials={2}
                                                                 textSizeRatio={2}
+                                                                colors={AVATAR_COLORS}
+                                                                fgColor="#FFFFFF"
                                                                 title={value || "NA"}
                                                             />
                                                             <div className={styles.nname}>{value || "NA"}</div>
@@ -251,9 +265,6 @@ const ProspectorDataTable = () => {
             </div>
 
             <div className={styles.gfoot}>
-                <div className={styles.rc}>
-                    Showing <b>{totalContacts === 0 ? 0 : startIndex + 1}</b> to <b>{endIndex}</b> of <b>{totalContacts}</b> results
-                </div>
                 <Pagination
                     currentPage={safeCurrentPage}
                     totalPages={totalPages}
@@ -261,6 +272,8 @@ const ProspectorDataTable = () => {
                     totalResults={exposedTotal}
                     perPage={PAGE_SIZE}
                     perPageOptions={[PAGE_SIZE]}
+                    showPerPage={false}
+                    fullWidth
                     onPageChange={(page) => setCurrentPage(Math.min(3, Math.max(1, page)))}
                     onPerPageChange={() => undefined}
                 />
