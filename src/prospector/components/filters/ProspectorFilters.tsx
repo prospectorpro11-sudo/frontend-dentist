@@ -1,12 +1,17 @@
+import { useRef, useState } from "react";
 import { PROSPECTOR_FILTER_VARIANT_ENUM } from "@/shared/enums";
 import styles from "./prospectorFilters.module.scss";
 import { FaMapMarkerAlt, FaTimes } from "react-icons/fa";
 import { FaChevronDown, FaFilter, FaIdCard, FaMap, FaMapPin, FaStethoscope, FaVenusMars } from "react-icons/fa6";
 import { PROSPECTOR_FILTER_ENDPOINTS } from "@/shared/constant";
 import { useProspectorContext } from "@/contexts/ProspectorContext";
+import FilterDropdown from "../filterDropdown/FilterDropdown";
 
 const ProspectorFilters = () => {
     const { states, setStates, cities, setCities, zipCodes, setZipCodes, specialties, setSpecialties, licenseStates, setLicenseStates, gender, setGender } = useProspectorContext();
+    const [openVariant, setOpenVariant] = useState<PROSPECTOR_FILTER_VARIANT_ENUM | null>(null);
+    const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
+    const filtersContainerRef = useRef<HTMLDivElement | null>(null);
 
     const FILTERS = [
         {
@@ -90,6 +95,7 @@ const ProspectorFilters = () => {
     ]
 
     const activeFilterCount = FILTERS.filter(({ filterValues }) => Array.isArray(filterValues) && filterValues.length > 0).length;
+    const openFilter = FILTERS.find(({ variant }) => variant === openVariant) ?? null;
     const getDisplayValue = (value: unknown): string => {
         if (typeof value === "string" || typeof value === "number") {
             return String(value);
@@ -125,7 +131,7 @@ const ProspectorFilters = () => {
         .filter(Boolean) as { label: string; valueText: string }[];
 
     return (
-        <div className={styles.filtSec}>
+        <div ref={filtersContainerRef} className={`${styles.filtSec} ${openFilter ? styles.filtSecOpen : ""}`.trim()}>
             <div className={styles.filttop}>
                 <div className={styles.ftitle}><div className={styles.fi}><FaFilter /></div><b>Smart Filters</b></div>
                 <div className={styles.fcnt}>{activeFilterCount} Active</div>
@@ -135,16 +141,63 @@ const ProspectorFilters = () => {
                 {FILTERS.map(({ variant, chipLabel, icon: Icon, filterValues }) => {
                     const selectedCount = Array.isArray(filterValues) ? filterValues.length : 0;
                     const isActive = selectedCount > 0;
+                    const isOpen = openVariant === variant;
 
                     return (
-                        <div key={variant} className={`${styles.chip} ${isActive ? styles.on : ""}`.trim()}>
+                        <button
+                            key={variant}
+                            type="button"
+                            className={`${styles.chip} ${isActive ? styles.on : ""}`.trim()}
+                            onClick={(event) => {
+                                const isClosing = openVariant === variant;
+                                if (isClosing) {
+                                    setOpenVariant(null);
+                                    setDropdownPosition(null);
+                                    return;
+                                }
+
+                                const containerRect = filtersContainerRef.current?.getBoundingClientRect();
+                                const chipRect = event.currentTarget.getBoundingClientRect();
+
+                                if (containerRect) {
+                                    const dropdownWidth = 350;
+                                    const spacing = 10;
+                                    const chipCenter = chipRect.left - containerRect.left + (chipRect.width / 2);
+                                    const rawLeft = chipCenter - (dropdownWidth / 2);
+                                    const maxLeft = Math.max(spacing, containerRect.width - dropdownWidth - spacing);
+                                    const clampedLeft = Math.min(Math.max(rawLeft, spacing), maxLeft);
+                                    const top = chipRect.bottom - containerRect.top + 8;
+
+                                    setDropdownPosition({ top, left: clampedLeft });
+                                }
+
+                                setOpenVariant(variant);
+                            }}
+                        >
                             <Icon /> {chipLabel}
                             {isActive && <span className={styles.cnt}>{selectedCount}</span>}
-                            <span className={styles.arr}><FaChevronDown /></span>
-                        </div>
+                            <span className={styles.arr} style={{ transform: isOpen ? "rotate(180deg)" : "none" }}><FaChevronDown /></span>
+                        </button>
                     );
                 })}
             </div>
+
+            {openFilter && (
+                <FilterDropdown
+                    title={openFilter.label}
+                    searchPlaceholder={openFilter.searchPlaceholder}
+                    api={openFilter.api}
+                    filterValues={openFilter.filterValues}
+                    setFilterValues={openFilter.setFilterValues}
+                    onClose={() => {
+                        setOpenVariant(null);
+                        setDropdownPosition(null);
+                    }}
+                    state={states?.map((item) => item.value) ?? []}
+                    city={cities?.map((item) => item.value) ?? []}
+                    position={dropdownPosition}
+                />
+            )}
 
             <div className={styles.tags}>
                 {activeFilterTags.map(({ label, valueText }) => (

@@ -14,6 +14,11 @@
     position: relative;
 }
 
+.filtSecOpen {
+    z-index: 10000;
+    isolation: isolate;
+}
+
 .filttop {
     display: flex;
     align-items: center;
