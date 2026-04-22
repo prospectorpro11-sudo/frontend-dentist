@@ -99,6 +99,7 @@ const getInitialVisibility = () =>
 const ProspectorDataTable = () => {
     const { data, stats, prospectorLoading } = useProspectorContext();
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [searchTerm, setSearchTerm] = useState<string>("");
     const [columnPanelOpen, setColumnPanelOpen] = useState<boolean>(false);
     const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(getInitialVisibility);
 
@@ -110,7 +111,20 @@ const ProspectorDataTable = () => {
     const safeCurrentPage = Math.min(currentPage, totalPages);
     const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
     const endIndex = Math.min(startIndex + PAGE_SIZE, totalContacts);
-    const rows = useMemo(() => exposedRows.slice(startIndex, startIndex + PAGE_SIZE), [exposedRows, startIndex]);
+    const currentPageRows = useMemo(() => exposedRows.slice(startIndex, startIndex + PAGE_SIZE), [exposedRows, startIndex]);
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+    const rows = useMemo(() => {
+        if (!normalizedSearch) {
+            return currentPageRows;
+        }
+
+        return currentPageRows.filter((row) =>
+            columns.some((column) => {
+                const value = column.render(row);
+                return String(value ?? "").toLowerCase().includes(normalizedSearch);
+            })
+        );
+    }, [currentPageRows, normalizedSearch]);
 
     const visibleColumnsList = columns.filter((column) => visibleColumns[column.key]);
     const hasHiddenColumns = columns.some((column) => !visibleColumns[column.key]);
@@ -139,7 +153,12 @@ const ProspectorDataTable = () => {
                 <div className={styles.gtleft}>
                     <div className={styles.gsearch}>
                         <i><FaSearch /></i>
-                        <input type="text" placeholder="Search contacts..." />
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(event) => setSearchTerm(event.target.value)}
+                            placeholder="Search contacts..."
+                        />
                     </div>
                     <button
                         className={`${styles.tblbtn} ${columnPanelOpen ? styles.active : ""}`}
@@ -304,7 +323,7 @@ const ProspectorDataTable = () => {
                         ) : (
                             <tr>
                                 <td colSpan={visibleColumnsList.length + 1}>
-                                    <div className={styles.emptyState}>No contacts available.</div>
+                                    <div className={styles.emptyState}>{normalizedSearch ? "No contacts found on this page." : "No contacts available."}</div>
                                 </td>
                             </tr>
                         )}
