@@ -1,25 +1,26 @@
 "use client";
 
 import { CSSProperties, Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { FaSearch, FaTimes } from "react-icons/fa";
+import Select, { MultiValue, StylesConfig } from "react-select";
 
 import styles from "./filterDropdown.module.scss";
 import { internalApi } from "@/services/baseServices";
 import { IProspectorFilter } from "@/shared/interface";
+import { PROSPECTOR_FILTER_VARIANT_ENUM } from "@/shared/enums";
+import { PROSPECTOR_FILTER_ENDPOINTS } from "@/shared/constant";
 
 const PAGE_SIZE = 100;
 
 type FilterDropdownProps = {
     title: string;
+    variant: PROSPECTOR_FILTER_VARIANT_ENUM;
     searchPlaceholder: string;
     api: string;
     filterValues: IProspectorFilter[] | null;
     setFilterValues: Dispatch<SetStateAction<IProspectorFilter[] | null>>;
     onClose: () => void;
-    state?: string[];
-    county?: string[];
-    city?: string[];
     position?: {
         top: number;
         left: number;
@@ -53,6 +54,16 @@ type FilterPage = {
     hasNextPage: boolean;
 };
 
+type AllResponse = {
+    success: boolean;
+    data?: RawFilterRecord[];
+};
+
+type SelectOption = {
+    value: string;
+    label: string;
+};
+
 const toText = (value: unknown): string => {
     if (typeof value === "string" || typeof value === "number") {
         return String(value);
@@ -81,22 +92,41 @@ const toOption = (item: RawFilterRecord): IProspectorFilter | null => {
     };
 };
 
+const toUniqueOptions = (rows: RawFilterRecord[] | undefined): IProspectorFilter[] => {
+    const mapped = (rows ?? [])
+        .map((item) => toOption(item))
+        .filter((item): item is IProspectorFilter => Boolean(item));
+
+    const unique = new Map<string, IProspectorFilter>();
+    for (const item of mapped) {
+        const key = String(item.value || item.id || item.label).toLowerCase();
+        if (!key || unique.has(key)) {
+            continue;
+        }
+
+        unique.set(key, item);
+    }
+
+    return Array.from(unique.values());
+};
+
 const FilterDropdown = ({
     title,
+    variant,
     searchPlaceholder,
     api,
     filterValues,
     setFilterValues,
     onClose,
-    state,
-    county,
-    city,
     position,
 }: FilterDropdownProps) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const optionsRef = useRef<HTMLDivElement | null>(null);
     const [search, setSearch] = useState("");
     const [debouncedSearch, setDebouncedSearch] = useState("");
+    const [zipStateValues, setZipStateValues] = useState<string[]>([]);
+    const [zipCityValues, setZipCityValues] = useState<string[]>([]);
+    const [cityStateValues, setCityStateValues] = useState<string[]>([]);
 
     useEffect(() => {
         const timer = window.setTimeout(() => {
@@ -133,9 +163,93 @@ const FilterDropdown = ({
         };
     }, [onClose]);
 
-    const stateKey = state?.length ? state.join(",") : null;
-    const countyKey = county?.length ? county.join(",") : null;
-    const cityKey = city?.length ? city.join(",") : null;
+    const isZipFilter = variant === PROSPECTOR_FILTER_VARIANT_ENUM.ZIP_CODE;
+    const isCityFilter = variant === PROSPECTOR_FILTER_VARIANT_ENUM.CITY;
+    const effectiveState = isZipFilter ? zipStateValues : isCityFilter ? cityStateValues : [];
+    const effectiveCity = isZipFilter ? (zipStateValues.length > 0 ? zipCityValues : []) : [];
+    const stateKey = effectiveState.length ? effectiveState.join(",") : null;
+    const cityKey = effectiveCity.length ? effectiveCity.join(",") : null;
+
+    const { data: stateFilterOptionsData } = useQuery<AllResponse>({
+        queryKey: ["prospector-filter-states"],
+        queryFn: async () => {
+            const response = await internalApi.get<AllResponse>(`${PROSPECTOR_FILTER_ENDPOINTS.STATE}?all=1`);
+            return response.data;
+        },
+        staleTime: 5 * 60 * 1000,
+    });
+
+    const { data: zipCityFilterOptionsData } = useQuery<AllResponse>({
+        queryKey: ["prospector-filter-cities", stateKey],
+        queryFn: async () => {
+            const params = new URLSearchParams({ all: "1" });
+            zipStateValues.forEach((value) => params.append("state", value));
+
+            const response = await internalApi.get<AllResponse>(`${PROSPECTOR_FILTER_ENDPOINTS.CITY}?${params.toString()}`);
+            return response.data;
+        },
+        enabled: isZipFilter && zipStateValues.length > 0,
+        staleTime: 5 * 60 * 1000,
+    });
+
+    const stateFilterOptions = useMemo(() => toUniqueOptions(stateFilterOptionsData?.data), [stateFilterOptionsData?.data]);
+    const zipCityFilterOptions = useMemo(() => toUniqueOptions(zipCityFilterOptionsData?.data), [zipCityFilterOptionsData?.data]);
+    const stateSelectOptions = useMemo<SelectOption[]>(() => stateFilterOptions.map((item) => ({ value: item.value, label: item.label })), [stateFilterOptions]);
+    const zipCitySelectOptions = useMemo<SelectOption[]>(() => zipCityFilterOptions.map((item) => ({ value: item.value, label: item.label })), [zipCityFilterOptions]);
+    const zipStateSelectValue = useMemo(() => stateSelectOptions.filter((item) => zipStateValues.includes(item.value)), [stateSelectOptions, zipStateValues]);
+    const cityStateSelectValue = useMemo(() => stateSelectOptions.filter((item) => cityStateValues.includes(item.value)), [stateSelectOptions, cityStateValues]);
+    const zipCitySelectValue = useMemo(() => zipCitySelectOptions.filter((item) => zipCityValues.includes(item.value)), [zipCitySelectOptions, zipCityValues]);
+
+    const selectStyles: StylesConfig<SelectOption, true> = {
+        control: (base, state) => ({
+            ...base,
+            minHeight: 38,
+            borderRadius: 8,
+            borderColor: state.isFocused ? "#3b82f6" : "#c5d0dc",
+            boxShadow: state.isFocused ? "0 0 0 3px rgba(59, 130, 246, 0.14)" : "none",
+            backgroundColor: "#fff",
+            cursor: "text",
+        }),
+        valueContainer: (base) => ({
+            ...base,
+            padding: "2px 8px",
+            gap: 4,
+        }),
+        multiValue: (base) => ({
+            ...base,
+            backgroundColor: "#e2ecff",
+            borderRadius: 6,
+        }),
+        multiValueLabel: (base) => ({
+            ...base,
+            color: "#1e3a8a",
+            fontSize: 11,
+            fontWeight: 600,
+        }),
+        multiValueRemove: (base) => ({
+            ...base,
+            color: "#1e3a8a",
+            ":hover": {
+                backgroundColor: "#c7dbff",
+                color: "#1e3a8a",
+            },
+        }),
+        placeholder: (base) => ({
+            ...base,
+            color: "#94a3b8",
+            fontSize: 12,
+        }),
+        option: (base, state) => ({
+            ...base,
+            fontSize: 12,
+            backgroundColor: state.isSelected ? "#dbeafe" : state.isFocused ? "#eff6ff" : "#fff",
+            color: "#334155",
+        }),
+        menu: (base) => ({
+            ...base,
+            zIndex: 10030,
+        }),
+    };
 
     const {
         data,
@@ -146,7 +260,7 @@ const FilterDropdown = ({
         isFetchingNextPage,
         isFetching,
     } = useInfiniteQuery<FilterPage>({
-        queryKey: ["prospector-filter-dropdown", api, debouncedSearch || null, stateKey, countyKey, cityKey],
+        queryKey: ["prospector-filter-dropdown", api, debouncedSearch || null, stateKey, cityKey],
         initialPageParam: 1,
         queryFn: async ({ pageParam }) => {
             const params = new URLSearchParams({
@@ -158,9 +272,8 @@ const FilterDropdown = ({
                 params.set("search", debouncedSearch);
             }
 
-            state?.forEach((value) => params.append("state", value));
-            county?.forEach((value) => params.append("county", value));
-            city?.forEach((value) => params.append("city", value));
+            effectiveState.forEach((value) => params.append("state", value));
+            effectiveCity.forEach((value) => params.append("city", value));
 
             const response = await internalApi.get<RawFilterResponse>(`${api}?${params.toString()}`);
             const raw = response.data ?? {};
@@ -252,15 +365,67 @@ const FilterDropdown = ({
                     </button>
                 </div>
 
-                <div className={styles.searchWrap}>
-                    <FaSearch className={styles.searchIcon} />
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={(event) => setSearch(event.target.value)}
-                        placeholder={`${searchPlaceholder}...`}
-                        aria-label={`Search ${title}`}
-                    />
+                <div className={styles.searchRow}>
+                    <div className={styles.searchWrap}>
+                        <FaSearch className={styles.searchIcon} />
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={(event) => setSearch(event.target.value)}
+                            placeholder={`${searchPlaceholder}...`}
+                            aria-label={`Search ${title}`}
+                        />
+                    </div>
+
+                    {(isCityFilter || isZipFilter) && (
+                        <div className={styles.inlineFilters}>
+                            <div className={styles.inlineSelectWrap}>
+                                <span>State</span>
+                                <Select<SelectOption, true>
+                                    isMulti
+                                    isClearable={false}
+                                    className={styles.auxSelect}
+                                    classNamePrefix="aux-select"
+                                    styles={selectStyles}
+                                    options={stateSelectOptions}
+                                    value={isZipFilter ? zipStateSelectValue : cityStateSelectValue}
+                                    placeholder="Select State"
+                                    closeMenuOnSelect={false}
+                                    hideSelectedOptions={false}
+                                    onChange={(selected: MultiValue<SelectOption>) => {
+                                        const nextValues = selected.map((item) => item.value);
+                                        if (isZipFilter) {
+                                            setZipStateValues(nextValues);
+                                            setZipCityValues([]);
+                                            return;
+                                        }
+
+                                        setCityStateValues(nextValues);
+                                    }}
+                                />
+                            </div>
+
+                            {isZipFilter && (
+                                <div className={styles.inlineSelectWrap}>
+                                    <span>City</span>
+                                    <Select<SelectOption, true>
+                                        isMulti
+                                        isClearable={false}
+                                        className={styles.auxSelect}
+                                        classNamePrefix="aux-select"
+                                        styles={selectStyles}
+                                        options={zipCitySelectOptions}
+                                        value={zipCitySelectValue}
+                                        placeholder={zipStateValues.length ? "Select City" : "Select State First"}
+                                        closeMenuOnSelect={false}
+                                        hideSelectedOptions={false}
+                                        isDisabled={zipStateValues.length === 0}
+                                        onChange={(selected: MultiValue<SelectOption>) => setZipCityValues(selected.map((item) => item.value))}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <div className={styles.options} ref={optionsRef} onScroll={handleListScroll}>

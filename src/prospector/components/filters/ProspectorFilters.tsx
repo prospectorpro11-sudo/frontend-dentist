@@ -185,6 +185,7 @@ const ProspectorFilters = () => {
             {openFilter && (
                 <FilterDropdown
                     title={openFilter.label}
+                    variant={openFilter.variant}
                     searchPlaceholder={openFilter.searchPlaceholder}
                     api={openFilter.api}
                     filterValues={openFilter.filterValues}
@@ -193,8 +194,6 @@ const ProspectorFilters = () => {
                         setOpenVariant(null);
                         setDropdownPosition(null);
                     }}
-                    state={states?.map((item) => item.value) ?? []}
-                    city={cities?.map((item) => item.value) ?? []}
                     position={dropdownPosition}
                 />
             )}

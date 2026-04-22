@@ -50,9 +50,17 @@
 	cursor: pointer;
 }
 
+.searchRow {
+	display: grid;
+	grid-template-columns: minmax(120px, 1fr) minmax(120px, 160px) minmax(120px, 160px);
+	gap: 8px;
+	align-items: start;
+	padding: 10px 12px;
+}
+
 .searchWrap {
 	position: relative;
-	padding: 10px 12px;
+	min-width: 0;
 
 	input {
 		width: 100%;
@@ -71,6 +79,27 @@
 			box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
 		}
 	}
+}
+
+.inlineFilters {
+	display: contents;
+}
+
+.inlineSelectWrap {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	min-width: 0;
+
+	span {
+		font-size: 11px;
+		font-weight: 700;
+		color: #475569;
+	}
+}
+
+.auxSelect {
+	min-width: 0;
 }
 
 .searchIcon {
@@ -206,6 +235,20 @@
 
 	.searchWrap input {
 		font-size: 15px;
+	}
+
+	.searchRow {
+		grid-template-columns: 1fr;
+	}
+
+	.inlineFilters {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+
+	.inlineSelectWrap {
+		width: 100%;
 	}
 
 	.optionRow {
