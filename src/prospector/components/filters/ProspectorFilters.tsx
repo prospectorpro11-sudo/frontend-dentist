@@ -139,7 +139,7 @@ const ProspectorFilters = () => {
         <div ref={filtersContainerRef} className={`${styles.filtSec} ${openFilter ? styles.filtSecOpen : ""}`.trim()}>
             <div className={styles.filttop}>
                 <div className={styles.ftitle}><div className={styles.fi}><FaFilter /></div><b>Smart Filters</b></div>
-                <div className={styles.fcnt}>{activeFilterCount} Active</div>
+                {activeFilterCount > 0 && <div className={styles.fcnt}>{activeFilterCount} Active</div>}
             </div>
 
             <div className={styles.chips}>
