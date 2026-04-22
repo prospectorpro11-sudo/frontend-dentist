@@ -21,6 +21,12 @@ const AVATAR_COLORS = [
     "#F43F5E",
 ];
 
+const getAvatarColor = (name: string) => {
+    const safeName = name.trim();
+    const hash = safeName.split("").reduce((accumulator, character) => accumulator + character.charCodeAt(0), 0);
+    return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+};
+
 type ColumnConfig = {
     key: keyof IProspectorData;
     label: string;
@@ -197,7 +203,7 @@ const ProspectorDataTable = () => {
                                                                 round
                                                                 maxInitials={2}
                                                                 textSizeRatio={2}
-                                                                colors={AVATAR_COLORS}
+                                                                color={getAvatarColor(value || "NA")}
                                                                 fgColor="#FFFFFF"
                                                                 title={value || "NA"}
                                                             />
