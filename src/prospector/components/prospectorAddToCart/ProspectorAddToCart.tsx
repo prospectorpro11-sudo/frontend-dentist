@@ -5,13 +5,31 @@ import { useProspectorContext } from "@/contexts/ProspectorContext";
 import { numberWithCommas, PROSPECTOR_PRODUCT_PRICE_UPDATE } from "@/shared/InternalService";
 import Skeleton from "react-loading-skeleton";
 import { useEffect } from "react";
+import { useAddToCart } from "@/shared/hooks/useAddToCart";
+import { useMobileViewport } from "@/shared/hooks/useMobileViewport";
 
 const ProspectorAddToCart = () => {
     const { stats, prospectorLoading, price, setPrice, emailAvailability } = useProspectorContext();
+    const isMobileViewpoert = useMobileViewport();
+    const totalCount = stats?.totalContacts || 0;
+    const { addToCart, isAddedToCart, isSameProductAdded } = useAddToCart();
+    const formattedCount = numberWithCommas(totalCount.toString());
+    // const leadLabel = "Dentist List";
     useEffect(() => {
         const calculatePrice = PROSPECTOR_PRODUCT_PRICE_UPDATE((stats?.totalContacts || 0), (stats?.Unique_Emails || 0), emailAvailability?.value);
         setPrice(calculatePrice);
     }, [stats, emailAvailability, setPrice])
+
+    const ctaLabelDesktop = isSameProductAdded
+        ? "List Selected"
+        : isAddedToCart
+            ? `Update ${formattedCount}`
+            : `Add to Cart`;
+    const ctaLabelMobile = isSameProductAdded
+        ? "List Selected"
+        : isAddedToCart
+            ? "Update List"
+            : `Add to Cart`;
     return (
         <div className={styles.checkout}>
             <div className={styles.cprice}>
@@ -29,8 +47,8 @@ const ProspectorAddToCart = () => {
                     </>
                 )}
             </div>
-            <button className={styles.cartbtn} type="button" disabled={prospectorLoading}>
-                <FaCartPlus /> {prospectorLoading ? "Loading..." : "Add All to Cart"}
+            <button onClick={() => addToCart()} className={styles.cartbtn} type="button" disabled={prospectorLoading}>
+                <FaCartPlus size={19} /> {isMobileViewpoert ? ctaLabelMobile : ctaLabelDesktop}
             </button>
         </div>
     );
