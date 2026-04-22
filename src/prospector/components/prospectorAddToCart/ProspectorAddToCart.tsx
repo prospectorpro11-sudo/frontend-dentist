@@ -1,12 +1,12 @@
 'use client';
-import { FaCartPlus } from "react-icons/fa6";
-import styles from "./prospectorAddToCart.module.scss";
-import { useProspectorContext } from "@/contexts/ProspectorContext";
-import { numberWithCommas, PROSPECTOR_PRODUCT_PRICE_UPDATE } from "@/shared/InternalService";
-import Skeleton from "react-loading-skeleton";
 import { useEffect } from "react";
+import { FaCartPlus } from "react-icons/fa6";
+import Skeleton from "react-loading-skeleton";
+import styles from "./prospectorAddToCart.module.scss";
 import { useAddToCart } from "@/shared/hooks/useAddToCart";
+import { useProspectorContext } from "@/contexts/ProspectorContext";
 import { useMobileViewport } from "@/shared/hooks/useMobileViewport";
+import { numberWithCommas, PROSPECTOR_PRODUCT_PRICE_UPDATE } from "@/shared/InternalService";
 
 const ProspectorAddToCart = () => {
     const { stats, prospectorLoading, price, setPrice, emailAvailability } = useProspectorContext();

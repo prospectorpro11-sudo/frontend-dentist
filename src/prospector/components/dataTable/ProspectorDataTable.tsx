@@ -1,12 +1,12 @@
-import { CSSProperties, useMemo, useState } from "react";
-import Pagination from "@/components/pagination/Pagination";
-import { useProspectorContext } from "@/contexts/ProspectorContext";
+import Avatar from "react-avatar";
+import Skeleton from "react-loading-skeleton";
 import { IProspectorData } from "@/shared/interface";
 import styles from "./prospectorDataTable.module.scss";
-import Avatar from "react-avatar";
-import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
+import { CSSProperties, useMemo, useState } from "react";
+import Pagination from "@/components/pagination/Pagination";
 import { FaEnvelope, FaPhone, FaSort } from "react-icons/fa6";
-import Skeleton from "react-loading-skeleton";
+import { useProspectorContext } from "@/contexts/ProspectorContext";
+import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
 
 const PAGE_SIZE = 10;
 const AVATAR_COLORS = [
