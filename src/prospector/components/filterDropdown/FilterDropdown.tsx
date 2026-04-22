@@ -3,7 +3,8 @@
 import { CSSProperties, Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { FaSearch, FaTimes } from "react-icons/fa";
-import Select, { MultiValue, StylesConfig } from "react-select";
+import { FaChevronDown, FaMap } from "react-icons/fa6";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 import styles from "./filterDropdown.module.scss";
 import { internalApi } from "@/services/baseServices";
@@ -57,11 +58,6 @@ type FilterPage = {
 type AllResponse = {
     success: boolean;
     data?: RawFilterRecord[];
-};
-
-type SelectOption = {
-    value: string;
-    label: string;
 };
 
 const toText = (value: unknown): string => {
@@ -127,6 +123,7 @@ const FilterDropdown = ({
     const [zipStateValues, setZipStateValues] = useState<string[]>([]);
     const [zipCityValues, setZipCityValues] = useState<string[]>([]);
     const [cityStateValues, setCityStateValues] = useState<string[]>([]);
+    const [openAuxDropdown, setOpenAuxDropdown] = useState<"state" | "city" | null>(null);
 
     useEffect(() => {
         const timer = window.setTimeout(() => {
@@ -194,61 +191,33 @@ const FilterDropdown = ({
 
     const stateFilterOptions = useMemo(() => toUniqueOptions(stateFilterOptionsData?.data), [stateFilterOptionsData?.data]);
     const zipCityFilterOptions = useMemo(() => toUniqueOptions(zipCityFilterOptionsData?.data), [zipCityFilterOptionsData?.data]);
-    const stateSelectOptions = useMemo<SelectOption[]>(() => stateFilterOptions.map((item) => ({ value: item.value, label: item.label })), [stateFilterOptions]);
-    const zipCitySelectOptions = useMemo<SelectOption[]>(() => zipCityFilterOptions.map((item) => ({ value: item.value, label: item.label })), [zipCityFilterOptions]);
-    const zipStateSelectValue = useMemo(() => stateSelectOptions.filter((item) => zipStateValues.includes(item.value)), [stateSelectOptions, zipStateValues]);
-    const cityStateSelectValue = useMemo(() => stateSelectOptions.filter((item) => cityStateValues.includes(item.value)), [stateSelectOptions, cityStateValues]);
-    const zipCitySelectValue = useMemo(() => zipCitySelectOptions.filter((item) => zipCityValues.includes(item.value)), [zipCitySelectOptions, zipCityValues]);
+    const selectedStateValues = isZipFilter ? zipStateValues : cityStateValues;
+    const selectedStateCount = selectedStateValues.length;
+    const selectedCityCount = zipCityValues.length;
+    const selectedStateSet = useMemo(() => new Set(selectedStateValues.map((item) => item.toLowerCase())), [selectedStateValues]);
+    const selectedCitySet = useMemo(() => new Set(zipCityValues.map((item) => item.toLowerCase())), [zipCityValues]);
 
-    const selectStyles: StylesConfig<SelectOption, true> = {
-        control: (base, state) => ({
-            ...base,
-            minHeight: 38,
-            borderRadius: 8,
-            borderColor: state.isFocused ? "#3b82f6" : "#c5d0dc",
-            boxShadow: state.isFocused ? "0 0 0 3px rgba(59, 130, 246, 0.14)" : "none",
-            backgroundColor: "#fff",
-            cursor: "text",
-        }),
-        valueContainer: (base) => ({
-            ...base,
-            padding: "2px 8px",
-            gap: 4,
-        }),
-        multiValue: (base) => ({
-            ...base,
-            backgroundColor: "#e2ecff",
-            borderRadius: 6,
-        }),
-        multiValueLabel: (base) => ({
-            ...base,
-            color: "#1e3a8a",
-            fontSize: 11,
-            fontWeight: 600,
-        }),
-        multiValueRemove: (base) => ({
-            ...base,
-            color: "#1e3a8a",
-            ":hover": {
-                backgroundColor: "#c7dbff",
-                color: "#1e3a8a",
-            },
-        }),
-        placeholder: (base) => ({
-            ...base,
-            color: "#94a3b8",
-            fontSize: 12,
-        }),
-        option: (base, state) => ({
-            ...base,
-            fontSize: 12,
-            backgroundColor: state.isSelected ? "#dbeafe" : state.isFocused ? "#eff6ff" : "#fff",
-            color: "#334155",
-        }),
-        menu: (base) => ({
-            ...base,
-            zIndex: 10030,
-        }),
+    const toggleStateValue = (value: string) => {
+        if (isZipFilter) {
+            setZipStateValues((prev) => {
+                const hasValue = prev.includes(value);
+                return hasValue ? prev.filter((item) => item !== value) : [...prev, value];
+            });
+            setZipCityValues([]);
+            return;
+        }
+
+        setCityStateValues((prev) => {
+            const hasValue = prev.includes(value);
+            return hasValue ? prev.filter((item) => item !== value) : [...prev, value];
+        });
+    };
+
+    const toggleZipCityValue = (value: string) => {
+        setZipCityValues((prev) => {
+            const hasValue = prev.includes(value);
+            return hasValue ? prev.filter((item) => item !== value) : [...prev, value];
+        });
     };
 
     const {
@@ -357,7 +326,7 @@ const FilterDropdown = ({
 
     return (
         <div className={styles.overlay}>
-            <div className={styles.dropdown} ref={containerRef} style={dropdownStyle}>
+            <div className={`${styles.dropdown} ${isZipFilter ? styles.dropdownZip : ""}`.trim()} ref={containerRef} style={dropdownStyle}>
                 <div className={styles.header}>
                     <h4>{title}</h4>
                     <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close filter dropdown">
@@ -365,7 +334,14 @@ const FilterDropdown = ({
                     </button>
                 </div>
 
-                <div className={styles.searchRow}>
+                <div
+                    className={`${styles.searchRow} ${isZipFilter
+                        ? styles.searchRowThree
+                        : isCityFilter
+                            ? styles.searchRowTwo
+                            : styles.searchRowSingle
+                        }`.trim()}
+                >
                     <div className={styles.searchWrap}>
                         <FaSearch className={styles.searchIcon} />
                         <input
@@ -380,48 +356,71 @@ const FilterDropdown = ({
                     {(isCityFilter || isZipFilter) && (
                         <div className={styles.inlineFilters}>
                             <div className={styles.inlineSelectWrap}>
-                                <span>State</span>
-                                <Select<SelectOption, true>
-                                    isMulti
-                                    isClearable={false}
-                                    className={styles.auxSelect}
-                                    classNamePrefix="aux-select"
-                                    styles={selectStyles}
-                                    options={stateSelectOptions}
-                                    value={isZipFilter ? zipStateSelectValue : cityStateSelectValue}
-                                    placeholder="Select State"
-                                    closeMenuOnSelect={false}
-                                    hideSelectedOptions={false}
-                                    onChange={(selected: MultiValue<SelectOption>) => {
-                                        const nextValues = selected.map((item) => item.value);
-                                        if (isZipFilter) {
-                                            setZipStateValues(nextValues);
-                                            setZipCityValues([]);
-                                            return;
-                                        }
+                                <button
+                                    type="button"
+                                    className={styles.inlineTrigger}
+                                    onClick={() => setOpenAuxDropdown((prev) => (prev === "state" ? null : "state"))}
+                                >
+                                    <span className={styles.inlineTriggerLabel}><FaMap /> State</span>
+                                    {selectedStateCount > 0 && <span className={styles.inlineCount}>{selectedStateCount}</span>}
+                                    <span className={`${styles.inlineArrow} ${openAuxDropdown === "state" ? styles.inlineArrowOpen : ""}`.trim()}><FaChevronDown /></span>
+                                </button>
 
-                                        setCityStateValues(nextValues);
-                                    }}
-                                />
+                                {openAuxDropdown === "state" && (
+                                    <div className={styles.inlineMenu}>
+                                        <div className={styles.inlineMenuList}>
+                                            {stateFilterOptions.map((option) => {
+                                                const checked = selectedStateSet.has(option.value.toLowerCase());
+
+                                                return (
+                                                    <label key={option.id || option.value} className={styles.inlineOptionRow}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={checked}
+                                                            onChange={() => toggleStateValue(option.value)}
+                                                        />
+                                                        <span>{option.label}</span>
+                                                    </label>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {isZipFilter && (
                                 <div className={styles.inlineSelectWrap}>
-                                    <span>City</span>
-                                    <Select<SelectOption, true>
-                                        isMulti
-                                        isClearable={false}
-                                        className={styles.auxSelect}
-                                        classNamePrefix="aux-select"
-                                        styles={selectStyles}
-                                        options={zipCitySelectOptions}
-                                        value={zipCitySelectValue}
-                                        placeholder={zipStateValues.length ? "Select City" : "Select State First"}
-                                        closeMenuOnSelect={false}
-                                        hideSelectedOptions={false}
-                                        isDisabled={zipStateValues.length === 0}
-                                        onChange={(selected: MultiValue<SelectOption>) => setZipCityValues(selected.map((item) => item.value))}
-                                    />
+                                    <button
+                                        type="button"
+                                        className={styles.inlineTrigger}
+                                        onClick={() => setOpenAuxDropdown((prev) => (prev === "city" ? null : "city"))}
+                                        disabled={zipStateValues.length === 0}
+                                    >
+                                        <span className={styles.inlineTriggerLabel}><FaMapMarkerAlt /> City</span>
+                                        {selectedCityCount > 0 && <span className={styles.inlineCount}>{selectedCityCount}</span>}
+                                        <span className={`${styles.inlineArrow} ${openAuxDropdown === "city" ? styles.inlineArrowOpen : ""}`.trim()}><FaChevronDown /></span>
+                                    </button>
+
+                                    {openAuxDropdown === "city" && zipStateValues.length > 0 && (
+                                        <div className={styles.inlineMenu}>
+                                            <div className={styles.inlineMenuList}>
+                                                {zipCityFilterOptions.map((option) => {
+                                                    const checked = selectedCitySet.has(option.value.toLowerCase());
+
+                                                    return (
+                                                        <label key={option.id || option.value} className={styles.inlineOptionRow}>
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={checked}
+                                                                onChange={() => toggleZipCityValue(option.value)}
+                                                            />
+                                                            <span>{option.label}</span>
+                                                        </label>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -436,17 +435,19 @@ const FilterDropdown = ({
                     ) : options.length === 0 ? (
                         <div className={styles.empty}>No options found.</div>
                     ) : (
-                        options.map((option) => {
-                            const optionKey = String(option.value || option.id || option.label).toLowerCase();
-                            const checked = selectedKeys.has(optionKey);
+                        <div className={isZipFilter ? styles.optionGridZip : undefined}>
+                            {options.map((option) => {
+                                const optionKey = String(option.value || option.id || option.label).toLowerCase();
+                                const checked = selectedKeys.has(optionKey);
 
-                            return (
-                                <label key={option.id || option.value} className={styles.optionRow}>
-                                    <input type="checkbox" checked={checked} onChange={() => toggleSelection(option)} />
-                                    <span>{option.label}</span>
-                                </label>
-                            );
-                        })
+                                return (
+                                    <label key={option.id || option.value} className={styles.optionRow}>
+                                        <input type="checkbox" checked={checked} onChange={() => toggleSelection(option)} />
+                                        <span>{option.label}</span>
+                                    </label>
+                                );
+                            })}
+                        </div>
                     )}
 
                     {(isFetchingNextPage || isFetching) && options.length > 0 && (
