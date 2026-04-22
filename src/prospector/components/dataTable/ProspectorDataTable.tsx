@@ -85,12 +85,13 @@ const ProspectorDataTable = () => {
     const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(getInitialVisibility);
 
     const exposedRows = data ?? [];
-    const totalContacts = stats?.totalContacts ?? exposedRows.length;
     const exposedTotal = exposedRows.length;
-    const totalPages = Math.max(1, Math.min(3, Math.ceil(exposedTotal / PAGE_SIZE)));
+    const parsedTotalContacts = Number(stats?.totalContacts);
+    const totalContacts = Number.isFinite(parsedTotalContacts) && parsedTotalContacts >= 0 ? parsedTotalContacts : exposedTotal;
+    const totalPages = Math.max(1, Math.ceil(totalContacts / PAGE_SIZE));
     const safeCurrentPage = Math.min(currentPage, totalPages);
-    const startIndex = (currentPage - 1) * PAGE_SIZE;
-    const endIndex = Math.min(startIndex + PAGE_SIZE, exposedTotal);
+    const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
+    const endIndex = Math.min(startIndex + PAGE_SIZE, totalContacts);
     const rows = useMemo(() => exposedRows.slice(startIndex, startIndex + PAGE_SIZE), [exposedRows, startIndex]);
 
     const visibleColumnsList = columns.filter((column) => visibleColumns[column.key]);
@@ -260,7 +261,7 @@ const ProspectorDataTable = () => {
 
             <div className={styles.gprog}>
                 <div className={styles.gprogress}>
-                    <div className={styles.gfill} style={{ width: `${totalPages > 0 ? (currentPage / totalPages) * 100 : 0}%` }} />
+                    <div className={styles.gfill} style={{ width: `${totalPages > 0 ? (safeCurrentPage / totalPages) * 100 : 0}%` }} />
                 </div>
             </div>
 
@@ -269,12 +270,12 @@ const ProspectorDataTable = () => {
                     currentPage={safeCurrentPage}
                     totalPages={totalPages}
                     pageEndIndex={endIndex}
-                    totalResults={exposedTotal}
+                    totalResults={totalContacts}
                     perPage={PAGE_SIZE}
                     perPageOptions={[PAGE_SIZE]}
                     showPerPage={false}
                     fullWidth
-                    onPageChange={(page) => setCurrentPage(Math.min(3, Math.max(1, page)))}
+                    onPageChange={(page) => setCurrentPage(Math.min(totalPages, Math.max(1, page)))}
                     onPerPageChange={() => undefined}
                 />
             </div>
