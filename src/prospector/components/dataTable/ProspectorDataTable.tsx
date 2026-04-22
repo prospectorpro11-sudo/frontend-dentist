@@ -3,6 +3,7 @@ import Pagination from "@/components/pagination/Pagination";
 import { useProspectorContext } from "@/contexts/ProspectorContext";
 import { IProspectorData } from "@/shared/interface";
 import styles from "./prospectorDataTable.module.scss";
+import Avatar from "react-avatar";
 import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
 import { FaEnvelope, FaPhone, FaSort } from "react-icons/fa6";
 
@@ -177,11 +178,15 @@ const ProspectorDataTable = () => {
                                                 return (
                                                     <td key={column.key}>
                                                         <div className={`${styles.cell} ${styles.ncell}`}>
-                                                            <div className={styles.nava}>{value.split(" ").filter(Boolean).slice(0, 2).map((part) => part[0]).join("") || "NA"}</div>
-                                                            <div>
-                                                                <div className={styles.nname}>{value}</div>
-                                                                <div className={styles.nsub}>{row.Specialty}</div>
-                                                            </div>
+                                                            <Avatar
+                                                                name={value || "NA"}
+                                                                size="22"
+                                                                round
+                                                                maxInitials={2}
+                                                                textSizeRatio={2}
+                                                                title={value || "NA"}
+                                                            />
+                                                            <div className={styles.nname}>{value || "NA"}</div>
                                                         </div>
                                                     </td>
                                                 );
