@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Skeleton from "react-loading-skeleton";
 import styles from "./pagination.module.scss";
 
 type PaginationProps = {
@@ -9,6 +10,7 @@ type PaginationProps = {
   perPage: number;
   perPageOptions?: number[];
   showPerPage?: boolean;
+  loading?: boolean;
   fullWidth?: boolean;
   className?: string;
   onPageChange: (page: number) => void;
@@ -46,11 +48,34 @@ const Pagination = ({
   perPage,
   perPageOptions = [6, 9, 12, 24],
   showPerPage = true,
+  loading = false,
   fullWidth = false,
   className,
   onPageChange,
   onPerPageChange,
 }: PaginationProps) => {
+  if (loading) {
+    return (
+      <div className={classNames(styles.paginationSection, fullWidth && styles.fullWidth, className)}>
+        <div className={styles.paginationSkeletonText}>
+          <Skeleton width={220} height={14} />
+        </div>
+
+        {showPerPage && (
+          <div className={styles.perPageGroup}>
+            <Skeleton width={120} height={34} />
+          </div>
+        )}
+
+        <div className={styles.pageBtns}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <Skeleton key={`pagination-skeleton-${index}`} width={34} height={34} borderRadius={8} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={classNames(styles.paginationSection, fullWidth && styles.fullWidth, className)}>
       <div className={styles.showingText}>

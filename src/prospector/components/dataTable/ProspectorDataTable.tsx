@@ -327,6 +327,7 @@ const ProspectorDataTable = () => {
                     perPage={PAGE_SIZE}
                     perPageOptions={[PAGE_SIZE]}
                     showPerPage={false}
+                    loading={prospectorLoading}
                     fullWidth
                     onPageChange={(page) => setCurrentPage(Math.min(totalPages, Math.max(1, page)))}
                     onPerPageChange={() => undefined}
