@@ -18,7 +18,7 @@ export const useBuildFilterList = (): { filterList: IBuilFilteList[]; query: Rec
     ], [states, cities, zipCodes, specialties, gender, licenseStates, emailAvailability]);
 
     useEffect(() => {
-        localStorage.setItem("nursing-prospector", JSON.stringify(filterList));
+        localStorage.setItem("dentist-prospector", JSON.stringify(filterList));
     }, [filterList]);
 
 
