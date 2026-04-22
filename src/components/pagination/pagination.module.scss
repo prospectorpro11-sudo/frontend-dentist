@@ -17,10 +17,12 @@
 }
 
 .pageBtn {
-  width: 34px;
+  min-width: 34px;
   height: 34px;
-  display: grid;
-  place-items: center;
+  padding: 0 .6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--r-sm);
   font-size: .82rem;
   font-weight: 600;

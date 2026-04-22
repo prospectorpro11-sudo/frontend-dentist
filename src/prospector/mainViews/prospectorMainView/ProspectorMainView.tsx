@@ -77,15 +77,18 @@ const ProspectorMainView = () => {
     useEffect(() => {
         setProspectorLoading(isLoading || isFetching);
     }, [isLoading, isFetching]);
+
     return (
-        <>
+        <div className={styles.mainView}>
             <div className={styles.statsCheckout}>
                 <ProspectorStats />
                 <ProspectorAddToCart />
             </div>
             <ProspectorFilters />
-            <ProspectorDataTable />
-        </>
+            <div className={styles.tableSlot}>
+                <ProspectorDataTable />
+            </div>
+        </div>
     );
 };
 

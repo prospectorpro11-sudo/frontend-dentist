@@ -2,8 +2,10 @@
 @use "styles/mixins" as *;
 
 .gridSec {
+    width: 100%;
     flex: 1;
     min-height: 0;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     background: #fff;
@@ -227,7 +229,8 @@
 .gridWrap {
     flex: 1;
     min-height: 0;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
     background: linear-gradient(180deg, transparent 0%, rgba(248, 250, 252, 0.3) 100%);
     padding: 8px 12px;
@@ -260,9 +263,8 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    min-width: max-content;
-    width: 100%;
-    table-layout: auto;
+    min-width: 100%;
+    table-layout: fixed;
 }
 
 /* Header */
@@ -289,6 +291,8 @@
     transition: color 0.2s;
     box-shadow: 0 1px 0 #e2e8f0;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .grid thead th::after {
@@ -415,6 +419,8 @@
     border-left: 2px solid transparent;
     transition: border-color 0.2s, background 0.2s;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .grid tbody tr:last-child td {

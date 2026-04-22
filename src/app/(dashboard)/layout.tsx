@@ -119,6 +119,12 @@ export default function DashboardLayout({
 
     return (
         <div className={styles.wrapper}>
+            <div className={styles.bgShapes} aria-hidden="true">
+                <div className={styles.shape} />
+                <div className={styles.shape} />
+                <div className={styles.shape} />
+                <div className={styles.shape} />
+            </div>
             <button
                 type="button"
                 className={classNames(styles.menuOverlay, {
@@ -218,7 +224,7 @@ export default function DashboardLayout({
                     [styles.mainStatic]: contentMode === "static",
                 })}
             >
-                <div className={styles.mainInner}>{children}</div>
+                <div className={classNames(styles.mainInner, styles.mainInnerNoScroll)}>{children}</div>
             </main>
 
         </div>

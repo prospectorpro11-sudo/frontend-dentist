@@ -1,6 +1,25 @@
 @import "styles/variables";
 @import "styles/mixins";
 
+.mainView {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tableSlot {
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    overflow: hidden;
+}
+
 .statsCheckout {
     display: flex;
     gap: 10px;
