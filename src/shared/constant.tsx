@@ -10,6 +10,18 @@ export const CATEGORIES_TO_URLS = {
     [DATABASE_MAIN_TYPES.HOME]: "home",
 };
 
+const filterBasePath = "/api/prospector/filters";
+
+export const PROSPECTOR_FILTER_ENDPOINTS = {
+    STATE: `${filterBasePath}/state`,
+    CITY: `${filterBasePath}/city`,
+    ZIP_CODE: `${filterBasePath}/zipCode`,
+    SPECIALTY: `${filterBasePath}/specialty`,
+    LICENSE_STATE: `${filterBasePath}/licenseState`,
+    GENDER: `${filterBasePath}/gender`,
+    EMAIL_AVAILABILITY: `${filterBasePath}/emailAvailability`
+}
+
 export const EMAIL_TEMPLATE_IDS = {
     CONTACT_US: "d-61b5da3083b4482ba946bb6f7c9e58b4",
     SUPPORT: "d-0d1675de354c494291aaaedbd7346560",
