@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { CSSProperties, useMemo, useState } from "react";
 import Pagination from "@/components/pagination/Pagination";
 import { useProspectorContext } from "@/contexts/ProspectorContext";
 import { IProspectorData } from "@/shared/interface";
@@ -6,6 +6,7 @@ import styles from "./prospectorDataTable.module.scss";
 import Avatar from "react-avatar";
 import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
 import { FaEnvelope, FaPhone, FaSort } from "react-icons/fa6";
+import Skeleton from "react-loading-skeleton";
 
 const PAGE_SIZE = 10;
 const AVATAR_COLORS = [
@@ -21,10 +22,33 @@ const AVATAR_COLORS = [
     "#F43F5E",
 ];
 
+const SPECIALTY_BADGE_COLORS = [
+    { text: "#0F766E", border: "#99F6E4", background: "#F0FDFA" },
+    { text: "#1D4ED8", border: "#BFDBFE", background: "#EFF6FF" },
+    { text: "#9A3412", border: "#FDBA74", background: "#FFF7ED" },
+    { text: "#7C3AED", border: "#DDD6FE", background: "#F5F3FF" },
+    { text: "#BE123C", border: "#FDA4AF", background: "#FFF1F2" },
+    { text: "#166534", border: "#BBF7D0", background: "#F0FDF4" },
+    { text: "#0C4A6E", border: "#BAE6FD", background: "#F0F9FF" },
+    { text: "#A21CAF", border: "#F5D0FE", background: "#FDF4FF" },
+];
+
 const getAvatarColor = (name: string) => {
     const safeName = name.trim();
     const hash = safeName.split("").reduce((accumulator, character) => accumulator + character.charCodeAt(0), 0);
     return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+};
+
+const getSpecialtyBadgeStyle = (seed: string): CSSProperties => {
+    const safeSeed = seed.trim();
+    const hash = safeSeed.split("").reduce((accumulator, character) => accumulator + character.charCodeAt(0), 0);
+    const color = SPECIALTY_BADGE_COLORS[hash % SPECIALTY_BADGE_COLORS.length];
+
+    return {
+        color: color.text,
+        borderColor: color.border,
+        background: color.background,
+    };
 };
 
 type ColumnConfig = {
@@ -73,12 +97,12 @@ const getInitialVisibility = () =>
     }, {});
 
 const ProspectorDataTable = () => {
-    const { data, stats } = useProspectorContext();
+    const { data, stats, prospectorLoading } = useProspectorContext();
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [columnPanelOpen, setColumnPanelOpen] = useState<boolean>(false);
     const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(getInitialVisibility);
 
-    const exposedRows = data ?? [];
+    const exposedRows = useMemo(() => data ?? [], [data]);
     const exposedTotal = exposedRows.length;
     const parsedTotalContacts = Number(stats?.totalContacts);
     const totalContacts = Number.isFinite(parsedTotalContacts) && parsedTotalContacts >= 0 ? parsedTotalContacts : exposedTotal;
@@ -176,7 +200,20 @@ const ProspectorDataTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {rows.length > 0 ? (
+                        {prospectorLoading ? (
+                            Array.from({ length: PAGE_SIZE }).map((_, rowIndex) => (
+                                <tr key={`skeleton-row-${rowIndex}`}>
+                                    <td>
+                                        <Skeleton width={20} height={16} />
+                                    </td>
+                                    {visibleColumnsList.map((column) => (
+                                        <td key={`${column.key}-${rowIndex}`}>
+                                            <Skeleton width="100%" height={16} />
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))
+                        ) : rows.length > 0 ? (
                             rows.map((row, rowIndex) => {
                                 const serial = startIndex + rowIndex + 1;
 
@@ -211,7 +248,14 @@ const ProspectorDataTable = () => {
                                             if (column.key === "Email") {
                                                 return (
                                                     <td key={column.key}>
-                                                        <span className={styles.emText}><span className={styles.ei}><FaEnvelope /></span> {value}</span>
+                                                        <span className={styles.emText}>
+                                                            <span className={styles.ei}><FaEnvelope /></span> {value}
+                                                            {value && value !== "-" && (
+                                                                <span className={styles.vbadge}>
+                                                                    <i><FaCheckCircle /></i> Verified
+                                                                </span>
+                                                            )}
+                                                        </span>
                                                     </td>
                                                 );
                                             }
@@ -224,7 +268,7 @@ const ProspectorDataTable = () => {
                                                 );
                                             }
 
-                                            if (column.key === "State" || column.key === "License State") {
+                                            if (column.key === "State") {
                                                 return (
                                                     <td key={column.key}>
                                                         <span className={styles.sbdg}>{value}</span>
@@ -232,10 +276,18 @@ const ProspectorDataTable = () => {
                                                 );
                                             }
 
+                                            if (column.key === "License State") {
+                                                return (
+                                                    <td key={column.key}>
+                                                        <span className={styles.sbdg} style={{ ...getSpecialtyBadgeStyle(`${column.key}-${value || "-"}`), border: "none" }}>{value}</span>
+                                                    </td>
+                                                );
+                                            }
+
                                             if (column.key === "Specialty" || column.key === "Specialty2" || column.key === "Category") {
                                                 return (
                                                     <td key={column.key}>
-                                                        <span className={`${styles.spbdg} ${styles.c1}`}>{value}</span>
+                                                        <span className={styles.spbdg} style={getSpecialtyBadgeStyle(`${column.key}-${value || "-"}`)}>{value}</span>
                                                     </td>
                                                 );
                                             }
