@@ -179,16 +179,7 @@ const CartListView = (props: ICartListView) => {
           );
         })}
       </Row>
-      <Row className={styles.totalRow}>
-        <Col xs={6} md={7} className={styles.total}>
-          <b>Total</b>
-        </Col>
-        <Col xs={6} md={3} className={styles.cost}>
-          {loggedInUser ? `$${totalCartAmount}` : '--'}
-        </Col>
-        <Col md={2}></Col>
-      </Row>
-      <hr className={styles.divider} />
+
       <Row>
         <Col xs={12} md={8}>
           <input
@@ -220,6 +211,16 @@ const CartListView = (props: ICartListView) => {
             </Button>
           )}
         </Col>
+      </Row>
+      <hr className={styles.divider} />
+      <Row className={styles.totalRow}>
+        <Col xs={6} md={7} className={styles.total}>
+          <b>Total</b>
+        </Col>
+        <Col xs={6} md={4} className={styles.cost}>
+          {loggedInUser ? `$${totalCartAmount}` : '--'}
+        </Col>
+        <Col md={1}></Col>
       </Row>
     </>
   );

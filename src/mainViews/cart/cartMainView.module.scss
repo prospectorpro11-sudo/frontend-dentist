@@ -6,7 +6,10 @@
   border-radius: 10px;
   margin-bottom: 0.65rem;
   padding: 0.7rem 0.75rem;
-  background: rgba($color: $fill, $alpha: 0.5);
+  // background: rgba($color: $fill, $alpha: 0.5);
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.08);
+
 
   svg {
     color: var(--danger);
