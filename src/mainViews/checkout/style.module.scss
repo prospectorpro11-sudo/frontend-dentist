@@ -6,7 +6,7 @@
   background: #e9eff5;
   padding: 3rem 0 4rem;
   overflow: hidden;
-  padding-top: 7.6rem;
+  padding-top: 3rem;
 
   &::before {
     content: "";
@@ -408,26 +408,34 @@
 
 .checkoutProgressSection {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   padding: 20px 0 30px;
 }
 
 .checkoutProgress {
-  max-width: 500px;
+  --checkout-step-icon-size: 36px;
+  max-width: 600px;
   margin: 0 auto;
+  position: relative;
+  isolation: isolate;
 }
 
 .progressTrack {
+  position: absolute;
+  top: calc(var(--checkout-step-icon-size) / 2);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 36px);
   height: 4px;
   background: var(--border);
   border-radius: 4px;
-  margin-bottom: 20px;
   overflow: hidden;
+  z-index: -1;
 }
 
 .progressFill {
   height: 100%;
-  background: var(--gradient-primary);
+  background: var(--blue-700);
   border-radius: 4px;
   transition: width 0.5s ease;
 }
@@ -435,19 +443,24 @@
 .progressSteps {
   display: flex;
   justify-content: space-between;
+  position: relative;
+  z-index: 44444;
+  padding: 0 0 30px 0;
 }
 
 .pStep {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   position: relative;
+  z-index: 10;
+  background-color: #e9eff5;
 }
 
 .pStepIcon {
-  width: 36px;
-  height: 36px;
+  width: var(--checkout-step-icon-size);
+  height: var(--checkout-step-icon-size);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -458,6 +471,10 @@
   font-size: 14px;
   font-weight: 700;
   transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 4;
+  box-shadow: 0 0 0 5px var(--white);
 }
 
 .pStep.done .pStepIcon {
@@ -479,7 +496,10 @@
   color: var(--gray-light);
 }
 
-.pStep.done .pStepLabel,
+.pStep.done .pStepLabel {
+  color: var(--navy-700);
+}
+
 .pStep.active .pStepLabel {
   color: var(--navy-700);
 }

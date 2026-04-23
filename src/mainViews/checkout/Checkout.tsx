@@ -48,21 +48,34 @@ const CheckoutMainView = () => {
 
   // Determine current step (1-4)
   const getCurrentStep = () => {
+    // Checkout page starts after cart, so step 1 is treated as completed.
+    // When billing is done but payment isn't available yet, stay on step 2.
     if (isPaymentStep) return 3;
-    if (isBillingStep) return 2;
-    return 1;
+    return 2;
   };
 
   const currentStep = getCurrentStep();
-  const progressWidth = `${currentStep * 25}%`;
+  // Progress fill: step 1 = 0%, step 2 = 33.33%, step 3 = 66.66%, step 4 = 100%
+  const progressWidth = `${((currentStep - 1) / 3) * 100}%`;
 
   const getStepStatus = (stepNumber: number) => {
     if (stepNumber < currentStep) return 'done';
     if (stepNumber === currentStep) return 'active';
     return 'pending';
   };
+  
+  // Function to render step icon based on status
+  const renderStepIcon = (stepNumber: number) => {
+    const status = getStepStatus(stepNumber);
+    
+    if (status === 'done') {
+      return <BiCheck size={18} />;
+    } else {
+      return <span>{stepNumber}</span>;
+    }
+  };
 
-  const getRightElement = () => {
+  const getRightElement = () => { 
     return (
       <div
         className={styles.editLink}
@@ -90,41 +103,25 @@ const CheckoutMainView = () => {
             <div className={styles.progressSteps}>
               <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(1) === 'done', [styles.active]: getStepStatus(1) === 'active' })}>
                 <div className={styles.pStepIcon}>
-                  {getStepStatus(1) === 'done' ? (
-                    <BiCheck size={18} />
-                  ) : (
-                    <span>1</span>
-                  )}
+                  {renderStepIcon(1)}
                 </div>
                 <span className={styles.pStepLabel}>Cart</span>
               </div>
               <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(2) === 'done', [styles.active]: getStepStatus(2) === 'active' })}>
                 <div className={styles.pStepIcon}>
-                  {getStepStatus(2) === 'done' ? (
-                    <BiCheck size={18} />
-                  ) : (
-                    <span>2</span>
-                  )}
+                  {renderStepIcon(2)}
                 </div>
                 <span className={styles.pStepLabel}>Details</span>
               </div>
               <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(3) === 'done', [styles.active]: getStepStatus(3) === 'active' })}>
                 <div className={styles.pStepIcon}>
-                  {getStepStatus(3) === 'done' ? (
-                    <BiCheck size={18} />
-                  ) : (
-                    <span>3</span>
-                  )}
+                  {renderStepIcon(3)}
                 </div>
                 <span className={styles.pStepLabel}>Payment</span>
               </div>
               <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(4) === 'done', [styles.active]: getStepStatus(4) === 'active' })}>
                 <div className={styles.pStepIcon}>
-                  {getStepStatus(4) === 'done' ? (
-                    <BiCheck size={18} />
-                  ) : (
-                    <span>4</span>
-                  )}
+                  {renderStepIcon(4)}
                 </div>
                 <span className={styles.pStepLabel}>Complete</span>
               </div>
