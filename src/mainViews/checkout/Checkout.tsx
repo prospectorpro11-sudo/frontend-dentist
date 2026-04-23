@@ -1,7 +1,8 @@
 'use client';
 import classNames from "classnames";
+import { TbReceipt } from "react-icons/tb";
 import { useEffect, useRef, useState } from "react";
-import { BiCart, BiCheckCircle, BiCreditCard, BiSupport } from "react-icons/bi";
+import { BiSupport, BiCheck } from "react-icons/bi"; 
 
 import styles from "./style.module.scss";
 import PaymentView from "./views/PaymentView";
@@ -43,7 +44,23 @@ const CheckoutMainView = () => {
         });
       }
     })();
-  }, [loggedInUser]);
+  }, [loggedInUser, setLoggedInUser]);
+
+  // Determine current step (1-4)
+  const getCurrentStep = () => {
+    if (isPaymentStep) return 3;
+    if (isBillingStep) return 2;
+    return 1;
+  };
+
+  const currentStep = getCurrentStep();
+  const progressWidth = `${currentStep * 25}%`;
+
+  const getStepStatus = (stepNumber: number) => {
+    if (stepNumber < currentStep) return 'done';
+    if (stepNumber === currentStep) return 'active';
+    return 'pending';
+  };
 
   const getRightElement = () => {
     return (
@@ -65,24 +82,52 @@ const CheckoutMainView = () => {
   return (
     <div className={styles.checkoutWrapper}>
       <Container className={styles.checkoutContainer}>
-        <div className={styles.pageHeader}>
-          <div className={styles.steps}>
-            <div className={classNames(styles.step, { [styles.active]: isBillingStep })}>
-              <span className={styles.stepIndex}><BiCart size={12} /></span>
-              <span className={styles.stepLabel}>Cart Review</span>
+        <div className={styles.checkoutProgressSection}>
+          <div className={styles.checkoutProgress}>
+            <div className={styles.progressTrack}>
+              <div className={styles.progressFill} style={{ width: progressWidth }}></div>
             </div>
-            <div
-              className={classNames(styles.step, {
-                [styles.active]: isPaymentStep,
-                [styles.disabled]: !canProceedPayment,
-              })}
-            >
-              <span className={styles.stepIndex}><BiCreditCard size={12} /></span>
-              <span className={styles.stepLabel}>Billing & Payment</span>
-            </div>
-            <div className={classNames(styles.step, styles.ghostStep)}>
-              <span className={styles.stepIndex}><BiCheckCircle size={12} /></span>
-              <span className={styles.stepLabel}>Confirm</span>
+            <div className={styles.progressSteps}>
+              <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(1) === 'done', [styles.active]: getStepStatus(1) === 'active' })}>
+                <div className={styles.pStepIcon}>
+                  {getStepStatus(1) === 'done' ? (
+                    <BiCheck size={18} />
+                  ) : (
+                    <span>1</span>
+                  )}
+                </div>
+                <span className={styles.pStepLabel}>Cart</span>
+              </div>
+              <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(2) === 'done', [styles.active]: getStepStatus(2) === 'active' })}>
+                <div className={styles.pStepIcon}>
+                  {getStepStatus(2) === 'done' ? (
+                    <BiCheck size={18} />
+                  ) : (
+                    <span>2</span>
+                  )}
+                </div>
+                <span className={styles.pStepLabel}>Details</span>
+              </div>
+              <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(3) === 'done', [styles.active]: getStepStatus(3) === 'active' })}>
+                <div className={styles.pStepIcon}>
+                  {getStepStatus(3) === 'done' ? (
+                    <BiCheck size={18} />
+                  ) : (
+                    <span>3</span>
+                  )}
+                </div>
+                <span className={styles.pStepLabel}>Payment</span>
+              </div>
+              <div className={classNames(styles.pStep, { [styles.done]: getStepStatus(4) === 'done', [styles.active]: getStepStatus(4) === 'active' })}>
+                <div className={styles.pStepIcon}>
+                  {getStepStatus(4) === 'done' ? (
+                    <BiCheck size={18} />
+                  ) : (
+                    <span>4</span>
+                  )}
+                </div>
+                <span className={styles.pStepLabel}>Complete</span>
+              </div>
             </div>
           </div>
         </div>
@@ -139,7 +184,7 @@ const CheckoutMainView = () => {
               <div className={classNames(styles.checkoutCard, styles.cardElevated, styles.summaryCard, "shadow-sm")}>
                 <div className={styles.cardHeader}>
                   <div className={styles.cardTitleWrap}>
-                    <span className={styles.summaryBadge}>Summary</span>
+                    <span className={styles.stepBadge}><TbReceipt size={32} /></span>
                     <div className={styles.cardTitle}>Order Summary</div>
                   </div>
                 </div>
