@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Col from "react-bootstrap/Col";
+import { FaPaypal } from "react-icons/fa";
 
 import PaypalButton from "../paypalButton/PaypalButton";
 import { getTermTextCondition } from "@/shared/InternalServices";
 import { PAYMENT_METHOD } from "@/shared/enums";
+import styles from "../paypal.module.scss";
 
 interface IPaypalView {
   totalAmount: number;
@@ -21,7 +23,7 @@ const PaypalView = (props: IPaypalView) => {
   };
 
   return (
-    <div className="mt-4">
+    <div className={styles.paymentBody}>
       <Col xs={12}>
         <p className="mb-2">
           <b>What is Paypal</b>
@@ -31,10 +33,10 @@ const PaypalView = (props: IPaypalView) => {
           cards, bank accounts, buyer credit, or PayPal account balances.
         </p>
       </Col>
-      <Col xs={12}>
+      <Col xs={12} className={styles.termsWrap}>
         {getTermTextCondition(termCondition, onChangeTermCondition)}
       </Col>
-      <Col xs={12} className="pt-3">
+      <Col xs={12} className={styles.actionArea}>
         <PaypalButton
           totalAmount={totalAmount}
           termCondition={termCondition}

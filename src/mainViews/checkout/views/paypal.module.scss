@@ -11,30 +11,43 @@
 }
 
 .radioButton {
-  background-color: rgba($color: $fill, $alpha: 0.16);
-  border: 1px solid $border;
+  background-color: #fff;
+  border: 1px solid rgba($color: $primary, $alpha: 0.2);
   width: 100%;
-  min-height: 56px;
+  min-height: 64px;
   padding: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  transition: all 0.2s ease;
 }
 
 .radioButton:hover {
-  border: 1px solid $primary;
+  border: 1px solid rgba($color: $primary, $alpha: 0.45);
+  box-shadow: 0 12px 24px -20px rgba(20, 56, 101, 0.7);
 }
 
 .active {
-  // background-color: rgba($color: $primary, $alpha: 0.16);
-  background-color: $fill;
-  color: $white;
-  border: 1px solid $primary;
+  background: linear-gradient(180deg, rgba(235, 248, 255, 0.9), rgba(229, 245, 255, 0.95));
+  color: $text;
+  border: 1px solid #2aa7ea;
+  box-shadow: 0 16px 28px -20px rgba(42, 167, 234, 0.65);
+
+  .radioDot {
+    border-color: #2aa7ea;
+
+    &::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 .wrapper {
+  row-gap: 1rem;
+
   button {
     @include breakpoint(mobile) {
       height: auto !important;
@@ -44,11 +57,86 @@
   }
 }
 
+.methodList {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.methodCard {
+  gap: 0.85rem;
+  padding: 0.8rem 1rem;
+}
+
+.radioDot {
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba($color: $primary, $alpha: 0.4);
+  border-radius: 999px;
+  flex-shrink: 0;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 999px;
+    background: #2aa7ea;
+    opacity: 0;
+    transform: scale(0.75);
+    transition: all 0.2s ease;
+  }
+}
+
+.methodIconWrap {
+  width: 112px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+
+  @include breakpoint(mobile) {
+    width: auto;
+  }
+}
+
+.methodContent {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.methodTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #11345f;
+  line-height: 1.2;
+}
+
+.methodHint {
+  margin-top: 0.1rem;
+  font-size: 0.78rem;
+  color: #6983a2;
+  line-height: 1.25;
+}
+
+.popularBadge {
+  margin-left: auto;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #ffb02f;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.22rem 0.5rem;
+}
+
 .coinsWrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
-  margin-top: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin-top: 0.5rem;
   
   @include breakpoint(mobile) {
     grid-template-columns: 1fr;
@@ -58,9 +146,36 @@
 
 .paymentLogo {
   width: auto;
-  height: 26px;
+  height: 22px;
   max-width: 100%;
   object-fit: contain;
+}
+
+.methodBrand {
+  min-width: 70px;
+  height: 24px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.paypalBrand {
+  color: #0b64b1;
+  background: rgba(11, 100, 177, 0.08);
+}
+
+.cardBrand {
+  color: #2f7ba2;
+  background: rgba(47, 123, 162, 0.1);
+}
+
+.cryptoBrand {
+  color: #bf7a17;
+  background: rgba(255, 176, 47, 0.16);
 }
 
 .coinOption {
@@ -76,12 +191,12 @@
 .coinCard {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  min-height: 64px;
-  border-radius: 14px;
-  border: 1px solid $border;
-  background: linear-gradient(180deg, rgba($color: $fill, $alpha: 0.6), rgba($color: $white, $alpha: 0.95));
+  gap: 10px;
+  padding: 10px 12px;
+  min-height: 58px;
+  border-radius: 12px;
+  border: 1px solid rgba($color: $primary, $alpha: 0.2);
+  background: #fff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
   cursor: pointer;
 }
@@ -93,9 +208,9 @@
 }
 
 .coinInput:checked + .coinCard {
-  border-color: $primary;
-  background: linear-gradient(180deg, rgba($color: $primary, $alpha: 0.15), rgba($color: $fill, $alpha: 0.95));
-  box-shadow: 0 12px 26px rgba(57, 186, 189, 0.22);
+  border-color: #2aa7ea;
+  background: linear-gradient(180deg, rgba(234, 247, 255, 0.98), rgba(245, 252, 255, 1));
+  box-shadow: 0 14px 20px -18px rgba(42, 167, 234, 0.55);
 }
 
 .coinInput:focus-visible + .coinCard {
@@ -104,10 +219,10 @@
 }
 
 .coinIcon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: rgba($color: $primary, $alpha: 0.12);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba($color: $primary, $alpha: 0.1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -118,6 +233,12 @@
   object-fit: contain;
 }
 
+.coinGlyph {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #1a5e91;
+}
+
 .coinText {
   display: flex;
   flex-direction: column;
@@ -126,15 +247,15 @@
 }
 
 .coinName {
-  font-weight: 600;
+  font-weight: 700;
   color: $text;
-  font-size: 0.95rem;
+  font-size: 0.86rem;
   line-height: 1.3;
 }
 
 .coinCode {
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: $textMuted;
 }
@@ -148,13 +269,13 @@
 }
 
 .coinNetwork {
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: $primaryDark;
-  padding: 4px 8px;
+  color: #1d4d7d;
+  padding: 3px 6px;
   border-radius: 999px;
-  background: rgba($color: $primary, $alpha: 0.12);
+  background: rgba(42, 167, 234, 0.14);
 }
 
 .coinCheck {
@@ -168,7 +289,112 @@
 }
 
 .coinInput:checked + .coinCard .coinCheck {
-  border-color: $primary;
-  background: $primary;
+  border-color: #2aa7ea;
+  background: #2aa7ea;
   box-shadow: inset 0 0 0 4px $white;
+}
+
+.paymentBody {
+  padding-top: 0.25rem;
+}
+
+.helperText {
+  color: #49698c;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.paypalInfo {
+  border: 1px solid #d8e8f4;
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  background: #fff;
+  margin-bottom: 0.7rem;
+}
+
+.paypalInfoHead {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.45rem;
+
+  strong {
+    font-size: 0.86rem;
+    color: #173d63;
+  }
+}
+
+.paypalLogoDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b64b1;
+  background: rgba(11, 100, 177, 0.1);
+}
+
+.paypalInfoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+
+  li {
+    font-size: 0.72rem;
+    color: #6e89a6;
+    position: relative;
+    padding-left: 0.95rem;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2dbf8f;
+      position: absolute;
+      left: 0;
+      top: 0.38rem;
+    }
+  }
+}
+
+.termsWrap {
+  margin-top: 0.8rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba($color: $primary, $alpha: 0.17);
+  border-radius: 10px;
+  background: rgba(239, 248, 252, 0.65);
+
+  :global(.form-check) {
+    margin: 0;
+  }
+
+  :global(.form-check-label) {
+    color: #3f5d7d;
+    font-size: 0.86rem;
+  }
+
+  :global(.form-check-input) {
+    margin-top: 0.25rem;
+    border-color: rgba($color: $primary, $alpha: 0.55);
+  }
+}
+
+.actionArea {
+  margin-top: 0.9rem;
+
+  :global(button) {
+    width: 100%;
+    height: 47px;
+    border-radius: 10px;
+  }
+}
+
+.actionButton {
+  width: 100%;
+  height: 47px;
+  border-radius: 10px;
 }

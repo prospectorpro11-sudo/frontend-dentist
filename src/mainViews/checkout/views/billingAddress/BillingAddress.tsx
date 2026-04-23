@@ -13,6 +13,7 @@ import { useRootContext } from "@/contexts/RootContext";
 import { registerUser } from "@/database/Authentication";
 import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from "@/shared/enums";
 import { attachWithPrefix, triggerForm, validateRequired } from "@/shared/InternalService";
+import styles from "./BillingAddress.module.scss";
 
 dayjs.extend(utc);
 interface IBillingAddress {
@@ -205,18 +206,19 @@ const BillingAddress = (props: IBillingAddress) => {
       }}
     >
       {({ errors, touched, isValidating }: any) => (
-        <FormikForm>
-          <Row>
+        <FormikForm className={styles.billingForm}>
+          <Row className={styles.formRow}>
             {!loggedInUser && (
               <>
                 <Col md={6}>
-                  <Form.Group className="mb-3">
+                  <Form.Group className={styles.formGroup}>
                     <Form.Label htmlFor="userName">Name</Form.Label>
                     <Field
                       type="text"
                       id="userName"
                       name="userName"
                       placeholder="Jhon"
+                      className={styles.inputField}
                       validate={validateRequired}
                     />
                     {errors.userName && (
@@ -227,13 +229,14 @@ const BillingAddress = (props: IBillingAddress) => {
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                  <Form.Group className="mb-3">
+                  <Form.Group className={styles.formGroup}>
                     <Form.Label htmlFor="email">Email</Form.Label>
                     <Field
                       type="email"
                       id="email"
                       name="email"
                       placeholder="Jhon@gmail.com"
+                      className={styles.inputField}
                       validate={validateRequired}
                     />
                     {errors.email && (
@@ -244,13 +247,14 @@ const BillingAddress = (props: IBillingAddress) => {
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                  <Form.Group className="mb-3">
+                  <Form.Group className={styles.formGroup}>
                     <Form.Label htmlFor="password">Password</Form.Label>
                     <Field
                       type="password"
                       id="password"
                       name="password"
                       placeholder="*******"
+                      className={styles.inputField}
                       validate={validateRequired}
                     />
                     {errors.password && (
@@ -265,13 +269,14 @@ const BillingAddress = (props: IBillingAddress) => {
 
             {!loggedInUser && <Col md={6} />}
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="companyName">Company Name</Form.Label>
                 <Field
                   type="text"
                   id="companyName"
                   name="companyName"
                   placeholder=""
+                  className={styles.inputField}
                   validate={validateRequired}
                 />
                 {errors.companyName && (
@@ -282,7 +287,7 @@ const BillingAddress = (props: IBillingAddress) => {
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="companyWebsite">
                   Company Website (Optional)
                 </Form.Label>
@@ -291,6 +296,7 @@ const BillingAddress = (props: IBillingAddress) => {
                   id="companyWebsite"
                   name="companyWebsite"
                   placeholder=""
+                  className={styles.inputField}
                 // validate={validURL}
                 />
                 {errors.companyWebsite && (
@@ -301,13 +307,14 @@ const BillingAddress = (props: IBillingAddress) => {
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="streetAddress">Street Address</Form.Label>
                 <Field
                   type="text"
                   id="streetAddress"
                   name="streetAddress"
                   placeholder="House number and Street Name"
+                  className={styles.inputField}
                   validate={validateRequired}
                 />
                 {errors.streetAddress && (
@@ -318,13 +325,14 @@ const BillingAddress = (props: IBillingAddress) => {
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="streetAddress">&nbsp;</Form.Label>
                 <Field
                   type="text"
                   id="streetAddress2"
                   name="streetAddress2"
                   placeholder="Apartment, Suite, Unit etc. (optional)"
+                  className={styles.inputField}
                 />
                 {errors.streetAddress2 && (
                   <Form.Text className="text-danger">
@@ -334,10 +342,10 @@ const BillingAddress = (props: IBillingAddress) => {
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="name">Country</Form.Label>
                 <Select<CountryOption, false>
-                  className="custom-select"
+                  className={`custom-select ${styles.countrySelect}`}
                   classNamePrefix="custom-select"
                   options={COUNTRY_LIST}
                   value={country}
@@ -346,13 +354,14 @@ const BillingAddress = (props: IBillingAddress) => {
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="email">Town / City</Form.Label>
                 <Field
                   id="city"
                   name="city"
                   placeholder=""
                   type="text"
+                  className={styles.inputField}
                   validate={validateRequired}
                 />
                 {errors.city && touched.city && (
@@ -361,13 +370,14 @@ const BillingAddress = (props: IBillingAddress) => {
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="state">State</Form.Label>
                 <Field
                   type="text"
                   id="state"
                   name="state"
                   placeholder="New York"
+                  className={styles.inputField}
                   validate={validateRequired}
                 />
                 {errors.state && (
@@ -376,13 +386,14 @@ const BillingAddress = (props: IBillingAddress) => {
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
+              <Form.Group className={styles.formGroup}>
                 <Form.Label htmlFor="message">Zip</Form.Label>
                 <Field
                   type="text"
                   id="zip"
                   name="zip"
                   placeholder=""
+                  className={styles.inputField}
                   validate={validateRequired}
                 />
                 {errors.zip && (
@@ -393,7 +404,7 @@ const BillingAddress = (props: IBillingAddress) => {
           </Row>
 
           <Form.Group>
-            <Row className="justify-content-end pt-3">
+            <Row className={`justify-content-end pt-3 ${styles.actionsRow}`}>
               <Col xs md="auto">
                 {loggedInUser?.country && (
                   <Button

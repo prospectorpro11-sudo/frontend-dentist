@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "../paypal.module.scss";
 
 interface ICryptoSelection {
@@ -13,10 +12,10 @@ interface ICryptoSelection {
 const CryptoSelection = (props: ICryptoSelection) => {
   const { onSelectedCoin, coin, selectedCoin, uniqueValue, name, icon } = props;
 
-  const icons = {
-    bitcoin: "/bitcoin.png",
-    usdt: "/usdt.png",
-    usdc: "/usdc.png",
+  const iconText = {
+    bitcoin: "B",
+    usdt: "T",
+    usdc: "U",
   };
   const coinSymbol = coin.includes(".") ? coin.split(".")[0] : coin;
   const networkSuffix = coin.includes(".") ? coin.split(".")[1] : "";
@@ -35,15 +34,7 @@ const CryptoSelection = (props: ICryptoSelection) => {
       />
       <label className={styles.coinCard} htmlFor={uniqueValue}>
         <span className={styles.coinIcon}>
-          {icon && (
-            <Image
-              className={styles.coinImage}
-              src={icons[icon]}
-              width={22}
-              height={22}
-              alt={`${name}`}
-            />
-          )}
+          {icon ? <span className={styles.coinGlyph}>{iconText[icon]}</span> : null}
         </span>
         <span className={styles.coinText}>
           <span className={styles.coinName}>{name}</span>

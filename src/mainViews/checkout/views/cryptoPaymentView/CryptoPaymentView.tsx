@@ -67,12 +67,10 @@ const CryptoPaymentView = (props: ICryptoPaymentView) => {
   }
 
   return (
-    <div className="mt-5">
+    <div className={styles.paymentBody}>
       <Col xs={12}>
-        <Row className="mb-5">
-          <b>
-            <span className="text-highlight">Choose Currency</span>
-          </b>
+        <Row>
+          <p className={styles.helperText}>Choose your preferred cryptocurrency network for this payment.</p>
           <div className={styles.coinsWrapper}>
             <CryptoSelection
               coin="BTC"
@@ -138,7 +136,7 @@ const CryptoPaymentView = (props: ICryptoPaymentView) => {
           </div>
         </Row>
       </Col>
-      <Col xs={12}>
+      <Col xs={12} className={styles.termsWrap}>
         {getTermTextCondition(termCondition, onChangeTermCondition)}
       </Col>
       {conditionBeforePayment(
@@ -161,7 +159,7 @@ const CryptoPaymentView = (props: ICryptoPaymentView) => {
           Request a crypto payment for this order
         </Button>
       ) : (
-        <div className="mt-4">
+        <div className={styles.actionArea}>
           <PlisioButton
             termCondition={termCondition}
             editBillingEnable={editBillingEnable}

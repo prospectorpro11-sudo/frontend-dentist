@@ -134,7 +134,7 @@ const CartListView = (props: ICartListView) => {
     <>
       <Row>
         <Col className="pb-3" xs={12}>
-          <Row>
+          <Row className={styles.summaryHeader}>
             <Col xs={8}>
               <b>Product Name</b>
             </Col>
@@ -181,7 +181,7 @@ const CartListView = (props: ICartListView) => {
       </Row>
       <Row className={styles.totalRow}>
         <Col xs={6} md={7} className={styles.total}>
-          <b>Total Cost</b>
+          <b>Total</b>
         </Col>
         <Col xs={6} md={3} className={styles.cost}>
           {loggedInUser ? `$${totalCartAmount}` : '--'}
@@ -192,6 +192,7 @@ const CartListView = (props: ICartListView) => {
       <Row>
         <Col xs={12} md={8}>
           <input
+            className={styles.promoInput}
             placeholder="Promo Code"
             value={promoCode}
             onChange={(event: any) => setPromoCode(event.target.value)}

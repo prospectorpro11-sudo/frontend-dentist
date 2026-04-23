@@ -1,15 +1,15 @@
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import classNames from "classnames";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import classNames from "classnames";
+import { BsCurrencyBitcoin } from "react-icons/bs";
+import { FaPaypal } from "react-icons/fa";
 
 import styles from "./paypal.module.scss";
 import { PAYMENT_METHOD } from "@/shared/enums";
 import PaypalView from "./paypalView/PaypalView";
 import { useRootContext } from "@/contexts/RootContext";
 import CryptoPaymentView from "./cryptoPaymentView/CryptoPaymentView";
-import StripePaymentButtonWrapper from "./stripePaymentButton/StripePaymentButton";
 
 interface IPaymentView {
   editBillingEnable: boolean;
@@ -17,19 +17,15 @@ interface IPaymentView {
 
 const PaymentView = (props: IPaymentView) => {
   const { editBillingEnable } = props;
-  const [blockListObjectExist, setBlockListObjectExist] = useState(false);
+  const blockListObjectExist = false;
   const [currentPaymentMethod, setCurrentPaymentMethod] = useState(PAYMENT_METHOD.PAYPAL);
   const { setCartEnable, currentCartItem, loggedInUser, totalCartAmount } = useRootContext();
 
   useEffect(() => {
-    if (currentCartItem?.length) {
-      let isBlockListObject = false;
-
-      setBlockListObjectExist(isBlockListObject);
-    } else {
+    if (!currentCartItem?.length) {
       setCartEnable(false);
     }
-  }, [currentCartItem?.length]);
+  }, [currentCartItem?.length, setCartEnable]);
 
   const onChangePaypal = () => {
     setCurrentPaymentMethod(PAYMENT_METHOD.PAYPAL);
@@ -39,102 +35,76 @@ const PaymentView = (props: IPaymentView) => {
     setCurrentPaymentMethod(PAYMENT_METHOD.CRYPTO);
   };
 
-  const onChangeStripe = () => {
-    setCurrentPaymentMethod(PAYMENT_METHOD.STRIPE);
-  };
-
   return (
     <Row className={styles.wrapper}>
       {loggedInUser ? (
         <>
-          {/* <Col xs={4} md="4">
-            <div className="mt-3 mt-md-0">
-              <input
-                className="form-check-input d-none"
-                type="radio"
-                name="flexRadioDefault"
-                checked={currentPaymentMethod == PAYMENT_METHOD.STRIPE}
-                id="flexRadioDefault2"
-                onClick={onChangeStripe}
-              />
-              <label
-                className={classNames(styles.radioButton, {
-                  [styles.active]: currentPaymentMethod === PAYMENT_METHOD.STRIPE,
-                })}
-                htmlFor="flexRadioDefault2"
-              >
-                <div className={classNames(styles.paypal, styles.secondButton)}>
-                  <Image alt="Stripe Logo" src="/stripe_logo1.png" objectFit="scale-down" width={200} height={30} />
-                </div>
-              </label>
-            </div>
-          </Col> */}
-          <Col xs={4} md="4" className="pe-0">
-            <div className="">
+          <Col xs={12}>
+            <div className={styles.methodList}>
               <input
                 className="form-check-input d-none"
                 type="radio"
                 name="flexRadioDefault"
                 checked={currentPaymentMethod == PAYMENT_METHOD.PAYPAL}
-                id="flexRadioDefault1"
+                id="payment-paypal"
                 onChange={onChangePaypal}
               />
               <label
-                className={classNames(styles.radioButton, {
+                className={classNames(styles.radioButton, styles.methodCard, {
                   [styles.active]: currentPaymentMethod === PAYMENT_METHOD.PAYPAL,
                 })}
-                htmlFor="flexRadioDefault1"
+                htmlFor="payment-paypal"
               >
-                <div className={styles.paypal}>
-                  <Image
-                    alt="Paypal Logo"
-                    src="/paypal.png"
-                    width={200}
-                    height={30}
-                    className={styles.paymentLogo}
-                  />
+                <span className={styles.radioDot} aria-hidden="true" />
+                <div className={styles.methodIconWrap}>
+                  <span className={classNames(styles.methodBrand, styles.paypalBrand)}>
+                    <FaPaypal size={16} />
+                    <span>PayPal</span>
+                  </span>
                 </div>
+                <div className={styles.methodContent}>
+                  <span className={styles.methodTitle}>PayPal</span>
+                  <span className={styles.methodHint}>Pay with your PayPal account or card</span>
+                </div>
+                <span className={styles.popularBadge}>Popular</span>
               </label>
-            </div>
-          </Col>
-          <Col xs={4} md="4">
-            <div className="">
+
               <input
                 className="form-check-input d-none"
                 type="radio"
                 name="flexRadioDefault"
                 checked={currentPaymentMethod == PAYMENT_METHOD.CRYPTO}
-                id="flexRadioDefault3"
+                id="payment-crypto"
                 onChange={onChangeCrypto}
               />
               <label
-                className={classNames(styles.radioButton, {
+                className={classNames(styles.radioButton, styles.methodCard, {
                   [styles.active]: currentPaymentMethod === PAYMENT_METHOD.CRYPTO,
                 })}
-                htmlFor="flexRadioDefault3"
+                htmlFor="payment-crypto"
               >
-                <div className={styles.paypal}>
-                  <Image
-                    alt="Coinpayment Logo"
-                    src="/coinpayment_logo.png"
-                    width={200}
-                    height={30}
-                    className={styles.paymentLogo}
-                  />
+                <span className={styles.radioDot} aria-hidden="true" />
+                <div className={styles.methodIconWrap}>
+                  <span className={classNames(styles.methodBrand, styles.cryptoBrand)}>
+                    <BsCurrencyBitcoin size={14} />
+                    <span>Crypto</span>
+                  </span>
+                </div>
+                <div className={styles.methodContent}>
+                  <span className={styles.methodTitle}>Cryptocurrency</span>
+                  <span className={styles.methodHint}>BTC, ETH, LTC via CoinPayments</span>
                 </div>
               </label>
             </div>
           </Col>
 
-          <>
+          <Col xs={12}>
             {currentPaymentMethod === PAYMENT_METHOD.PAYPAL ? (
               <PaypalView totalAmount={totalCartAmount} editBillingEnable={editBillingEnable} currentPaymentMethod={currentPaymentMethod} />
-            ) : currentPaymentMethod === PAYMENT_METHOD.STRIPE ? (
-              <StripePaymentButtonWrapper />
             ) : (
               <CryptoPaymentView editBillingEnable={editBillingEnable} blockListObjectExist={blockListObjectExist} />
             )}
-          </>
+          </Col>
         </>
       ) : (
         <>

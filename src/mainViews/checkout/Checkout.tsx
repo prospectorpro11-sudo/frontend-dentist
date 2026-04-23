@@ -1,6 +1,7 @@
 'use client';
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
+import { BiCart, BiCheckCircle, BiCreditCard, BiSupport } from "react-icons/bi";
 
 import styles from "./style.module.scss";
 import PaymentView from "./views/PaymentView";
@@ -63,17 +64,10 @@ const CheckoutMainView = () => {
     <div className={styles.checkoutWrapper}>
       <Container className={styles.checkoutContainer}>
         <div className={styles.pageHeader}>
-          <div className={styles.headerIntro}>
-            <span className={styles.eyebrow}>Secure Checkout</span>
-            <h1 className={styles.pageTitle}>Complete Your Order</h1>
-            <p className={styles.pageSubtitle}>
-              Review your billing details and choose a payment option to access your selected leads.
-            </p>
-          </div>
           <div className={styles.steps}>
             <div className={classNames(styles.step, { [styles.active]: isBillingStep })}>
-              <span className={styles.stepIndex}>1</span>
-              <span className={styles.stepLabel}>{loggedInUser ? "Billing" : "Register & Billing"}</span>
+              <span className={styles.stepIndex}><BiCart size={12} /></span>
+              <span className={styles.stepLabel}>Cart Review</span>
             </div>
             <div
               className={classNames(styles.step, {
@@ -81,25 +75,26 @@ const CheckoutMainView = () => {
                 [styles.disabled]: !canProceedPayment,
               })}
             >
-              <span className={styles.stepIndex}>2</span>
-              <span className={styles.stepLabel}>Payment</span>
+              <span className={styles.stepIndex}><BiCreditCard size={12} /></span>
+              <span className={styles.stepLabel}>Billing & Payment</span>
             </div>
             <div className={classNames(styles.step, styles.ghostStep)}>
-              <span className={styles.stepIndex}>3</span>
+              <span className={styles.stepIndex}><BiCheckCircle size={12} /></span>
               <span className={styles.stepLabel}>Confirm</span>
             </div>
           </div>
         </div>
         <Row className={styles.checkoutGrid}>
-          <Col xs={{ order: 2, span: 12 }} lg={{ order: 1, span: 6 }} className="mt-4 mt-lg-0">
+          <Col xs={{ order: 2, span: 12 }} lg={{ order: 1, span: 8 }} className="mt-4 mt-lg-0">
             <div className={classNames(styles.checkoutCard, styles.cardElevated, "shadow-sm")}>
               <div className={styles.cardHeader}>
                 <div className={styles.cardTitleWrap}>
                   <span className={styles.stepBadge}>1</span>
-                  <div className={styles.cardTitle}>{loggedInUser ? "Billing Address" : "Registration & Billing Address"}</div>
+                  <div className={styles.cardTitle}>{loggedInUser ? "Billing Information" : "Registration & Billing Information"}</div>
                 </div>
                 {!editBillingEnable && loggedInUser && loggedInUser?.country && getRightElement()}
               </div>
+              <p className={styles.cardSubtitle}>Enter your company details for invoicing.</p>
               <div className={styles.cardContent}>
                 {!authLoading ? (
                   !loggedInUser?.country || editBillingEnable ? (
@@ -117,9 +112,10 @@ const CheckoutMainView = () => {
                 <div className={styles.cardHeader}>
                   <div className={styles.cardTitleWrap}>
                     <span className={styles.stepBadge}>2</span>
-                    <div className={styles.cardTitle}>Choose Your Payment Method</div>
+                    <div className={styles.cardTitle}>Select Payment Method</div>
                   </div>
                 </div>
+                <p className={styles.cardSubtitle}>Choose your preferred payment option.</p>
                 <div className={styles.cardContent}>
                   <PaymentView editBillingEnable={editBillingEnable} />
                 </div>
@@ -136,21 +132,27 @@ const CheckoutMainView = () => {
               </div> : null
             )}
           </Col>
-          <Col xs={{ order: 1, span: 12 }} lg={{ order: 2, span: 5 }}>
+          <Col xs={{ order: 1, span: 12 }} lg={{ order: 2, span: 4 }}>
             <div className={styles.summaryPanel}>
               <div className={classNames(styles.checkoutCard, styles.cardElevated, styles.summaryCard, "shadow-sm")}>
                 <div className={styles.cardHeader}>
                   <div className={styles.cardTitleWrap}>
                     <span className={styles.summaryBadge}>Summary</span>
-                    <div className={styles.cardTitle}>Your Order</div>
+                    <div className={styles.cardTitle}>Order Summary</div>
                   </div>
                 </div>
                 <div className={styles.cardContent}>
                   <CartMainView />
                 </div>
               </div>
-              <div className={styles.summaryNote}>
-                <strong>Tip:</strong> You can edit your billing details anytime before payment.
+              <div className={classNames(styles.checkoutCard, styles.cardElevated, styles.supportCard, "shadow-sm")}>
+                <div className={styles.supportIcon}><BiSupport size={32} /></div>
+                <div className={styles.supportTitle}>Need Help?</div>
+                <p className={styles.supportText}>Our support team is available if you have questions about checkout.</p>
+                <div className={styles.supportActions}>
+                  <a href="/contact-us">Contact Us</a>
+                  <a href="/contact-us">Support</a>
+                </div>
               </div>
             </div>
           </Col>
