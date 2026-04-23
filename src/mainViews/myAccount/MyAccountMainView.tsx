@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import Image from "next/image";
 import Select, { SingleValue } from "react-select";
 import classNames from "classnames";
 import Form from "react-bootstrap/Form";
@@ -10,46 +9,26 @@ import { Formik, Field, Form as FormikForm } from "formik";
 import {
   FaCamera,
   FaEnvelope,
-  FaCalendarAlt,
-  FaShieldAlt,
-  FaDownload,
-  FaShoppingBag,
-  FaStar,
   FaUser,
   FaBuilding,
   FaLock,
-  FaMobileAlt,
   FaPaperPlane,
   FaKey,
-  FaCog,
-  FaPlug,
-  FaEye,
-  FaHistory,
   FaInfoCircle,
   FaChevronDown,
   FaUsers,
   FaIndustry,
   FaGlobe,
-  FaEdit,
-  FaUndo,
   FaCheck,
-  FaMailBulk,
-  FaMap,
-  FaCity,
-  FaFlag,
-  FaHome,
-  FaMapMarkerAlt,
-  FaBriefcase,
-  FaPhone,
   FaTimes,
+  FaUserCircle,
+  FaCheckCircle,
 } from 'react-icons/fa';
 import instance from "../../services/baseServices";
 import styles from "./myAccountMainView.module.scss";
 import { COUNTRY_LIST } from "@/seeds/countryList";
 import { resetPassword } from "@/database/Authentication";
 import { useRootContext } from "@/contexts/RootContext";
-import { BiCamera } from "react-icons/bi";
-import { FaUserCircle, FaCrown, FaCheckCircle } from "react-icons/fa";
 import {
   replaceWithPrefix,
   triggerForm,
@@ -58,9 +37,6 @@ import {
 } from "@/shared/InternalService";
 import Button from "@/components/button/Button";
 import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from "@/shared/enums";
-import UserProfile from "@/components/images/userProfile";
-import { COLORS } from "@/shared/colors";
-import uiavatars from "ui-avatars";
 dayjs.extend(utc);
 
 type CountryOption = {
@@ -98,32 +74,6 @@ const mapCountryToOption = (countryValue: unknown): CountryOption | null => {
   return null;
 };
 
-const IconUser = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-const IconMail = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-    <polyline points="22,6 12,13 2,6" />
-  </svg>
-);
 const IconMapPin = () => (
   <svg
     viewBox="0 0 24 24"
@@ -150,33 +100,6 @@ const IconEdit = () => (
     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
   </svg>
 );
-const IconKey = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
-  </svg>
-);
-const IconGlobe = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <line x1="2" y1="12" x2="22" y2="12" />
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-  </svg>
-);
-
 function LabeledField({
   label,
   id,
@@ -206,28 +129,6 @@ function LabeledField({
   );
 }
 
-/* ─── InfoRow helper (read-only display) ─────────────────────────── */
-function InfoRow({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value?: string;
-}) {
-  if (!value) return null;
-  return (
-    <div className={styles.infoRow}>
-      <span className={styles.infoIcon}>{icon}</span>
-      <div>
-        <span className={styles.infoLabel}>{label}</span>
-        <span className={styles.infoValue}>{value}</span>
-      </div>
-    </div>
-  );
-}
-
 /* ─── Main Component ─────────────────────────────────────────────── */
 const MyAccountMainView = () => {
   const { loggedInUser, setLoggedInUser } = useRootContext();
@@ -251,7 +152,9 @@ const MyAccountMainView = () => {
 
   const pressChange = () => {
     setResetLoading(true);
-    loggedInUser?.email && resetPassword(loggedInUser?.email, setResetLoading);
+    if (loggedInUser?.email) {
+      resetPassword(loggedInUser.email, setResetLoading);
+    }
   };
 
   useEffect(() => {
@@ -266,32 +169,12 @@ const MyAccountMainView = () => {
     userDetails();
   }, [])
 
-  const avaterURL = uiavatars.generateAvatar({
-    name: "Samiul Hasan",
-    background: "random",
-    size: 128,
-    rounded: true,
-  });
   const [activeTab, setActiveTab] = useState('personal');
 
   const tabs = [
     { id: 'personal', label: 'Personal Info', icon: <FaUser /> },
     { id: 'security', label: 'Security', icon: <FaLock /> },
   ];
-
-  // Personal Info State
-  const [personalForm, setPersonalForm] = useState({
-    fullName: 'Franklin Carter',
-    email: 'matti1849@powerscrews.com',
-    phone: '+1 (555) 123-4567',
-    jobTitle: 'Marketing Manager',
-    street: '123 Business Avenue',
-    address2: 'Suite 456',
-    country: 'us',
-    city: 'New York',
-    state: 'New York',
-    zip: '10001',
-  });
 
   // Company State
   const [isEditingCompany, setIsEditingCompany] = useState(false);
@@ -303,37 +186,9 @@ const MyAccountMainView = () => {
     description: 'Leading provider of industrial fastening solutions and specialized hardware.',
   });
 
-  // Security State
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
-
   // Handlers
-  const handlePersonalChange = (field: string, value: string) => {
-    setPersonalForm(prev => ({ ...prev, [field]: value }));
-  };
-
   const handleCompanyChange = (field: string, value: string) => {
     setCompanyForm(prev => ({ ...prev, [field]: value }));
-  };
-
-  const resetPersonalForm = () => {
-    setPersonalForm({
-      fullName: 'Franklin Carter',
-      email: 'matti1849@powerscrews.com',
-      phone: '+1 (555) 123-4567',
-      jobTitle: 'Marketing Manager',
-      street: '123 Business Avenue',
-      address2: 'Suite 456',
-      country: 'us',
-      city: 'New York',
-      state: 'New York',
-      zip: '10001',
-    });
-  };
-
-  const handlePersonalSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add your save logic here
-    console.log('Saving personal info:', personalForm);
   };
 
   const handleCompanySubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -425,7 +280,7 @@ const MyAccountMainView = () => {
                   state: loggedInUser?.state,
                   zip: loggedInUser?.zip,
                 }}
-                onSubmit={async (values, { resetForm }) => {
+                onSubmit={async (values) => {
                   if (!country) {
                     triggerForm({
                       text: "Country field is empty",
@@ -489,7 +344,7 @@ const MyAccountMainView = () => {
                   }
                 }}
               >
-                {({ errors, touched, isValidating }: any) => (
+                {({ errors }: any) => (
                   <FormikForm className={styles.form}>
                     {/* row 1 — identity */}
                     <div className={styles.formGrid}>
