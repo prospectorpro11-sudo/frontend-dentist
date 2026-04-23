@@ -7,13 +7,49 @@ import Select, { SingleValue } from "react-select";
 import classNames from "classnames";
 import Form from "react-bootstrap/Form";
 import { Formik, Field, Form as FormikForm } from "formik";
-
+import {
+  FaCamera,
+  FaEnvelope,
+  FaCalendarAlt,
+  FaShieldAlt,
+  FaDownload,
+  FaShoppingBag,
+  FaStar,
+  FaUser,
+  FaBuilding,
+  FaLock,
+  FaMobileAlt,
+  FaPaperPlane,
+  FaKey,
+  FaCog,
+  FaPlug,
+  FaEye,
+  FaHistory,
+  FaInfoCircle,
+  FaChevronDown,
+  FaUsers,
+  FaIndustry,
+  FaGlobe,
+  FaEdit,
+  FaUndo,
+  FaCheck,
+  FaMailBulk,
+  FaMap,
+  FaCity,
+  FaFlag,
+  FaHome,
+  FaMapMarkerAlt,
+  FaBriefcase,
+  FaPhone,
+  FaTimes,
+} from 'react-icons/fa';
 import instance from "../../services/baseServices";
 import styles from "./myAccountMainView.module.scss";
 import { COUNTRY_LIST } from "@/seeds/countryList";
 import { resetPassword } from "@/database/Authentication";
 import { useRootContext } from "@/contexts/RootContext";
 import { BiCamera } from "react-icons/bi";
+import { FaUserCircle, FaCrown, FaCheckCircle } from "react-icons/fa";
 import {
   replaceWithPrefix,
   triggerForm,
@@ -24,7 +60,7 @@ import Button from "@/components/button/Button";
 import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from "@/shared/enums";
 import UserProfile from "@/components/images/userProfile";
 import { COLORS } from "@/shared/colors";
-
+import uiavatars from "ui-avatars";
 dayjs.extend(utc);
 
 type CountryOption = {
@@ -230,121 +266,152 @@ const MyAccountMainView = () => {
     userDetails();
   }, [])
 
+  const avaterURL = uiavatars.generateAvatar({
+    name: "Samiul Hasan",
+    background: "random",
+    size: 128,
+    rounded: true,
+  });
+  const [activeTab, setActiveTab] = useState('personal');
 
+  const tabs = [
+    { id: 'personal', label: 'Personal Info', icon: <FaUser /> },
+    { id: 'security', label: 'Security', icon: <FaLock /> },
+  ];
+
+  // Personal Info State
+  const [personalForm, setPersonalForm] = useState({
+    fullName: 'Franklin Carter',
+    email: 'matti1849@powerscrews.com',
+    phone: '+1 (555) 123-4567',
+    jobTitle: 'Marketing Manager',
+    street: '123 Business Avenue',
+    address2: 'Suite 456',
+    country: 'us',
+    city: 'New York',
+    state: 'New York',
+    zip: '10001',
+  });
+
+  // Company State
+  const [isEditingCompany, setIsEditingCompany] = useState(false);
+  const [companyForm, setCompanyForm] = useState({
+    name: 'PowerScrews Inc.',
+    website: 'https://powerscrews.com',
+    industry: 'tech',
+    size: 'small',
+    description: 'Leading provider of industrial fastening solutions and specialized hardware.',
+  });
+
+  // Security State
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
+
+  // Handlers
+  const handlePersonalChange = (field: string, value: string) => {
+    setPersonalForm(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleCompanyChange = (field: string, value: string) => {
+    setCompanyForm(prev => ({ ...prev, [field]: value }));
+  };
+
+  const resetPersonalForm = () => {
+    setPersonalForm({
+      fullName: 'Franklin Carter',
+      email: 'matti1849@powerscrews.com',
+      phone: '+1 (555) 123-4567',
+      jobTitle: 'Marketing Manager',
+      street: '123 Business Avenue',
+      address2: 'Suite 456',
+      country: 'us',
+      city: 'New York',
+      state: 'New York',
+      zip: '10001',
+    });
+  };
+
+  const handlePersonalSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Add your save logic here
+    console.log('Saving personal info:', personalForm);
+  };
+
+  const handleCompanySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsEditingCompany(false);
+    console.log('Saving company info:', companyForm);
+  };
 
   return (
     <div className={styles.page}>
       {/* ── Page header ── */}
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>My Account</h1>
-        <p className={styles.pageSubtitle}>
-          Manage your profile and account settings
-        </p>
+        <div className={styles.headerLeft}>
+          <div className={styles.pageIcon}>
+            <FaUserCircle />
+          </div>
+          <div className={styles.pageInfo}>
+            <h2>My Account</h2>
+            <p className={styles.pageSubtitle}>Manage your profile, company details, and security settings</p>
+          </div>
+        </div>
+        <div className={styles.headerRight}>
+          <div className={classNames(styles.statsMini, styles.activeBadge)}>
+            <div className={styles.statIconSmall}><FaCheckCircle /></div>
+            <div className={styles.statLabel}>Active</div>
+          </div>
+        </div>
       </div>
-
-      <div className={styles.layout}>
-        {/* ════════ LEFT — profile sidebar ════════ */}
-        <aside className={styles.sidebar}>
-          {/* avatar */}
-          <div className={styles.avatarSection}>
-            <div className={styles.avatarWrap}>
-              <div className={styles.picture}>
-                <Image
-                  src="/profile_dummy.jpg"
-                  width={110}
-                  layout="fixed"
-                  height={110}
-                  alt="Profile picture"
-                />
-              </div>
-              <div className={styles.upload}>
-                <label>
-                  <input type="file" disabled />
-                  <Button
-                    disabled
-                    type="button"
-                    variant={BUTTON_VARIANT_ENUM.TERTIARY}
-                  >
-                    <BiCamera size={18} />
-                  </Button>
-                </label>
+      <div className={styles.accountMainCard}>
+        <div className={styles.profileOverview}>
+          <div className={styles.profileLeft}>
+            <div className={styles.avatarSection}>
+              <div className={styles.avatarWrapper}>
+                <div className={styles.avatarCircle}>
+                  <img src="https://ui-avatars.com/api/?name=Franklin+Carter&background=0ea5e9&color=fff&size=128&bold=true" alt="Avatar" />
+                </div>
+                <button className={styles.avatarChangeBtn} title="Change photo">
+                  <FaCamera />
+                </button>
               </div>
             </div>
-            {loggedInUser?.displayName && (
-              <h2 className={styles.avatarName}>{loggedInUser.displayName}</h2>
-            )}
-            <p className={styles.avatarEmail}>
-              {replaceWithPrefix(loggedInUser?.email || "")}
-            </p>
-          </div>
-
-          {/* divider */}
-          <hr className={styles.sidebarDivider} />
-
-          {/* address summary */}
-          <div className={styles.addressSummary}>
-            <p className={styles.sidebarSectionLabel}>Address on file</p>
-            {loggedInUser ? (
-              <>
-                <InfoRow
-                  icon={<IconMapPin />}
-                  label="Street"
-                  value={[
-                    loggedInUser?.streetAddress,
-                    loggedInUser?.streetAddress2,
-                  ]
-                    .filter(Boolean)
-                    .join(", ")}
-                />
-                <InfoRow
-                  icon={<IconMapPin />}
-                  label="City"
-                  value={[
-                    loggedInUser?.city,
-                    loggedInUser?.state,
-                    loggedInUser?.zip,
-                  ]
-                    .filter(Boolean)
-                    .join(", ")}
-                />
-                <InfoRow
-                  icon={<IconGlobe />}
-                  label="Country"
-                  value={mapCountryToOption(loggedInUser?.country)?.label}
-                />
-              </>
-            ) : (
-              <p className={styles.noData}>No address saved yet.</p>
-            )}
-          </div>
-
-          {/* illustration */}
-          <div className={styles.illustration}>
-            <UserProfile
-              width={160}
-              height={160}
-              primary={COLORS.PRIMARY}
-              secondary={COLORS.SECONDARY}
-            />
-          </div>
-        </aside>
-
-        {/* ════════ RIGHT — main content ════════ */}
-        <main className={styles.content}>
-          {/* ── Personal Info section ── */}
-          <section className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionIcon}>
-                <IconUser />
+            <div className={styles.profileDetails}>
+              <div className={styles.profileNameRow}>
+                <h3>{loggedInUser?.displayName}</h3>
+                <span className={styles.verifiedBadge}>
+                  <FaCheckCircle />
+                  Verified
+                </span>
               </div>
-              <div>
-                <h2 className={styles.sectionTitle}>Personal Information</h2>
-                <p className={styles.sectionDesc}>
-                  Your name, company, and contact details
-                </p>
-              </div>
+              <p className={styles.profileEmailDisplay}>
+                <FaEnvelope />
+                {loggedInUser?.email}
+              </p>
             </div>
+          </div>
+        </div>
+        <div className={styles.tabNavigation}>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={classNames(styles.tabBtn, {
+                [styles.active]: activeTab === tab.id,
+              })}
+              data-tab={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              type="button"
+            >
+              {tab.icon}
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className={styles.tabContentWrapper}>
 
+          {/* ========== PERSONAL INFO TAB ========== */}
+          <div className={classNames(styles.tabContent, {
+            [styles.active]: activeTab === 'personal'
+          })} id="personalTab">
             {editable ? (
               /* ─── EDIT FORM ─── */
               <Formik
@@ -608,55 +675,177 @@ const MyAccountMainView = () => {
                 )}
               </div>
             )}
-          </section>
-
-          {/* ── Action buttons ── */}
-          <section className={styles.actionsSection}>
-            <button
-              className={classNames(styles.actionCard, {
-                [styles.actionCardDisabled]: editable,
-              })}
-              onClick={!editable ? pressEditable : undefined}
-              disabled={editable}
-            >
-              <span className={styles.actionCardIcon}>
-                <IconEdit />
-              </span>
-              <div>
-                <span className={styles.actionCardTitle}>Edit Profile</span>
-                <span className={styles.actionCardDesc}>
-                  Update your name, company &amp; address
-                </span>
-              </div>
-            </button>
-
-            <button
-              className={classNames(
-                styles.actionCard,
-                styles.actionCardSecondary,
-              )}
-              onClick={pressChange}
-              disabled={resetLoading}
-            >
-              <span
-                className={classNames(
-                  styles.actionCardIcon,
-                  styles.actionCardIconSecondary,
-                )}
+            <br />
+            {!editable && (
+              <button
+                className={classNames(styles.actionCard, {
+                  [styles.actionCardDisabled]: editable,
+                })}
+                onClick={!editable ? pressEditable : undefined}
+                disabled={editable}
               >
-                <IconKey />
-              </span>
-              <div>
-                <span className={styles.actionCardTitle}>
-                  {resetLoading ? "Sending…" : "Change Password"}
+                <span className={styles.actionCardIcon}>
+                  <IconEdit />
                 </span>
-                <span className={styles.actionCardDesc}>
-                  We&apos;ll email you a reset link
-                </span>
+                <div>
+                  <span className={styles.actionCardTitle}>Edit Profile</span>
+                  <span className={styles.actionCardDesc}>
+                    Update your name, company &amp; address
+                  </span>
+                </div>
+              </button>
+            )}
+          </div>
+
+          {/* ========== COMPANY DETAILS TAB ========== */}
+          <div className={classNames(styles.tabContent, {
+            [styles.active]: activeTab === 'company'
+          })} id="companyTab">
+            {/* Edit Form */}
+            <div className={classNames(styles.companyEdit, {
+              [styles.active]: isEditingCompany
+            })} id="companyEdit" style={{ display: isEditingCompany ? 'block' : 'none' }}>
+              <form id="companyForm" onSubmit={handleCompanySubmit}>
+                <div className={styles.formSection}>
+                  <div className={styles.sectionHeader}>
+                    <div className={styles.sectionIcon}>
+                      <FaBuilding />
+                    </div>
+                    <div>
+                      <h4>Edit Company Information</h4>
+                      <p>Update your business organization details</p>
+                    </div>
+                  </div>
+                  <div className={styles.formGrid}>
+                    <div className={styles.formField}>
+                      <label className={styles.fieldLabel}>
+                        <FaBuilding />
+                        Company Name
+                      </label>
+                      <input
+                        type="text"
+                        className={styles.fieldInput}
+                        value={companyForm.name}
+                        placeholder="Company Name"
+                        onChange={(e) => handleCompanyChange('name', e.target.value)}
+                      />
+                    </div>
+                    <div className={styles.formField}>
+                      <label className={styles.fieldLabel}>
+                        <FaGlobe />
+                        Company Website
+                      </label>
+                      <input
+                        type="url"
+                        className={styles.fieldInput}
+                        value={companyForm.website}
+                        placeholder="https://company.com"
+                        onChange={(e) => handleCompanyChange('website', e.target.value)}
+                      />
+                    </div>
+                    <div className={styles.formField}>
+                      <label className={styles.fieldLabel}>
+                        <FaIndustry />
+                        Industry
+                      </label>
+                      <div className={styles.selectWrapper}>
+                        <select
+                          className={classNames(styles.fieldInput, styles.fieldSelect)}
+                          value={companyForm.industry}
+                          onChange={(e) => handleCompanyChange('industry', e.target.value)}
+                        >
+                          <option value="" disabled>Select industry</option>
+                          <option value="tech">Technology</option>
+                          <option value="marketing">Marketing</option>
+                          <option value="healthcare">Healthcare</option>
+                          <option value="finance">Finance</option>
+                        </select>
+                        <FaChevronDown className={styles.selectArrow} />
+                      </div>
+                    </div>
+                    <div className={styles.formField}>
+                      <label className={styles.fieldLabel}>
+                        <FaUsers />
+                        Company Size
+                      </label>
+                      <div className={styles.selectWrapper}>
+                        <select
+                          className={classNames(styles.fieldInput, styles.fieldSelect)}
+                          value={companyForm.size}
+                          onChange={(e) => handleCompanyChange('size', e.target.value)}
+                        >
+                          <option value="" disabled>Select size</option>
+                          <option value="small">1-50 employees</option>
+                          <option value="medium">51-200 employees</option>
+                          <option value="large">201-500 employees</option>
+                          <option value="enterprise">500+ employees</option>
+                        </select>
+                        <FaChevronDown className={styles.selectArrow} />
+                      </div>
+                    </div>
+                    <div className={classNames(styles.formField, styles.fullWidth)}>
+                      <label className={styles.fieldLabel}>
+                        <FaInfoCircle />
+                        Company Description
+                      </label>
+                      <textarea
+                        className={classNames(styles.fieldInput, styles.fieldTextarea)}
+                        placeholder="Brief description of your company..."
+                        value={companyForm.description}
+                        onChange={(e) => handleCompanyChange('description', e.target.value)}
+                      />
+                      <span className={styles.fieldNote}>Optional - helps us serve you better</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.formFooter}>
+                  <button
+                    type="button"
+                    className={styles.btnOutline}
+                    id="cancelEditBtn"
+                    onClick={() => setIsEditingCompany(false)}
+                  >
+                    <FaTimes />
+                    <span>Cancel</span>
+                  </button>
+                  <button type="submit" className={styles.btnFilled}>
+                    <FaCheck />
+                    <span>Save Company Info</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          {/* ========== SECURITY TAB ========== */}
+          <div className={classNames(styles.tabContent, {
+            [styles.active]: activeTab === 'security'
+          })} id="securityTab">
+            <div className={styles.securityOverview}>
+              {/* Password Reset Card */}
+              <div className={styles.securityCard}>
+                <div className={styles.securityCardIcon}>
+                  <FaKey />
+                </div>
+                <div className={styles.securityCardContent}>
+                  <h4>Change Password</h4>
+                  <p>We&apos;ll send a secure password reset link to your email inbox</p>
+                </div>
+                <button
+                  onClick={pressChange}
+                  disabled={resetLoading}
+                  className={styles.securityActionBtn}
+                  id="sendResetLinkBtn"
+                  type="button"
+                >
+                  <FaPaperPlane />
+                  {resetLoading ? "Sending…" : "Send Reset Link"}
+                </button>
               </div>
-            </button>
-          </section>
-        </main>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
