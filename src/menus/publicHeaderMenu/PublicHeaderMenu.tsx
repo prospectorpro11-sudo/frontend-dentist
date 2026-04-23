@@ -66,13 +66,15 @@ const PublicHeaderMenu = () => {
               <span>Franklin..</span>
               <FaCaretDown size={20} aria-hidden="true" />
             </div>
-            <button
-              className={styles.headerButton}
-              type="button"
-              aria-label="Build Dentist List"
-            >
-              Build Dentist List
-            </button>
+            <a href="/prospector">
+              <button
+                className={styles.headerButton}
+                type="button"
+                aria-label="Build Dentist List"
+              >
+                Build Dentist List
+              </button>
+            </a>
             <button
               className={styles.mobileMenuToggle}
               onClick={toggleMobileMenu}
