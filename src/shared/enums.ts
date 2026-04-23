@@ -71,3 +71,10 @@ export enum DATABASE_MAIN_TYPES {
     HOME = "HOME",
     JOB_TITLE = "JOB_TITLE",
 }
+
+export enum COLORS_ENUM {
+    SKY_BLUE = "SKY_BLUE",
+    EMERALD = "EMERALD",
+    AMBER = "AMBER",
+    INDIGO = "INDIGO",
+}
