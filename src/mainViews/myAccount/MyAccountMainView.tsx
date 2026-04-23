@@ -29,6 +29,7 @@ import {
 } from "@/shared/InternalService";
 import Button from "@/components/button/Button";
 import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import DashboardPageHeader from "@/components/dashboardPageHeader/DashboardPageHeader";
 dayjs.extend(utc);
 
 type CountryOption = {
@@ -171,23 +172,11 @@ const MyAccountMainView = () => {
   return (
     <div className={styles.page}>
       {/* ── Page header ── */}
-      <div className={styles.pageHeader}>
-        <div className={styles.headerLeft}>
-          <div className={styles.pageIcon}>
-            <FaUserCircle />
-          </div>
-          <div className={styles.pageInfo}>
-            <h2>My Account</h2>
-            <p className={styles.pageSubtitle}>Manage your profile, company details, and security settings</p>
-          </div>
-        </div>
-        <div className={styles.headerRight}>
-          <div className={classNames(styles.statsMini, styles.activeBadge)}>
-            <div className={styles.statIconSmall}><FaCheckCircle /></div>
-            <div className={styles.statLabel}>Active</div>
-          </div>
-        </div>
-      </div>
+      <DashboardPageHeader
+        title="My Account"
+        description="Manage your profile information and account settings"
+        activeBadge
+      />
       <div className={styles.accountMainCard}>
         <div className={styles.profileOverview}>
           <div className={styles.profileLeft}>
