@@ -13,6 +13,8 @@ import { useRootContext } from "@/contexts/RootContext";
 import BillingInfo from "./views/billingInfo/BillingInfo";
 import { MINIMUM_PURCHASED_AMOUNT } from "@/shared/constant";
 import BillingAddress from "./views/billingAddress/BillingAddress";
+import { FaRegBuilding } from "react-icons/fa";
+import { BsFillCreditCard2FrontFill } from "react-icons/bs";
 
 const CheckoutMainView = () => {
   const { loggedInUser, authLoading, setLoggedInUser, totalCartAmount } = useRootContext();
@@ -89,7 +91,7 @@ const CheckoutMainView = () => {
             <div className={classNames(styles.checkoutCard, styles.cardElevated, "shadow-sm")}>
               <div className={styles.cardHeader}>
                 <div className={styles.cardTitleWrap}>
-                  <span className={styles.stepBadge}>1</span>
+                  <span className={styles.stepBadge}><FaRegBuilding size={22} /></span>
                   <div className={styles.cardTitle}>{loggedInUser ? "Billing Information" : "Registration & Billing Information"}</div>
                 </div>
                 {!editBillingEnable && loggedInUser && loggedInUser?.country && getRightElement()}
@@ -111,7 +113,7 @@ const CheckoutMainView = () => {
               <div className={classNames(styles.checkoutCard, styles.cardElevated, styles.addGap, "shadow-sm")}>
                 <div className={styles.cardHeader}>
                   <div className={styles.cardTitleWrap}>
-                    <span className={styles.stepBadge}>2</span>
+                    <span className={styles.stepBadge}><BsFillCreditCard2FrontFill size={22} /></span>
                     <div className={styles.cardTitle}>Select Payment Method</div>
                   </div>
                 </div>
