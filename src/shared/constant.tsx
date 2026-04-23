@@ -4,6 +4,8 @@ export const ADMIN_EMAIL = "support@medioutreach.com";
 export const WEBSITE_SEO_TITLE = "DentistEmailList";
 export const SITE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
+export const MINIMUM_PURCHASED_AMOUNT = 50;
+
 export const CATEGORIES_TO_URLS = {
     [DATABASE_MAIN_TYPES.STATES]: "states",
     [DATABASE_MAIN_TYPES.CITIES]: "cities",

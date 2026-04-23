@@ -1,0 +1,49 @@
+
+
+.checkoutButton {
+background-color: #6772e5;  // Stripe's classic blue
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  padding: 0.95rem 1.25rem 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #5469d4;
+    box-shadow: 0 4px 8px rgba(103, 114, 229, 0.4);
+  }
+
+  &:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+    box-shadow: none;
+    color: black;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(103, 114, 229, 0.5);
+  }
+}
+
+/* Stripe-style input */
+.stripeStyleInput {
+  width: 100%;
+  padding: 12px !important;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px !important;
+  font-size: 16px !important;
+  font-family: "Inter", system-ui, sans-serif !important;
+  color: #32325d !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+.stripeStyleInput::placeholder {
+  color: #666f7b !important;
+    opacity: 1 !important;
+}
+

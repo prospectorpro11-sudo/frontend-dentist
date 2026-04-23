@@ -1,0 +1,47 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.item {
+  border-bottom: 1px solid rgba($color: $primary, $alpha: 0.16);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+
+  svg {
+    color: var(--danger);
+    cursor: pointer;
+  }
+}
+
+.total {
+  font-size: 1.25rem;
+}
+
+.totalRow {
+  @include breakpoint(tab-landscape-up) {
+    padding: 0;
+  }
+}
+
+.divider {
+  background-color: rgba($color: $primary, $alpha: 0.7);
+}
+
+.cost {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: right;
+
+  @include breakpoint(tab-landscape-up) {
+    padding: 0;
+  }
+
+}
+
+.productNameWrapper {
+  word-break: break-all;
+}
+
+.button {
+  width: 100%;
+}

@@ -1,0 +1,318 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.checkoutWrapper {
+  position: relative;
+  background: linear-gradient(180deg, #f7fbfc 0%, $fill 60%, #f2f8f9 100%);
+  padding: 4.5rem 0 5.5rem;
+  overflow: hidden;
+  padding-top: 8rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -140px;
+    right: -160px;
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(16, 182, 155, 0.32) 0%, rgba(16, 182, 155, 0) 70%);
+    filter: blur(12px);
+    opacity: 0.9;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(57, 186, 189, 0.18) 0%, transparent 38%),
+      radial-gradient(circle at 82% 68%, rgba(254, 142, 62, 0.15) 0%, transparent 45%);
+    opacity: 0.85;
+    z-index: 0;
+    pointer-events: none;
+  }
+}
+
+.checkoutContainer {
+  position: relative;
+  z-index: 1;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+
+  @include breakpoint(tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.headerIntro {
+  max-width: 44rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: $primaryDark;
+  background: rgba($color: $primary, $alpha: 0.14);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+.pageTitle {
+  margin: 0.6rem 0 0.25rem;
+  font-size: 2.35rem;
+  color: $secondary;
+
+  @include breakpoint(mobile) {
+    font-size: 2rem;
+  }
+}
+
+.pageSubtitle {
+  margin: 0;
+  color: $textMuted;
+  font-size: 1rem;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba($color: $primary, $alpha: 0.18);
+  box-shadow: 0 18px 30px -24px rgba(24, 54, 91, 0.45);
+  backdrop-filter: blur(8px);
+
+  @include breakpoint(tablet) {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $textMuted;
+  transition: all 0.2s ease;
+}
+
+.stepIndex {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba($color: $primary, $alpha: 0.12);
+  color: $primaryDark;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.stepLabel {
+  white-space: nowrap;
+}
+
+.active {
+  color: $secondary;
+  background: rgba($color: $primary, $alpha: 0.1);
+
+  .stepIndex {
+    background: $primaryGradient;
+    color: $white;
+  }
+}
+
+.disabled {
+  opacity: 0.45;
+}
+
+.ghostStep {
+  opacity: 0.65;
+}
+
+.checkoutGrid {
+  row-gap: 1.5rem;
+}
+
+.billingAddress {
+  box-shadow: none;
+  margin-bottom: 20px;
+  border-radius: 1rem;
+}
+
+.paymentCard {
+  box-shadow: none;
+  border-radius: 1rem;
+}
+
+.editLink {
+  cursor: pointer;
+  font-weight: 600;
+  color: $primaryDark;
+  background: rgba($color: $primary, $alpha: 0.14);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba($color: $primary, $alpha: 0.22);
+  }
+}
+
+.orderCard {
+  box-shadow: none;
+  border-radius: 1rem;
+}
+
+.orderPayment {
+  position: sticky;
+  top: 160px;
+}
+
+.checkoutCard {
+  background-color: $white;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba($color: $primary, $alpha: 0.12);
+  position: relative;
+
+  &.addGap {
+    margin-top: 1.5rem;
+  }
+}
+
+.cardElevated {
+  box-shadow: 0 22px 40px -32px rgba(24, 54, 91, 0.7);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cardTitleWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $secondary;
+  margin: 0;
+}
+
+.cardContent {
+  position: relative;
+}
+
+.stepBadge {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: $white;
+  background: $primaryGradient;
+  box-shadow: 0 10px 18px rgba($color: $primary, $alpha: 0.25);
+}
+
+.summaryBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: $primaryDark;
+  background: rgba($color: $primary, $alpha: 0.14);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
+
+.summaryPanel {
+  position: sticky;
+  top: 140px;
+
+  @include breakpoint(tablet) {
+    position: static;
+  }
+}
+
+.summaryCard {
+  border: 1px solid rgba($color: $primary, $alpha: 0.2);
+}
+
+.summaryNote {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  background: rgba($color: $primary, $alpha: 0.08);
+  border: 1px dashed rgba($color: $primary, $alpha: 0.22);
+  font-size: 0.9rem;
+  color: $text;
+
+  strong {
+    color: $secondary;
+  }
+}
+
+.warning {
+  width: 100%;
+  max-width: 100%;
+  background: linear-gradient(135deg, rgba($color: $danger, $alpha: 0.16), rgba($color: $danger, $alpha: 0.02));
+  color: $danger;
+  font-weight: 700;
+  padding: 0.85rem 1.25rem 0.85rem 1.4rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba($color: $danger, $alpha: 0.24);
+  margin-top: 1.5rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: $danger;
+    border-radius: 0.85rem 0 0 0.85rem;
+  }
+
+  a {
+    color: $danger;
+  }
+
+  .label {
+    animation: blinkText 1s infinite;
+    font-size: 1.125rem;
+  }
+}
