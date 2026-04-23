@@ -270,8 +270,7 @@
 
 .active,
 .tabBtn.active,
-.tabContent.active,
-.companyEdit.active {
+.tabContent.active {
   display: block;
 }
 
@@ -301,50 +300,6 @@
 .tabContent {
   display: none;
   animation: fadeIn 0.3s ease;
-}
-
-.companyEdit {
-  display: none;
-}
-
-.formSection {
-  margin-bottom: 36px;
-  padding-bottom: 36px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.formSection:last-of-type {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.sectionHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid $borderMuted;
-}
-
-.sectionIcon {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg,
-      rgba($primary, 0.12) 0%,
-      rgba($secondary, 0.07) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $primary;
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
 }
 
 .form {
@@ -384,16 +339,6 @@
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
   }
-}
-
-.formField {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.fullWidth {
-  grid-column: 1 / -1;
 }
 
 .formSectionLabel {
@@ -452,45 +397,13 @@
   }
 }
 
-.fieldSelect {
-  appearance: none;
-  padding-right: 2rem;
-}
-
-.fieldTextarea {
-  min-height: 120px;
-  height: auto;
-  resize: vertical;
-  padding: 0.85rem;
-}
-
-.selectWrapper {
-  position: relative;
-}
-
-.selectArrow {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: $textMuted;
-  font-size: 12px;
-}
-
-.fieldNote {
-  font-size: 12px;
-  color: $textMuted;
-}
-
 .fieldError {
   font-size: 0.72rem !important;
   color: #dc2626 !important;
   margin: 0 !important;
 }
 
-.formActions,
-.formFooter {
+.formActions {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -502,31 +415,6 @@
     flex-direction: column;
     align-items: stretch;
   }
-}
-
-.btnOutline,
-.btnFilled {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btnOutline {
-  border: 1px solid $borderMuted;
-  background: #fff;
-  color: $textMuted;
-}
-
-.btnFilled {
-  border: 1px solid transparent;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: #fff;
 }
 
 .readView {
@@ -586,61 +474,110 @@
 }
 
 .actionCard {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: #fff;
-  border: 1.5px solid $borderMuted;
+  width: 100%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(248, 252, 255, 0.95)),
+    radial-gradient(circle at 8% 18%, rgba(14, 165, 233, 0.12), transparent 45%),
+    radial-gradient(circle at 92% 84%, rgba(56, 189, 248, 0.1), transparent 42%);
+  border: 1px solid rgba(14, 165, 233, 0.24);
   border-radius: 1rem;
-  padding: 1.25rem;
+  padding: 1.05rem 1.15rem;
   cursor: pointer;
   text-align: left;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 10px rgba($secondary, 0.05);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background-position 0.22s ease;
+  box-shadow:
+    0 10px 24px rgba(2, 132, 199, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.36) 46%,
+      transparent 70%
+    );
+    transform: translateX(-115%);
+    transition: transform 0.45s ease;
+    z-index: -1;
+  }
 }
 
 .actionCard:hover:not(:disabled) {
-  border-color: $primary;
-  box-shadow: 0 6px 20px rgba($primary, 0.12);
-  transform: translateY(-2px);
+  border-color: rgba(2, 132, 199, 0.6);
+  box-shadow:
+    0 14px 28px rgba(2, 132, 199, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  transform: translateY(-3px);
+
+  &::after {
+    transform: translateX(110%);
+  }
+}
+
+.actionCard:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(14, 165, 233, 0.18),
+    0 14px 28px rgba(2, 132, 199, 0.18);
 }
 
 .actionCardDisabled,
 .actionCard:disabled {
-  opacity: 0.5;
+  opacity: 0.62;
   cursor: not-allowed;
+  filter: saturate(0.7);
   transform: none !important;
 }
 
 .actionCardIcon {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba($primary, 0.12) 0%, rgba($primary, 0.05) 100%);
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #0ea5e9, #0284c7);
+  border: 1px solid rgba(255, 255, 255, 0.56);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $primary;
+  color: #fff;
+  box-shadow:
+    0 8px 16px rgba(2, 132, 199, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 }
 
 .actionCardTitle {
   display: block;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: $text;
-  margin-bottom: 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #0c1929;
+  margin-bottom: 0.2rem;
 }
 
 .actionCardDesc {
   display: block;
-  font-size: 0.75rem;
-  color: $textMuted;
+  font-size: 0.78rem;
+  color: #476a90;
+  line-height: 1.4;
 }
 
 .securityOverview {
@@ -806,15 +743,6 @@
 
   .formGrid {
     grid-template-columns: 1fr;
-  }
-
-  .formFooter {
-    flex-direction: column;
-  }
-
-  .btnOutline,
-  .btnFilled {
-    width: 100%;
   }
 
   .securityCard {

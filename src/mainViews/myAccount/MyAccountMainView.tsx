@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Select, { SingleValue } from "react-select";
@@ -10,17 +10,9 @@ import {
   FaCamera,
   FaEnvelope,
   FaUser,
-  FaBuilding,
   FaLock,
   FaPaperPlane,
   FaKey,
-  FaInfoCircle,
-  FaChevronDown,
-  FaUsers,
-  FaIndustry,
-  FaGlobe,
-  FaCheck,
-  FaTimes,
   FaUserCircle,
   FaCheckCircle,
 } from 'react-icons/fa';
@@ -175,27 +167,6 @@ const MyAccountMainView = () => {
     { id: 'personal', label: 'Personal Info', icon: <FaUser /> },
     { id: 'security', label: 'Security', icon: <FaLock /> },
   ];
-
-  // Company State
-  const [isEditingCompany, setIsEditingCompany] = useState(false);
-  const [companyForm, setCompanyForm] = useState({
-    name: 'PowerScrews Inc.',
-    website: 'https://powerscrews.com',
-    industry: 'tech',
-    size: 'small',
-    description: 'Leading provider of industrial fastening solutions and specialized hardware.',
-  });
-
-  // Handlers
-  const handleCompanyChange = (field: string, value: string) => {
-    setCompanyForm(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleCompanySubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsEditingCompany(false);
-    console.log('Saving company info:', companyForm);
-  };
 
   return (
     <div className={styles.page}>
@@ -550,127 +521,6 @@ const MyAccountMainView = () => {
                 </div>
               </button>
             )}
-          </div>
-
-          {/* ========== COMPANY DETAILS TAB ========== */}
-          <div className={classNames(styles.tabContent, {
-            [styles.active]: activeTab === 'company'
-          })} id="companyTab">
-            {/* Edit Form */}
-            <div className={classNames(styles.companyEdit, {
-              [styles.active]: isEditingCompany
-            })} id="companyEdit" style={{ display: isEditingCompany ? 'block' : 'none' }}>
-              <form id="companyForm" onSubmit={handleCompanySubmit}>
-                <div className={styles.formSection}>
-                  <div className={styles.sectionHeader}>
-                    <div className={styles.sectionIcon}>
-                      <FaBuilding />
-                    </div>
-                    <div>
-                      <h4>Edit Company Information</h4>
-                      <p>Update your business organization details</p>
-                    </div>
-                  </div>
-                  <div className={styles.formGrid}>
-                    <div className={styles.formField}>
-                      <label className={styles.fieldLabel}>
-                        <FaBuilding />
-                        Company Name
-                      </label>
-                      <input
-                        type="text"
-                        className={styles.fieldInput}
-                        value={companyForm.name}
-                        placeholder="Company Name"
-                        onChange={(e) => handleCompanyChange('name', e.target.value)}
-                      />
-                    </div>
-                    <div className={styles.formField}>
-                      <label className={styles.fieldLabel}>
-                        <FaGlobe />
-                        Company Website
-                      </label>
-                      <input
-                        type="url"
-                        className={styles.fieldInput}
-                        value={companyForm.website}
-                        placeholder="https://company.com"
-                        onChange={(e) => handleCompanyChange('website', e.target.value)}
-                      />
-                    </div>
-                    <div className={styles.formField}>
-                      <label className={styles.fieldLabel}>
-                        <FaIndustry />
-                        Industry
-                      </label>
-                      <div className={styles.selectWrapper}>
-                        <select
-                          className={classNames(styles.fieldInput, styles.fieldSelect)}
-                          value={companyForm.industry}
-                          onChange={(e) => handleCompanyChange('industry', e.target.value)}
-                        >
-                          <option value="" disabled>Select industry</option>
-                          <option value="tech">Technology</option>
-                          <option value="marketing">Marketing</option>
-                          <option value="healthcare">Healthcare</option>
-                          <option value="finance">Finance</option>
-                        </select>
-                        <FaChevronDown className={styles.selectArrow} />
-                      </div>
-                    </div>
-                    <div className={styles.formField}>
-                      <label className={styles.fieldLabel}>
-                        <FaUsers />
-                        Company Size
-                      </label>
-                      <div className={styles.selectWrapper}>
-                        <select
-                          className={classNames(styles.fieldInput, styles.fieldSelect)}
-                          value={companyForm.size}
-                          onChange={(e) => handleCompanyChange('size', e.target.value)}
-                        >
-                          <option value="" disabled>Select size</option>
-                          <option value="small">1-50 employees</option>
-                          <option value="medium">51-200 employees</option>
-                          <option value="large">201-500 employees</option>
-                          <option value="enterprise">500+ employees</option>
-                        </select>
-                        <FaChevronDown className={styles.selectArrow} />
-                      </div>
-                    </div>
-                    <div className={classNames(styles.formField, styles.fullWidth)}>
-                      <label className={styles.fieldLabel}>
-                        <FaInfoCircle />
-                        Company Description
-                      </label>
-                      <textarea
-                        className={classNames(styles.fieldInput, styles.fieldTextarea)}
-                        placeholder="Brief description of your company..."
-                        value={companyForm.description}
-                        onChange={(e) => handleCompanyChange('description', e.target.value)}
-                      />
-                      <span className={styles.fieldNote}>Optional - helps us serve you better</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.formFooter}>
-                  <button
-                    type="button"
-                    className={styles.btnOutline}
-                    id="cancelEditBtn"
-                    onClick={() => setIsEditingCompany(false)}
-                  >
-                    <FaTimes />
-                    <span>Cancel</span>
-                  </button>
-                  <button type="submit" className={styles.btnFilled}>
-                    <FaCheck />
-                    <span>Save Company Info</span>
-                  </button>
-                </div>
-              </form>
-            </div>
           </div>
 
           {/* ========== SECURITY TAB ========== */}
