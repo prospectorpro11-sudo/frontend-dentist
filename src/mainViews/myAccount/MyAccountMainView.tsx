@@ -176,6 +176,8 @@ const MyAccountMainView = () => {
         title="My Account"
         description="Manage your profile information and account settings"
         activeBadge
+        icon={FaUserCircle}
+        iconSize={22}
       />
       <div className={styles.accountMainCard}>
         <div className={styles.profileOverview}>

@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 import Button from "@/components/button/Button";
 import { useRootContext } from "@/contexts/RootContext";
 import { triggerForm } from "@/shared/InternalService";
-import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import { BUTTON_VARIANT_ENUM, COLORS_ENUM } from "@/shared/enums";
 import {
   getSupportChatHistoryPaginated,
   getSupportChatMessages,
@@ -21,6 +21,8 @@ import {
 } from "@/services/supportChat";
 import { getSupportGuestSession, setSupportGuestSession, SupportGuestSession } from "@/services/tokenService";
 import styles from "./supportMainView.module.scss";
+import DashboardPageHeader from "@/components/dashboardPageHeader/DashboardPageHeader";
+import { FaHeadphonesSimple } from "react-icons/fa6";
 
 dayjs.extend(relativeTime);
 
@@ -252,6 +254,17 @@ const SupportMainView = () => {
 
   return (
     <div className={styles.supportPage}>
+      <DashboardPageHeader
+        icon={FaHeadphonesSimple}
+        title="Help Center"
+        description="We're here to help! Submit a ticket or browse our knowledge base"
+        stats={[
+          { label: "Open Tickets", value: "3", color: COLORS_ENUM.SKY_BLUE },
+          { label: "Resolved", value: "3", color: COLORS_ENUM.EMERALD },
+          { label: "Avg Response", value: "3", color: COLORS_ENUM.INDIGO },
+        ]}
+        iconSize={22}
+      />
       <div className={styles.pageHeader}>
         <div>
           <span className={styles.kicker}>Support Chat</span>

@@ -1,8 +1,9 @@
 import classNames from "classnames";
+import { IconType } from "react-icons";
 import { COLORS_ENUM } from "@/shared/enums";
+import { FaCheckCircle } from "react-icons/fa";
 import styles from "./dashboardPageHeader.module.scss";
 import { numberWithCommas } from "@/shared/InternalService";
-import { FaCheckCircle, FaUserCircle } from "react-icons/fa";
 interface IStat {
     label: string;
     value: string;
@@ -14,9 +15,11 @@ interface IDashboardPageHeader {
     description?: string;
     activeBadge?: boolean;
     stats?: IStat[];
+    icon?: IconType;
+    iconSize?: number;
 }
 const DashboardPageHeader = (props: IDashboardPageHeader) => {
-    const { title, description, activeBadge, stats } = props;
+    const { title, description, activeBadge, stats, icon: HeaderIcon, iconSize = 20 } = props;
     const getColor = {
         [COLORS_ENUM.SKY_BLUE]: "#0EA5E9",
         [COLORS_ENUM.EMERALD]: "#10B981",
@@ -35,9 +38,11 @@ const DashboardPageHeader = (props: IDashboardPageHeader) => {
     return (
         <div className={styles.pageHeader}>
             <div className={styles.headerLeft}>
-                <div className={styles.pageIcon}>
-                    <FaUserCircle />
-                </div>
+                {HeaderIcon && (
+                    <div className={styles.pageIcon}>
+                        <HeaderIcon size={iconSize} />
+                    </div>
+                )}
                 <div className={styles.pageInfo}>
                     <h2>{title}</h2>
                     <p className={styles.pageSubtitle}>{description}</p>
