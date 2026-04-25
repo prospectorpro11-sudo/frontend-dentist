@@ -8,6 +8,7 @@ interface IStat {
     label: string;
     value: string;
     color?: COLORS_ENUM;
+    isPrice?: boolean;
 }
 
 interface IDashboardPageHeader {
@@ -63,7 +64,7 @@ const DashboardPageHeader = (props: IDashboardPageHeader) => {
                                 )}, 0.2)`,
                             }}
                         >
-                            <div style={{ color: getColor[stat.color || COLORS_ENUM.SKY_BLUE] }} className={styles.statValue}>{numberWithCommas(stat.value)}</div>
+                            <div style={{ color: getColor[stat.color || COLORS_ENUM.SKY_BLUE] }} className={styles.statValue}>{stat.isPrice && "$"}{numberWithCommas(stat.value)}</div>
                             <div className={styles.statLabel}>{stat.label}</div>
                         </div>
                     ))}

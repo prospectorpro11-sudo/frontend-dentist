@@ -2,12 +2,15 @@
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import styles from "./style.module.scss";
 import instance from "../../services/baseServices";
 import { useRootContext } from "@/contexts/RootContext";
 import { AddToCart, triggerForm } from "@/shared/InternalService";
+import DashboardPageHeader from "@/components/dashboardPageHeader/DashboardPageHeader";
+import { FaDownload } from "react-icons/fa";
+import { COLORS_ENUM } from "@/shared/enums";
 
 const AllDownloadsMainView = () => {
   const { currentCartItem, setCurrentCartItem } = useRootContext();
@@ -56,8 +59,38 @@ const AllDownloadsMainView = () => {
     router.push("/checkout");
   };
 
+  const allDownloadItems = useMemo(
+    () =>
+      fullDownloadList.flatMap(
+        (item: any) => item?.orderList || [],
+      ),
+    [fullDownloadList],
+  );
+
+  const activeDownloadsCount = useMemo(
+    () =>
+      allDownloadItems.filter((item: any) => {
+        const hasLink = !!item?.signedUrl;
+        const isExpired = dayjs(item?.expireDate).isBefore(dayjs());
+        return hasLink && !isExpired;
+      }).length,
+    [allDownloadItems],
+  );
+
   return (
     <div className={styles.wrapper}>
+      <DashboardPageHeader
+        title={"My Downloads"}
+        description={"Manage and access your purchased products"}
+        icon={FaDownload}
+        stats={
+          [
+            { label: "Total Downloads", value: allDownloadItems.length.toString(), color: COLORS_ENUM.SKY_BLUE },
+            {
+              label: "Active", value: activeDownloadsCount.toString(), color: COLORS_ENUM.EMERALD
+            }]
+        }
+      />
       <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>

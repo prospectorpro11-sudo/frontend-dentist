@@ -5,6 +5,9 @@ import classNames from "classnames";
 import { useMemo } from "react";
 
 import styles from "./paymentHistoryTable.module.scss";
+import DashboardPageHeader from "../dashboardPageHeader/DashboardPageHeader";
+import { FaFileInvoiceDollar } from "react-icons/fa";
+import { COLORS_ENUM } from "@/shared/enums";
 
 export type PaymentFilterItem = {
     field: string;
@@ -99,14 +102,36 @@ const PaymentHistoryTable = ({
         return record.paymentMethod || "--";
     };
 
+    const totalSpent = useMemo(
+        () => (records || []).reduce((sum, record) => sum + (record.totalAmount || 0), 0),
+        [records]
+    );
+
+    const approvedCount = useMemo(
+        () =>
+            (records || []).filter((record) => {
+                const normalized = record.status?.toLowerCase();
+                return normalized === "paid" || normalized === "completed" || normalized === "success";
+            }).length,
+        [records]
+    );
+
     return (
         <div className={classNames(styles.wrapper, className)}>
-            <div className={styles.header}>
-                <div>
-                    <h2>{title}</h2>
-                    <p>{subtitle}</p>
-                </div>
-            </div>
+            <DashboardPageHeader
+                title={title}
+                description={subtitle}
+                icon={FaFileInvoiceDollar}
+                stats={
+                    [
+                        { label: "Total Payments", value: ((records || []).length || 0).toString(), color: COLORS_ENUM.SKY_BLUE },
+                        {
+                            label: "Total Spent", value: totalSpent.toString(), isPrice: true, color: COLORS_ENUM.EMERALD
+                        },
+                        { label: "Approved", value: approvedCount.toString(), color: COLORS_ENUM.INDIGO }
+                    ]
+                }
+            />
 
             {authLoading ? (
                 <div className={styles.stateCard}>{checkingMessage}</div>
