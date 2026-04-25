@@ -55,6 +55,35 @@ const AllDownloadsMainView = () => {
         {
           orderList: [
             {
+              name: "5,539,978 Custom Nurse List (Complete List)",
+              expireDate: "2026-05-28T15:45:00.000Z",
+              signedUrl: "https://example.com/download/nurse-list-complete",
+              orderInfo: {
+                currentCartItem: [
+                  {
+                    url: "https://example.com/download/nurse-list-complete",
+                    uniqueNPI: "NUR123456",
+                    price: 299.99,
+                    productName: "5,539,978 Custom Nurse List (Complete List)"
+                  }
+                ]
+              },
+              filters: {
+                states: ["All USA"],
+                countStates: 50,
+                cities: [{ name: "All Cities", count: 10000 }],
+                countCities: 10000,
+                zips: [{ name: "All Zip Codes", count: 5000 }],
+                countZips: 5000,
+                gender: ["Male", "Female"],
+                countGender: 2,
+                specialization: ["All Nurses"],
+                countSpecialization: 1,
+                licenseStates: ["All States"],
+                countLicense: 50
+              }
+            },
+            {
               name: "114,780 Custom Doctor List (State: AZ;CA, City: AK=chugiak-anchorage-ak;AK=indian-anchorage-ak, Zip: 02446-5587;02114-3002;01960-7901, Specialization: All Physicians, Gender: Male;Female, LicenseState: CT;AZ;CA)",
               expireDate: "2026-05-28T15:45:00.000Z",
               signedUrl: "https://example.com/download/texas-dental-list",
@@ -260,6 +289,10 @@ const AllDownloadsMainView = () => {
     return 'active';
   };
 
+  const isCompleteList = (item: any) => {
+    return item?.name?.includes('(Complete List)');
+  };
+
   const filteredItems = useMemo(() => {
     let items = allDownloadItems;
 
@@ -386,67 +419,73 @@ const AllDownloadsMainView = () => {
                 return (
                   <React.Fragment key={index}>
                     <tr className={`${styles.downloadRow} ${isExpanded ? styles.expanded : ''}`} data-status={status}>
-                      <td className={styles.nameCell}>
-                        <div className={styles.productHeader}>
-                          <div className={`${styles.fileIcon} ${styles[fileColor]}`}>
-                            <FileIcon />
-                          </div>
-                          <div className={styles.fileInfo}>
-                            <div className={styles.fileName}>{item?.name}</div>
-                            <div className={styles.fileMeta}>
-                              {item?.filters?.states && item.filters.states[0] !== 'All USA' && (
-                                <span className={styles.metaTag}>
-                                  <FaMapMarkerAlt /> {item.filters.states.slice(0, 3).join(', ')}
-                                  {item.filters.states.length > 3 && ` +${item.filters.states.length - 3} more`}
-                                </span>
-                              )}
-                              {item?.filters?.gender && (
-                                <span className={styles.metaTag}>
-                                  <FaVenusMars /> {item.filters.gender.join(', ')}
-                                </span>
-                              )}
-                              {item?.filters?.specialization && (
-                                <span className={styles.metaTag}>
-                                  <FaStethoscope /> {item.filters.specialization[0]}
-                                </span>
-                              )}
-                              {item?.filters?.licenseStates && (
-                                <span className={styles.metaTag}>
-                                  <FaIdCard /> {item.filters.licenseStates.slice(0, 2).join(', ')}
-                                  {item.filters.licenseStates.length > 2 && ` +${item.filters.licenseStates.length - 2}`}
-                                </span>
-                              )}
-                            </div>
-                            <div className={styles.filterPreview}>
-                              <span className={`${styles.filterDot} ${styles.states}`} title={`States: ${item.filters.countStates}`}>
-                                S:{item.filters.countStates}
-                              </span>
-                              <span className={`${styles.filterDot} ${styles.cities}`} title={`Cities: ${item.filters.countCities}`}>
-                                C:{item.filters.countCities}
-                              </span>
-                              <span className={`${styles.filterDot} ${styles.zips}`} title={`Zip codes: ${item.filters.countZips}`}>
-                                Z:{item.filters.countZips}
-                              </span>
-                              <span className={`${styles.filterDot} ${styles.gender}`} title={`Gender: ${item.filters.countGender}`}>
-                                G:{item.filters.countGender}
-                              </span>
-                              <span className={`${styles.filterDot} ${styles.specialty}`} title={`Specialization: ${item.filters.countSpecialization}`}>
-                                SP:{item.filters.countSpecialization}
-                              </span>
-                              <span className={`${styles.filterDot} ${styles.license}`} title={`License States: ${item.filters.countLicense}`}>
-                                L:{item.filters.countLicense}
-                              </span>
-                            </div>
-                          </div>
-                          <button
-                            className={`${styles.expandBtn} ${isExpanded ? styles.active : ''}`}
-                            onClick={() => toggleExpand(index)}
-                            title="View filter details"
-                          >
-                            {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
-                          </button>
-                        </div>
-                      </td>
+                       <td className={styles.nameCell}>
+                         <div className={styles.productHeader}>
+                           <div className={`${styles.fileIcon} ${styles[fileColor]}`}>
+                             <FileIcon />
+                           </div>
+                           <div className={styles.fileInfo}>
+                             <div className={styles.fileName}>{item?.name}</div>
+                             {!isCompleteList(item) && (
+                               <>
+                                 <div className={styles.fileMeta}>
+                                   {item?.filters?.states && item.filters.states[0] !== 'All USA' && (
+                                     <span className={styles.metaTag}>
+                                       <FaMapMarkerAlt /> {item.filters.states.slice(0, 3).join(', ')}
+                                       {item.filters.states.length > 3 && ` +${item.filters.states.length - 3} more`}
+                                     </span>
+                                   )}
+                                   {item?.filters?.gender && (
+                                     <span className={styles.metaTag}>
+                                       <FaVenusMars /> {item.filters.gender.join(', ')}
+                                     </span>
+                                   )}
+                                   {item?.filters?.specialization && (
+                                     <span className={styles.metaTag}>
+                                       <FaStethoscope /> {item.filters.specialization[0]}
+                                     </span>
+                                   )}
+                                   {item?.filters?.licenseStates && (
+                                     <span className={styles.metaTag}>
+                                       <FaIdCard /> {item.filters.licenseStates.slice(0, 2).join(', ')}
+                                       {item.filters.licenseStates.length > 2 && ` +${item.filters.licenseStates.length - 2}`}
+                                     </span>
+                                   )}
+                                 </div>
+                                 <div className={styles.filterPreview}>
+                                   <span className={`${styles.filterDot} ${styles.states}`} title={`States: ${item.filters.countStates}`}>
+                                     S:{item.filters.countStates}
+                                   </span>
+                                   <span className={`${styles.filterDot} ${styles.cities}`} title={`Cities: ${item.filters.countCities}`}>
+                                     C:{item.filters.countCities}
+                                   </span>
+                                   <span className={`${styles.filterDot} ${styles.zips}`} title={`Zip codes: ${item.filters.countZips}`}>
+                                     Z:{item.filters.countZips}
+                                   </span>
+                                   <span className={`${styles.filterDot} ${styles.gender}`} title={`Gender: ${item.filters.countGender}`}>
+                                     G:{item.filters.countGender}
+                                   </span>
+                                   <span className={`${styles.filterDot} ${styles.specialty}`} title={`Specialization: ${item.filters.countSpecialization}`}>
+                                     SP:{item.filters.countSpecialization}
+                                   </span>
+                                   <span className={`${styles.filterDot} ${styles.license}`} title={`License States: ${item.filters.countLicense}`}>
+                                     L:{item.filters.countLicense}
+                                   </span>
+                                 </div>
+                               </>
+                             )}
+                           </div>
+                           {!isCompleteList(item) && (
+                             <button
+                               className={`${styles.expandBtn} ${isExpanded ? styles.active : ''}`}
+                               onClick={() => toggleExpand(index)}
+                               title="View filter details"
+                             >
+                               {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
+                             </button>
+                           )}
+                         </div>
+                       </td>
                       <td className={styles.expireCell}>
                         <div className={styles.dateMain}>
                           {dayjs(item?.expireDate).format("YYYY-MM-DD")}
@@ -497,7 +536,7 @@ const AllDownloadsMainView = () => {
                         )}
                       </td>
                     </tr>
-                    {isExpanded && item?.filters && (
+                     {isExpanded && item?.filters && !isCompleteList(item) && (
                       <tr className={styles.detailRow}>
                         <td colSpan={4}>
                           <div className={styles.filterBreakdown}>
