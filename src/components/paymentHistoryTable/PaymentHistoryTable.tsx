@@ -100,7 +100,7 @@ const PaymentHistoryTable = ({
     };
 
     return (
-        <section className={classNames(styles.wrapper, className)}>
+        <div className={classNames(styles.wrapper, className)}>
             <div className={styles.header}>
                 <div>
                     <h2>{title}</h2>
@@ -170,7 +170,7 @@ const PaymentHistoryTable = ({
                     </div>
                 </div>
             )}
-        </section>
+        </div>
     );
 };
 

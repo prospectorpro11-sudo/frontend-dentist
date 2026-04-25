@@ -2,11 +2,11 @@
 @use "styles/mixins" as *;
 
 .wrapper {
-    padding: 24px 28px 32px;
+    // padding: 24px 28px 32px;
 
-    @include breakpoint(mobile) {
-        padding: 18px 16px 24px;
-    }
+    // @include breakpoint(mobile) {
+    //     padding: 18px 16px 24px;
+    // }
 }
 
 .header {
