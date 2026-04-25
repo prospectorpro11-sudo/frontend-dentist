@@ -22,7 +22,7 @@ import {
 import { getSupportGuestSession, setSupportGuestSession, SupportGuestSession } from "@/services/tokenService";
 import styles from "./supportMainView.module.scss";
 import DashboardPageHeader from "@/components/dashboardPageHeader/DashboardPageHeader";
-import { FaHeadphonesSimple } from "react-icons/fa6";
+import { FaHeadphonesSimple, FaPaperPlane } from "react-icons/fa6";
 
 dayjs.extend(relativeTime);
 
@@ -280,62 +280,73 @@ const SupportMainView = () => {
 
       {showStartFormOnly ? (
         <section className={styles.startCard}>
-          <h4>Start a support chat</h4>
-          <p>Share your issue and we will reply in this thread.</p>
-
-          <div className={styles.formGrid}>
-            <Form.Group className={styles.formGroup}>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                className={styles.formControl}
-                value={startName}
-                onChange={(event) => setStartName(event.target.value)}
-                placeholder="Emma Taylor"
-              />
-            </Form.Group>
-
-            <Form.Group className={styles.formGroup}>
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                className={styles.formControl}
-                type="email"
-                value={startEmail}
-                onChange={(event) => setStartEmail(event.target.value)}
-                placeholder="emmataylor7@example.com"
-              />
-            </Form.Group>
+          <div className={styles.cardHeader}>
+            <div className={styles.headerIcon}>
+              <FaPaperPlane />
+            </div>
+            <div className={styles.headerText}>
+              <h4>Start a support chat</h4>
+              <p>Share your issue and we will reply in this thread.</p>
+            </div>
           </div>
+          <div className={styles.cardContent}>
+            <h4>Start a support chat</h4>
+            <p>Share your issue and we will reply in this thread.</p>
 
-          <Form.Group className={styles.formGroup}>
-            <Form.Label>Topic</Form.Label>
-            <Form.Select className={styles.formControl} value={startSubject} onChange={(event) => setStartSubject(event.target.value)}>
-              {SUPPORT_SUBJECTS.map((subject) => (
-                <option key={subject}>{subject}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
+            <div className={styles.formGrid}>
+              <Form.Group className={styles.formGroup}>
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  className={styles.formControl}
+                  value={startName}
+                  onChange={(event) => setStartName(event.target.value)}
+                  placeholder="Emma Taylor"
+                />
+              </Form.Group>
 
-          <Form.Group className={styles.formGroup}>
-            <Form.Label>Message</Form.Label>
-            <Form.Control
-              as="textarea"
-              className={styles.formControl}
-              rows={5}
-              value={startMessage}
-              onChange={(event) => setStartMessage(event.target.value)}
-              placeholder="Tell us what is happening and what you need help with."
-            />
-          </Form.Group>
+              <Form.Group className={styles.formGroup}>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  className={styles.formControl}
+                  type="email"
+                  value={startEmail}
+                  onChange={(event) => setStartEmail(event.target.value)}
+                  placeholder="emmataylor7@example.com"
+                />
+              </Form.Group>
+            </div>
 
-          <div className={styles.startActions}>
-            <Button
-              variant={BUTTON_VARIANT_ENUM.ACTION}
-              onClick={validateAndStartChat}
-              disabled={startChatMutation.isPending}
-              isLoading={startChatMutation.isPending}
-            >
-              Start Chat
-            </Button>
+            <Form.Group className={styles.formGroup}>
+              <Form.Label>Topic</Form.Label>
+              <Form.Select className={styles.formControl} value={startSubject} onChange={(event) => setStartSubject(event.target.value)}>
+                {SUPPORT_SUBJECTS.map((subject) => (
+                  <option key={subject}>{subject}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className={styles.formGroup}>
+              <Form.Label>Message</Form.Label>
+              <Form.Control
+                as="textarea"
+                className={styles.formControl}
+                rows={5}
+                value={startMessage}
+                onChange={(event) => setStartMessage(event.target.value)}
+                placeholder="Tell us what is happening and what you need help with."
+              />
+            </Form.Group>
+
+            <div className={styles.startActions}>
+              <Button
+                variant={BUTTON_VARIANT_ENUM.ACTION}
+                onClick={validateAndStartChat}
+                disabled={startChatMutation.isPending}
+                isLoading={startChatMutation.isPending}
+              >
+                Start Chat
+              </Button>
+            </div>
           </div>
         </section>
       ) : (
