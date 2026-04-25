@@ -12,6 +12,8 @@ import {
     FaTooth,
     FaUserCircle,
     FaUsers,
+    FaHeadset,
+    FaSearch,
 } from "react-icons/fa";
 import { FaMagnifyingGlassLocation, FaUser } from "react-icons/fa6";
 
@@ -36,34 +38,34 @@ type DashboardUserMenuItem = DropdownItem;
 const defaultMenuItems: DashboardMenuItem[] = [
     {
         label: "Prospector",
-        href: "#",
-        icon: <FaMagnifyingGlassLocation />,
+        href: "/prospector",
+        icon: <FaSearch />,
         active: true,
     },
     {
-        label: "Dashboard",
-        href: "#",
-        icon: <FaChartPie />,
-    },
-    {
-        label: "Contacts",
-        href: "#",
-        icon: <FaUsers />,
-    },
-    {
         label: "My Downloads",
-        href: "#",
+        href: "/my-downloads",
         icon: <FaDownload />,
     },
     {
         label: "Orders",
-        href: "#",
+        href: "/orders",
         icon: <FaBox />,
     },
     {
         label: "Billing",
-        href: "#",
+        href: "/billing",
         icon: <FaFileInvoiceDollar />,
+    },
+    {
+        label: "My Account",
+        href: "/my-account",
+        icon: <FaUserCircle />,
+    },
+    {
+        label: "Support",
+        href: "/support",
+        icon: <FaHeadset />,
     },
 ];
 
@@ -143,7 +145,6 @@ export default function DashboardLayout({
                     <div className={styles.logoMark}><i aria-hidden="true"><FaTooth /></i></div>
                     <div className={styles.logoLabel}>Dentist<i>Email List</i></div>
                 </div>
-                <div className={styles.sideLabel}>Main Menu</div>
                 <nav className={styles.sideNav}>
                     {menuItems.map((item) => (
                         <a

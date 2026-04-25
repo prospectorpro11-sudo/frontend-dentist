@@ -215,17 +215,6 @@
     text-transform: uppercase;
 }
 
-.sideLabel {
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.6px;
-    color: var(--n6);
-    padding: 16px 14px 6px;
-    position: relative;
-    z-index: 1;
-}
-
 .sideNav {
     flex: 1;
     display: flex;
@@ -234,6 +223,7 @@
     position: relative;
     z-index: 1;
     padding: 0 10px;
+    padding-top: 1rem;
 }
 
 .sideNav a {
