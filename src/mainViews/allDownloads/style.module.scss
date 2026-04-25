@@ -1,0 +1,181 @@
+@use "sass:color";
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
+.wrapper {
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1.5px solid $borderMuted;
+  box-shadow: 0 4px 24px rgba($secondary, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+  background: #fff;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+
+  thead tr {
+    background: $white;
+
+    th {
+      color: $text;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid #e5ebf3;
+
+      &:first-child {
+        border-top-left-radius: calc(1rem - 1.5px);
+      }
+
+      &:last-child {
+        border-top-right-radius: calc(1rem - 1.5px);
+      }
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $borderMuted;
+    transition: background 0.18s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: rgba($primary, 0.035);
+    }
+  }
+
+  tbody td {
+    padding: 1rem 1.25rem;
+    color: $text;
+    vertical-align: middle;
+
+    @include breakpoint(tablet) {
+      padding: 0.85rem 1rem;
+    }
+  }
+}
+
+.nameCell {
+  font-weight: 600;
+  color: $text !important;
+  max-width: 260px;
+
+  @include breakpoint(tablet) {
+    max-width: 160px;
+    word-break: break-word;
+  }
+}
+
+.dateCell {
+  color: $textMuted !important;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 0.28rem 0.75rem;
+  white-space: nowrap;
+}
+
+.badgeActive {
+  background: rgba($primary, 0.1);
+  color: $primaryDark;
+}
+
+.badgeExpired {
+  background: rgba(#ef4444, 0.1);
+  color: #dc2626;
+}
+
+.badgeBuilding {
+  background: rgba($warning, 0.12);
+  color: color.adjust($warning, $lightness: -22%);
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btnDownload {
+  background: linear-gradient(90deg, $primary 0%, color.adjust($primary, $lightness: 8%) 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba($primary, 0.28);
+
+  &:hover {
+    box-shadow: 0 5px 14px rgba($primary, 0.4);
+  }
+}
+
+.btnRenew {
+  background: linear-gradient(90deg, $secondary 0%, color.adjust($secondary, $lightness: 8%) 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba($secondary, 0.22);
+
+  &:hover {
+    box-shadow: 0 5px 14px rgba($secondary, 0.35);
+  }
+}
+
+.buildingMsg {
+  font-size: 0.78rem;
+  color: $textMuted;
+  line-height: 1.5;
+
+  a {
+    color: $primary;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.stateCell {
+  text-align: center !important;
+  color: $textMuted !important;
+  padding: 3rem 1rem !important;
+  font-size: 0.9rem;
+}
