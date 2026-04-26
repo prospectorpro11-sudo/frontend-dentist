@@ -23,6 +23,7 @@ import DropdownMenu, { type DropdownItem } from "@/components/dropdownMenu/Dropd
 import styles from "./dashboardLayout.module.scss";
 import { IoCaretDown } from "react-icons/io5";
 import { useRootContext } from "@/contexts/RootContext";
+import LogoIcon from "@/components/logoIcon/LogoIcon";
 
 type DashboardContentMode = "scrollable" | "static";
 
@@ -164,10 +165,10 @@ export default function DashboardLayout({
                     [styles.sidebarOpen]: isMenuOpen,
                 })}
             >
-                <div className={styles.sideLogo}>
-                    <div className={styles.logoMark}><i aria-hidden="true"><FaTooth /></i></div>
+                <a href="/" className={styles.sideLogo}>
+                    <LogoIcon width={42} height={42} variant="white" alt="Dentist Email List Logo" />
                     <div className={styles.logoLabel}>Dentist<i>Email List</i></div>
-                </div>
+                </a>
                 <nav className={styles.sideNav}>
                     {navItemsWithActiveState.map((item) => (
                         <a
