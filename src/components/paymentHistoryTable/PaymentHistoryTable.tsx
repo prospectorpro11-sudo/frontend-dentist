@@ -79,6 +79,17 @@ type PaymentHistoryTableProps = {
     view?: 'orders' | 'billing';
 };
 
+const getStatus = (record: PaymentRecord): 'completed' | 'pending' | 'failed' => {
+    const normalized = record.status?.toLowerCase();
+    if (normalized === "paid" || normalized === "completed" || normalized === "success") {
+        return 'completed';
+    }
+    if (normalized === "failed" || normalized === "cancelled" || normalized === "canceled") {
+        return 'failed';
+    }
+    return 'pending';
+};
+
 const PaymentHistoryTable = ({
     title,
     subtitle,
@@ -303,16 +314,7 @@ const PaymentHistoryTable = ({
         return () => document.removeEventListener('keydown', handleEscape);
     }, [billingModal.visible, closeBillingModal]);
 
-    const getStatus = (record: PaymentRecord) => {
-        const normalized = record.status?.toLowerCase();
-        if (normalized === "paid" || normalized === "completed" || normalized === "success") {
-            return 'completed';
-        }
-        if (normalized === "failed" || normalized === "cancelled" || normalized === "canceled") {
-            return 'failed';
-        }
-        return 'pending';
-    };
+
 
     const getStatusClass = (status?: string) => {
         const normalized = status?.toLowerCase();
@@ -334,7 +336,19 @@ const PaymentHistoryTable = ({
     };
 
     const totalSpent = useMemo(
-        () => (records || []).reduce((sum, record) => sum + (record.totalAmount || 0), 0),
+        () => (records || []).reduce((sum, record) => {
+            // Calculate total from cart items
+            const cartTotal = record.currentCartItem?.reduce((itemSum, item) => {
+                const price = item.price;
+                return itemSum + (typeof price === 'number' && !isNaN(price) ? price : 0);
+            }, 0) || 0;
+
+            // Use totalAmount if available and valid, otherwise use cart total
+            const totalAmount = record.totalAmount;
+            const validTotalAmount = typeof totalAmount === 'number' && !isNaN(totalAmount) && totalAmount > 0 ? totalAmount : 0;
+
+            return sum + (validTotalAmount || cartTotal);
+        }, 0),
         [records]
     );
 
@@ -370,7 +384,7 @@ const PaymentHistoryTable = ({
             return [
                 { label: "Total Payments", value: ((records || []).length || 0).toString(), color: COLORS_ENUM.SKY_BLUE },
                 {
-                    label: "Total Spent", value: formatter.format(totalSpent), isPrice: true, color: COLORS_ENUM.EMERALD
+                    label: "Total Spent", value: totalSpent.toFixed(2), isPrice: true, color: COLORS_ENUM.EMERALD
                 },
                 { label: "Approved", value: approvedCount.toString(), color: COLORS_ENUM.INDIGO }
             ];
