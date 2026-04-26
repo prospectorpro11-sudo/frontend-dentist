@@ -202,7 +202,7 @@
 }
 
 .sideLogo .logoLabel {
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 800;
     color: #fff;
     line-height: 1.2;
@@ -231,9 +231,11 @@
     &::-webkit-scrollbar {
         width: 4px;
     }
+
     &::-webkit-scrollbar-track {
         background: transparent;
     }
+
     &::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.1);
         border-radius: 4px;

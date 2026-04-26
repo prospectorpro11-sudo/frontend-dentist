@@ -117,7 +117,7 @@ export default function DashboardLayout({
     const { loggedInUser } = useRootContext();
 
     const closeMenu = () => setIsMenuOpen(false);
-    
+
     const isProspector = pathname?.startsWith('/prospector');
     const actualContentMode = isProspector ? "static" : "scrollable";
     const activeItem = menuItems.find(item => pathname?.startsWith(item.href)) || menuItems[0];
@@ -166,7 +166,7 @@ export default function DashboardLayout({
                 })}
             >
                 <a href="/" className={styles.sideLogo}>
-                    <LogoIcon width={42} height={42} variant="white" alt="Dentist Email List Logo" />
+                    <LogoIcon width={45} height={45} variant="white" alt="Dentist Email List Logo" style={{ objectFit: "scale-down" }} />
                     <div className={styles.logoLabel}>Dentist<i>Email List</i></div>
                 </a>
                 <nav className={styles.sideNav}>
