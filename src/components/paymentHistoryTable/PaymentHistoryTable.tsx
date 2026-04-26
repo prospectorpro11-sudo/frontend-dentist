@@ -24,6 +24,15 @@ import {
     FaFilter,
     FaInfoCircle,
     FaTimes,
+    FaEye,
+    FaDownload,
+    FaReceipt,
+    FaHashtag,
+    FaCalendar,
+    FaClock,
+    FaCommentDots,
+    FaDollarSign,
+    FaShoppingCart,
 } from "react-icons/fa";
 import { COLORS_ENUM } from "@/shared/enums";
 import LogoIcon from "../logoIcon/LogoIcon";
@@ -90,6 +99,7 @@ const PaymentHistoryTable = ({
     const [filterTooltip, setFilterTooltip] = useState<{ visible: boolean; recordIndex: number; itemIndex: number; filterType: string | null; position: { x: number; y: number } }>({ visible: false, recordIndex: -1, itemIndex: -1, filterType: null, position: { x: 0, y: 0 } });
     const [productInfoTooltip, setProductInfoTooltip] = useState<{ visible: boolean; recordIndex: number; itemIndex: number; position: { x: number; y: number } }>({ visible: false, recordIndex: -1, itemIndex: -1, position: { x: 0, y: 0 } });
     const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [billingModal, setBillingModal] = useState<{ visible: boolean; record: PaymentRecord | null }>({ visible: false, record: null });
 
     // Cleanup timeout on unmount
     useEffect(() => {
@@ -257,6 +267,41 @@ const PaymentHistoryTable = ({
         setFilterTooltip(prev => ({ ...prev, visible: false }));
         setProductInfoTooltip(prev => ({ ...prev, visible: false }));
     }, []);
+
+    const getComments = (record: PaymentRecord) => {
+        const status = getStatus(record);
+        if (status === 'failed') {
+            return 'Payment method declined - insufficient funds';
+        }
+        if (status === 'pending') {
+            return 'Awaiting payment confirmation from bank';
+        }
+        return '-';
+    };
+
+    const handleViewDetails = useCallback((record: PaymentRecord) => {
+        setBillingModal({ visible: true, record });
+    }, []);
+
+    const closeBillingModal = useCallback(() => {
+        setBillingModal({ visible: false, record: null });
+    }, []);
+
+    const handleDownloadInvoice = useCallback(() => {
+        alert('Invoice download would start here');
+    }, []);
+
+    // Handle Escape key to close modal
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && billingModal.visible) {
+                closeBillingModal();
+            }
+        };
+
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [billingModal.visible, closeBillingModal]);
 
     const getStatus = (record: PaymentRecord) => {
         const normalized = record.status?.toLowerCase();
@@ -426,29 +471,54 @@ const PaymentHistoryTable = ({
                     <div className={styles.tableContainer}>
                         <table className={styles.table}>
                             <thead>
-                                <tr>
-                                    <th className={styles.colOrderId}>
-                                        <span>Order ID</span>
-                                        <FaSort className={styles.sortIcon} />
-                                    </th>
-                                    <th className={styles.colProduct}>
-                                        <span>Product</span>
-                                        <FaSort className={styles.sortIcon} />
-                                    </th>
-                                    <th className={styles.colDate}>
-                                        <span>Date</span>
-                                        <FaSort className={styles.sortIcon} />
-                                    </th>
-                                    <th className={styles.colStatus}>
-                                        <span>Status</span>
-                                        <FaSort className={styles.sortIcon} />
-                                    </th>
-                                    <th className={styles.colAmount}>
-                                        <span>Amount</span>
-                                        <FaSort className={styles.sortIcon} />
-                                    </th>
-                                    <th className={styles.colActions}>Actions</th>
-                                </tr>
+                                {view === 'billing' ? (
+                                    <tr>
+                                        <th className={styles.colOrderId}>
+                                            <span>Order ID</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colDate}>
+                                            <span>Date & Time</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colStatus}>
+                                            <span>Payment Status</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colComments}>
+                                            <span>Comments</span>
+                                        </th>
+                                        <th className={styles.colAmount}>
+                                            <span>Amount</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colActions}>Actions</th>
+                                    </tr>
+                                ) : (
+                                    <tr>
+                                        <th className={styles.colOrderId}>
+                                            <span>Order ID</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colProduct}>
+                                            <span>Product</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colDate}>
+                                            <span>Date</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colStatus}>
+                                            <span>Status</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colAmount}>
+                                            <span>Amount</span>
+                                            <FaSort className={styles.sortIcon} />
+                                        </th>
+                                        <th className={styles.colActions}>Actions</th>
+                                    </tr>
+                                )}
                             </thead>
                             <tbody>
                                 {filteredRecords.map((record, recordIndex) => {
@@ -456,130 +526,181 @@ const PaymentHistoryTable = ({
 
                                     return (
                                         <tr key={record.id} className={styles.orderRow} data-status={status}>
-                                            <td className={styles.orderIdCell}>
-                                                <div className={styles.orderId}>#{record.orderId || record.id}</div>
-                                            </td>
-                                            <td className={styles.productCell}>
-                                                {record.currentCartItem?.map((item, itemIndex) => {
-                                                    const parsedFilters = parseFiltersFromName(item.productName || '');
-                                                    const isComplete = isCompleteList(item.productName || '');
-                                                    const productName = extractProductName(item.productName || '');
+                                            {view === 'billing' ? (
+                                                <>
+                                                    <td className={styles.orderIdCell}>
+                                                        <div className={styles.orderId}>#{record.orderId || record.id}</div>
+                                                    </td>
+                                                    <td className={styles.dateCell}>
+                                                        <div className={styles.dateMain}>{formatDate(record.date)}</div>
+                                                        <div className={styles.dateTime}>{formatTime(record.date)}</div>
+                                                    </td>
+                                                    <td className={styles.statusCell}>
+                                                        {status === 'completed' ? (
+                                                            <span className={`${styles.statusBadge} ${styles.completed}`}>
+                                                                <FaCheckCircle />
+                                                                <span>Approved</span>
+                                                            </span>
+                                                        ) : status === 'failed' ? (
+                                                            <span className={`${styles.statusBadge} ${styles.failed}`}>
+                                                                <FaTimesCircle />
+                                                                <span>Rejected</span>
+                                                            </span>
+                                                        ) : (
+                                                            <span className={`${styles.statusBadge} ${styles.pending}`}>
+                                                                <FaSpinner />
+                                                                <span>Pending</span>
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                    <td className={styles.commentCell}>
+                                                        <div className={styles.commentText}>
+                                                            {getComments(record) !== '-' && <FaCommentDots />}
+                                                            {getComments(record)}
+                                                        </div>
+                                                    </td>
+                                                    <td className={styles.amountCell}>
+                                                        <div className={styles.amountMain}>{formatter.format(record.totalAmount || 0)}</div>
+                                                        <div className={styles.amountSub}>{record.currentCartItem?.length || 1} item</div>
+                                                    </td>
+                                                    <td className={styles.actionsCell}>
+                                                        <button
+                                                            className={`${styles.actionBtn} ${styles.viewDetailsBtn}`}
+                                                            onClick={() => handleViewDetails(record)}
+                                                        >
+                                                            <FaEye />
+                                                            <span>View Details</span>
+                                                        </button>
+                                                    </td>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <td className={styles.orderIdCell}>
+                                                        <div className={styles.orderId}>#{record.orderId || record.id}</div>
+                                                    </td>
+                                                    <td className={styles.productCell}>
+                                                        {record.currentCartItem?.map((item, itemIndex) => {
+                                                            const parsedFilters = parseFiltersFromName(item.productName || '');
+                                                            const isComplete = isCompleteList(item.productName || '');
+                                                            const productName = extractProductName(item.productName || '');
 
-                                                    return (
-                                                        <div key={`${record.id}-${itemIndex}`} className={styles.productHeader}>
-                                                            <div className={styles.productIcon}>
-                                                                <LogoIcon width={26} height={26} variant="white" />
-                                                            </div>
-                                                            <div className={styles.productInfo}>
-                                                                <div className={styles.productName}>{productName}</div>
-                                                                {!isComplete && (
-                                                                    <div className={styles.productMeta}>
-                                                                        {parsedFilters?.states && parsedFilters.states[0] !== 'All USA' && (
-                                                                            <span
-                                                                                className={`${styles.metaTag} ${styles.badgeStates}`}
-                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'states', e)}
-                                                                                onMouseLeave={handleFilterBadgeLeave}
-                                                                            >
-                                                                                <FaMapMarkerAlt />
-                                                                                <span className={styles.count}>{parsedFilters.countStates}</span>
-                                                                            </span>
-                                                                        )}
-                                                                        {parsedFilters?.cities && (
-                                                                            <span
-                                                                                className={`${styles.metaTag} ${styles.badgeCities}`}
-                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'cities', e)}
-                                                                                onMouseLeave={handleFilterBadgeLeave}
-                                                                            >
-                                                                                <FaCity />
-                                                                                <span className={styles.count}>{parsedFilters.countCities}</span>
-                                                                            </span>
-                                                                        )}
-                                                                        {parsedFilters?.zips && (
-                                                                            <span
-                                                                                className={`${styles.metaTag} ${styles.badgeZips}`}
-                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'zips', e)}
-                                                                                onMouseLeave={handleFilterBadgeLeave}
-                                                                            >
-                                                                                <FaEnvelope />
-                                                                                <span className={styles.count}>{parsedFilters.countZips}</span>
-                                                                            </span>
-                                                                        )}
-                                                                        {parsedFilters?.gender && (
-                                                                            <span
-                                                                                className={`${styles.metaTag} ${styles.badgeGender}`}
-                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'gender', e)}
-                                                                                onMouseLeave={handleFilterBadgeLeave}
-                                                                            >
-                                                                                <FaVenusMars />
-                                                                                <span className={styles.count}>{parsedFilters.countGender}</span>
-                                                                            </span>
-                                                                        )}
-                                                                        {parsedFilters?.specialization && (
-                                                                            <span
-                                                                                className={`${styles.metaTag} ${styles.badgeSpecialty}`}
-                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'specialization', e)}
-                                                                                onMouseLeave={handleFilterBadgeLeave}
-                                                                            >
-                                                                                <FaStethoscope />
-                                                                                <span className={styles.count}>{parsedFilters.countSpecialization}</span>
-                                                                            </span>
-                                                                        )}
-                                                                        {parsedFilters?.licenseStates && (
-                                                                            <span
-                                                                                className={`${styles.metaTag} ${styles.badgeLicense}`}
-                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'license', e)}
-                                                                                onMouseLeave={handleFilterBadgeLeave}
-                                                                            >
-                                                                                <FaCertificate />
-                                                                                <span className={styles.count}>{parsedFilters.countLicense}</span>
-                                                                            </span>
+                                                            return (
+                                                                <div key={`${record.id}-${itemIndex}`} className={styles.productHeader}>
+                                                                    <div className={styles.productIcon}>
+                                                                        <LogoIcon width={26} height={26} variant="white" />
+                                                                    </div>
+                                                                    <div className={styles.productInfo}>
+                                                                        <div className={styles.productName}>{productName}</div>
+                                                                        {!isComplete && (
+                                                                            <div className={styles.productMeta}>
+                                                                                {parsedFilters?.states && parsedFilters.states[0] !== 'All USA' && (
+                                                                                    <span
+                                                                                        className={`${styles.metaTag} ${styles.badgeStates}`}
+                                                                                        onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'states', e)}
+                                                                                        onMouseLeave={handleFilterBadgeLeave}
+                                                                                    >
+                                                                                        <FaMapMarkerAlt />
+                                                                                        <span className={styles.count}>{parsedFilters.countStates}</span>
+                                                                                    </span>
+                                                                                )}
+                                                                                {parsedFilters?.cities && (
+                                                                                    <span
+                                                                                        className={`${styles.metaTag} ${styles.badgeCities}`}
+                                                                                        onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'cities', e)}
+                                                                                        onMouseLeave={handleFilterBadgeLeave}
+                                                                                    >
+                                                                                        <FaCity />
+                                                                                        <span className={styles.count}>{parsedFilters.countCities}</span>
+                                                                                    </span>
+                                                                                )}
+                                                                                {parsedFilters?.zips && (
+                                                                                    <span
+                                                                                        className={`${styles.metaTag} ${styles.badgeZips}`}
+                                                                                        onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'zips', e)}
+                                                                                        onMouseLeave={handleFilterBadgeLeave}
+                                                                                    >
+                                                                                        <FaEnvelope />
+                                                                                        <span className={styles.count}>{parsedFilters.countZips}</span>
+                                                                                    </span>
+                                                                                )}
+                                                                                {parsedFilters?.gender && (
+                                                                                    <span
+                                                                                        className={`${styles.metaTag} ${styles.badgeGender}`}
+                                                                                        onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'gender', e)}
+                                                                                        onMouseLeave={handleFilterBadgeLeave}
+                                                                                    >
+                                                                                        <FaVenusMars />
+                                                                                        <span className={styles.count}>{parsedFilters.countGender}</span>
+                                                                                    </span>
+                                                                                )}
+                                                                                {parsedFilters?.specialization && (
+                                                                                    <span
+                                                                                        className={`${styles.metaTag} ${styles.badgeSpecialty}`}
+                                                                                        onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'specialization', e)}
+                                                                                        onMouseLeave={handleFilterBadgeLeave}
+                                                                                    >
+                                                                                        <FaStethoscope />
+                                                                                        <span className={styles.count}>{parsedFilters.countSpecialization}</span>
+                                                                                    </span>
+                                                                                )}
+                                                                                {parsedFilters?.licenseStates && (
+                                                                                    <span
+                                                                                        className={`${styles.metaTag} ${styles.badgeLicense}`}
+                                                                                        onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'license', e)}
+                                                                                        onMouseLeave={handleFilterBadgeLeave}
+                                                                                    >
+                                                                                        <FaCertificate />
+                                                                                        <span className={styles.count}>{parsedFilters.countLicense}</span>
+                                                                                    </span>
+                                                                                )}
+                                                                            </div>
                                                                         )}
                                                                     </div>
-                                                                )}
-                                                            </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </td>
+                                                    <td className={styles.dateCell}>
+                                                        <div className={styles.dateMain}>{formatDate(record.date)}</div>
+                                                        <div className={styles.dateTime}>{formatTime(record.date)}</div>
+                                                    </td>
+                                                    <td className={styles.statusCell}>
+                                                        {status === 'completed' ? (
+                                                            <span className={`${styles.statusBadge} ${styles.completed}`}>
+                                                                <FaCheckCircle />
+                                                                <span>Completed</span>
+                                                            </span>
+                                                        ) : status === 'failed' ? (
+                                                            <span className={`${styles.statusBadge} ${styles.failed}`}>
+                                                                <FaTimesCircle />
+                                                                <span>Failed</span>
+                                                            </span>
+                                                        ) : (
+                                                            <span className={`${styles.statusBadge} ${styles.pending}`}>
+                                                                <FaSpinner />
+                                                                <span>Pending</span>
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                    <td className={styles.amountCell}>
+                                                        <div className={styles.amount}>{formatter.format(record.totalAmount || 0)}</div>
+                                                    </td>
+                                                    <td className={styles.actionsCell}>
+                                                        <div className={styles.actionButtons}>
+                                                            {record.currentCartItem?.some((item) => !isCompleteList(item.productName || '')) && (
+                                                                <button
+                                                                    key={`${record.id}-info`}
+                                                                    className={`${styles.actionBtn} ${styles.infoBtn}`}
+                                                                    onClick={(e) => handleProductInfoClick(recordIndex, 0, e)}
+                                                                >
+                                                                    <FaCheck />
+                                                                    <span>Product Info</span>
+                                                                </button>
+                                                            )}
                                                         </div>
-                                                    );
-                                                })}
-                                            </td>
-                                            <td className={styles.dateCell}>
-                                                <div className={styles.dateMain}>{formatDate(record.date)}</div>
-                                                <div className={styles.dateTime}>{formatTime(record.date)}</div>
-                                            </td>
-                                            <td className={styles.statusCell}>
-                                                {status === 'completed' ? (
-                                                    <span className={`${styles.statusBadge} ${styles.completed}`}>
-                                                        <FaCheckCircle />
-                                                        <span>Completed</span>
-                                                    </span>
-                                                ) : status === 'failed' ? (
-                                                    <span className={`${styles.statusBadge} ${styles.failed}`}>
-                                                        <FaTimesCircle />
-                                                        <span>Failed</span>
-                                                    </span>
-                                                ) : (
-                                                    <span className={`${styles.statusBadge} ${styles.pending}`}>
-                                                        <FaSpinner />
-                                                        <span>Pending</span>
-                                                    </span>
-                                                )}
-                                            </td>
-                                            <td className={styles.amountCell}>
-                                                <div className={styles.amount}>{formatter.format(record.totalAmount || 0)}</div>
-                                            </td>
-                                            <td className={styles.actionsCell}>
-                                                <div className={styles.actionButtons}>
-                                                    {record.currentCartItem?.some((item) => !isCompleteList(item.productName || '')) && (
-                                                        <button
-                                                            key={`${record.id}-info`}
-                                                            className={`${styles.actionBtn} ${styles.infoBtn}`}
-                                                            onClick={(e) => handleProductInfoClick(recordIndex, 0, e)}
-                                                        >
-                                                            <FaCheck />
-                                                            <span>Product Info</span>
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            </td>
+                                                    </td>
+                                                </>
+                                            )}
                                         </tr>
                                     );
                                 })}
@@ -589,7 +710,7 @@ const PaymentHistoryTable = ({
 
                     <div className={styles.tableFooter}>
                         <div className={styles.showingText}>
-                            Showing <strong>{filteredRecords.length}</strong> orders
+                            Showing <strong>{filteredRecords.length}</strong> {view === 'billing' ? 'payments' : 'orders'}
                         </div>
                         <div className={styles.pagination}>
                             <button className={`${styles.pageBtn} ${styles.disabled}`}>
@@ -773,6 +894,127 @@ const PaymentHistoryTable = ({
                                     );
                                 })
                             )}
+                        </div>
+                    </div>
+                );
+            })()}
+
+            {/* Billing Details Modal */}
+            {billingModal.visible && billingModal.record && (() => {
+                const record = billingModal.record;
+                const status = getStatus(record);
+                const comments = getComments(record);
+
+                return (
+                    <div
+                        className={`${styles.modalOverlay} ${styles.visible}`}
+                        onClick={closeBillingModal}
+                    >
+                        <div
+                            className={styles.modalContent}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className={styles.modalHeader}>
+                                <div className={styles.modalHeaderLeft}>
+                                    <div className={styles.modalIcon}>
+                                        <FaReceipt />
+                                    </div>
+                                    <div className={styles.modalTitleGroup}>
+                                        <h3>Payment Details</h3>
+                                        <p>#{record.orderId || record.id}</p>
+                                    </div>
+                                </div>
+                                <button className={styles.closeModal} onClick={closeBillingModal}>
+                                    <FaTimes />
+                                </button>
+                            </div>
+                            <div className={styles.modalBody}>
+                                <div className={styles.detailGrid}>
+                                    <div className={styles.detailItem}>
+                                        <div className={styles.detailLabel}>
+                                            <FaHashtag />
+                                            <span>Order ID</span>
+                                        </div>
+                                        <div className={styles.detailValue}>#{record.orderId || record.id}</div>
+                                    </div>
+                                    <div className={styles.detailItem}>
+                                        <div className={styles.detailLabel}>
+                                            <FaCalendar />
+                                            <span>Payment Date</span>
+                                        </div>
+                                        <div className={styles.detailValue}>{formatDate(record.date)}</div>
+                                    </div>
+                                    <div className={styles.detailItem}>
+                                        <div className={styles.detailLabel}>
+                                            <FaClock />
+                                            <span>Payment Time</span>
+                                        </div>
+                                        <div className={styles.detailValue}>{formatTime(record.date)}</div>
+                                    </div>
+                                    <div className={styles.detailItem}>
+                                        <div className={styles.detailLabel}>
+                                            <FaInfoCircle />
+                                            <span>Status</span>
+                                        </div>
+                                        <div className={styles.detailValue}>
+                                            {status === 'completed' ? (
+                                                <span className={`${styles.statusBadge} ${styles.completed}`}>
+                                                    <FaCheckCircle />
+                                                    <span>Approved</span>
+                                                </span>
+                                            ) : status === 'failed' ? (
+                                                <span className={`${styles.statusBadge} ${styles.failed}`}>
+                                                    <FaTimesCircle />
+                                                    <span>Rejected</span>
+                                                </span>
+                                            ) : (
+                                                <span className={`${styles.statusBadge} ${styles.pending}`}>
+                                                    <FaSpinner />
+                                                    <span>Pending</span>
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className={`${styles.detailItem} ${styles.fullWidth}`}>
+                                        <div className={styles.detailLabel}>
+                                            <FaCommentDots />
+                                            <span>Comments</span>
+                                        </div>
+                                        <div className={`${styles.detailValue} ${styles.commentValue}`}>
+                                            {comments !== '-' && <FaCommentDots style={{ marginRight: '6px', color: '#0ea5e9' }} />}
+                                            {comments}
+                                        </div>
+                                    </div>
+                                    <div className={`${styles.detailItem} ${styles.highlight}`}>
+                                        <div className={styles.detailLabel}>
+                                            <FaDollarSign />
+                                            <span>Total Amount</span>
+                                        </div>
+                                        <div className={`${styles.detailValue} ${styles.amountHighlight}`}>
+                                            {formatter.format(record.totalAmount || 0)}
+                                        </div>
+                                    </div>
+                                    <div className={styles.detailItem}>
+                                        <div className={styles.detailLabel}>
+                                            <FaShoppingCart />
+                                            <span>Cart Items</span>
+                                        </div>
+                                        <div className={styles.detailValue}>
+                                            {record.currentCartItem?.length || 1} item
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.modalFooter}>
+                                <button className={`${styles.modalBtn} ${styles.secondary}`} onClick={closeBillingModal}>
+                                    <FaTimes />
+                                    <span>Close</span>
+                                </button>
+                                <button className={`${styles.modalBtn} ${styles.primary}`} onClick={handleDownloadInvoice}>
+                                    <FaDownload />
+                                    <span>Download Invoice</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 );
