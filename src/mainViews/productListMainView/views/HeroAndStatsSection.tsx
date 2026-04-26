@@ -37,7 +37,7 @@ const HeroAndStatsSection = ({ animatedStats, fmt, styles }: HeroAndStatsSection
                         <div className={styles.heroText}>
                             <div className={styles.liveBadge}>
                                 <span className={styles.pulseDot}></span>
-                                24 Verified Specialty Databases - Updated Weekly
+                                {animatedStats.specialtyLists} Verified Specialty Databases - Updated Weekly
                             </div>
                             <h1 className={styles.heroTitle}>
                                 Premium <span className="shifting-accent">Specialty</span><br />

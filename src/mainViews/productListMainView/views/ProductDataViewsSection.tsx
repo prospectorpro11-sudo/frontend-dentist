@@ -1,7 +1,7 @@
 import { IProductListItem } from "@/shared/interface";
 import classNames from "classnames";
-import type { IconType } from "react-icons";
 import { HiMiniArrowUpRight } from "react-icons/hi2";
+import LogoIcon from "@/components/logoIcon/LogoIcon";
 
 type TagMeta = Record<string, { lbl: string; cls: string; tcls: string }>;
 
@@ -15,7 +15,6 @@ type HeaderColumn = {
 type ProductDataViewsSectionProps = {
     view: "grid" | "list";
     filteredData: IProductListItem[];
-    itemIcons: IconType[];
     iconGradients: Record<string, string>;
     featured: Set<string>;
     fmt: (n: number) => string;
@@ -28,7 +27,6 @@ type ProductDataViewsSectionProps = {
 const ProductDataViewsSection = ({
     view,
     filteredData,
-    itemIcons,
     iconGradients,
     featured,
     fmt,
@@ -42,8 +40,7 @@ const ProductDataViewsSection = ({
             {view === "grid" && (
                 <div className={styles.grid} id="gridView">
                     {filteredData.length === 0 && <div>No results found.</div>}
-                    {filteredData.map((item, index) => {
-                        const Icon = itemIcons[index % itemIcons.length];
+                    {filteredData.map((item) => {
                         return (
                             <div
                                 key={item.name}
@@ -52,7 +49,7 @@ const ProductDataViewsSection = ({
                                 <div className={styles.cardTop}>
                                     <div className={styles.cardIcon} style={{ background: iconGradients[item.color], position: "relative" }}>
                                         <div className={styles.cardIconGlow}></div>
-                                        <Icon />
+                                        <LogoIcon width={28} height={28} variant="white" style={{ objectFit: "scale-down" }} />
                                     </div>
                                     <div className={styles.cardMeta}>
                                         <div className={styles.cardCat}>{item.cat}</div>
@@ -103,7 +100,6 @@ const ProductDataViewsSection = ({
                 </div>
                 <div id="listBody">
                     {view === "list" && filteredData.map((item, index) => {
-                        const Icon = itemIcons[index % itemIcons.length];
                         const serial = index + 1;
                         return (
                             <div key={item.name} className={styles.trow} style={{ gridTemplateColumns: listGridTemplateColumns }}>
@@ -121,7 +117,7 @@ const ProductDataViewsSection = ({
                                             <div key={column.key}>
                                                 <div className={styles.tSpec}>
                                                     <div className={styles.tSpecIcon} style={{ background: iconGradients[item.color] }}>
-                                                        <Icon />
+                                                        <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                     </div>
                                                     <div>
                                                         <div className={styles.tSpecName}>
