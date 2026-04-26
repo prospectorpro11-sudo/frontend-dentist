@@ -48,7 +48,7 @@ const ProspectorAddToCart = () => {
                 )}
             </div>
             <button onClick={() => addToCart()} className={styles.cartbtn} type="button" disabled={prospectorLoading}>
-                <FaCartPlus size={19} /> {isMobileViewpoert ? ctaLabelMobile : ctaLabelDesktop}
+                <FaCartPlus size={22} /> {isMobileViewpoert ? ctaLabelMobile : ctaLabelDesktop}
             </button>
         </div>
     );

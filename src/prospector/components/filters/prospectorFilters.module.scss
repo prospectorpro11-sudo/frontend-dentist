@@ -34,47 +34,47 @@
 }
 
 .filttop .ftitle .fi {
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
-    border-radius: 8px;
+    border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 15px;
+    font-size: 11px;
     flex-shrink: 0;
 }
 
 .filttop .ftitle b {
-    font-size: 16px;
+    font-size: 13.5px;
     color: #1e293b;
     white-space: nowrap;
 }
 
 .filttop .fcnt {
-    font-size: 12.5px;
+    font-size: 10.5px;
     font-weight: 700;
     color: var(--teal-600);
     background: rgba(20, 184, 166, 0.07);
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 12px;
     border: 1px solid rgba(20, 184, 166, 0.12);
     white-space: nowrap;
 }
 
 .resetBtn {
-    font-size: 12.5px;
+    font-size: 10.5px;
     font-weight: 700;
     color: var(--rose-500);
     background: rgba(244, 63, 94, 0.07);
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 12px;
     border: 1px solid rgba(244, 63, 94, 0.15);
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.2s ease;
-    
+
     &:hover {
         background: rgba(244, 63, 94, 0.15);
     }
@@ -90,12 +90,12 @@
 .chip {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
+    gap: 5px;
+    padding: 5.5px 12px;
     background: #fff;
     border: 1.5px solid rgba(14, 165, 233, 0.13);
     border-radius: var(--r-sm);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #475569;
     cursor: pointer;
@@ -109,17 +109,17 @@
     transform: translateY(-1px);
 }
 
-.chip svg {
-    font-size: 14px;
+.chip i {
+    font-size: 11px;
     color: var(--blue-500);
 }
 
 .chip .cnt {
-    font-size: 11px;
+    font-size: 9.5px;
     font-weight: 800;
     background: rgba(14, 165, 233, 0.09);
     color: var(--blue-600);
-    padding: 2px 8px;
+    padding: 1px 6px;
     border-radius: 8px;
 }
 
@@ -130,7 +130,7 @@
     box-shadow: 0 3px 10px rgba(14, 165, 233, 0.22);
 }
 
-.chip.on svg,
+.chip.on i,
 .chip.on .cnt {
     color: rgba(255, 255, 255, 0.85);
 }
@@ -140,7 +140,7 @@
 }
 
 .chip .arr {
-    font-size: 11px;
+    font-size: 9px;
     opacity: 0.4;
 }
 
@@ -154,14 +154,14 @@
 .tag {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 8px 4px 14px;
+    gap: 6px;
+    padding: 3px 5px 3px 10px;
     background: linear-gradient(90deg,
             rgba(14, 165, 233, 0.06),
             rgba(14, 165, 233, 0.02));
     border: 1px solid rgba(14, 165, 233, 0.13);
     border-radius: 16px;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 500;
     color: #475569;
 }
@@ -172,8 +172,8 @@
 }
 
 .tag .rx {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -181,7 +181,7 @@
     cursor: pointer;
     color: #94a3b8;
     transition: 0.15s;
-    font-size: 16px;
+    font-size: 14px;
     flex-shrink: 0;
 }
 
@@ -223,15 +223,15 @@
 
 .fdd input[type="text"] {
     width: 100%;
-    padding: 8px 12px 8px 34px;
+    padding: 7px 10px 7px 30px;
     border: 1.5px solid rgba(14, 165, 233, 0.12);
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 12px;
     color: #334155;
     outline: none;
     margin-bottom: 8px;
     font-family: inherit;
-    background: var(--blue-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.414z'/%3E%3C/svg%3E") no-repeat 11px center;
+    background: var(--blue-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.414z'/%3E%3C/svg%3E") no-repeat 9px center;
 }
 
 .fdd input:focus {
@@ -248,9 +248,9 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 12px;
     color: #475569;
     cursor: pointer;
     transition: 0.15s;
@@ -316,8 +316,8 @@
     .emailTab {
         flex: 0 0 auto; // key change (no stretching)
         min-width: 0;
-        padding: 7px 12px;
-        font-size: 14px;
+        padding: 5.5px 8px;
+        font-size: 12px;
         font-weight: 600;
         background: transparent;
         color: var(--text2);
@@ -365,20 +365,20 @@
     }
 
     .filttop .ftitle .fi {
-        width: 28px;
-        height: 28px;
-        font-size: 13px;
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
         border-radius: 6px;
     }
 
     .filttop .ftitle b {
-        font-size: 14.5px;
+        font-size: 12.5px;
     }
 
     .filttop .fcnt,
     .resetBtn {
-        font-size: 11.5px;
-        padding: 3px 10px;
+        font-size: 10px;
+        padding: 2px 8px;
     }
 
     .chips {
@@ -387,14 +387,14 @@
     }
 
     .chip {
-        padding: 6px 12px;
-        font-size: 13px;
+        padding: 4.5px 10px;
+        font-size: 11px;
         gap: 4px;
     }
 
     .chip .cnt {
-        font-size: 11px;
-        padding: 2px 7px;
+        font-size: 9px;
+        padding: 1px 5px;
     }
 
     .tags {
@@ -402,14 +402,14 @@
     }
 
     .tag {
-        font-size: 12px;
+        font-size: 10.5px;
         gap: 5px;
-        padding: 3px 6px 3px 10px;
+        padding: 2px 4px 2px 8px;
     }
 
     .emailTabs .emailTab {
-        padding: 6px 10px;
-        font-size: 13px;
+        padding: 4.5px 7px;
+        font-size: 11px;
     }
 }
 
@@ -437,8 +437,8 @@
 
     .chip {
         flex-shrink: 0;
-        padding: 6px 12px;
-        font-size: 13.5px;
+        padding: 5px 10px;
+        font-size: 11.5px;
     }
 
     .tags {
@@ -446,7 +446,7 @@
     }
 
     .tag {
-        font-size: 11.5px;
+        font-size: 10px;
     }
 }
 
@@ -468,20 +468,20 @@
     }
 
     .filttop .ftitle .fi {
-        width: 26px;
-        height: 26px;
-        font-size: 12px;
+        width: 22px;
+        height: 22px;
+        font-size: 9px;
         border-radius: 5px;
     }
 
     .filttop .ftitle b {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .filttop .fcnt,
     .resetBtn {
-        font-size: 11px;
-        padding: 3px 8px;
+        font-size: 9.5px;
+        padding: 2px 7px;
     }
 
     .chips {
@@ -501,18 +501,18 @@
 
     .chip {
         flex-shrink: 0;
-        padding: 5.5px 10px;
-        font-size: 13px;
+        padding: 4.5px 8px;
+        font-size: 11px;
         gap: 4px;
     }
 
     .chip .arr {
-        font-size: 10px;
+        font-size: 8px;
     }
 
     .chip .cnt {
-        font-size: 10.5px;
-        padding: 1px 6px;
+        font-size: 8.5px;
+        padding: 0px 5px;
     }
 
     .tags {
@@ -520,16 +520,16 @@
     }
 
     .tag {
-        font-size: 11px;
+        font-size: 9.5px;
         gap: 4px;
-        padding: 3px 6px 3px 9px;
+        padding: 2px 4px 2px 7px;
         border-radius: 12px;
     }
 
     .tag .rx {
-        width: 18px;
-        height: 18px;
-        font-size: 14px;
+        width: 16px;
+        height: 16px;
+        font-size: 12px;
     }
 
     .emailTabs {
@@ -544,8 +544,8 @@
         }
 
         .emailTab {
-            padding: 5px 8px;
-            font-size: 12px;
+            padding: 4px 6px;
+            font-size: 10.5px;
         }
     }
 }
@@ -557,20 +557,20 @@
     }
 
     .filttop .ftitle b {
-        font-size: 13px;
+        font-size: 11px;
     }
 
     .chip {
-        padding: 5px 8px;
-        font-size: 12px;
-    }
-
-    .tag {
+        padding: 4px 7px;
         font-size: 10.5px;
     }
 
+    .tag {
+        font-size: 9px;
+    }
+
     .emailTabs .emailTab {
-        padding: 4px 6px;
-        font-size: 11px;
+        padding: 3.5px 5px;
+        font-size: 10px;
     }
 }
