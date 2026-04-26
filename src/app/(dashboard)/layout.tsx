@@ -116,9 +116,15 @@ export default function DashboardLayout({
     const { loggedInUser } = useRootContext();
 
     const closeMenu = () => setIsMenuOpen(false);
+    
+    const isProspector = pathname?.startsWith('/prospector');
+    const actualContentMode = isProspector ? "static" : "scrollable";
+    const activeItem = menuItems.find(item => pathname?.startsWith(item.href)) || menuItems[0];
+    const activeTitle = activeItem ? activeItem.label : navTitle;
+
     const resolvedBreadcrumbs = breadcrumbs ?? [
         { label: "Dashboard", href: "/dashboard" },
-        { label: navTitle, href: null },
+        { label: activeTitle, href: null },
     ];
 
     // Compute active state based on current path
@@ -221,7 +227,7 @@ export default function DashboardLayout({
                     <FaBars />
                 </button>
                 <div className={styles.topbarHeading}>
-                    <h1 className="mb-0">{navTitle}</h1>
+                    <h1 className="mb-0">{activeTitle}</h1>
                     <Breadcrumb
                         items={resolvedBreadcrumbs}
                         variant={breadcrumbVariant}
@@ -257,11 +263,13 @@ export default function DashboardLayout({
 
             <main
                 className={classNames(styles.main, {
-                    [styles.mainScrollable]: contentMode === "scrollable",
-                    [styles.mainStatic]: contentMode === "static",
+                    [styles.mainScrollable]: actualContentMode === "scrollable",
+                    [styles.mainStatic]: actualContentMode === "static",
                 })}
             >
-                <div className={classNames(styles.mainInner, styles.mainInnerNoScroll)}>{children}</div>
+                <div className={classNames(styles.mainInner, {
+                    [styles.mainInnerNoScroll]: actualContentMode === "static"
+                })}>{children}</div>
             </main>
 
         </div>

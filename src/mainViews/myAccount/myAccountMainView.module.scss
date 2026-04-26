@@ -231,7 +231,7 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  @media (max-width: 480px) {
+  @include breakpoint(mobile) {
     grid-template-columns: 1fr;
   }
 }
@@ -594,7 +594,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@include breakpoint(mobile-landscape) {
   .pageHeader {
     flex-direction: column;
     align-items: flex-start;
