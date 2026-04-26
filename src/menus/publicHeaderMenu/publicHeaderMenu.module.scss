@@ -116,6 +116,9 @@
   border: 1px solid #E3E8EF;
   width: max-content;
   border-radius: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
 
   svg {
     color: #94A3B8;

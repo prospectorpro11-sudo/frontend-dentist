@@ -39,7 +39,7 @@ export const getPlisioLocal = () => {
 
 export const setProspectorFilters = (filters: any) => {
     if (typeof window !== "undefined") {
-        localStorage.setItem("nursing-filters", JSON.stringify(filters))
+        localStorage.setItem("dentist-prospector", JSON.stringify(filters))
     }
 };
 

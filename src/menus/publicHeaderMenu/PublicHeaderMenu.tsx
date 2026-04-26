@@ -6,6 +6,8 @@ import { BiSolidUser, BiMenu } from "react-icons/bi";
 import { FaCaretDown, FaTimes } from "react-icons/fa";
 import styles from "./publicHeaderMenu.module.scss";
 import { Container } from "react-bootstrap";
+import { useRootContext } from "@/contexts/RootContext";
+import DropdownMenu, { type DropdownItem } from "@/components/dropdownMenu/DropdownMenu";
 
 interface MenuItem {
   label: string;
@@ -19,8 +21,20 @@ const headerMenu: MenuItem[] = [
   { label: "Blog", link: "/" },
 ];
 
+const dashboardMenuItems: DropdownItem[] = [
+  { label: "Prospector", href: "/prospector" },
+  { label: "My Downloads", href: "/my-downloads" },
+  { label: "Orders", href: "/orders" },
+  { label: "Billing", href: "/billing" },
+  { label: "My Account", href: "/my-account" },
+  { label: "Support", href: "/support" },
+  { type: "divider" },
+  { label: "Sign out", href: "/logout", variant: "danger" },
+];
+
 const PublicHeaderMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { loggedInUser } = useRootContext();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -29,6 +43,20 @@ const PublicHeaderMenu = () => {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const userName = loggedInUser?.displayName || "";
+  const getDisplayName = (name: string): string => {
+    if (!name) return "";
+    const words = name.trim().split(' ');
+    const firstWord = words[0];
+    
+    if (words.length > 1) {
+      return `${firstWord}...`;
+    }
+    
+    return firstWord.length > 10 ? `${firstWord.slice(0, 10)}...` : firstWord;
+  };
+  const displayUserName = getDisplayName(userName) || "User";
 
   return (
     <header className={styles.wrapper}>
@@ -61,11 +89,25 @@ const PublicHeaderMenu = () => {
 
           {/* User Actions & Mobile Toggle */}
           <div className={styles.actionsSection}>
-            <div className={styles.userMenu}>
-              <BiSolidUser size={22} aria-hidden="true" />
-              <span>Franklin..</span>
-              <FaCaretDown size={20} aria-hidden="true" />
-            </div>
+            {loggedInUser && (
+              <DropdownMenu
+                items={dashboardMenuItems}
+                align="center"
+                trigger={({ onClick, ariaExpanded, ariaHaspopup }) => (
+                  <button
+                    type="button"
+                    className={styles.userMenu}
+                    onClick={onClick}
+                    aria-expanded={ariaExpanded}
+                    aria-haspopup={ariaHaspopup}
+                  >
+                    <BiSolidUser size={22} aria-hidden="true" />
+                    <span>{displayUserName}</span>
+                    <FaCaretDown size={20} aria-hidden="true" />
+                  </button>
+                )}
+              />
+            )}
             <a href="/prospector">
               <button
                 className={styles.headerButton}
@@ -103,13 +145,27 @@ const PublicHeaderMenu = () => {
                   </li>
                 ))}
               </ul>
-              <div className={styles.mobileUserMenu}>
-                <div className={styles.userMenu}>
-                  <BiSolidUser size={22} aria-hidden="true" />
-                  <span>Franklin..</span>
-                  <FaCaretDown size={20} aria-hidden="true" />
+              {loggedInUser && (
+                <div className={styles.mobileUserMenu}>
+                  <DropdownMenu
+                    items={dashboardMenuItems}
+                    align="center"
+                    trigger={({ onClick, ariaExpanded, ariaHaspopup }) => (
+                      <button
+                        type="button"
+                        className={styles.userMenu}
+                        onClick={onClick}
+                        aria-expanded={ariaExpanded}
+                        aria-haspopup={ariaHaspopup}
+                      >
+                        <BiSolidUser size={22} aria-hidden="true" />
+                        <span>{displayUserName}</span>
+                        <FaCaretDown size={20} aria-hidden="true" />
+                      </button>
+                    )}
+                  />
                 </div>
-              </div>
+              )}
             </nav>
           </div>
         )}

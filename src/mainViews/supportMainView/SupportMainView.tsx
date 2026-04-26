@@ -268,7 +268,7 @@ const SupportMainView = () => {
       <div className={styles.pageHeader}>
         <div>
           <span className={styles.kicker}>Support Chat</span>
-          <h3 className={styles.title}>Talk with NursingReach Support</h3>
+          <h3 className={styles.title}>Talk with DentistEmailList Support</h3>
           <p className={styles.subtitle}>Start as a guest with your name and email, then continue seamlessly after account registration.</p>
         </div>
         {!loggedInUser ? (
