@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import classNames from "classnames";
 import {
     FaBox,
@@ -112,12 +113,19 @@ export default function DashboardLayout({
     contentMode?: DashboardContentMode;
 }>) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     const closeMenu = () => setIsMenuOpen(false);
     const resolvedBreadcrumbs = breadcrumbs ?? [
         { label: "Dashboard", href: "/dashboard" },
         { label: navTitle, href: null },
     ];
+
+    // Compute active state based on current path
+    const navItemsWithActiveState = menuItems.map(item => ({
+        ...item,
+        active: pathname?.startsWith(item.href) ?? item.active
+    }));
 
     return (
         <div className={styles.wrapper}>
@@ -146,7 +154,7 @@ export default function DashboardLayout({
                     <div className={styles.logoLabel}>Dentist<i>Email List</i></div>
                 </div>
                 <nav className={styles.sideNav}>
-                    {menuItems.map((item) => (
+                    {navItemsWithActiveState.map((item) => (
                         <a
                             key={item.label}
                             className={classNames({ [styles.active]: item.active })}
