@@ -107,6 +107,7 @@ const ProductListMainView = (props: IProductListMainView) => {
             const color = colorKeys[index % colorKeys.length] as any;
 
             return {
+                id: item.stateId || item.slug,
                 name: item.productName,
                 npis: item.stats.totalContacts,
                 emails: item.stats.verifiedEmails,

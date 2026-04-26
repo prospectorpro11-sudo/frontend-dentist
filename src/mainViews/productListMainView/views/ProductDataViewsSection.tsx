@@ -2,6 +2,7 @@ import { IProductListItem } from "@/shared/interface";
 import classNames from "classnames";
 import { HiMiniArrowUpRight } from "react-icons/hi2";
 import LogoIcon from "@/components/logoIcon/LogoIcon";
+import Link from "next/link";
 
 type TagMeta = Record<string, { lbl: string; cls: string; tcls: string }>;
 
@@ -159,10 +160,10 @@ const ProductDataViewsSection = ({
 
                                     return (
                                         <div key={column.key} style={{ display: "flex", justifyContent: "flex-end" }}>
-                                            <a href="#" className={styles.tActionBtn}>
+                                            <Link href={`/prospector?specialization=${item.id}`} className={styles.tActionBtn}>
                                                 <span>Customize</span>
                                                 <span><HiMiniArrowUpRight size={18} /></span>
-                                            </a>
+                                            </Link>
                                         </div>
                                     );
                                 })}

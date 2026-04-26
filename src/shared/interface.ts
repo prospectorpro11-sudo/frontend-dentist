@@ -246,6 +246,7 @@ export interface IHomeSeeds {
 }
 
 export interface IProductListItem {
+	id: string;
 	name: string;
 	npis: number;
 	emails: number;
