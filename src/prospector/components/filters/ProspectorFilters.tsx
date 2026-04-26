@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FaMapMarkerAlt, FaTimes } from "react-icons/fa";
 import EmailAvailability from "./views/EmailAvailability";
 import FilterDropdown from "../filterDropdown/FilterDropdown";
+import { EMAIL_AVAILABILITY_OPTIONS } from "@/seeds/filterData";
 import { PROSPECTOR_FILTER_ENDPOINTS } from "@/shared/constant";
 import { PROSPECTOR_FILTER_VARIANT_ENUM } from "@/shared/enums";
 import { useProspectorContext } from "@/contexts/ProspectorContext";
@@ -83,7 +84,7 @@ const toOption = (item: RawFilterRecord): IProspectorFilter | null => {
 };
 
 const ProspectorFilters = () => {
-    const { states, setStates, cities, setCities, zipCodes, setZipCodes, specialties, setSpecialties, licenseStates, setLicenseStates, gender, setGender } = useProspectorContext();
+    const { states, setStates, cities, setCities, zipCodes, setZipCodes, specialties, setSpecialties, licenseStates, setLicenseStates, gender, setGender, emailAvailability, setEmailAvailability } = useProspectorContext();
     const queryClient = useQueryClient();
     const [openVariant, setOpenVariant] = useState<PROSPECTOR_FILTER_VARIANT_ENUM | null>(null);
     const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
@@ -225,7 +226,7 @@ const ProspectorFilters = () => {
         },
     ]
 
-    const activeFilterCount = FILTERS.filter(({ filterValues }) => Array.isArray(filterValues) && filterValues.length > 0).length;
+    const activeFilterCount = FILTERS.filter(({ filterValues }) => Array.isArray(filterValues) && filterValues.length > 0).length + (emailAvailability?.value !== "all" ? 1 : 0);
     const openFilter = FILTERS.find(({ variant }) => variant === openVariant) ?? null;
     const getDisplayValue = (value: unknown): string => {
         if (typeof value === "string" || typeof value === "number") {
@@ -273,7 +274,10 @@ const ProspectorFilters = () => {
                 {activeFilterCount > 0 && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div className={styles.fcnt}>{activeFilterCount} Active</div>
-                        <button type="button" className={styles.resetBtn} onClick={() => FILTERS.forEach(f => f.setFilterValues(null))}>Reset</button>
+                        <button type="button" className={styles.resetBtn} onClick={() => {
+                            FILTERS.forEach(f => f.setFilterValues(null));
+                            setEmailAvailability(EMAIL_AVAILABILITY_OPTIONS[0]);
+                        }}>Reset</button>
                     </div>
                 )}
             </div>
