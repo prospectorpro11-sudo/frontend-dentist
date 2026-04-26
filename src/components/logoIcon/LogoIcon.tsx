@@ -6,6 +6,7 @@ interface LogoIconProps {
     variant?: 'white' | 'normal';
     className?: string;
     style?: React.CSSProperties;
+    alt?: string;
 }
 
 const LogoIcon: React.FC<LogoIconProps> = ({
@@ -13,14 +14,15 @@ const LogoIcon: React.FC<LogoIconProps> = ({
     height = 24,
     variant = 'normal',
     className = '',
-    style = {}
+    style = {},
+    alt = 'Logo'
 }) => {
     const iconSrc = variant === 'white' ? '/logo-icon-white.png' : '/logo-icon.png';
 
     return (
         <img
             src={iconSrc}
-            alt="Logo"
+            alt={alt}
             width={width}
             height={height}
             className={className}

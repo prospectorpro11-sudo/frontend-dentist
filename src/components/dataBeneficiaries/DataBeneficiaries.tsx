@@ -1,8 +1,7 @@
-import React from 'react';
 import classname from 'classnames';
 import styles from './dataBeneficiaries.module.scss';
 import { Container } from 'react-bootstrap';
-import Image from 'next/image';
+import LogoIcon from '../logoIcon/LogoIcon';
 import { IDataBeneficiariesSeed } from '@/shared/interface';
 
 const DataBeneficiaries = (props: IDataBeneficiariesSeed) => {
@@ -55,7 +54,7 @@ const DataBeneficiaries = (props: IDataBeneficiariesSeed) => {
                             </div>
 
                             <div className={styles.dataHub}>
-                                 <Image src="/logo-icon-white.png" width={60} height={60} alt='Logo Icon' style={{ objectFit: 'scale-down' }} />
+                                <LogoIcon width={60} height={60} variant="white" alt="Logo Icon" style={{ objectFit: 'scale-down' }} />
                                 <div className={styles.dataHubText}>{content.dataHubText}</div>
                             </div>
                         </div>

@@ -1,8 +1,7 @@
-import React from 'react';
 import classnames from 'classnames';
 import styles from './verifiedSource.module.scss';
 import { Col, Container, Row } from 'react-bootstrap';
-import Image from 'next/image';
+import LogoIcon from '../logoIcon/LogoIcon';
 import classNames from 'classnames';
 import { IVerifiedSourceSeed } from '@/shared/interface';
 
@@ -54,7 +53,7 @@ const VerifiedSource = (props: IVerifiedSourceSeed) => {
                             <div className={styles.diagramCard}>
                                 <div className={styles.diagramCenter}>
                                     <div className={styles.hubIcon}>
-                                        <Image src="/logo-icon-white.png" width={40} height={40} alt='Logo Icon' style={{ objectFit: 'scale-down' }} />
+                                        <LogoIcon width={40} height={40} variant="white" alt="Logo Icon" style={{ objectFit: 'scale-down' }} />
                                     </div>
                                     <div className={styles.hubRing}></div>
                                     <div className={styles.hubRing}></div>

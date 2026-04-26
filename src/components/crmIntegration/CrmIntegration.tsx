@@ -13,7 +13,7 @@ import { FaBolt, FaRepeat } from "react-icons/fa6";
 import { IoMdCloud } from "react-icons/io";
 import Button from "../button/Button";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
-import Image from "next/image";
+import LogoIcon from "../logoIcon/LogoIcon";
 import { FiDownload } from "react-icons/fi";
 import { ICrmIntegrationSeed } from "@/shared/interface";
 
@@ -66,7 +66,7 @@ const CrmIntegration = (props: ICrmIntegrationSeed) => {
                                     <div className={styles.mockupContent}>
                                         <div className={styles.mockupHeader}>
                                             <div className={styles.headerIcon}>
-                                                <Image src="/logo-icon-white.png" width={25} height={25} alt="logo icon" style={{ objectFit: "scale-down" }} />
+                                                <LogoIcon width={25} height={25} variant="white" alt="logo icon" style={{ objectFit: "scale-down" }} />
                                             </div>
                                             <div>
                                                 <div className={styles.headerTitle}>{left.headerTitle}</div>
