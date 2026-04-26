@@ -34,7 +34,7 @@ const dashboardMenuItems: DropdownItem[] = [
 
 const PublicHeaderMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { loggedInUser } = useRootContext();
+  const { loggedInUser, setAuthEnable } = useRootContext();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -49,11 +49,11 @@ const PublicHeaderMenu = () => {
     if (!name) return "";
     const words = name.trim().split(' ');
     const firstWord = words[0];
-    
+
     if (words.length > 1) {
       return `${firstWord}...`;
     }
-    
+
     return firstWord.length > 10 ? `${firstWord.slice(0, 10)}...` : firstWord;
   };
   const displayUserName = getDisplayName(userName) || "User";
@@ -89,7 +89,7 @@ const PublicHeaderMenu = () => {
 
           {/* User Actions & Mobile Toggle */}
           <div className={styles.actionsSection}>
-            {loggedInUser && (
+            {loggedInUser ? (
               <DropdownMenu
                 items={dashboardMenuItems}
                 align="center"
@@ -107,6 +107,14 @@ const PublicHeaderMenu = () => {
                   </button>
                 )}
               />
+            ) : (
+              <button
+                type="button"
+                className={styles.tertiaryButton}
+                onClick={() => setAuthEnable(true)}
+              >
+                Login
+              </button>
             )}
             <a href="/prospector">
               <button
@@ -145,7 +153,7 @@ const PublicHeaderMenu = () => {
                   </li>
                 ))}
               </ul>
-              {loggedInUser && (
+              {loggedInUser ? (
                 <div className={styles.mobileUserMenu}>
                   <DropdownMenu
                     items={dashboardMenuItems}
@@ -164,6 +172,20 @@ const PublicHeaderMenu = () => {
                       </button>
                     )}
                   />
+                </div>
+              ) : (
+                <div className={styles.mobileUserMenu}>
+                  <button
+                    type="button"
+                    className={styles.tertiaryButton}
+                    onClick={() => {
+                      setAuthEnable(true);
+                      closeMobileMenu();
+                    }}
+                    style={{ width: '100%', maxWidth: '200px' }}
+                  >
+                    Login / Register
+                  </button>
                 </div>
               )}
             </nav>
