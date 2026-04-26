@@ -270,7 +270,12 @@ const ProspectorFilters = () => {
         <div ref={filtersContainerRef} className={`${styles.filtSec} ${openFilter ? styles.filtSecOpen : ""}`.trim()}>
             <div className={styles.filttop}>
                 <div className={styles.ftitle}><div className={styles.fi}><FaFilter /></div><b>Smart Filters</b></div>
-                {activeFilterCount > 0 && <div className={styles.fcnt}>{activeFilterCount} Active</div>}
+                {activeFilterCount > 0 && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div className={styles.fcnt}>{activeFilterCount} Active</div>
+                        <button type="button" className={styles.resetBtn} onClick={() => FILTERS.forEach(f => f.setFilterValues(null))}>Reset</button>
+                    </div>
+                )}
             </div>
             <div className={styles.chips}>
                 <EmailAvailability />
