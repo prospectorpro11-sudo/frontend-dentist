@@ -399,9 +399,11 @@
     text-overflow: ellipsis;
 }
 
-.sideBottom .sbRole {
-    font-size: 14px;
-    color: var(--n5);
+.sideBottom .sbBtnWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .sideBottom .sbBtn {
@@ -413,7 +415,7 @@
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--n5);
+    color: #fff;
     cursor: pointer;
     font-size: 12px;
     transition: all 0.2s;
@@ -423,6 +425,25 @@
 .sideBottom .sbBtn:hover {
     background: rgba(255, 255, 255, 0.08);
     color: #fff;
+}
+
+.sideBottom .logoutBtn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.sideBottom .logoutBtn:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(220, 38, 38, 0.2));
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #dc2626;
 }
 
 

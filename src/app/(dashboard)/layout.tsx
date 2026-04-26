@@ -111,6 +111,7 @@ export default function DashboardLayout({
     contentMode?: DashboardContentMode;
 }>) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLogoutMenuOpen, setIsLogoutMenuOpen] = useState(false);
     const pathname = usePathname();
     const { loggedInUser } = useRootContext();
 
@@ -179,14 +180,35 @@ export default function DashboardLayout({
                         </a>
                     ))}
                 </nav>
-                <div className={styles.sideBottom}>
-                    <div className={styles.sbAvatar}>F</div>
-                    <div className={styles.sbInfo}>
-                        <div className={styles.sbName}>{userName}</div>
-                        <div className={styles.sbRole}>{"userRole"}</div>
+                {loggedInUser && (
+                    <div className={styles.sideBottom}>
+                        <div className={styles.sbAvatar}>{userInitial}</div>
+                        <div className={styles.sbInfo}>
+                            <div className={styles.sbName}>{userName}</div>
+                        </div>
+                        <div className={styles.sbBtnWrapper}>
+                            <button
+                                type="button"
+                                className={styles.sbBtn}
+                                title="Settings"
+                                onClick={() => setIsLogoutMenuOpen(!isLogoutMenuOpen)}
+                            >
+                                <i aria-hidden="true"><FaCog /></i>
+                            </button>
+                            {isLogoutMenuOpen && (
+                                <button
+                                    type="button"
+                                    className={styles.logoutBtn}
+                                    onClick={() => {
+                                        window.location.href = '/logout';
+                                    }}
+                                >
+                                    Logout
+                                </button>
+                            )}
+                        </div>
                     </div>
-                    <div className={styles.sbBtn} title="Settings"><i aria-hidden="true"><FaCog /></i></div>
-                </div>
+                )}
             </aside>
             {/* Top Bar */}
             <div className={styles.topbar}>
