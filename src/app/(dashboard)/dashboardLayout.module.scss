@@ -400,7 +400,7 @@
 }
 
 .sideBottom .sbRole {
-    font-size: 9.5px;
+    font-size: 14px;
     color: var(--n5);
 }
 
@@ -506,44 +506,75 @@
 .userMenuTrigger {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    min-width: 200px;
-    min-height: 48px;
-    padding: 8px 14px 8px 10px;
-    border: 1px solid #d7dee8;
-    border-radius: 8px;
-    background: #F1F5F9;
-    color: var(--n900);
+    gap: 6px;
+    min-width: auto;
+    max-width: 120px;
+    height: 30px;
+    padding: 0 7px;
+    border: 1px solid rgba(14, 165, 233, 0.15);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--n800);
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), var(--shadow-xs);
     font: inherit;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.06), rgba(99, 102, 241, 0.04));
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        border-radius: inherit;
+    }
 
     &:hover {
-        background: linear-gradient(180deg, #ffffff 0%, #edf2f8 100%);
-        border-color: #cfd8e3;
-        box-shadow: var(--shadow-sm);
+        border-color: rgba(14, 165, 233, 0.3);
+        background: rgba(14, 165, 233, 0.06);
+
+        &::before {
+            opacity: 1;
+        }
     }
 
     &:focus-visible {
-        outline: 2px solid color-mix(in srgb, var(--blue-500) 45%, transparent);
+        outline: 2px solid rgba(14, 165, 233, 0.5);
         outline-offset: 2px;
     }
 }
 
-.userMenuName {
-    font-size: 17px;
+.userMenuAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: #fff;
+    font-size: 11px;
     font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 4px rgba(14, 165, 233, 0.25);
     line-height: 1;
-    color: #0f2454;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
+    text-transform: uppercase;
 }
 
-.userMenuAvatar {
-    svg {
-        color: #9aa8bb;
-    }
+.userMenuName {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--n800);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
 }
 
 .userMenuChevron {
@@ -551,15 +582,29 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #97a6ba;
+    color: var(--n500);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
 
     svg {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
+.userMenuTrigger[aria-expanded="true"] .userMenuChevron {
+    transform: rotate(180deg);
+}
+
 .userMenuDropdown {
-    min-width: 220px;
+    min-width: 140px;
+    padding: 5px;
+    border: 1px solid rgba(14, 165, 233, 0.15);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 4px 24px rgba(2, 132, 199, 0.12),
+        0 1px 0 rgba(255, 255, 255, 0.9) inset;
 }
 
 .main {

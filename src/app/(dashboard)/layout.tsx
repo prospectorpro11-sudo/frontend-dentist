@@ -16,13 +16,13 @@ import {
     FaHeadset,
     FaSearch,
 } from "react-icons/fa";
-import { FaMagnifyingGlassLocation, FaUser } from "react-icons/fa6";
 
 import "react-loading-skeleton/dist/skeleton.css";
 import Breadcrumb, { type BreadcrumbItem, type BreadcrumbVariant } from "@/components/breadcrumb/Breadcrumb";
 import DropdownMenu, { type DropdownItem } from "@/components/dropdownMenu/DropdownMenu";
 import styles from "./dashboardLayout.module.scss";
 import { IoCaretDown } from "react-icons/io5";
+import { useRootContext } from "@/contexts/RootContext";
 
 type DashboardContentMode = "scrollable" | "static";
 
@@ -97,8 +97,6 @@ export default function DashboardLayout({
     breadcrumbVariant = "dashboard",
     menuItems = defaultMenuItems,
     userMenuItems = defaultUserMenuItems,
-    userName = "Franklin Carter",
-    userRole = "Pro Subscriber",
     contentMode = "scrollable",
 }: Readonly<{
     children: React.ReactNode;
@@ -114,6 +112,7 @@ export default function DashboardLayout({
 }>) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
+    const { loggedInUser } = useRootContext();
 
     const closeMenu = () => setIsMenuOpen(false);
     const resolvedBreadcrumbs = breadcrumbs ?? [
@@ -126,6 +125,15 @@ export default function DashboardLayout({
         ...item,
         active: pathname?.startsWith(item.href) ?? item.active
     }));
+    const userName = loggedInUser?.displayName || "";
+    // Truncate userName for display (show first word, max 5 chars)
+    const getDisplayName = (name: string): string => {
+        const firstWord = name.split(' ')[0];
+        return firstWord.length > 5 ? `${firstWord.slice(0, 5)}...` : firstWord;
+    };
+    const displayUserName = getDisplayName(userName);
+    // Get first initial for avatar
+    const userInitial = userName.charAt(0).toUpperCase();
 
     return (
         <div className={styles.wrapper}>
@@ -175,7 +183,7 @@ export default function DashboardLayout({
                     <div className={styles.sbAvatar}>F</div>
                     <div className={styles.sbInfo}>
                         <div className={styles.sbName}>{userName}</div>
-                        <div className={styles.sbRole}>{userRole}</div>
+                        <div className={styles.sbRole}>{"userRole"}</div>
                     </div>
                     <div className={styles.sbBtn} title="Settings"><i aria-hidden="true"><FaCog /></i></div>
                 </div>
@@ -215,10 +223,8 @@ export default function DashboardLayout({
                             aria-expanded={ariaExpanded}
                             aria-haspopup={ariaHaspopup}
                         >
-                            <span className={styles.userMenuAvatar}>
-                                <FaUser />
-                            </span>
-                            <span className={styles.userMenuName}>{userName}</span>
+                            <span className={styles.userMenuAvatar}>{userInitial}</span>
+                            <span className={styles.userMenuName}>{displayUserName}</span>
                             <span className={styles.userMenuChevron} aria-hidden="true">
                                 <IoCaretDown />
                             </span>
