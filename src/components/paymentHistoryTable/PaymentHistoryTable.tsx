@@ -67,6 +67,7 @@ type PaymentHistoryTableProps = {
     loginMessage?: string;
     loadingMessage?: string;
     className?: string;
+    view?: 'orders' | 'billing';
 };
 
 const PaymentHistoryTable = ({
@@ -82,6 +83,7 @@ const PaymentHistoryTable = ({
     loginMessage = "Please log in to view this data.",
     loadingMessage = "Loading...",
     className,
+    view = 'orders',
 }: PaymentHistoryTableProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeFilter, setActiveFilter] = useState("all");
@@ -309,6 +311,35 @@ const PaymentHistoryTable = ({
         [records]
     );
 
+    const failedCount = useMemo(
+        () =>
+            (records || []).filter((record) => {
+                const normalized = record.status?.toLowerCase();
+                return normalized === "failed" || normalized === "cancelled" || normalized === "canceled";
+            }).length,
+        [records]
+    );
+
+    const getStats = useMemo(() => {
+        if (view === 'billing') {
+            return [
+                { label: "Total Payments", value: ((records || []).length || 0).toString(), color: COLORS_ENUM.SKY_BLUE },
+                {
+                    label: "Total Spent", value: formatter.format(totalSpent), isPrice: true, color: COLORS_ENUM.EMERALD
+                },
+                { label: "Approved", value: approvedCount.toString(), color: COLORS_ENUM.INDIGO }
+            ];
+        } else {
+            return [
+                { label: "Total Orders", value: ((records || []).length || 0).toString(), color: COLORS_ENUM.SKY_BLUE },
+                {
+                    label: "Completed", value: approvedCount.toString(), color: COLORS_ENUM.EMERALD
+                },
+                { label: "Pending", value: pendingCount.toString(), color: COLORS_ENUM.AMBER }
+            ];
+        }
+    }, [view, records, totalSpent, approvedCount, pendingCount, formatter]);
+
     const filteredRecords = useMemo(() => {
         let items = records;
 
@@ -334,15 +365,7 @@ const PaymentHistoryTable = ({
                 title={title}
                 description={subtitle}
                 icon={FaFileInvoiceDollar}
-                stats={
-                    [
-                        { label: "Total Orders", value: ((records || []).length || 0).toString(), color: COLORS_ENUM.SKY_BLUE },
-                        {
-                            label: "Completed", value: approvedCount.toString(), color: COLORS_ENUM.EMERALD
-                        },
-                        { label: "Pending", value: pendingCount.toString(), color: COLORS_ENUM.AMBER }
-                    ]
-                }
+                stats={getStats}
             />
 
             {authLoading ? (
@@ -362,7 +385,7 @@ const PaymentHistoryTable = ({
                             <FaSearch className={styles.searchIcon} />
                             <input
                                 type="text"
-                                placeholder="Search orders..."
+                                placeholder={view === 'billing' ? "Search payments..." : "Search orders..."}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
@@ -379,7 +402,7 @@ const PaymentHistoryTable = ({
                                 onClick={() => setActiveFilter('completed')}
                             >
                                 <FaCheckCircle />
-                                <span>Completed</span>
+                                <span>{view === 'billing' ? 'Approved' : 'Completed'}</span>
                             </button>
                             <button
                                 className={`${styles.filterChip} ${activeFilter === 'pending' ? styles.active : ''}`}
@@ -388,13 +411,15 @@ const PaymentHistoryTable = ({
                                 <FaSpinner />
                                 <span>Pending</span>
                             </button>
-                            <button
-                                className={`${styles.filterChip} ${activeFilter === 'failed' ? styles.active : ''}`}
-                                onClick={() => setActiveFilter('failed')}
-                            >
-                                <FaTimesCircle />
-                                <span>Failed</span>
-                            </button>
+                            {view === 'billing' && (
+                                <button
+                                    className={`${styles.filterChip} ${activeFilter === 'failed' ? styles.active : ''}`}
+                                    onClick={() => setActiveFilter('failed')}
+                                >
+                                    <FaTimesCircle />
+                                    <span>Failed</span>
+                                </button>
+                            )}
                         </div>
                     </div>
 
@@ -543,20 +568,16 @@ const PaymentHistoryTable = ({
                                             </td>
                                             <td className={styles.actionsCell}>
                                                 <div className={styles.actionButtons}>
-                                                    {record.currentCartItem?.map((item, itemIndex) => {
-                                                        const isComplete = isCompleteList(item.productName || '');
-                                                        if (isComplete) return null;
-                                                        return (
-                                                            <button
-                                                                key={`${record.id}-info-${itemIndex}`}
-                                                                className={`${styles.actionBtn} ${styles.infoBtn}`}
-                                                                onClick={(e) => handleProductInfoClick(recordIndex, itemIndex, e)}
-                                                            >
-                                                                <FaCheck />
-                                                                <span>Product Info</span>
-                                                            </button>
-                                                        );
-                                                    })}
+                                                    {record.currentCartItem?.some((item) => !isCompleteList(item.productName || '')) && (
+                                                        <button
+                                                            key={`${record.id}-info`}
+                                                            className={`${styles.actionBtn} ${styles.infoBtn}`}
+                                                            onClick={(e) => handleProductInfoClick(recordIndex, 0, e)}
+                                                        >
+                                                            <FaCheck />
+                                                            <span>Product Info</span>
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>
