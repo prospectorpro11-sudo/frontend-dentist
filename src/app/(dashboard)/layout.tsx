@@ -114,7 +114,7 @@ export default function DashboardLayout({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLogoutMenuOpen, setIsLogoutMenuOpen] = useState(false);
     const pathname = usePathname();
-    const { loggedInUser } = useRootContext();
+    const { loggedInUser, setAuthEnable } = useRootContext();
 
     const closeMenu = () => setIsMenuOpen(false);
 
@@ -187,7 +187,7 @@ export default function DashboardLayout({
                         </a>
                     ))}
                 </nav>
-                {loggedInUser && (
+                {loggedInUser ? (
                     <div className={styles.sideBottom}>
                         <div className={styles.sbAvatar}>{userInitial}</div>
                         <div className={styles.sbInfo}>
@@ -215,6 +215,30 @@ export default function DashboardLayout({
                             )}
                         </div>
                     </div>
+                ) : (
+                    <div className={styles.sideBottom} style={{ padding: '20px' }}>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setAuthEnable(true);
+                                closeMenu();
+                            }}
+                            style={{
+                                width: '100%',
+                                padding: '12px',
+                                background: 'linear-gradient(90deg, #0DA2E6 0%, #0386C9 100%)',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '10px',
+                                fontWeight: 600,
+                                cursor: 'pointer',
+                                fontSize: '15px',
+                                boxShadow: '0 4px 12px rgba(13, 162, 230, 0.2)'
+                            }}
+                        >
+                            Login / Register
+                        </button>
+                    </div>
                 )}
             </aside>
             {/* Top Bar */}
@@ -238,28 +262,48 @@ export default function DashboardLayout({
                     {/* {navSubtitle ? <div className={styles.topbarSubtitle}>{navSubtitle}</div> : null} */}
                 </div>
                 <div className={styles.spacer}></div>
-                <DropdownMenu
-                    items={userMenuItems}
-                    align="right"
-                    size="sm"
-                    className={styles.userMenu}
-                    menuClassName={styles.userMenuDropdown}
-                    trigger={({ onClick, ariaExpanded, ariaHaspopup }) => (
-                        <button
-                            type="button"
-                            className={styles.userMenuTrigger}
-                            onClick={onClick}
-                            aria-expanded={ariaExpanded}
-                            aria-haspopup={ariaHaspopup}
-                        >
-                            <span className={styles.userMenuAvatar}>{userInitial}</span>
-                            <span className={styles.userMenuName}>{displayUserName}</span>
-                            <span className={styles.userMenuChevron} aria-hidden="true">
-                                <IoCaretDown />
-                            </span>
-                        </button>
-                    )}
-                />
+                {loggedInUser ? (
+                    <DropdownMenu
+                        items={userMenuItems}
+                        align="right"
+                        size="sm"
+                        className={styles.userMenu}
+                        menuClassName={styles.userMenuDropdown}
+                        trigger={({ onClick, ariaExpanded, ariaHaspopup }) => (
+                            <button
+                                type="button"
+                                className={styles.userMenuTrigger}
+                                onClick={onClick}
+                                aria-expanded={ariaExpanded}
+                                aria-haspopup={ariaHaspopup}
+                            >
+                                <span className={styles.userMenuAvatar}>{userInitial}</span>
+                                <span className={styles.userMenuName}>{displayUserName}</span>
+                                <span className={styles.userMenuChevron} aria-hidden="true">
+                                    <IoCaretDown />
+                                </span>
+                            </button>
+                        )}
+                    />
+                ) : (
+                    <button
+                        type="button"
+                        onClick={() => setAuthEnable(true)}
+                        style={{
+                            padding: '8px 16px',
+                            background: 'linear-gradient(90deg, #0DA2E6 0%, #0386C9 100%)',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            boxShadow: '0 4px 12px rgba(13, 162, 230, 0.2)'
+                        }}
+                    >
+                        Login
+                    </button>
+                )}
             </div>
 
             <main
