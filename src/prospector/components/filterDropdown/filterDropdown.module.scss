@@ -317,88 +317,299 @@
 	}
 }
 
-/* ===== Tablet ===== */
+@keyframes modalFadeIn {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* ===== Tablet (≤991.98px) — centered modal ===== */
 @include breakpoint(tablet) {
+	.overlay {
+		position: fixed !important;
+		inset: 0 !important;
+		background: rgba(15, 23, 42, 0.42);
+		backdrop-filter: blur(4px);
+		pointer-events: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem;
+		z-index: 10000;
+	}
+
 	.dropdown {
-		width: min(340px, calc(100vw - 30px));
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		width: calc(100% - 1rem);
+		max-width: 440px;
+		max-height: 80vh;
+		display: flex;
+		flex-direction: column;
+		border-radius: 18px;
+		box-shadow: 0 20px 60px rgba(2, 6, 23, 0.22);
+		animation: modalFadeIn 0.22s ease-out;
 	}
 
 	.dropdownZip {
-		width: min(460px, calc(100vw - 30px));
+		max-width: 520px;
 	}
 
 	.header {
-		padding: 10px 12px;
+		padding: 16px 18px;
+		flex-shrink: 0;
 
 		h4 {
 			font-size: 18px;
 		}
 	}
 
+	.closeBtn {
+		width: 32px;
+		height: 32px;
+		font-size: 14px;
+	}
+
 	.searchRow {
-		padding: 8px 10px;
+		padding: 10px 16px;
+		flex-shrink: 0;
+	}
+
+	.searchWrap input {
+		height: 40px;
+		font-size: 14px;
+	}
+
+	.options {
+		max-height: none;
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
 	}
 
 	.optionRow {
 		font-size: 14px;
-		padding: 6px 6px;
+		padding: 8px 8px;
 	}
 
 	.footer {
-		padding: 8px 12px;
-		font-size: 12px;
+		padding: 10px 16px;
+		font-size: 12.5px;
+		flex-shrink: 0;
 	}
 
 	.actions {
-		padding: 8px 10px 10px;
+		padding: 10px 16px 16px;
+		flex-shrink: 0;
 	}
 
 	.primaryBtn,
 	.secondaryBtn {
-		height: 34px;
-		font-size: 13px;
+		height: 38px;
+		font-size: 14px;
+		border-radius: 10px;
 	}
 }
 
-/* ===== Mobile ===== */
-@media (max-width: 768px) {
+/* ===== Mobile Landscape (≤767.98px) — centered modal ===== */
+@include breakpoint(mobile-landscape) {
 	.overlay {
-		position: fixed;
-		inset: 0;
-		background: rgba(15, 23, 42, 0.24);
-		backdrop-filter: blur(1px);
+		position: fixed !important;
+		inset: 0 !important;
+		background: rgba(15, 23, 42, 0.45);
+		backdrop-filter: blur(5px);
 		pointer-events: auto;
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
 		justify-content: center;
-		padding: 0;
+		padding: 0.5rem;
 		z-index: 10000;
 	}
 
 	.dropdown {
-		position: relative;
-		top: auto;
-		left: auto;
-		width: 100%;
-		max-width: 100%;
-		border-radius: 16px 16px 0 0;
-		border: 1px solid rgba(15, 23, 42, 0.14);
-		max-height: 78vh;
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		width: calc(100% - 1rem) !important;
+		max-width: 440px !important;
+		border-radius: 18px;
+		border: 1px solid rgba(15, 23, 42, 0.08);
+		max-height: 82vh;
 		display: flex;
 		flex-direction: column;
+		box-shadow: 0 20px 60px rgba(2, 6, 23, 0.24);
+		animation: modalFadeIn 0.25s ease-out;
 	}
 
-	.header h4 {
-		font-size: 20px;
+	.dropdownZip {
+		max-width: 500px !important;
 	}
 
-	.searchWrap input {
+	.header {
+		padding: 16px 18px;
+		flex-shrink: 0;
+
+		h4 {
+			font-size: 18px;
+		}
+	}
+
+	.closeBtn {
+		width: 34px;
+		height: 34px;
 		font-size: 15px;
-		height: 42px;
 	}
 
 	.searchRow {
 		grid-template-columns: 1fr;
+		padding: 10px 16px;
+		flex-shrink: 0;
+	}
+
+	.searchWrap input {
+		height: 42px;
+		font-size: 15px;
+		border-radius: 10px;
+	}
+
+	.inlineFilters {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+	}
+
+	.inlineSelectWrap {
+		width: 100%;
+	}
+
+	.inlineTrigger {
+		height: 42px;
+		font-size: 13px;
+		border-radius: 10px;
+	}
+
+	.options {
+		max-height: none;
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
+		padding: 6px 16px 10px;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.optionRow {
+		font-size: 15px;
+		padding: 10px 8px;
+
+		input {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	.optionGridZip {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.footer {
+		padding: 10px 16px;
+		font-size: 13px;
+		flex-shrink: 0;
+	}
+
+	.actions {
+		padding: 10px 16px 14px;
+		flex-shrink: 0;
+		gap: 10px;
+	}
+
+	.primaryBtn,
+	.secondaryBtn {
+		height: 42px;
+		font-size: 15px;
+		border-radius: 12px;
+	}
+
+	.primaryBtn {
+		box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+	}
+}
+
+/* ===== Mobile (≤575.98px) — centered modal ===== */
+@include breakpoint(mobile) {
+	.overlay {
+		position: fixed !important;
+		inset: 0 !important;
+		background: rgba(15, 23, 42, 0.5);
+		backdrop-filter: blur(6px);
+		pointer-events: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem;
+		z-index: 10000;
+	}
+
+	.dropdown {
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		width: calc(100% - 1rem) !important;
+		max-width: 100% !important;
+		border-radius: 18px;
+		border: 1px solid rgba(15, 23, 42, 0.06);
+		max-height: 85vh;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 24px 70px rgba(2, 6, 23, 0.26);
+		animation: modalFadeIn 0.25s ease-out;
+	}
+
+	.dropdownZip {
+		width: calc(100% - 1rem) !important;
+		max-width: 100% !important;
+	}
+
+	.header {
+		padding: 16px 16px 14px;
+		flex-shrink: 0;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+		h4 {
+			font-size: 17px;
+		}
+	}
+
+	.closeBtn {
+		width: 34px;
+		height: 34px;
+		font-size: 15px;
+		background: rgba(0, 0, 0, 0.06);
+	}
+
+	.searchRow {
+		grid-template-columns: 1fr;
+		padding: 10px 14px;
+		flex-shrink: 0;
+	}
+
+	.searchWrap input {
+		height: 44px;
+		font-size: 15px;
+		border-radius: 10px;
+		padding: 0 14px 0 42px;
+	}
+
+	.searchIcon {
+		left: 14px;
+		font-size: 14px;
 	}
 
 	.inlineFilters {
@@ -412,13 +623,53 @@
 	}
 
 	.inlineTrigger {
-		height: 42px;
-		font-size: 13px;
+		height: 44px;
+		font-size: 14px;
+		border-radius: 10px;
+	}
+
+	.inlineTriggerLabel {
+		font-size: 14px;
+		gap: 8px;
+	}
+
+	.inlineCount {
+		font-size: 11px;
+		padding: 2px 8px;
+	}
+
+	.inlineMenu {
+		border-radius: 12px;
+	}
+
+	.inlineMenuList {
+		max-height: 200px;
+		padding: 8px;
+	}
+
+	.inlineOptionRow {
+		padding: 10px 10px;
+		font-size: 14px;
+
+		input {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	.options {
+		max-height: none;
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
+		padding: 6px 14px 10px;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.optionRow {
-		font-size: 16px;
-		padding: 8px 6px;
+		font-size: 15px;
+		padding: 10px 8px;
+		gap: 10px;
 
 		input {
 			width: 18px;
@@ -428,74 +679,127 @@
 
 	.optionGridZip {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 4px 8px;
 	}
 
-	.options {
-		max-height: 46vh;
+	.optionGridZip .optionRow {
+		font-size: 13px;
+		padding: 8px 6px;
+	}
+
+	.empty,
+	.loadingMore {
+		padding: 18px 12px;
+		font-size: 14px;
 	}
 
 	.footer {
+		padding: 10px 16px;
 		font-size: 13px;
+		flex-shrink: 0;
+		border-top: 1px solid rgba(0, 0, 0, 0.06);
+	}
+
+	.actions {
+		padding: 10px 14px 14px;
+		flex-shrink: 0;
+		gap: 10px;
 	}
 
 	.primaryBtn,
 	.secondaryBtn {
-		height: 40px;
+		height: 44px;
 		font-size: 15px;
+		border-radius: 12px;
+		font-weight: 700;
+	}
+
+	.primaryBtn {
+		box-shadow: 0 4px 16px rgba(37, 99, 235, 0.28);
+	}
+
+	.secondaryBtn {
+		border-width: 1.5px;
 	}
 }
 
-/* ===== Small Mobile ===== */
+/* ===== Small Mobile (≤370px) ===== */
 @include breakpoint(small-mobile) {
 	.dropdown {
-		max-height: 82vh;
+		max-height: 88vh;
 	}
 
 	.header {
-		padding: 8px 10px;
+		padding: 14px 14px 12px;
 
 		h4 {
-			font-size: 17px;
+			font-size: 16px;
 		}
 	}
 
 	.closeBtn {
-		width: 26px;
-		height: 26px;
+		width: 30px;
+		height: 30px;
+		font-size: 13px;
 	}
 
 	.searchRow {
-		padding: 8px;
+		padding: 8px 12px;
 	}
 
 	.searchWrap input {
-		height: 38px;
+		height: 40px;
 		font-size: 14px;
+		padding: 0 12px 0 38px;
+	}
+
+	.searchIcon {
+		left: 12px;
+		font-size: 13px;
+	}
+
+	.inlineTrigger {
+		height: 40px;
+		font-size: 13px;
+	}
+
+	.options {
+		padding: 4px 12px 8px;
 	}
 
 	.optionRow {
-		font-size: 15px;
-		padding: 7px 4px;
+		font-size: 14px;
+		padding: 9px 6px;
+		gap: 8px;
+
+		input {
+			width: 16px;
+			height: 16px;
+		}
 	}
 
 	.optionGridZip {
 		grid-template-columns: 1fr;
 	}
 
+	.optionGridZip .optionRow {
+		font-size: 13px;
+	}
+
 	.footer {
-		padding: 8px 10px;
-		font-size: 12px;
+		padding: 8px 12px;
+		font-size: 11.5px;
 	}
 
 	.actions {
-		padding: 6px 8px 8px;
-		gap: 6px;
+		padding: 8px 12px 12px;
+		gap: 8px;
 	}
 
 	.primaryBtn,
 	.secondaryBtn {
-		height: 38px;
+		height: 40px;
 		font-size: 14px;
+		border-radius: 10px;
 	}
 }
-

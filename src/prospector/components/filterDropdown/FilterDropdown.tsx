@@ -1,6 +1,7 @@
 "use client";
 
 import { CSSProperties, Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { FaSearch, FaTimes } from "react-icons/fa";
 import { FaChevronDown, FaMap } from "react-icons/fa6";
@@ -11,6 +12,8 @@ import { internalApi } from "@/services/baseServices";
 import { IProspectorFilter } from "@/shared/interface";
 import { PROSPECTOR_FILTER_VARIANT_ENUM } from "@/shared/enums";
 import { PROSPECTOR_FILTER_ENDPOINTS } from "@/shared/constant";
+
+const TABLET_BREAKPOINT = 991.98;
 
 const PAGE_SIZE = 100;
 
@@ -124,6 +127,14 @@ const FilterDropdown = ({
     const [zipCityValues, setZipCityValues] = useState<string[]>([]);
     const [cityStateValues, setCityStateValues] = useState<string[]>([]);
     const [openAuxDropdown, setOpenAuxDropdown] = useState<"state" | "city" | null>(null);
+    const [usePortal, setUsePortal] = useState(false);
+
+    useEffect(() => {
+        const checkViewport = () => setUsePortal(window.innerWidth <= TABLET_BREAKPOINT);
+        checkViewport();
+        window.addEventListener("resize", checkViewport);
+        return () => window.removeEventListener("resize", checkViewport);
+    }, []);
 
     useEffect(() => {
         const timer = window.setTimeout(() => {
@@ -320,11 +331,11 @@ const FilterDropdown = ({
         }
     };
 
-    const dropdownStyle: CSSProperties | undefined = position
+    const dropdownStyle: CSSProperties | undefined = (!usePortal && position)
         ? { top: `${position.top}px`, left: `${position.left}px` }
         : undefined;
 
-    return (
+    const content = (
         <div className={styles.overlay}>
             <div className={`${styles.dropdown} ${isZipFilter ? styles.dropdownZip : ""}`.trim()} ref={containerRef} style={dropdownStyle}>
                 <div className={styles.header}>
@@ -471,6 +482,12 @@ const FilterDropdown = ({
             </div>
         </div>
     );
+
+    if (usePortal && typeof document !== "undefined") {
+        return createPortal(content, document.body);
+    }
+
+    return content;
 };
 
 export default FilterDropdown;
