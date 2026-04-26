@@ -2,12 +2,31 @@
 
 import dayjs from "dayjs";
 import classNames from "classnames";
-import { useMemo } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 
 import styles from "./paymentHistoryTable.module.scss";
 import DashboardPageHeader from "../dashboardPageHeader/DashboardPageHeader";
-import { FaFileInvoiceDollar } from "react-icons/fa";
+import {
+    FaFileInvoiceDollar,
+    FaSearch,
+    FaSort,
+    FaMapMarkerAlt,
+    FaVenusMars,
+    FaStethoscope,
+    FaMapMarkedAlt,
+    FaCity,
+    FaEnvelope,
+    FaCertificate,
+    FaCheckCircle,
+    FaTimesCircle,
+    FaSpinner,
+    FaCheck,
+    FaFilter,
+    FaInfoCircle,
+    FaTimes,
+} from "react-icons/fa";
 import { COLORS_ENUM } from "@/shared/enums";
+import LogoIcon from "../logoIcon/LogoIcon";
 
 export type PaymentFilterItem = {
     field: string;
@@ -64,6 +83,21 @@ const PaymentHistoryTable = ({
     loadingMessage = "Loading...",
     className,
 }: PaymentHistoryTableProps) => {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeFilter, setActiveFilter] = useState("all");
+    const [filterTooltip, setFilterTooltip] = useState<{ visible: boolean; recordIndex: number; itemIndex: number; filterType: string | null; position: { x: number; y: number } }>({ visible: false, recordIndex: -1, itemIndex: -1, filterType: null, position: { x: 0, y: 0 } });
+    const [productInfoTooltip, setProductInfoTooltip] = useState<{ visible: boolean; recordIndex: number; itemIndex: number; position: { x: number; y: number } }>({ visible: false, recordIndex: -1, itemIndex: -1, position: { x: 0, y: 0 } });
+    const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (hoverTimeout) {
+                clearTimeout(hoverTimeout);
+            }
+        };
+    }, [hoverTimeout]);
+
     const formatter = useMemo(
         () =>
             new Intl.NumberFormat("en-US", {
@@ -75,12 +109,162 @@ const PaymentHistoryTable = ({
 
     const formatDate = (timestamp: number) => {
         if (!timestamp) return "--";
-        return dayjs.unix(timestamp).format("MMM D, YYYY");
+        return dayjs.unix(timestamp).format("YYYY-MM-DD");
     };
 
-    const formatFilters = (filters?: PaymentFilterItem[]) => {
-        if (!filters?.length) return "";
-        return filters.map((item) => `${item.field}: ${item.value}`).join(" | ");
+    const formatTime = (timestamp: number) => {
+        if (!timestamp) return "--";
+        return dayjs.unix(timestamp).format("h:mm A");
+    };
+
+    const parseFiltersFromName = useCallback((name: string) => {
+        const filters: any = {
+            states: [],
+            countStates: 0,
+            cities: [],
+            countCities: 0,
+            zips: [],
+            countZips: 0,
+            gender: [],
+            countGender: 0,
+            specialization: [],
+            countSpecialization: 0,
+            licenseStates: [],
+            countLicense: 0
+        };
+
+        const match = name.match(/\((.*?)\)/);
+        if (!match) return filters;
+
+        const filterString = match[1];
+        
+        // Check if it's a complete list
+        if (filterString.toLowerCase().includes('complete list')) {
+            return { ...filters, isComplete: true };
+        }
+
+        const sections = filterString.split(/,(?=\s*(?:State|City|Zip|Specialization|Gender|LicenseState):)/);
+
+        sections.forEach(section => {
+            const [key, ...valueParts] = section.split(':');
+            const keyTrimmed = key.trim();
+            const valueString = valueParts.join(':').trim();
+
+            if (keyTrimmed === 'State') {
+                filters.states = valueString.split(';').map((s: string) => s.trim()).filter(Boolean);
+                filters.countStates = filters.states.length;
+            } else if (keyTrimmed === 'City') {
+                filters.cities = valueString.split(';').map((city: string) => {
+                    const [state, ...cityParts] = city.split('=');
+                    const name = cityParts.join('=').trim();
+                    return {
+                        name: state ? `${name}, ${state}` : name,
+                        count: 1
+                    };
+                }).filter(Boolean);
+                filters.countCities = filters.cities.length;
+            } else if (keyTrimmed === 'Zip') {
+                filters.zips = valueString.split(';').map((z: string) => z.trim()).filter(Boolean);
+                filters.countZips = filters.zips.length;
+            } else if (keyTrimmed === 'Specialization') {
+                filters.specialization = valueString.split(';').map((s: string) => s.trim()).filter(Boolean);
+                filters.countSpecialization = filters.specialization.length;
+            } else if (keyTrimmed === 'Gender') {
+                filters.gender = valueString.split(';').map((g: string) => g.trim()).filter(Boolean);
+                filters.countGender = filters.gender.length;
+            } else if (keyTrimmed === 'LicenseState') {
+                filters.licenseStates = valueString.split(';').map((s: string) => s.trim()).filter(Boolean);
+                filters.countLicense = filters.licenseStates.length;
+            }
+        });
+
+        return filters;
+    }, []);
+
+    const extractProductName = useCallback((name: string) => {
+        // Extract product name before the first parenthesis
+        const match = name.match(/^(.*?)\s*\(/);
+        if (match) {
+            return match[1].trim();
+        }
+        // If no parenthesis, return the whole name
+        return name.trim();
+    }, []);
+
+    const isCompleteList = useCallback((name: string) => {
+        const filters = parseFiltersFromName(name);
+        return filters.isComplete === true || (
+            filters.countStates === 0 &&
+            filters.countCities === 0 &&
+            filters.countZips === 0 &&
+            filters.countGender === 0 &&
+            filters.countSpecialization === 0 &&
+            filters.countLicense === 0
+        );
+    }, [parseFiltersFromName]);
+
+    const handleFilterBadgeHover = useCallback((recordIndex: number, itemIndex: number, filterType: string, event: React.MouseEvent) => {
+        // Clear any existing timeout
+        if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
+            setHoverTimeout(null);
+        }
+
+        const rect = (event.target as HTMLElement).getBoundingClientRect();
+        setFilterTooltip({
+            visible: true,
+            recordIndex,
+            itemIndex,
+            filterType,
+            position: { x: rect.left, y: rect.top }
+        });
+    }, [hoverTimeout]);
+
+    const handleFilterBadgeLeave = useCallback(() => {
+        // Add a small delay before hiding
+        const timeout = setTimeout(() => {
+            setFilterTooltip(prev => ({ ...prev, visible: false }));
+        }, 200);
+        setHoverTimeout(timeout);
+    }, []);
+
+    const handleTooltipEnter = useCallback(() => {
+        // Keep tooltip visible when hovering over it
+        if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
+            setHoverTimeout(null);
+        }
+    }, [hoverTimeout]);
+
+    const handleTooltipLeave = useCallback(() => {
+        // Hide tooltip when leaving it
+        setFilterTooltip(prev => ({ ...prev, visible: false }));
+    }, []);
+
+    const handleProductInfoClick = useCallback((recordIndex: number, itemIndex: number, event: React.MouseEvent) => {
+        const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+        setProductInfoTooltip({
+            visible: true,
+            recordIndex,
+            itemIndex,
+            position: { x: rect.left, y: rect.top }
+        });
+    }, []);
+
+    const closeTooltips = useCallback(() => {
+        setFilterTooltip(prev => ({ ...prev, visible: false }));
+        setProductInfoTooltip(prev => ({ ...prev, visible: false }));
+    }, []);
+
+    const getStatus = (record: PaymentRecord) => {
+        const normalized = record.status?.toLowerCase();
+        if (normalized === "paid" || normalized === "completed" || normalized === "success") {
+            return 'completed';
+        }
+        if (normalized === "failed" || normalized === "cancelled" || normalized === "canceled") {
+            return 'failed';
+        }
+        return 'pending';
     };
 
     const getStatusClass = (status?: string) => {
@@ -116,6 +300,34 @@ const PaymentHistoryTable = ({
         [records]
     );
 
+    const pendingCount = useMemo(
+        () =>
+            (records || []).filter((record) => {
+                const normalized = record.status?.toLowerCase();
+                return normalized === "pending" || normalized === "processing";
+            }).length,
+        [records]
+    );
+
+    const filteredRecords = useMemo(() => {
+        let items = records;
+
+        if (searchQuery) {
+            items = items.filter((record: PaymentRecord) =>
+                record.orderId?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                record.currentCartItem?.some((item: PaymentCartItem) =>
+                    item.productName?.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+            );
+        }
+
+        if (activeFilter !== 'all') {
+            items = items.filter((record: PaymentRecord) => getStatus(record) === activeFilter);
+        }
+
+        return items;
+    }, [records, searchQuery, activeFilter]);
+
     return (
         <div className={classNames(styles.wrapper, className)}>
             <DashboardPageHeader
@@ -124,11 +336,11 @@ const PaymentHistoryTable = ({
                 icon={FaFileInvoiceDollar}
                 stats={
                     [
-                        { label: "Total Payments", value: ((records || []).length || 0).toString(), color: COLORS_ENUM.SKY_BLUE },
+                        { label: "Total Orders", value: ((records || []).length || 0).toString(), color: COLORS_ENUM.SKY_BLUE },
                         {
-                            label: "Total Spent", value: totalSpent.toString(), isPrice: true, color: COLORS_ENUM.EMERALD
+                            label: "Completed", value: approvedCount.toString(), color: COLORS_ENUM.EMERALD
                         },
-                        { label: "Approved", value: approvedCount.toString(), color: COLORS_ENUM.INDIGO }
+                        { label: "Pending", value: pendingCount.toString(), color: COLORS_ENUM.AMBER }
                     ]
                 }
             />
@@ -145,56 +357,405 @@ const PaymentHistoryTable = ({
                 <div className={styles.stateCard}>{emptyMessage}</div>
             ) : (
                 <div className={styles.tableCard}>
-                    <div className={styles.tableWrap}>
+                    <div className={styles.cardHeader}>
+                        <div className={styles.searchBox}>
+                            <FaSearch className={styles.searchIcon} />
+                            <input
+                                type="text"
+                                placeholder="Search orders..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </div>
+                        <div className={styles.filterChips}>
+                            <button
+                                className={`${styles.filterChip} ${activeFilter === 'all' ? styles.active : ''}`}
+                                onClick={() => setActiveFilter('all')}
+                            >
+                                <span>All</span>
+                            </button>
+                            <button
+                                className={`${styles.filterChip} ${activeFilter === 'completed' ? styles.active : ''}`}
+                                onClick={() => setActiveFilter('completed')}
+                            >
+                                <FaCheckCircle />
+                                <span>Completed</span>
+                            </button>
+                            <button
+                                className={`${styles.filterChip} ${activeFilter === 'pending' ? styles.active : ''}`}
+                                onClick={() => setActiveFilter('pending')}
+                            >
+                                <FaSpinner />
+                                <span>Pending</span>
+                            </button>
+                            <button
+                                className={`${styles.filterChip} ${activeFilter === 'failed' ? styles.active : ''}`}
+                                onClick={() => setActiveFilter('failed')}
+                            >
+                                <FaTimesCircle />
+                                <span>Failed</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className={styles.tableContainer}>
                         <table className={styles.table}>
                             <thead>
                                 <tr>
-                                    <th>Order</th>
-                                    <th>Date</th>
-                                    <th>Items</th>
-                                    <th>Payment</th>
-                                    <th>Status</th>
-                                    <th>Total</th>
+                                    <th className={styles.colOrderId}>
+                                        <span>Order ID</span>
+                                        <FaSort className={styles.sortIcon} />
+                                    </th>
+                                    <th className={styles.colProduct}>
+                                        <span>Product</span>
+                                        <FaSort className={styles.sortIcon} />
+                                    </th>
+                                    <th className={styles.colDate}>
+                                        <span>Date</span>
+                                        <FaSort className={styles.sortIcon} />
+                                    </th>
+                                    <th className={styles.colStatus}>
+                                        <span>Status</span>
+                                        <FaSort className={styles.sortIcon} />
+                                    </th>
+                                    <th className={styles.colAmount}>
+                                        <span>Amount</span>
+                                        <FaSort className={styles.sortIcon} />
+                                    </th>
+                                    <th className={styles.colActions}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {records.map((record) => (
-                                    <tr key={record.id}>
-                                        <td>
-                                            <div className={styles.orderId}>#{record.orderId || record.id}</div>
-                                            <div className={styles.orderMeta}>ID: {record.id}</div>
-                                        </td>
-                                        <td>{formatDate(record.date)}</td>
-                                        <td>
-                                            <div className={styles.items}>
-                                                {record.currentCartItem?.map((item, index) => (
-                                                    <div key={`${record.id}-${index}`} className={styles.item}>
-                                                        <div className={styles.itemName}>{item.productName}</div>
-                                                        <div className={styles.itemMeta}>
-                                                            {item.contacts?.toLocaleString?.() || "0"} contacts /{" "}
-                                                            {formatter.format(item.price || 0)}
+                                {filteredRecords.map((record, recordIndex) => {
+                                    const status = getStatus(record);
+
+                                    return (
+                                        <tr key={record.id} className={styles.orderRow} data-status={status}>
+                                            <td className={styles.orderIdCell}>
+                                                <div className={styles.orderId}>#{record.orderId || record.id}</div>
+                                            </td>
+                                            <td className={styles.productCell}>
+                                                {record.currentCartItem?.map((item, itemIndex) => {
+                                                    const parsedFilters = parseFiltersFromName(item.productName || '');
+                                                    const isComplete = isCompleteList(item.productName || '');
+                                                    const productName = extractProductName(item.productName || '');
+
+                                                    return (
+                                                        <div key={`${record.id}-${itemIndex}`} className={styles.productHeader}>
+                                                            <div className={styles.productIcon}>
+                                                                <LogoIcon width={26} height={26} variant="white" />
+                                                            </div>
+                                                            <div className={styles.productInfo}>
+                                                                <div className={styles.productName}>{productName}</div>
+                                                                {!isComplete && (
+                                                                    <div className={styles.productMeta}>
+                                                                        {parsedFilters?.states && parsedFilters.states[0] !== 'All USA' && (
+                                                                            <span
+                                                                                className={`${styles.metaTag} ${styles.badgeStates}`}
+                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'states', e)}
+                                                                                onMouseLeave={handleFilterBadgeLeave}
+                                                                            >
+                                                                                <FaMapMarkerAlt />
+                                                                                <span className={styles.count}>{parsedFilters.countStates}</span>
+                                                                            </span>
+                                                                        )}
+                                                                        {parsedFilters?.cities && (
+                                                                            <span
+                                                                                className={`${styles.metaTag} ${styles.badgeCities}`}
+                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'cities', e)}
+                                                                                onMouseLeave={handleFilterBadgeLeave}
+                                                                            >
+                                                                                <FaCity />
+                                                                                <span className={styles.count}>{parsedFilters.countCities}</span>
+                                                                            </span>
+                                                                        )}
+                                                                        {parsedFilters?.zips && (
+                                                                            <span
+                                                                                className={`${styles.metaTag} ${styles.badgeZips}`}
+                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'zips', e)}
+                                                                                onMouseLeave={handleFilterBadgeLeave}
+                                                                            >
+                                                                                <FaEnvelope />
+                                                                                <span className={styles.count}>{parsedFilters.countZips}</span>
+                                                                            </span>
+                                                                        )}
+                                                                        {parsedFilters?.gender && (
+                                                                            <span
+                                                                                className={`${styles.metaTag} ${styles.badgeGender}`}
+                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'gender', e)}
+                                                                                onMouseLeave={handleFilterBadgeLeave}
+                                                                            >
+                                                                                <FaVenusMars />
+                                                                                <span className={styles.count}>{parsedFilters.countGender}</span>
+                                                                            </span>
+                                                                        )}
+                                                                        {parsedFilters?.specialization && (
+                                                                            <span
+                                                                                className={`${styles.metaTag} ${styles.badgeSpecialty}`}
+                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'specialization', e)}
+                                                                                onMouseLeave={handleFilterBadgeLeave}
+                                                                            >
+                                                                                <FaStethoscope />
+                                                                                <span className={styles.count}>{parsedFilters.countSpecialization}</span>
+                                                                            </span>
+                                                                        )}
+                                                                        {parsedFilters?.licenseStates && (
+                                                                            <span
+                                                                                className={`${styles.metaTag} ${styles.badgeLicense}`}
+                                                                                onMouseEnter={(e) => handleFilterBadgeHover(recordIndex, itemIndex, 'license', e)}
+                                                                                onMouseLeave={handleFilterBadgeLeave}
+                                                                            >
+                                                                                <FaCertificate />
+                                                                                <span className={styles.count}>{parsedFilters.countLicense}</span>
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                )}
+                                                            </div>
                                                         </div>
-                                                        {formatFilters(item.filterItems) ? (
-                                                            <div className={styles.itemFilters}>{formatFilters(item.filterItems)}</div>
-                                                        ) : null}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </td>
-                                        <td className={styles.payment}>{getPaymentLabel(record)}</td>
-                                        <td>
-                                            <span className={`${styles.status} ${getStatusClass(record.status)}`}>
-                                                {record.status || "Pending"}
-                                            </span>
-                                        </td>
-                                        <td className={styles.amount}>{formatter.format(record.totalAmount || 0)}</td>
-                                    </tr>
-                                ))}
+                                                    );
+                                                })}
+                                            </td>
+                                            <td className={styles.dateCell}>
+                                                <div className={styles.dateMain}>{formatDate(record.date)}</div>
+                                                <div className={styles.dateTime}>{formatTime(record.date)}</div>
+                                            </td>
+                                            <td className={styles.statusCell}>
+                                                {status === 'completed' ? (
+                                                    <span className={`${styles.statusBadge} ${styles.completed}`}>
+                                                        <FaCheckCircle />
+                                                        <span>Completed</span>
+                                                    </span>
+                                                ) : status === 'failed' ? (
+                                                    <span className={`${styles.statusBadge} ${styles.failed}`}>
+                                                        <FaTimesCircle />
+                                                        <span>Failed</span>
+                                                    </span>
+                                                ) : (
+                                                    <span className={`${styles.statusBadge} ${styles.pending}`}>
+                                                        <FaSpinner />
+                                                        <span>Pending</span>
+                                                    </span>
+                                                )}
+                                            </td>
+                                            <td className={styles.amountCell}>
+                                                <div className={styles.amount}>{formatter.format(record.totalAmount || 0)}</div>
+                                            </td>
+                                            <td className={styles.actionsCell}>
+                                                <div className={styles.actionButtons}>
+                                                    {record.currentCartItem?.map((item, itemIndex) => {
+                                                        const isComplete = isCompleteList(item.productName || '');
+                                                        if (isComplete) return null;
+                                                        return (
+                                                            <button
+                                                                key={`${record.id}-info-${itemIndex}`}
+                                                                className={`${styles.actionBtn} ${styles.infoBtn}`}
+                                                                onClick={(e) => handleProductInfoClick(recordIndex, itemIndex, e)}
+                                                            >
+                                                                <FaCheck />
+                                                                <span>Product Info</span>
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
+
+                    <div className={styles.tableFooter}>
+                        <div className={styles.showingText}>
+                            Showing <strong>{filteredRecords.length}</strong> orders
+                        </div>
+                        <div className={styles.pagination}>
+                            <button className={`${styles.pageBtn} ${styles.disabled}`}>
+                                <FaSort style={{ transform: 'rotate(90deg)' }} />
+                            </button>
+                            <button className={`${styles.pageBtn} ${styles.active}`}>1</button>
+                            <button className={`${styles.pageBtn} ${styles.disabled}`}>
+                                <FaSort style={{ transform: 'rotate(-90deg)' }} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
+
+            {/* Filter Badge Tooltip */}
+            {filterTooltip.visible && (() => {
+                const record = filteredRecords[filterTooltip.recordIndex];
+                const item = record?.currentCartItem?.[filterTooltip.itemIndex];
+                const parsedFilters = item ? parseFiltersFromName(item.productName || '') : null;
+                const isComplete = item ? isCompleteList(item.productName || '') : false;
+
+                if (!parsedFilters || !filterTooltip.filterType) return null;
+
+                const filterConfig: any = {
+                    states: { title: 'States', icon: FaMapMarkedAlt, color: 'blue', count: parsedFilters.countStates, values: parsedFilters.states },
+                    cities: { title: 'Cities', icon: FaCity, color: 'teal', count: parsedFilters.countCities, values: parsedFilters.cities.map((c: any) => c.name) },
+                    zips: { title: 'Zip Codes', icon: FaEnvelope, color: 'purple', count: parsedFilters.countZips, values: parsedFilters.zips },
+                    gender: { title: 'Gender', icon: FaVenusMars, color: 'orange', count: parsedFilters.countGender, values: parsedFilters.gender },
+                    specialization: { title: 'Specialization', icon: FaStethoscope, color: 'green', count: parsedFilters.countSpecialization, values: parsedFilters.specialization },
+                    license: { title: 'License State', icon: FaCertificate, color: 'indigo', count: parsedFilters.countLicense, values: parsedFilters.licenseStates }
+                };
+
+                const filter = filterConfig[filterTooltip.filterType];
+                if (!filter || filter.count === 0) return null;
+
+                // Calculate tooltip position
+                const tooltipWidth = 320;
+                const tooltipHeight = 200;
+                let left = filterTooltip.position.x - tooltipWidth - 12;
+                let top = filterTooltip.position.y - 10;
+
+                if (left < 10) {
+                    left = filterTooltip.position.x + 50;
+                }
+                if (top < 10) {
+                    top = 10;
+                }
+                if (top + tooltipHeight > window.innerHeight - 10) {
+                    top = window.innerHeight - tooltipHeight - 10;
+                }
+
+                return (
+                    <div
+                        className={`${styles.filterTooltip} ${styles.visible}`}
+                        style={{
+                            left: `${left}px`,
+                            top: `${top}px`
+                        }}
+                        onMouseEnter={handleTooltipEnter}
+                        onMouseLeave={handleTooltipLeave}
+                    >
+                        <div className={styles.tooltipHeader}>
+                            <FaFilter />
+                            <span>{filter.title}</span>
+                            <button className={styles.closeTooltip} onClick={closeTooltips}>
+                                <FaTimes />
+                            </button>
+                        </div>
+                        <div className={styles.tooltipContent}>
+                            {isComplete ? (
+                                <div className={styles.completeListBadge}>
+                                    <FaCheckCircle />
+                                    Complete dentist list - All filters included
+                                </div>
+                            ) : (
+                                <div className={styles.filterSection}>
+                                    <div className={styles.filterSectionHeader}>
+                                        <filter.icon />
+                                        <span className={styles.filterSectionTitle}>{filter.title}</span>
+                                        <span className={styles.filterSectionCount}>{filter.count}</span>
+                                    </div>
+                                    <div className={styles.filterValues}>
+                                        {filter.values.slice(0, 6).map((value: string, idx: number) => (
+                                            <span key={idx} className={`${styles.fValue} ${styles[filter.color]}`}>
+                                                {value}
+                                            </span>
+                                        ))}
+                                        {filter.values.length > 6 && (
+                                            <span className={`${styles.fValue} ${styles[filter.color]}`}>
+                                                +{filter.values.length - 6} more
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                );
+            })()}
+
+            {/* Product Info Tooltip */}
+            {productInfoTooltip.visible && (() => {
+                const record = filteredRecords[productInfoTooltip.recordIndex];
+                const item = record?.currentCartItem?.[productInfoTooltip.itemIndex];
+                const parsedFilters = item ? parseFiltersFromName(item.productName || '') : null;
+                const isComplete = item ? isCompleteList(item.productName || '') : false;
+
+                if (!parsedFilters) return null;
+
+                // Calculate tooltip position
+                const tooltipWidth = 320;
+                const tooltipHeight = 400;
+                let left = productInfoTooltip.position.x - tooltipWidth - 12;
+                let top = productInfoTooltip.position.y - 10;
+
+                if (left < 10) {
+                    left = productInfoTooltip.position.x + 100;
+                }
+                if (top < 10) {
+                    top = 10;
+                }
+                if (top + tooltipHeight > window.innerHeight - 10) {
+                    top = window.innerHeight - tooltipHeight - 10;
+                }
+
+                const filterConfig: any = [
+                    { key: 'states', title: 'States', icon: FaMapMarkedAlt, color: 'blue', count: parsedFilters.countStates, values: parsedFilters.states },
+                    { key: 'cities', title: 'Cities', icon: FaCity, color: 'teal', count: parsedFilters.countCities, values: parsedFilters.cities.map((c: any) => c.name) },
+                    { key: 'zips', title: 'Zip Codes', icon: FaEnvelope, color: 'purple', count: parsedFilters.countZips, values: parsedFilters.zips },
+                    { key: 'gender', title: 'Gender', icon: FaVenusMars, color: 'orange', count: parsedFilters.countGender, values: parsedFilters.gender },
+                    { key: 'specialization', title: 'Specialization', icon: FaStethoscope, color: 'green', count: parsedFilters.countSpecialization, values: parsedFilters.specialization },
+                    { key: 'license', title: 'License State', icon: FaCertificate, color: 'indigo', count: parsedFilters.countLicense, values: parsedFilters.licenseStates }
+                ];
+
+                return (
+                    <div
+                        className={`${styles.filterTooltip} ${styles.visible}`}
+                        style={{
+                            left: `${left}px`,
+                            top: `${top}px`
+                        }}
+                        onMouseEnter={handleTooltipEnter}
+                        onMouseLeave={handleTooltipLeave}
+                    >
+                        <div className={styles.tooltipHeader}>
+                            <FaInfoCircle />
+                            <span>Product Details</span>
+                            <button className={styles.closeTooltip} onClick={closeTooltips}>
+                                <FaTimes />
+                            </button>
+                        </div>
+                        <div className={styles.tooltipContent}>
+                            {isComplete ? (
+                                <div className={styles.completeListBadge}>
+                                    <FaCheckCircle />
+                                    Complete dentist list - All filters included
+                                </div>
+                            ) : (
+                                filterConfig.map((filter: any) => {
+                                    if (filter.count === 0) return null;
+                                    return (
+                                        <div key={filter.key} className={styles.filterSection}>
+                                            <div className={styles.filterSectionHeader}>
+                                                <filter.icon />
+                                                <span className={styles.filterSectionTitle}>{filter.title}</span>
+                                                <span className={styles.filterSectionCount}>{filter.count}</span>
+                                            </div>
+                                            <div className={styles.filterValues}>
+                                                {filter.values.slice(0, 6).map((value: string, idx: number) => (
+                                                    <span key={idx} className={`${styles.fValue} ${styles[filter.color]}`}>
+                                                        {value}
+                                                    </span>
+                                                ))}
+                                                {filter.values.length > 6 && (
+                                                    <span className={`${styles.fValue} ${styles[filter.color]}`}>
+                                                        +{filter.values.length - 6} more
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            )}
+                        </div>
+                    </div>
+                );
+            })()}
         </div>
     );
 };
