@@ -35,6 +35,7 @@
             rgba(2, 132, 199, 0.06));
     color: var(--blue-600);
     transition: all 0.3s;
+    flex-shrink: 0;
 }
 
 .stat:hover .sico {
@@ -56,4 +57,118 @@
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.3px;
+}
+
+/* ===== Tablet ===== */
+@include breakpoint(tablet) {
+    .stats {
+        gap: 6px;
+    }
+
+    .stat {
+        min-width: 100px;
+        padding: 5px 8px;
+        gap: 8px;
+    }
+
+    .stat .sico {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .stat .sval {
+        font-size: 13px;
+    }
+
+    .stat .slab {
+        font-size: 9px;
+    }
+}
+
+/* ===== Mobile Landscape ===== */
+@include breakpoint(mobile-landscape) {
+    .stats {
+        gap: 4px;
+        width: 100%;
+    }
+
+    .stat {
+        flex: 1 1 calc(50% - 4px);
+        min-width: 0;
+        padding: 6px 8px;
+        gap: 8px;
+        background: rgba(14, 165, 233, 0.02);
+        border-radius: 8px;
+    }
+
+    .stat .sico {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .stat .sval {
+        font-size: 13px;
+    }
+
+    .stat .slab {
+        font-size: 9px;
+    }
+}
+
+/* ===== Mobile ===== */
+@include breakpoint(mobile) {
+    .stats {
+        gap: 4px;
+        width: 100%;
+    }
+
+    .stat {
+        flex: 1 1 calc(50% - 4px);
+        min-width: 0;
+        padding: 4px 6px;
+        gap: 6px;
+    }
+
+    .stat .sico {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+        border-radius: 7px;
+    }
+
+    .stat .sval {
+        font-size: 12px;
+    }
+
+    .stat .slab {
+        font-size: 8.5px;
+        letter-spacing: 0.2px;
+    }
+}
+
+/* ===== Small Mobile ===== */
+@include breakpoint(small-mobile) {
+    .stat {
+        padding: 3px 4px;
+        gap: 5px;
+    }
+
+    .stat .sico {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+        border-radius: 6px;
+    }
+
+    .stat .sval {
+        font-size: 11px;
+    }
+
+    .stat .slab {
+        font-size: 8px;
+    }
 }

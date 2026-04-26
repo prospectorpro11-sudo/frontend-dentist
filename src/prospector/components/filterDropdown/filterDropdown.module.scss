@@ -317,6 +317,50 @@
 	}
 }
 
+/* ===== Tablet ===== */
+@include breakpoint(tablet) {
+	.dropdown {
+		width: min(340px, calc(100vw - 30px));
+	}
+
+	.dropdownZip {
+		width: min(460px, calc(100vw - 30px));
+	}
+
+	.header {
+		padding: 10px 12px;
+
+		h4 {
+			font-size: 18px;
+		}
+	}
+
+	.searchRow {
+		padding: 8px 10px;
+	}
+
+	.optionRow {
+		font-size: 14px;
+		padding: 6px 6px;
+	}
+
+	.footer {
+		padding: 8px 12px;
+		font-size: 12px;
+	}
+
+	.actions {
+		padding: 8px 10px 10px;
+	}
+
+	.primaryBtn,
+	.secondaryBtn {
+		height: 34px;
+		font-size: 13px;
+	}
+}
+
+/* ===== Mobile ===== */
 @media (max-width: 768px) {
 	.overlay {
 		position: fixed;
@@ -328,6 +372,7 @@
 		align-items: flex-end;
 		justify-content: center;
 		padding: 0;
+		z-index: 10000;
 	}
 
 	.dropdown {
@@ -349,6 +394,7 @@
 
 	.searchWrap input {
 		font-size: 15px;
+		height: 42px;
 	}
 
 	.searchRow {
@@ -365,8 +411,19 @@
 		width: 100%;
 	}
 
+	.inlineTrigger {
+		height: 42px;
+		font-size: 13px;
+	}
+
 	.optionRow {
 		font-size: 16px;
+		padding: 8px 6px;
+
+		input {
+			width: 18px;
+			height: 18px;
+		}
 	}
 
 	.optionGridZip {
@@ -376,4 +433,69 @@
 	.options {
 		max-height: 46vh;
 	}
+
+	.footer {
+		font-size: 13px;
+	}
+
+	.primaryBtn,
+	.secondaryBtn {
+		height: 40px;
+		font-size: 15px;
+	}
 }
+
+/* ===== Small Mobile ===== */
+@include breakpoint(small-mobile) {
+	.dropdown {
+		max-height: 82vh;
+	}
+
+	.header {
+		padding: 8px 10px;
+
+		h4 {
+			font-size: 17px;
+		}
+	}
+
+	.closeBtn {
+		width: 26px;
+		height: 26px;
+	}
+
+	.searchRow {
+		padding: 8px;
+	}
+
+	.searchWrap input {
+		height: 38px;
+		font-size: 14px;
+	}
+
+	.optionRow {
+		font-size: 15px;
+		padding: 7px 4px;
+	}
+
+	.optionGridZip {
+		grid-template-columns: 1fr;
+	}
+
+	.footer {
+		padding: 8px 10px;
+		font-size: 12px;
+	}
+
+	.actions {
+		padding: 6px 8px 8px;
+		gap: 6px;
+	}
+
+	.primaryBtn,
+	.secondaryBtn {
+		height: 38px;
+		font-size: 14px;
+	}
+}
+

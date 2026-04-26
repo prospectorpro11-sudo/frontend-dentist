@@ -32,4 +32,43 @@
     padding: 12px 18px;
     box-shadow: 0 4px 18px rgba(2, 132, 199, 0.07);
     margin-bottom: 10px;
+    align-items: center;
+}
+
+@include breakpoint(tablet) {
+    .statsCheckout {
+        padding: 10px 14px;
+        gap: 8px;
+        border-radius: var(--r-lg);
+        margin-bottom: 8px;
+    }
+}
+
+@include breakpoint(mobile-landscape) {
+    .statsCheckout {
+        flex-direction: column;
+        padding: 10px 12px;
+        gap: 10px;
+        align-items: stretch;
+    }
+}
+
+@include breakpoint(mobile) {
+    .statsCheckout {
+        padding: 8px 10px;
+        gap: 8px;
+        border-radius: var(--r-sm);
+        margin-bottom: 6px;
+        box-shadow: 0 2px 10px rgba(2, 132, 199, 0.05);
+    }
+
+    .tableSlot {
+        min-height: 200px;
+    }
+}
+
+@include breakpoint(small-mobile) {
+    .statsCheckout {
+        padding: 6px 8px;
+    }
 }

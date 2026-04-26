@@ -742,3 +742,345 @@
     cursor: default !important;
     box-shadow: none !important;
 }
+
+/* ===== Tablet ===== */
+@include breakpoint(tablet) {
+    .gridSec {
+        border-radius: 12px;
+    }
+
+    .gtbar {
+        padding: 12px 16px 10px;
+    }
+
+    .gsearch input {
+        width: 170px;
+        padding: 8px 12px 8px 32px;
+        font-size: 12px;
+    }
+
+    .gsearch input:focus {
+        width: 200px;
+    }
+
+    .tblbtn {
+        padding: 7px 12px;
+        font-size: 11.5px;
+    }
+
+    .colpan {
+        padding: 8px 16px 10px;
+        gap: 5px;
+    }
+
+    .coltgl {
+        padding: 4px 10px;
+        font-size: 10.5px;
+    }
+
+    .gridWrap {
+        padding: 6px 8px;
+    }
+
+    .grid thead th {
+        padding: 0 8px;
+        height: 40px;
+        font-size: 10px;
+    }
+
+    .grid td {
+        height: 48px;
+        font-size: 12px;
+        padding: 0 8px;
+    }
+
+    .nname {
+        font-size: 12.5px;
+    }
+
+    .emText {
+        font-size: 11.5px;
+        padding: 3px 6px;
+    }
+
+    .phText {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+
+    .sbdg {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+
+    .spbdg {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+
+    .gprog {
+        padding: 0 16px 6px;
+    }
+
+    .gfoot {
+        padding: 10px 16px 12px;
+        gap: 10px;
+    }
+}
+
+/* ===== Mobile Landscape ===== */
+@include breakpoint(mobile-landscape) {
+    .gridSec {
+        border-radius: 10px;
+    }
+
+    .gtbar {
+        padding: 10px 12px 8px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .gtbar .gtleft {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .gsearch {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .gsearch input {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .gsearch input:focus {
+        width: 100%;
+    }
+
+    .tblbtn {
+        flex-shrink: 0;
+    }
+
+    .colpan {
+        padding: 8px 12px 10px;
+    }
+
+    .gridWrap {
+        padding: 4px 6px;
+    }
+
+    .grid {
+        min-width: 900px;
+    }
+
+    .grid thead th {
+        height: 38px;
+        font-size: 10px;
+        padding: 0 6px;
+    }
+
+    .grid td {
+        height: 44px;
+        font-size: 12px;
+        padding: 0 6px;
+    }
+
+    .gprog {
+        padding: 0 12px 6px;
+    }
+
+    .gfoot {
+        padding: 8px 12px 10px;
+        gap: 8px;
+    }
+}
+
+/* ===== Mobile ===== */
+@include breakpoint(mobile) {
+    .gridSec {
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .gtbar {
+        padding: 8px 10px 8px;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .gtbar .gtleft {
+        width: 100%;
+        gap: 6px;
+    }
+
+    .gsearch {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .gsearch i {
+        left: 10px;
+        font-size: 11px;
+    }
+
+    .gsearch input {
+        width: 100%;
+        padding: 7px 10px 7px 30px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .gsearch input:focus {
+        width: 100%;
+    }
+
+    .tblbtn {
+        padding: 7px 10px;
+        font-size: 11px;
+        border-radius: 8px;
+        gap: 5px;
+    }
+
+    .tblbtn .cnt {
+        font-size: 9.5px;
+        padding: 1px 5px;
+    }
+
+    .gtact {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .colpan {
+        padding: 6px 10px 8px;
+        gap: 4px;
+    }
+
+    .coltgl {
+        padding: 4px 8px;
+        font-size: 10px;
+        border-radius: 12px;
+    }
+
+    .gridWrap {
+        padding: 4px;
+    }
+
+    .grid {
+        min-width: 700px;
+    }
+
+    .grid thead th {
+        height: 36px;
+        font-size: 9.5px;
+        padding: 0 6px;
+        letter-spacing: 0.5px;
+    }
+
+    .grid td {
+        height: 42px;
+        font-size: 11.5px;
+        padding: 0 6px;
+    }
+
+    .rnum {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+        border-radius: 6px;
+    }
+
+    .ncell {
+        gap: 8px;
+    }
+
+    .nname {
+        font-size: 12px;
+    }
+
+    .emText {
+        font-size: 11px;
+        padding: 3px 5px;
+        gap: 4px;
+    }
+
+    .vbadge {
+        font-size: 8px;
+        padding: 1px 5px;
+    }
+
+    .phText {
+        font-size: 10.5px;
+        padding: 3px 5px;
+    }
+
+    .sbdg {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+
+    .spbdg {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+
+    .ctText {
+        font-size: 11.5px;
+    }
+
+    .emptyState {
+        padding: 20px 10px;
+        font-size: 13px;
+    }
+
+    .gprog {
+        padding: 0 10px 5px;
+    }
+
+    .gfoot {
+        padding: 8px 10px 10px;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+}
+
+/* ===== Small Mobile ===== */
+@include breakpoint(small-mobile) {
+    .gtbar {
+        padding: 6px 8px 6px;
+    }
+
+    .gsearch input {
+        padding: 6px 8px 6px 28px;
+        font-size: 11px;
+    }
+
+    .tblbtn {
+        padding: 6px 8px;
+        font-size: 10.5px;
+    }
+
+    .grid {
+        min-width: 600px;
+    }
+
+    .grid thead th {
+        height: 34px;
+        font-size: 9px;
+        padding: 0 4px;
+    }
+
+    .grid td {
+        height: 38px;
+        font-size: 11px;
+        padding: 0 4px;
+    }
+
+    .gfoot {
+        padding: 6px 8px 8px;
+    }
+}

@@ -39,6 +39,7 @@
     box-shadow: 0 3px 14px rgba(2, 132, 199, 0.28);
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .cartbtn::after {
@@ -57,4 +58,90 @@
 
 .cartbtn:hover::after {
     opacity: 1;
+}
+
+/* ===== Tablet ===== */
+@include breakpoint(tablet) {
+    .checkout {
+        gap: 10px;
+    }
+
+    .cprice {
+        font-size: 17px;
+    }
+
+    .cprice small {
+        font-size: 10px;
+    }
+
+    .cartbtn {
+        padding: 8px 14px;
+        font-size: 12px;
+        gap: 6px;
+    }
+}
+
+/* ===== Mobile Landscape ===== */
+@include breakpoint(mobile-landscape) {
+    .checkout {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .cprice {
+        font-size: 18px;
+    }
+
+    .cartbtn {
+        padding: 9px 16px;
+        font-size: 12px;
+    }
+}
+
+/* ===== Mobile ===== */
+@include breakpoint(mobile) {
+    .checkout {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .cprice {
+        font-size: 16px;
+    }
+
+    .cprice small {
+        font-size: 9.5px;
+    }
+
+    .cartbtn {
+        padding: 8px 12px;
+        font-size: 11.5px;
+        gap: 5px;
+        border-radius: 8px;
+    }
+}
+
+/* ===== Small Mobile ===== */
+@include breakpoint(small-mobile) {
+    .checkout {
+        gap: 6px;
+    }
+
+    .cprice {
+        font-size: 14px;
+    }
+
+    .cprice small {
+        font-size: 9px;
+    }
+
+    .cartbtn {
+        padding: 7px 10px;
+        font-size: 11px;
+        gap: 4px;
+    }
 }
