@@ -55,7 +55,7 @@ const ProductDataViewsSection = ({
                                     </div>
                                     <div className={styles.cardMeta}>
                                         <div className={styles.cardCat}>{item.cat}</div>
-                                        <Link href={`/products/${item.slug}`} className={styles.cardNameLink}>
+                                        <Link href={`/products/specialities/${item.slug}`} className={styles.cardNameLink}>
                                             <div className={styles.cardName}>{item.name}</div>
                                         </Link>
                                     </div>
@@ -86,7 +86,7 @@ const ProductDataViewsSection = ({
                                             </span>
                                         ))}
                                     </div>
-                                    <Link href={`/products/${item.slug}`} className={styles.cardViewLink}>
+                                    <Link href={`/products/specialities/${item.slug}`} className={styles.cardViewLink}>
                                         <BsEye size={13} />
                                         <span>View Details</span>
                                     </Link>
@@ -127,7 +127,7 @@ const ProductDataViewsSection = ({
                                                         <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                     </div>
                                                     <div>
-                                                        <Link href={`/products/${item.slug}`} className={styles.tSpecNameLink}>
+                                                        <Link href={`/products/specialities/${item.slug}`} className={styles.tSpecNameLink}>
                                                             <div className={styles.tSpecName}>
                                                                 {item.name}
                                                                 <span className={styles.tSpecExternal}>{">"}</span>
@@ -168,7 +168,7 @@ const ProductDataViewsSection = ({
 
                                     return (
                                         <div key={column.key} style={{ display: "flex", justifyContent: "flex-end", gap: ".4rem" }}>
-                                            <Link href={`/products/${item.slug}`} className={styles.tViewBtn}>
+                                            <Link href={`/products/specialities/${item.slug}`} className={styles.tViewBtn}>
                                                 <span><BsEye size={14} /></span>
                                                 <span>View Details</span>
                                             </Link>

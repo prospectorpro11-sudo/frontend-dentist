@@ -1,5 +1,15 @@
+import Link from 'next/link';
+import { fetchEditorProducts, toCatalogItem } from "@/server/editorProducts";
+import { productCatalog } from "@/shared/productCatalog";
 import classNames from 'classnames';
+import Button from '../button/Button';
+import { COLORS } from '@/shared/colors';
 import styles from './productList.module.scss';
+import { Col, Container } from 'react-bootstrap';
+import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
+import { HiMiniArrowUpRight } from 'react-icons/hi2';
+import LogoIcon from '@/components/logoIcon/LogoIcon';
+import { IProductList } from '../../shared/interface';
 import {
     BsGrid3X3GapFill,
     BsPeopleFill,
@@ -7,16 +17,6 @@ import {
     BsFunnelFill,
     BsEnvelopeCheckFill,
 } from 'react-icons/bs';
-import { HiMiniArrowUpRight } from 'react-icons/hi2';
-import Link from 'next/link';
-import LogoIcon from '@/components/logoIcon/LogoIcon';
-import { IProductList } from '../../shared/interface';
-import { COLORS } from '@/shared/colors';
-import Button from '../button/Button';
-import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from '@/shared/enums';
-import { Col, Container } from 'react-bootstrap';
-
-
 
 const trustIcons = {
     check: BsCheckCircleFill,
@@ -24,9 +24,20 @@ const trustIcons = {
     deliverability: BsEnvelopeCheckFill,
 } as const;
 
-const ProductList = (props: IProductList) => {
-    const { products: products, trustPills: trustPills, heading, headingAccent, subtitle } = props;
+const ProductList = async (props: IProductList) => {
+    const { trustPills: trustPills, heading, headingAccent, subtitle } = props;
 
+    let displayProducts = productCatalog;
+
+    try {
+        const editorProducts = await fetchEditorProducts();
+        if (editorProducts.length > 0) {
+            displayProducts = editorProducts.map((item: any, index: number) => toCatalogItem(item, index));
+        }
+    } catch (_error) {
+        displayProducts = productCatalog;
+    }
+    console.log(displayProducts)
     return (
         <section className={styles.productList}>
             <Container>
@@ -77,26 +88,29 @@ const ProductList = (props: IProductList) => {
                             {/* Table Body */}
                             <div className={styles.plNewTableBody}>
 
-                                {products.slice(0, 6).map((product, index) => {
+                                {displayProducts.slice(0, 6).map((product, index) => {
+                                    const colorKeys = ["Blue", "Teal", "Indigo", "Rose", "Amber", "Purple", "Cyan", "Emerald"];
+                                    const color = colorKeys[index % colorKeys.length];
+
                                     return (
                                         <div key={index} className={styles.plNewRow}>
                                             <div className={styles.plNewCell} style={{ flex: 1.2 }}>
-                                                <div className={classNames(styles.plCatIcon, styles[product.colorClass])}>
+                                                <div className={classNames(styles.plCatIcon, styles[`plCat${color}`])}>
                                                     <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                 </div>
                                                 <div className={styles.plCatInfo}>
-                                                    <strong>{product.category}</strong>
-                                                    <span>{product.description}</span>
+                                                    <strong>{product.productName}</strong>
+                                                    {/* <span>{product.stateName || "Specialists"}</span> */}
                                                 </div>
                                             </div>
                                             <div className={styles.plNewCell} style={{ flex: 0.8 }}>
                                                 <div className={styles.plCountBadge}>
                                                     <BsPeopleFill color={COLORS.PRIMARY} />
-                                                    <strong>{product.count}</strong>
+                                                    <strong>{product.stats.totalContacts.toLocaleString("en-US")}</strong>
                                                 </div>
                                             </div>
                                             <div className={classNames(styles.plNewCell, styles.plActionCell)} style={{ flex: 0.8 }}>
-                                                <Link href={`/prospector?specialization=${encodeURIComponent(product.category.toLowerCase().replace(/ /g, '-'))}`} className={styles.plCustomizeLink}>
+                                                <Link href={`/prospector?specialization=${encodeURIComponent(product.stateId || product.slug || product.productName)}`} className={styles.plCustomizeLink}>
                                                     <span>Customize</span>
                                                     <span><HiMiniArrowUpRight size={18} /></span>
                                                 </Link>
