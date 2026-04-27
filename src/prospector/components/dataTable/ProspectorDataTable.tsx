@@ -2,7 +2,7 @@ import Avatar from "react-avatar";
 import Skeleton from "react-loading-skeleton";
 import { IProspectorData } from "@/shared/interface";
 import styles from "./prospectorDataTable.module.scss";
-import { CSSProperties, useMemo, useState } from "react";
+import { CSSProperties, useEffect, useMemo, useState } from "react";
 import Pagination from "@/components/pagination/Pagination";
 import { FaEnvelope, FaPhone, FaSort } from "react-icons/fa6";
 import { useProspectorContext } from "@/contexts/ProspectorContext";
@@ -96,9 +96,14 @@ const getInitialVisibility = () =>
         return accumulator;
     }, {});
 
-const ProspectorDataTable = () => {
-    const { data, stats, prospectorLoading } = useProspectorContext();
-    const [currentPage, setCurrentPage] = useState<number>(1);
+type ProspectorDataTableProps = {
+    currentPage: number;
+    onPageChange: (page: number) => void;
+    pageAccessLimit?: number;
+};
+
+const ProspectorDataTable = ({ currentPage, onPageChange, pageAccessLimit }: ProspectorDataTableProps) => {
+    const { data, stats, prospectorLoading, setIsProspectorLocked } = useProspectorContext();
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [columnPanelOpen, setColumnPanelOpen] = useState<boolean>(false);
     const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(getInitialVisibility);
@@ -108,10 +113,17 @@ const ProspectorDataTable = () => {
     const parsedTotalContacts = Number(stats?.totalContacts);
     const totalContacts = Number.isFinite(parsedTotalContacts) && parsedTotalContacts >= 0 ? parsedTotalContacts : exposedTotal;
     const totalPages = Math.max(1, Math.ceil(totalContacts / PAGE_SIZE));
-    const safeCurrentPage = Math.min(currentPage, totalPages);
+    const maxAccessiblePage = typeof pageAccessLimit === "number" && pageAccessLimit > 0 ? pageAccessLimit : totalPages;
+    const safeCurrentPage = Math.max(1, Math.min(currentPage, totalPages, maxAccessiblePage));
     const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
-    const endIndex = Math.min(startIndex + PAGE_SIZE, totalContacts);
-    const currentPageRows = useMemo(() => exposedRows.slice(startIndex, startIndex + PAGE_SIZE), [exposedRows, startIndex]);
+    const currentPageRows = useMemo(() => {
+        if (exposedRows.length > PAGE_SIZE) {
+            return exposedRows.slice(startIndex, startIndex + PAGE_SIZE);
+        }
+
+        return exposedRows;
+    }, [exposedRows, startIndex]);
+    const endIndex = Math.min(startIndex + currentPageRows.length, totalContacts);
     const normalizedSearch = searchTerm.trim().toLowerCase();
     const rows = useMemo(() => {
         if (!normalizedSearch) {
@@ -146,6 +158,12 @@ const ProspectorDataTable = () => {
     const resetColumns = () => {
         setVisibleColumns(getInitialVisibility());
     };
+
+    useEffect(() => {
+        if (safeCurrentPage !== currentPage) {
+            onPageChange(safeCurrentPage);
+        }
+    }, [currentPage, onPageChange, safeCurrentPage]);
 
     return (
         <div className={styles.gridSec}>
@@ -348,7 +366,9 @@ const ProspectorDataTable = () => {
                     showPerPage={false}
                     loading={prospectorLoading}
                     fullWidth
-                    onPageChange={(page) => setCurrentPage(Math.min(totalPages, Math.max(1, page)))}
+                    pageAccessLimit={pageAccessLimit}
+                    onLimitExceed={() => setIsProspectorLocked(true)}
+                    onPageChange={(page) => onPageChange(Math.min(totalPages, Math.max(1, page)))}
                     onPerPageChange={() => undefined}
                     className="p-0"
                 />

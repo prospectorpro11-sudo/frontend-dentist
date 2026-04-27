@@ -13,6 +13,8 @@ type PaginationProps = {
   loading?: boolean;
   fullWidth?: boolean;
   className?: string;
+  pageAccessLimit?: number;
+  onLimitExceed?: (page: number) => void;
   onPageChange: (page: number) => void;
   onPerPageChange: (perPage: number) => void;
 };
@@ -51,9 +53,24 @@ const Pagination = ({
   loading = false,
   fullWidth = false,
   className,
+  pageAccessLimit,
+  onLimitExceed,
   onPageChange,
   onPerPageChange,
 }: PaginationProps) => {
+  const maxAccessiblePage = typeof pageAccessLimit === "number" && pageAccessLimit > 0 ? pageAccessLimit : null;
+
+  const handlePageAction = (page: number) => {
+    const boundedPage = Math.min(totalPages, Math.max(1, page));
+
+    if (maxAccessiblePage !== null && boundedPage > maxAccessiblePage) {
+      onLimitExceed?.(boundedPage);
+      return;
+    }
+
+    onPageChange(boundedPage);
+  };
+
   if (loading) {
     return (
       <div className={classNames(styles.paginationSection, fullWidth && styles.fullWidth, className)}>
@@ -103,7 +120,7 @@ const Pagination = ({
           type="button"
           className={styles.pageBtn}
           disabled={currentPage === 1}
-          onClick={() => onPageChange(Math.max(1, currentPage - 1))}
+          onClick={() => handlePageAction(currentPage - 1)}
         >
           {"<"}
         </button>
@@ -118,7 +135,8 @@ const Pagination = ({
               key={token}
               type="button"
               className={classNames(styles.pageBtn, token === currentPage && styles.pageBtnActive)}
-              onClick={() => onPageChange(token)}
+              onClick={() => handlePageAction(token)}
+              aria-label={`Page ${token}`}
             >
               {token}
             </button>
@@ -129,7 +147,7 @@ const Pagination = ({
           type="button"
           className={styles.pageBtn}
           disabled={currentPage === totalPages}
-          onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+          onClick={() => handlePageAction(currentPage + 1)}
         >
           {">"}
         </button>

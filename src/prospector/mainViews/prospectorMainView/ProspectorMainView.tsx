@@ -13,18 +13,20 @@ import ProspectorFilters from "@/prospector/components/filters/ProspectorFilters
 import ProspectorStats from "@/prospector/components/prospectorStats/ProspectorStats";
 import ProspectorDataTable from "@/prospector/components/dataTable/ProspectorDataTable";
 import ProspectorAddToCart from "@/prospector/components/prospectorAddToCart/ProspectorAddToCart";
+import ProspectorLockedModal from "@/prospector/components/prospectorLockedModal/ProspectorLockedModal";
+
+const PROSPECTOR_PAGE_ACCESS_LIMIT = 3;
 
 const ProspectorMainView = () => {
     const { filterList, query } = useBuildFilterList();
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [isFilterActive, setIsFilterActive] = useState(false);
     const { setProspectorLoading, setData, setStats } = useProspectorContext();
     const { loggedInUser } = useRootContext();
     const router = useRouter();
     useEffect(() => {
         const qs = new URLSearchParams(query).toString();
         router.push(`/prospector${qs ? `?${qs}` : ""}`);
-    }, [query])
+    }, [query, router]);
 
     const queryKey = [
         "prospectors",
@@ -72,11 +74,11 @@ const ProspectorMainView = () => {
         } else {
             console.log("Something went wrong")
         }
-    }, [prospectorData, isFetched]);
+    }, [isFetched, prospectorData, setData, setStats]);
 
     useEffect(() => {
         setProspectorLoading(isLoading || isFetching);
-    }, [isLoading, isFetching]);
+    }, [isFetching, isLoading, setProspectorLoading]);
 
     return (
         <div className={styles.mainView}>
@@ -86,8 +88,13 @@ const ProspectorMainView = () => {
             </div>
             <ProspectorFilters />
             <div className={styles.tableSlot}>
-                <ProspectorDataTable />
+                <ProspectorDataTable
+                    currentPage={currentPage}
+                    onPageChange={setCurrentPage}
+                    pageAccessLimit={PROSPECTOR_PAGE_ACCESS_LIMIT}
+                />
             </div>
+            <ProspectorLockedModal />
         </div>
     );
 };
