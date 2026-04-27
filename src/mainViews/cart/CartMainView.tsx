@@ -7,8 +7,6 @@ import { addToCartLocal } from "@/services/tokenService";
 
 const CartMainView = () => {
   const { currentCartItem, setCurrentCartItem } = useRootContext();
-  console.log(currentCartItem, "checker")
-
   const pressRemove = (productName: string) => {
     const newProductList = [...currentCartItem];
     const newProductListState = newProductList.filter(function (obj) {

@@ -80,7 +80,6 @@ interface IProductListMainView {
 
 const ProductListMainView = (props: IProductListMainView) => {
     const { products } = props
-    console.log(products, "Checker")
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState<FilterKey>("all");
     const [sort, setSort] = useState<SortKey>("default");

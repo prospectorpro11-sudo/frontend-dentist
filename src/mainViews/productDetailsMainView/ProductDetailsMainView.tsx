@@ -33,7 +33,6 @@ const normalizeRewrittenJson = (value: any) => {
 
 const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainViewProps): any => {
     const rewrittenJson = normalizeRewrittenJson(editorProduct?.rewrittenJson);
-    console.log(rewrittenJson, "rewrittenJson");
     const faqList = rewrittenJson?.faqs?.list || [];
     const midPoint = Math.ceil(faqList.length / 2);
     const splitFaqList = [

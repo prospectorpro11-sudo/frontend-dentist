@@ -37,7 +37,6 @@ const ProductList = async (props: IProductList) => {
     } catch (_error) {
         displayProducts = productCatalog;
     }
-    console.log(displayProducts)
     return (
         <section className={styles.productList}>
             <Container>
