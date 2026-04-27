@@ -1,32 +1,22 @@
 import classNames from 'classnames';
 import styles from './productList.module.scss';
-import { FaTeeth, FaTooth } from 'react-icons/fa';
 import {
-    BsEmojiSmile,
-    BsHospital,
-    BsScissors,
-    BsBalloonHeartFill,
     BsGrid3X3GapFill,
     BsPeopleFill,
-    BsCartPlus,
     BsCheckCircleFill,
     BsFunnelFill,
     BsEnvelopeCheckFill,
 } from 'react-icons/bs';
+import { HiMiniArrowUpRight } from 'react-icons/hi2';
+import Link from 'next/link';
+import LogoIcon from '@/components/logoIcon/LogoIcon';
 import { IProductList } from '../../shared/interface';
 import { COLORS } from '@/shared/colors';
 import Button from '../button/Button';
 import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from '@/shared/enums';
 import { Col, Container } from 'react-bootstrap';
 
-const productIcons = {
-    tooth: FaTooth,
-    smile: BsEmojiSmile,
-    balloon: BsBalloonHeartFill,
-    hospital: BsHospital,
-    teeth: FaTeeth,
-    scissors: BsScissors,
-} as const;
+
 
 const trustIcons = {
     check: BsCheckCircleFill,
@@ -87,13 +77,12 @@ const ProductList = (props: IProductList) => {
                             {/* Table Body */}
                             <div className={styles.plNewTableBody}>
 
-                                {products.map((product, index) => {
-                                    const Icon = productIcons[product.icon as keyof typeof productIcons];
+                                {products.slice(0, 6).map((product, index) => {
                                     return (
                                         <div key={index} className={styles.plNewRow}>
                                             <div className={styles.plNewCell} style={{ flex: 1.2 }}>
                                                 <div className={classNames(styles.plCatIcon, styles[product.colorClass])}>
-                                                    <Icon />
+                                                    <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                 </div>
                                                 <div className={styles.plCatInfo}>
                                                     <strong>{product.category}</strong>
@@ -107,8 +96,10 @@ const ProductList = (props: IProductList) => {
                                                 </div>
                                             </div>
                                             <div className={classNames(styles.plNewCell, styles.plActionCell)} style={{ flex: 0.8 }}>
-                                                <a href="#"><Button size={BUTTON_SIZE_ENUM.SMALL} variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}><BsCartPlus /> Add to Cart</Button></a>
-                                                <a href="#" className={styles.plCustomizeLink}>Customize</a>
+                                                <Link href={`/prospector?specialization=${encodeURIComponent(product.category.toLowerCase().replace(/ /g, '-'))}`} className={styles.plCustomizeLink}>
+                                                    <span>Customize</span>
+                                                    <span><HiMiniArrowUpRight size={18} /></span>
+                                                </Link>
                                             </div>
                                         </div>
                                     );
@@ -116,6 +107,11 @@ const ProductList = (props: IProductList) => {
 
                             </div>
                         </div>
+                    </div>
+                    <div className="d-flex justify-content-center mt-5">
+                        <Link href="/products/specialities">
+                            <Button variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}>Show More</Button>
+                        </Link>
                     </div>
                 </Col>
             </Container>
