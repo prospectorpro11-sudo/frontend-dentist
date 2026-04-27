@@ -6,6 +6,7 @@ import React, { useMemo, useState, useCallback, useEffect } from "react";
 
 import styles from "./paymentHistoryTable.module.scss";
 import DashboardPageHeader from "../dashboardPageHeader/DashboardPageHeader";
+import AuthRequiredCard from "../authRequiredCard/AuthRequiredCard";
 import {
     FaFileInvoiceDollar,
     FaSearch,
@@ -72,7 +73,6 @@ type PaymentHistoryTableProps = {
     loading: boolean;
     error?: string | null;
     emptyMessage: string;
-    checkingMessage?: string;
     loginMessage?: string;
     loadingMessage?: string;
     className?: string;
@@ -99,7 +99,6 @@ const PaymentHistoryTable = ({
     loading,
     error,
     emptyMessage,
-    checkingMessage = "Checking your account...",
     loginMessage = "Please log in to view this data.",
     loadingMessage = "Loading...",
     className,
@@ -428,9 +427,14 @@ const PaymentHistoryTable = ({
             />
 
             {authLoading ? (
-                <div className={styles.stateCard}>{checkingMessage}</div>
+                <AuthRequiredCard checking icon={view === "billing" ? FaFileInvoiceDollar : FaShoppingCart} />
             ) : !hasUser ? (
-                <div className={styles.stateCard}>{loginMessage}</div>
+                <AuthRequiredCard
+                    heading={view === "billing" ? "Billing Access Required" : "Order Access Required"}
+                    message={loginMessage}
+                    buttonLabel="Log In to Continue"
+                    icon={view === "billing" ? FaFileInvoiceDollar : FaShoppingCart}
+                />
             ) : loading ? (
                 <div className={styles.stateCard}>{loadingMessage}</div>
             ) : error ? (

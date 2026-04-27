@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { CSSProperties } from "react";
 import { IconType } from "react-icons";
 import { COLORS_ENUM } from "@/shared/enums";
 import { FaCheckCircle } from "react-icons/fa";
@@ -21,21 +22,29 @@ interface IDashboardPageHeader {
 }
 const DashboardPageHeader = (props: IDashboardPageHeader) => {
     const { title, description, activeBadge, stats, icon: HeaderIcon, iconSize = 20 } = props;
-    const getColor = {
-        [COLORS_ENUM.SKY_BLUE]: "#0EA5E9",
-        [COLORS_ENUM.EMERALD]: "#10B981",
-        [COLORS_ENUM.AMBER]: "#F59E0B",
-        [COLORS_ENUM.INDIGO]: "#6366F1",
+    const getPalette = {
+        [COLORS_ENUM.SKY_BLUE]: {
+            color: "var(--blue-500)",
+            background: "var(--blue-50)",
+            border: "var(--blue-200)",
+        },
+        [COLORS_ENUM.EMERALD]: {
+            color: "var(--blue-600)",
+            background: "var(--blue-50)",
+            border: "var(--blue-200)",
+        },
+        [COLORS_ENUM.AMBER]: {
+            color: "var(--blue-700)",
+            background: "var(--blue-100)",
+            border: "var(--blue-200)",
+        },
+        [COLORS_ENUM.INDIGO]: {
+            color: "var(--blue-400)",
+            background: "var(--blue-50)",
+            border: "var(--blue-300)",
+        },
     };
-    const hexToRgb = (hex: string) => {
-        const cleanHex = hex.replace("#", "");
 
-        const r = parseInt(cleanHex.substring(0, 2), 16);
-        const g = parseInt(cleanHex.substring(2, 4), 16);
-        const b = parseInt(cleanHex.substring(4, 6), 16);
-
-        return `${r}, ${g}, ${b}`;
-    };
     return (
         <div className={styles.pageHeader}>
             <div className={styles.headerLeft}>
@@ -51,23 +60,24 @@ const DashboardPageHeader = (props: IDashboardPageHeader) => {
             </div>
             <div className={styles.headerRight}>
                 <div className={styles.stats}>
-                    {stats?.map((stat, index) => (
-                        <div
-                            key={index}
-                            className={styles.statItem}
-                            style={{
-                                backgroundColor: `rgba(${hexToRgb(
-                                    getColor[stat.color || COLORS_ENUM.SKY_BLUE]
-                                )}, 0.05)`,
-                                border: `1px solid rgba(${hexToRgb(
-                                    getColor[stat.color || COLORS_ENUM.SKY_BLUE]
-                                )}, 0.2)`,
-                            }}
-                        >
-                            <div style={{ color: getColor[stat.color || COLORS_ENUM.SKY_BLUE] }} className={styles.statValue}>{stat.isPrice && "$"}{numberWithCommas(stat.value)}</div>
-                            <div className={styles.statLabel}>{stat.label}</div>
-                        </div>
-                    ))}
+                    {stats?.map((stat, index) => {
+                        const palette = getPalette[stat.color || COLORS_ENUM.SKY_BLUE];
+
+                        return (
+                            <div
+                                key={index}
+                                className={styles.statItem}
+                                style={{
+                                    "--stat-color": palette.color,
+                                    "--stat-bg": palette.background,
+                                    "--stat-border": palette.border,
+                                } as CSSProperties}
+                            >
+                                <div className={styles.statValue}>{stat.isPrice && "$"}{numberWithCommas(stat.value)}</div>
+                                <div className={styles.statLabel}>{stat.label}</div>
+                            </div>
+                        );
+                    })}
                 </div>
 
                 {activeBadge && (
