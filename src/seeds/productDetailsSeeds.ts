@@ -704,44 +704,6 @@ const aboutDentistEmailList: IAboutDentistEmailListSeed = {
             color: 'indigo',
         },
     ],
-    statCards: [
-        {
-            iconClass: 'bi bi-envelope-check-fill',
-            value: '95%+',
-            label: 'Deliverability',
-            color: 'blue',
-            positionClass: 'card1',
-        },
-        {
-            iconClass: 'bi bi-shield-lock-fill',
-            value: '100%',
-            label: 'GDPR Ready',
-            color: 'emerald',
-            positionClass: 'card2',
-        },
-        {
-            iconClass: 'bi bi-patch-check-fill',
-            value: '930K+',
-            label: 'Verified',
-            color: 'teal',
-            positionClass: 'card3',
-        },
-        {
-            iconClass: 'bi bi-arrow-repeat',
-            value: 'Daily',
-            label: 'Updates',
-            color: 'indigo',
-            positionClass: 'card4',
-        },
-    ],
-    categories: [
-        { name: 'General Dentists', color: 'blue' },
-        { name: 'Orthodontists', color: 'teal' },
-        { name: 'Pediatric Dentists', color: 'indigo' },
-        { name: 'Oral Surgeons', color: 'amber' },
-        { name: 'Endodontists', color: 'emerald' },
-        { name: 'Periodontists', color: 'rose' },
-    ],
 };
 
 export const PRODUCT_DETAILS_SEED_OBJECT = {

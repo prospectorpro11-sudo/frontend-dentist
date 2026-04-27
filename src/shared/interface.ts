@@ -579,8 +579,8 @@ export interface IAboutDentistEmailListSeed {
 		ctaButtonText: string;
 	};
 	trustCards: IAboutTrustCard[];
-	statCards: IAboutStatCard[];
-	categories: IAboutCategory[];
+	// statCards: IAboutStatCard[];
+	// categories: IAboutCategory[];
 }
 export interface IBuilFilteList {
 	field: string;

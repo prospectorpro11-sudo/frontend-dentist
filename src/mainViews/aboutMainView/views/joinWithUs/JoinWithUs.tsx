@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import { Container } from 'react-bootstrap';
 import styles from './joinWithUs.module.scss';
+import LogoIcon from '@/components/logoIcon/LogoIcon';
 
 const joinLinks: Array<{ label: string; href: string }> = [
     { label: 'Start with a Free Sample', href: '#' },
@@ -44,7 +45,7 @@ const JoinWithUs = () => {
                             <div className={styles.joinMockupHeader}>
                                 <div className={styles.joinMockupBrand}>
                                     <div className={styles.joinMockupLogo}>
-                                        <i className="bi bi-tooth"></i>
+                                        <LogoIcon width={24} height={24} variant="white" style={{ objectFit: 'scale-down' }} />
                                     </div>
                                     <div>
                                         <div className={styles.joinMockupTitle}>Dentist Email List</div>

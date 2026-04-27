@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import { Container } from 'react-bootstrap';
 import styles from './ourMissiion.module.scss';
+import LogoIcon from '@/components/logoIcon/LogoIcon';
 
 const missionPoints: string[] = [
     'Provide the most accurate, up-to-date dentist contact data',
@@ -18,7 +19,7 @@ const OurMission = () => {
                     <div className={styles.missionVisual}>
                         <div className={styles.missionVisualHeader}>
                             <div className={styles.missionVisualLogo}>
-                                <i className="bi bi-tooth"></i>
+                                <LogoIcon width={24} height={24} variant="white" style={{ objectFit: 'scale-down' }} />
                             </div>
                             <div>
                                 <div className={styles.missionVisualTitle}>Dentist Email List</div>

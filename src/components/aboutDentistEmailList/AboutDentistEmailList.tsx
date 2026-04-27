@@ -4,9 +4,49 @@ import styles from './aboutDentistEmailList.module.scss';
 import Button from '../button/Button';
 import { BUTTON_SIZE_ENUM } from '@/shared/enums';
 import { IAboutDentistEmailListSeed } from '@/shared/interface';
+import LogoIcon from '../logoIcon/LogoIcon';
+
+const statCards = [
+    {
+        iconClass: 'bi bi-envelope-check-fill',
+        value: '95%+',
+        label: 'Deliverability',
+        color: 'blue',
+        positionClass: 'card1',
+    },
+    {
+        iconClass: 'bi bi-shield-lock-fill',
+        value: '100%',
+        label: 'GDPR Ready',
+        color: 'emerald',
+        positionClass: 'card2',
+    },
+    {
+        iconClass: 'bi bi-patch-check-fill',
+        value: '930K+',
+        label: 'Verified',
+        color: 'teal',
+        positionClass: 'card3',
+    },
+    {
+        iconClass: 'bi bi-arrow-repeat',
+        value: 'Daily',
+        label: 'Updates',
+        color: 'indigo',
+        positionClass: 'card4',
+    },
+]
+const categories = [
+    { name: 'General Dentists', color: 'blue' },
+    { name: 'Orthodontists', color: 'teal' },
+    { name: 'Pediatric Dentists', color: 'indigo' },
+    { name: 'Oral Surgeons', color: 'amber' },
+    { name: 'Endodontists', color: 'emerald' },
+    { name: 'Periodontists', color: 'rose' },
+]
 
 const AboutDentistEmailList = (props: IAboutDentistEmailListSeed) => {
-    const { content, trustCards, statCards, categories } = props;
+    const { content, trustCards } = props;
 
     return (
         <section className={styles.wrapper}>
@@ -63,7 +103,7 @@ const AboutDentistEmailList = (props: IAboutDentistEmailListSeed) => {
 
                         <div className={styles.mockupHeader}>
                             <div className={styles.mockupLogo}>
-                                <i className="bi bi-tooth"></i>
+                                <LogoIcon width={24} height={24} variant="white" style={{ objectFit: 'scale-down' }} />
                             </div>
                             <div className={styles.mockupTitleGroup}>
                                 <h3>{content.mockupTitle}</h3>

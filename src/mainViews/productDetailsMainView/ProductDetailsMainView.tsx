@@ -1,4 +1,5 @@
 import Faq from "@/components/faq/Faq";
+import { numberWithCommas } from "@/shared/InternalService";
 import FreeSample from "@/components/freeSample/FreeSample";
 import { ProductCatalogItem } from "@/shared/productCatalog";
 import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
@@ -13,7 +14,6 @@ import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBan
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
 import DentalSpecialtyList from "@/components/dentalSpecialtyList/DentalSpecialtyList";
 import AboutDentistEmailList from "@/components/aboutDentistEmailList/AboutDentistEmailList";
-import { numberWithCommas } from "@/shared/InternalService";
 
 type ProductDetailMainViewProps = {
     product: ProductCatalogItem;

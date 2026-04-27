@@ -6,6 +6,7 @@ import styles from './comparisonTable.module.scss';
 import { BUTTON_SIZE_ENUM } from '@/shared/enums';
 import classNames from 'classnames';
 import { IComparisonTableSeed } from '@/shared/interface';
+import LogoIcon from '../logoIcon/LogoIcon';
 
 const ComparisonTable = (props: IComparisonTableSeed) => {
     const { content, rows } = props;
@@ -43,7 +44,7 @@ const ComparisonTable = (props: IComparisonTableSeed) => {
                                             {content.recommendedLabel}
                                         </div>
                                         <div className={styles.brandIcon}>
-                                            <i className="bi bi-tooth"></i>
+                                            <LogoIcon width={24} height={24} variant="white" style={{ objectFit: 'scale-down' }} />
                                         </div>
                                         {content.oursTitle}
                                         <span className={styles.sub}>{content.oursSubtitle}</span>
@@ -109,7 +110,7 @@ const ComparisonTable = (props: IComparisonTableSeed) => {
                                         <p>{content.ctaDescription}</p>
                                         <a href="#">
                                             <Button size={BUTTON_SIZE_ENUM.LARGE}>
-                                                <i className="bi bi-tooth"></i>
+                                                <LogoIcon width={24} height={24} variant="white" style={{ objectFit: 'scale-down' }} />
                                                 {content.ctaButtonText}
                                                 <i className="bi bi-arrow-right"></i>
                                             </Button>
