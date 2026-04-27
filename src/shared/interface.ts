@@ -7,13 +7,6 @@ export interface ILink {
 	icon?: string;
 }
 
-export interface IFreeSampleRow {
-	specialty: string;
-	email: string;
-	phone: string;
-	dotClass: string;
-}
-
 export interface IFreeSampleFeature {
 	icon: string;
 	iconClass: string;
@@ -143,7 +136,6 @@ export interface IFreeSample {
 	heading: string;
 	headingAccent: string;
 	subtitle: string;
-	dentistData: IFreeSampleRow[];
 	features: IFreeSampleFeature[];
 	cta: ILink & { icon: string };
 	card: {
@@ -153,6 +145,7 @@ export interface IFreeSample {
 		recordLabel: string;
 		complianceText: string;
 	};
+	isProductDetails?: boolean;
 }
 
 export interface IProductList {

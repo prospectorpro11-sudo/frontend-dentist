@@ -30,7 +30,7 @@ const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainVie
                 productName={product.productName}
                 description={product.shortDescription}
             />
-            <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
+            <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} isProductDetails />
             <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} />
             <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />
             <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistList} />

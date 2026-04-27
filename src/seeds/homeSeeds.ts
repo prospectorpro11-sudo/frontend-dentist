@@ -41,38 +41,6 @@ const freeSample: IFreeSample = {
     headingAccent: 'sample access',
     subtitle:
         'Gain exclusive entry to thousands of verified dentist contacts. Our architectural verification process ensures precision that fuels your outreach strategy.',
-    dentistData: [
-        {
-            specialty: 'Orthodontics',
-            email: 'dr.smith@dentalcare.com',
-            phone: '(555) 019-2234',
-            dotClass: 'dot1',
-        },
-        {
-            specialty: 'Periodontics',
-            email: 'contact@janesperio.org',
-            phone: '(555) 021-8890',
-            dotClass: 'dot2',
-        },
-        {
-            specialty: 'Endodontics',
-            email: 'info@rootcanalpro.net',
-            phone: '(555) 018-4456',
-            dotClass: 'dot3',
-        },
-        {
-            specialty: 'Orthodontics',
-            email: 'dr.smith@dentalcare.com',
-            phone: '(555) 019-2234',
-            dotClass: 'dot1',
-        },
-        {
-            specialty: 'Periodontics',
-            email: 'contact@janesperio.org',
-            phone: '(555) 021-8890',
-            dotClass: 'dot2',
-        },
-    ],
     features: [
         {
             icon: 'shield-check',

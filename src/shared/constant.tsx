@@ -93,3 +93,9 @@ export const COMMON_URLS = {
     freeSample: "/free-sample",
     support: "/support",
 }
+
+export const DATA_FIELDS_SAMPLE: string[] = [
+    "First Name", "Last Name", "Email", "Phone", "Fax", "Gender", "State",
+    "City", "Zip", "Speciality", "Speciality2", "Speciality Code", "Title",
+    "License Number", "License State", "Address", "Full Name",
+];

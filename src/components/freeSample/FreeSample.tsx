@@ -4,9 +4,44 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { IFreeSample } from '../../shared/interface';
 import Button from '../button/Button';
 import { BUTTON_SIZE_ENUM } from '@/shared/enums';
+import { DATA_FIELDS_SAMPLE } from '@/shared/constant';
+
+// Mockup data
+const mockupData = [
+    {
+        specialty: 'Orthodontics',
+        email: 'dr.s***@dentalcare.com',
+        phone: '(555) ***-****',
+        dotClass: 'dot1',
+    },
+    {
+        specialty: 'Periodontics',
+        email: 'con***@janesperio.org',
+        phone: '(555) ***-****',
+        dotClass: 'dot2',
+    },
+    {
+        specialty: 'Endodontics',
+        email: 'inf*@rootcanalpro.net',
+        phone: '(555) ***-****',
+        dotClass: 'dot3',
+    },
+    {
+        specialty: 'Orthodontics',
+        email: 'dr.s***@dentalcare.com',
+        phone: '(555) ***-****',
+        dotClass: 'dot1',
+    },
+    {
+        specialty: 'Periodontics',
+        email: 'con***@janesperio.org',
+        phone: '(555) ***-****',
+        dotClass: 'dot2',
+    },
+]
 
 const FreeSample = (props: IFreeSample) => {
-    const { dentistData, cta: ctaConfig, card: cardConfig, heading, subtitle, features, headingAccent } = props;
+    const { cta: ctaConfig, card: cardConfig, heading, subtitle, features, headingAccent, isProductDetails } = props;
 
     return (
         <section className={styles.freeSample}>
@@ -38,6 +73,23 @@ const FreeSample = (props: IFreeSample) => {
                                         </div>
                                     ))}
                                 </div>
+
+                                {/* Conditionally render Available Data Fields for Product Details */}
+                                {isProductDetails && (
+                                    <div className={styles.fsDataFieldsWrapper}>
+                                        <div className={styles.fsDataFieldsTitle}>
+                                            <i className="bi bi-ui-checks-grid"></i> Available Data Fields
+                                        </div>
+                                        <div className={styles.fsDataFieldsGrid}>
+                                            {DATA_FIELDS_SAMPLE.map(field => (
+                                                <span key={field} className={styles.fsFieldPill}>
+                                                    <i className="bi bi-check2"></i> {field}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                             </div>
                         </Col>
                         <Col xs={12} lg={5}>
@@ -70,7 +122,7 @@ const FreeSample = (props: IFreeSample) => {
                                             <span>Phone</span>
                                         </div>
 
-                                        {dentistData.map((item, index) => (
+                                        {mockupData.map((item, index) => (
                                             <div key={index} className={styles.fsDataRow}>
                                                 <div className={styles.fsDrSpecialty}>
                                                     <span className={classNames(styles.specDot, styles[item.dotClass])}></span>
@@ -81,7 +133,6 @@ const FreeSample = (props: IFreeSample) => {
                                             </div>
                                         ))}
                                     </div>
-
                                     {/* Footer: record count + compliance */}
                                     <div className={styles.fsCardFooter}>
                                         <span className={styles.fsfRecords}><strong>{cardConfig.recordCount}</strong> {cardConfig.recordLabel}</span>
