@@ -6,19 +6,19 @@ const TEAM_MEMBERS = [
         name: "Grayson Aldermont",
         role: "Chief Executive Officer",
         description:
-            "As the visionary behind Dentist Email List, Grayson leads the company with a mission to revolutionize healthcare marketing by delivering verified, high-quality physician contacts. With years of experience in data-driven marketing and business development, he ensures that Dentist Email List stays ahead with cutting-edge solutions.",
+            "Leads the company's mission to revolutionize healthcare marketing with verified physician contacts and cutting-edge data solutions.",
     },
     {
-        name: "Grayson Aldermont",
-        role: "Chief Executive Officer",
+        name: "Elena Rostova",
+        role: "Chief Operations Officer",
         description:
-            "As the visionary behind Dentist Email List, Grayson leads the company with a mission to revolutionize healthcare marketing by delivering verified, high-quality physician contacts. With years of experience in data-driven marketing and business development, he ensures that Dentist Email List stays ahead with cutting-edge solutions.",
+            "Oversees daily operations and ensures our data verification processes maintain the industry-leading 95%+ accuracy guarantee.",
     },
     {
-        name: "Grayson Aldermont",
-        role: "Chief Executive Officer",
+        name: "Marcus Chen",
+        role: "Head of Data Engineering",
         description:
-            "As the visionary behind Dentist Email List, Grayson leads the company with a mission to revolutionize healthcare marketing by delivering verified, high-quality physician contacts. With years of experience in data-driven marketing and business development, he ensures that Dentist Email List stays ahead with cutting-edge solutions.",
+            "Architects the AI-driven data pipelines that constantly refresh our records, ensuring total compliance and maximum deliverability.",
     },
 ];
 
