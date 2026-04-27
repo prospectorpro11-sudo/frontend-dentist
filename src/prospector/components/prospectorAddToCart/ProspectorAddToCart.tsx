@@ -20,16 +20,20 @@ const ProspectorAddToCart = () => {
         setPrice(calculatePrice);
     }, [stats, emailAvailability, setPrice])
 
-    const ctaLabelDesktop = isSameProductAdded
-        ? "List Selected"
-        : isAddedToCart
-            ? `Update ${formattedCount}`
-            : `Add to Cart`;
-    const ctaLabelMobile = isSameProductAdded
-        ? "List Selected"
-        : isAddedToCart
-            ? "Update List"
-            : `Add to Cart`;
+    const ctaLabelDesktop = prospectorLoading
+        ? "Loading..."
+        : isSameProductAdded
+            ? "List Selected"
+            : isAddedToCart
+                ? `Update ${formattedCount}`
+                : "Add to Cart";
+    const ctaLabelMobile = prospectorLoading
+        ? "Loading..."
+        : isSameProductAdded
+            ? "List Selected"
+            : isAddedToCart
+                ? "Update List"
+                : "Add to Cart";
     return (
         <div className={styles.checkout}>
             <div className={styles.cprice}>
@@ -47,7 +51,7 @@ const ProspectorAddToCart = () => {
                     </>
                 )}
             </div>
-            <button onClick={() => addToCart()} className={styles.cartbtn} type="button" disabled={prospectorLoading}>
+            <button onClick={() => addToCart()} className={styles.cartbtn} type="button" disabled={prospectorLoading} aria-busy={prospectorLoading}>
                 <FaCartPlus size={22} /> {isMobileViewpoert ? ctaLabelMobile : ctaLabelDesktop}
             </button>
         </div>

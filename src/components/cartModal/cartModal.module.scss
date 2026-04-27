@@ -323,7 +323,7 @@
 
   &:hover {
     color: var(--surface);
-    transform: scale(1.15) rotate(90deg);
+    transform: scale(1.15);
     box-shadow: 0 6px 16px rgba(244, 63, 94, 0.35);
     border-color: transparent;
     
@@ -333,7 +333,7 @@
   }
 
   &:active {
-    transform: scale(0.95) rotate(90deg);
+    transform: scale(0.95);
   }
 }
 
