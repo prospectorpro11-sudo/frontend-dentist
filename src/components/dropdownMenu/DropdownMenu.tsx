@@ -3,6 +3,8 @@ import classNames from "classnames";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import styles from "./dropdownMenu.module.scss";
+import { useRootContext } from "@/contexts/RootContext";
+import { setUser } from "@/services/tokenService";
 
 type DropdownItemBase = {
   id?: string;
@@ -15,6 +17,7 @@ export type DropdownItem =
     href?: string;
     onClick?: () => void;
     variant?: "default" | "danger";
+    isLogout?: boolean;
   })
   | (DropdownItemBase & {
     type: "divider";
@@ -46,6 +49,7 @@ const DropdownMenu = ({
 }: DropdownMenuProps) => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const { setLoggedInUser } = useRootContext();
 
   useEffect(() => {
     if (!open) return;
@@ -84,6 +88,10 @@ const DropdownMenu = ({
     setOpen(false);
   };
 
+  const pressLogout = () => {
+    setUser(null);
+    setLoggedInUser(null);
+  };
   return (
     <div className={classNames(styles.dropdown, className)} ref={menuRef}>
       {trigger({
@@ -111,6 +119,19 @@ const DropdownMenu = ({
             [styles.itemDanger]: item.variant === "danger",
           });
 
+          if (item.isLogout) {
+            return (
+              <button
+                key={item.id ?? item.label}
+                type="button"
+                className={itemClassName}
+                role="menuitem"
+                onClick={pressLogout}
+              >
+                {item.label}
+              </button>
+            )
+          }
           if (item.href) {
             return (
               <a

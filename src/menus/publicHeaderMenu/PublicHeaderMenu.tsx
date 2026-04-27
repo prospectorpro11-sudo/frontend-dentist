@@ -29,7 +29,7 @@ const dashboardMenuItems: DropdownItem[] = [
   { label: "My Account", href: "/my-account" },
   { label: "Support", href: "/support" },
   { type: "divider" },
-  { label: "Sign out", href: "/logout", variant: "danger" },
+  { label: "Sign out", href: "/logout", variant: "danger", isLogout: true },
 ];
 
 const PublicHeaderMenu = () => {

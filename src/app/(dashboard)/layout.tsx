@@ -24,6 +24,7 @@ import styles from "./dashboardLayout.module.scss";
 import { IoCaretDown } from "react-icons/io5";
 import { useRootContext } from "@/contexts/RootContext";
 import LogoIcon from "@/components/logoIcon/LogoIcon";
+import { setUser } from "@/services/tokenService";
 
 type DashboardContentMode = "scrollable" | "static";
 
@@ -85,8 +86,8 @@ const defaultUserMenuItems: DashboardUserMenuItem[] = [
     },
     {
         label: "Sign out",
-        href: "/logout",
         variant: "danger",
+        isLogout: true,
     },
 ];
 
@@ -114,7 +115,7 @@ export default function DashboardLayout({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLogoutMenuOpen, setIsLogoutMenuOpen] = useState(false);
     const pathname = usePathname();
-    const { loggedInUser, setAuthEnable } = useRootContext();
+    const { loggedInUser, setAuthEnable, setLoggedInUser } = useRootContext();
 
     const closeMenu = () => setIsMenuOpen(false);
 
@@ -142,6 +143,11 @@ export default function DashboardLayout({
     const displayUserName = getDisplayName(userName);
     // Get first initial for avatar
     const userInitial = userName.charAt(0).toUpperCase();
+
+    const pressLogout = () => {
+        setUser(null);
+        setLoggedInUser(null);
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -206,9 +212,7 @@ export default function DashboardLayout({
                                 <button
                                     type="button"
                                     className={styles.logoutBtn}
-                                    onClick={() => {
-                                        window.location.href = '/logout';
-                                    }}
+                                    onClick={pressLogout}
                                 >
                                     Logout
                                 </button>
