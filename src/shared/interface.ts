@@ -488,7 +488,6 @@ export interface IVerifiedSourceSeed {
 		ctaText: string;
 		diagramLabel: string;
 	};
-	sourceNodes: IVerifiedSourceItem[];
 	verifiedDataSources: IVerifiedSourceItem[];
 }
 

@@ -56,7 +56,24 @@ const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainVie
             <WhyChooseUs {...PRODUCT_DETAILS_SEED_OBJECT.whyChooseUs} />
             <DentalSpecialtyList {...PRODUCT_DETAILS_SEED_OBJECT.dentalSpecialtyList} />
             <CrmIntegration {...PRODUCT_DETAILS_SEED_OBJECT.crmIntegration} />
-            <VerifiedSource {...PRODUCT_DETAILS_SEED_OBJECT.verifiedSource} />
+            <VerifiedSource
+                {...PRODUCT_DETAILS_SEED_OBJECT.verifiedSource}
+                content={{
+                    ...PRODUCT_DETAILS_SEED_OBJECT.verifiedSource.content,
+                    title: rewrittenJson?.trustedDataSources?.title,
+                    titleAccent: '',
+                    subtitle: rewrittenJson?.trustedDataSources?.description
+                }}
+                verifiedDataSources={
+                    (rewrittenJson?.trustedDataSources?.sources || []).map((source: string, index: number) => {
+                        const colors = ['blue', 'teal', 'indigo', 'amber', 'emerald'] as const;
+                        return {
+                            label: source,
+                            color: colors[index % colors.length]
+                        };
+                    })
+                }
+            />
             <DataBeneficiaries {...PRODUCT_DETAILS_SEED_OBJECT.dataBeneficiaries} />
             <ComparisonTable {...PRODUCT_DETAILS_SEED_OBJECT.comparisonTable} />
             <AboutDentistEmailList {...PRODUCT_DETAILS_SEED_OBJECT.aboutDentistEmailList} />

@@ -5,8 +5,19 @@ import LogoIcon from '../logoIcon/LogoIcon';
 import classNames from 'classnames';
 import { IVerifiedSourceSeed } from '@/shared/interface';
 
+const sourceNodes = [
+    { iconClass: 'bi bi-database', label: 'Public Directories', color: 'blue' },
+    { iconClass: 'bi bi-people', label: 'Associations', color: 'teal' },
+    { iconClass: 'bi bi-calendar-event', label: 'Conferences', color: 'indigo' },
+    { iconClass: 'bi bi-award', label: 'Licensing Boards', color: 'amber' },
+    { iconClass: 'bi bi-hospital', label: 'Clinic Records', color: 'emerald' },
+    { iconClass: 'bi bi-journal-text', label: 'Publications', color: 'blue' },
+    { iconClass: 'bi bi-envelope-check', label: 'Opt-in Data', color: 'teal' },
+    { iconClass: 'bi bi-mortarboard', label: 'Academic', color: 'indigo' },
+]
+
 const VerifiedSource = (props: IVerifiedSourceSeed) => {
-    const { content, sourceNodes, verifiedDataSources } = props;
+    const { content, verifiedDataSources } = props;
 
     return (
         <section className={classNames(styles.wrapper, 'fill')}>
