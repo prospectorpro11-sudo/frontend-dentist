@@ -21,9 +21,10 @@ type ProductDetailMainViewProps = {
 
 const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainViewProps) => {
     console.log(product, "Checker")
+    console.log("test")
     return (
         <>
-            <ProductDetailsBanner />
+            <ProductDetailsBanner stats={product.stats} />
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
             <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} />
             <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />

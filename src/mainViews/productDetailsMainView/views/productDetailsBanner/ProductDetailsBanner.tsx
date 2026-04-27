@@ -10,6 +10,7 @@ import { FiDownload } from "react-icons/fi";
 import { BsCalendarEvent, BsCheckCircleFill, BsCircleFill } from "react-icons/bs";
 import classNames from "classnames";
 import type { ReactNode } from "react";
+import { ProductStats, formatCatalogNumber } from "@/shared/productCatalog";
 
 type BadgeVariant = "blue" | "amber" | "teal";
 
@@ -18,15 +19,12 @@ interface IBadgeItem {
     icon: ReactNode;
     label: string;
 }
-const stats = [
-    { icon: 'people', value: '930,285', label: 'Total Contacts', iconClass: 'spIc1', highlight: true },
-    { icon: 'email', value: '930,285', label: 'Emails', iconClass: 'spIc2' },
-    { icon: 'phone', value: '930,285', label: 'Phones', iconClass: 'spIc3' },
-    { icon: 'fax', value: '930,285', label: 'Faxes', iconClass: 'spIc4' },
-    { icon: 'license', value: '930,285', label: 'Licenses', iconClass: 'spIc5', last: true },
-]
 
-const ProductDetailsBanner = () => {
+interface IProductDetailsBanner {
+    stats: ProductStats;
+}
+const ProductDetailsBanner = (props: IProductDetailsBanner) => {
+    const { stats: productStats } = props;
     const breadcrumbs = [
         { label: 'Home', href: '/' },
         { label: 'Products', href: '/products' },
@@ -50,6 +48,13 @@ const ProductDetailsBanner = () => {
             label: 'Verified Database',
         },
     ];
+
+    const stats = [
+        { icon: 'people', value: formatCatalogNumber(productStats.totalContacts), label: 'Total Contacts', iconClass: 'spIc1', highlight: true },
+        { icon: 'email', value: formatCatalogNumber(productStats.verifiedEmails), label: 'Verified Emails', iconClass: 'spIc2' },
+        { icon: 'phone', value: formatCatalogNumber(productStats.directPhones), label: 'Direct Phones', iconClass: 'spIc3' },
+        { icon: 'fax', value: formatCatalogNumber(productStats.facilityCount), label: 'Facilities', iconClass: 'spIc4', last: true },
+    ]
     return (
         <section className="banner">
             <div className="surface"></div>
