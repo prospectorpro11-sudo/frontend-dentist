@@ -84,8 +84,12 @@ const ProspectorLockedModal = () => {
                 </button>
 
                 <section className={styles.heroPanel}>
-                    <h2 className={styles.title}>Unlock Your Filtered Nurses List</h2>
-                    <p className={styles.description}>Unlock your filtered list to get all matched nurse contacts.</p>
+                    <div className={styles.headerTop}>
+                        <h2 className={styles.title}>Unlock Your Filtered Nurses List</h2>
+                    </div>
+                </section>
+                <br />
+                <section className={styles.actionPanel}>
                     <div className={styles.heroBadges}>
                         <span className={styles.availabilityBadge}>
                             <FiCircle className={styles.liveDot} />
@@ -93,6 +97,19 @@ const ProspectorLockedModal = () => {
                         </span>
                         <span className={styles.premiumBadge}>Premium Access</span>
                     </div>
+
+                    <div className={styles.metricCard}>
+                        <div className={styles.metricValue}>{formattedContacts}</div>
+                        <div className={styles.metricLabel}>matched nurse contacts</div>
+                        <p className={styles.metricCopy}>
+                            Unlock this filtered list to get access to all matched nurse contacts.
+                        </p>
+                    </div>
+
+                    {/* <div className={styles.selectionCard}>
+                        <span className={`${styles.selectionBadge} ${styles.ready}`}>Filtered List Ready</span>
+                        <p className={styles.selectionCopy}>Select this filtered list once to unlock the full results.</p>
+                    </div> */}
 
                     <div className={styles.featureGrid}>
                         {featureItems.map(({ Icon, title, description }) => (
@@ -105,24 +122,7 @@ const ProspectorLockedModal = () => {
                             </article>
                         ))}
                     </div>
-                </section>
-
-                <section className={styles.actionPanel}>
-                    <div className={styles.panelEyebrow}>Prospector Locked</div>
-
-                    <div className={styles.metricCard}>
-                        <div className={styles.metricValue}>{formattedContacts}</div>
-                        <div className={styles.metricLabel}>matched nurse contacts</div>
-                        <p className={styles.metricCopy}>
-                            Unlock this filtered list to get access to all matched nurse contacts.
-                        </p>
-                    </div>
-
-                    <div className={styles.selectionCard}>
-                        <span className={`${styles.selectionBadge} ${styles.ready}`}>Filtered List Ready</span>
-                        <p className={styles.selectionCopy}>Select this filtered list once to unlock the full results.</p>
-                    </div>
-
+                    <br />
                     <div className={styles.actions}>
                         <button type="button" className={styles.primaryAction} onClick={pressPrimaryAction}>
                             <FiShoppingCart />
@@ -132,7 +132,8 @@ const ProspectorLockedModal = () => {
                             Open Cart
                         </button>
                     </div>
-
+                    <br />
+                    <br />
                     <p className={styles.trustNote}>No credit card required {"\u00B7"} Cancel anytime</p>
                 </section>
             </div>
