@@ -234,6 +234,7 @@
     position: relative;
     background: linear-gradient(180deg, transparent 0%, rgba(248, 250, 252, 0.3) 100%);
     padding: 8px 12px;
+    padding-top: 0;
 }
 
 .gridWrap::-webkit-scrollbar {
@@ -269,6 +270,14 @@
     position: sticky;
     top: 0;
     z-index: 20;
+
+    @include breakpoint(tablet) {
+        top: -7px;
+    }
+
+    @include breakpoint(mobile) {
+        top: -4px;
+    }
 }
 
 .grid thead th {
