@@ -1,9 +1,10 @@
 "use client";
 import { HiSparkles } from "react-icons/hi2";
-import { Col, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { Suspense, useEffect, useState } from "react";
 import { IoMdInformationCircle } from "react-icons/io";
+import { FiDownloadCloud, FiShield, FiZap } from "react-icons/fi";
 
 import { IOption } from "@/shared/types";
 import Button from "@/components/button/Button";
@@ -82,112 +83,134 @@ const FreeSampleMainView = (props: IFreeSampleMainView) => {
     { label: "Sample by Specialists", url: "/free-sample/specialists" },
   ];
 
-  return (
-    <div className={styles.heroSection}>
-      {/* Decorative background blobs */}
-      <div className={styles.decorBlob1} />
-      <div className={styles.decorBlob2} />
+  const featureHighlights = [
+    { icon: <FiDownloadCloud size={18} />, text: "Instant CSV Download" },
+    { icon: <FiShield size={18} />, text: "Verified Contacts" },
+    { icon: <FiZap size={18} />, text: "Updated Monthly" },
+  ];
 
-      <Container>
-        {/* ── Header ── */}
-        <div className={styles.headerArea}>
+  return (
+    <div className={styles.pageWrapper}>
+      {/* ── Dark Hero Banner ── */}
+      <section className={styles.heroBanner}>
+        <div className={styles.bannerSurface} />
+        <Container className={styles.bannerContainer}>
           <div className={styles.badge}>
             <HiSparkles size={14} />
             Free Sample
           </div>
-          <h2 className={styles.mainTitle}>{getTitle[databaseMainTypes]}</h2>
+          <h1 className={styles.mainTitle}>{getTitle[databaseMainTypes]}</h1>
           <p className={styles.subtitle}>
             {getSubtitle[databaseMainTypes]}
           </p>
-        </div>
 
-        {/* ── Status strip ── */}
-        {/* ── Unified Central Card ── */}
-        <Col xs={12} lg={8} className="mx-auto">
-          <div className={styles.unifiedCard}>
-            {/* Embedded Status area */}
-            <div className={styles.embeddedStatus}>
-              <div className={styles.statusInfo}>
-                {loggedInUser && sampleLimitCount === null && (
-                  <>
-                    <span className={`${styles.statusIcon} ${styles.info}`}>
-                      <IoMdInformationCircle size={18} />
-                    </span>
-                    Loading...
-                  </>
-                )}
+          {/* Feature highlights */}
+          <div className={styles.featureRow}>
+            {featureHighlights.map((f, i) => (
+              <div key={i} className={styles.featureChip}>
+                {f.icon}
+                <span>{f.text}</span>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-                {loggedInUser && sampleLimitCount !== null && sampleLimitCount > 0 && (
-                  <>
-                    <span className={`${styles.statusIcon} ${styles.info}`}>
-                      <IoMdInformationCircle size={18} />
-                    </span>
-                    You have{" "}
-                    <span className={styles.attemptPill}>
-                      {sampleLimitCount} attempt{sampleLimitCount > 1 ? "s" : ""}
-                    </span>{" "}
-                    remaining this month
-                  </>
-                )}
+      {/* ── Main Content Area ── */}
+      <section className={styles.contentSection}>
+        <Container>
+          <div className={styles.contentGrid}>
+            {/* ── Primary Card: Download Tool ── */}
+            <div className={styles.primaryCard}>
+              {/* Status Bar */}
+              <div className={styles.statusBar}>
+                <div className={styles.statusInfo}>
+                  {loggedInUser && sampleLimitCount === null && (
+                    <>
+                      <span className={`${styles.statusIcon} ${styles.info}`}>
+                        <IoMdInformationCircle size={16} />
+                      </span>
+                      <span className={styles.statusText}>Loading...</span>
+                    </>
+                  )}
 
-                {loggedInUser && sampleLimitCount !== null && sampleLimitCount <= 0 && (
-                  <>
-                    <span className={`${styles.statusIcon} ${styles.danger}`}>
-                      <IoCloseCircleSharp size={18} />
-                    </span>
-                    <span className={styles.limitExceeded}>
-                      Monthly download limit reached. Try again next month.
-                    </span>
-                  </>
-                )}
+                  {loggedInUser && sampleLimitCount !== null && sampleLimitCount > 0 && (
+                    <>
+                      <span className={`${styles.statusIcon} ${styles.info}`}>
+                        <IoMdInformationCircle size={16} />
+                      </span>
+                      <span className={styles.statusText}>
+                        You have{" "}
+                        <span className={styles.attemptPill}>
+                          {sampleLimitCount} attempt{sampleLimitCount > 1 ? "s" : ""}
+                        </span>{" "}
+                        remaining this month
+                      </span>
+                    </>
+                  )}
+
+                  {loggedInUser && sampleLimitCount !== null && sampleLimitCount <= 0 && (
+                    <>
+                      <span className={`${styles.statusIcon} ${styles.danger}`}>
+                        <IoCloseCircleSharp size={16} />
+                      </span>
+                      <span className={styles.limitExceeded}>
+                        Monthly download limit reached. Try again next month.
+                      </span>
+                    </>
+                  )}
+
+                  {!loggedInUser && (
+                    <div className={styles.notLoggedInRow}>
+                      <span className={`${styles.statusIcon} ${styles.info}`}>
+                        <IoMdInformationCircle size={16} />
+                      </span>
+                      <span className={styles.statusText}>
+                        We offer{" "}
+                        <span className={styles.attemptPill}>4 free samples</span>{" "}
+                        each month. Log in to access yours.
+                      </span>
+                    </div>
+                  )}
+                </div>
 
                 {!loggedInUser && (
-                  <div className={styles.notLoggedInRow}>
-                    <span className={`${styles.statusIcon} ${styles.info}`}>
-                      <IoMdInformationCircle size={18} />
-                    </span>
-                    We offer{" "}
-                    <span className={styles.attemptPill}>4 free samples</span>{" "}
-                    each month. Log in to access yours.
+                  <div className={styles.statusActions}>
+                    <Button
+                      onClick={pressLogin}
+                      variant={BUTTON_VARIANT_ENUM.SECONDARY}
+                    >
+                      Login
+                    </Button>
                   </div>
                 )}
               </div>
 
-              {!loggedInUser && (
-                <div className={styles.statusActions}>
-                  <Button
-                    onClick={pressLogin}
-                    variant={BUTTON_VARIANT_ENUM.SECONDARY}
-                  >
-                    Login
-                  </Button>
-                </div>
-              )}
+              {/* Card Body */}
+              <div className={styles.cardBody}>
+                <Suspense fallback={null}>
+                  <FreeSampleDownloader
+                    productList={tableDataSet}
+                    databaseMainTypes={databaseMainTypes}
+                    placeHolder={searchPlaceHolder}
+                    selectedItem={selectedItem}
+                    setSelectedItem={setSelectedItem}
+                    tabsData={tabsData}
+                  />
+                </Suspense>
+              </div>
             </div>
 
-            {/* Content Area */}
-            <div className={styles.cardContent}>
-              <Suspense fallback={null}>
-                <FreeSampleDownloader
-                  productList={tableDataSet}
-                  databaseMainTypes={databaseMainTypes}
-                  placeHolder={searchPlaceHolder}
-                  selectedItem={selectedItem}
-                  setSelectedItem={setSelectedItem}
-                  tabsData={tabsData}
-                />
-              </Suspense>
+            {/* ── CTA Section ── */}
+            <div className={styles.ctaSection}>
+              <FreeSampleLeftContent
+                databaseMainTypes={databaseMainTypes}
+                selectedItem={selectedItem}
+              />
             </div>
           </div>
-
-          <div className={styles.ctaWrapper}>
-            <FreeSampleLeftContent
-              databaseMainTypes={databaseMainTypes}
-              selectedItem={selectedItem}
-            />
-          </div>
-        </Col>
-      </Container>
+        </Container>
+      </section>
     </div>
   );
 };
