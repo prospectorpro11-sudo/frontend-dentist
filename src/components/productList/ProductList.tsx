@@ -99,7 +99,9 @@ const ProductList = async (props: IProductList) => {
                                                     <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                 </div>
                                                 <div className={styles.plCatInfo}>
-                                                    <strong>{product.productName}</strong>
+                                                    <Link href={`/products/specialities/${product.slug}`} style={{ textDecoration: 'none' }}>
+                                                        <strong>{product.productName}</strong>
+                                                    </Link>
                                                     {/* <span>{product.stateName || "Specialists"}</span> */}
                                                 </div>
                                             </div>
