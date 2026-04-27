@@ -1,0 +1,289 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
+/* ─── Full-viewport wrapper ─── */
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: var(--primary-font);
+  background: linear-gradient(145deg, #f0f9ff 0%, #e0f2fe 30%, #f0fdfa 60%, #e8f0f8 100%);
+}
+
+/* ─── Subtle grid overlay ─── */
+.wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ─── Soft radial glows ─── */
+.wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 15% 20%, rgba(14, 165, 233, 0.08), transparent 70%),
+    radial-gradient(ellipse 500px 350px at 85% 75%, rgba(20, 184, 166, 0.07), transparent 65%),
+    radial-gradient(ellipse 400px 300px at 50% 10%, rgba(99, 102, 241, 0.04), transparent 60%);
+  pointer-events: none;
+}
+
+/* ─── Floating ambient shapes ─── */
+.shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  animation: floatShape 28s ease-in-out infinite;
+}
+
+.shape:nth-child(1) {
+  width: 380px;
+  height: 380px;
+  top: -80px;
+  right: -40px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.06) 0%, transparent 70%);
+}
+
+.shape:nth-child(2) {
+  width: 260px;
+  height: 260px;
+  bottom: 6%;
+  left: 3%;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.05) 0%, transparent 70%);
+  animation-delay: -8s;
+}
+
+.shape:nth-child(3) {
+  width: 200px;
+  height: 200px;
+  top: 38%;
+  left: 18%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.04) 0%, transparent 70%);
+  animation-delay: -15s;
+}
+
+.shape:nth-child(4) {
+  width: 160px;
+  height: 160px;
+  top: 12%;
+  right: 22%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
+  animation-delay: -4s;
+}
+
+@keyframes floatShape {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(16px, -24px) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-10px, 16px) scale(0.95);
+  }
+}
+
+/* ─── Content container ─── */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 560px;
+  width: 90%;
+  animation: contentReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@keyframes contentReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Glowing "404" code ─── */
+.errorCode {
+  font-size: 160px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -6px;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8, #14b8a6);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: accentShift 5s ease-in-out infinite;
+  filter: drop-shadow(0 4px 24px rgba(14, 165, 233, 0.18));
+  position: relative;
+}
+
+/* Decorative ring behind 404 */
+.errorCode::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid rgba(14, 165, 233, 0.08);
+  pointer-events: none;
+  animation: ringPulse 4s ease-in-out infinite;
+}
+
+.errorCode::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 1px solid rgba(20, 184, 166, 0.05);
+  pointer-events: none;
+  animation: ringPulse 4s ease-in-out infinite 1s;
+}
+
+@keyframes ringPulse {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes accentShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ─── Decorative divider ─── */
+.divider {
+  width: 56px;
+  height: 3px;
+  margin: 12px auto 20px;
+  border-radius: 100px;
+  background: linear-gradient(90deg, #0ea5e9, #14b8a6);
+  opacity: 0.5;
+}
+
+/* ─── Title ─── */
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--n900);
+  margin-bottom: 10px;
+  letter-spacing: -0.4px;
+}
+
+/* ─── Description ─── */
+.description {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--n500);
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0 auto 36px;
+}
+
+/* ─── Actions row ─── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ─── Responsive ─── */
+@include breakpoint(mobile) {
+  .errorCode {
+    font-size: 110px;
+    letter-spacing: -4px;
+  }
+
+  .errorCode::before {
+    width: 150px;
+    height: 150px;
+  }
+
+  .errorCode::after {
+    width: 200px;
+    height: 200px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .description {
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .goBackBtn {
+    padding: 11px 30px;
+  }
+}
+
+@include breakpoint(small-mobile) {
+  .errorCode {
+    font-size: 86px;
+    letter-spacing: -3px;
+  }
+
+  .errorCode::before {
+    width: 120px;
+    height: 120px;
+  }
+
+  .errorCode::after {
+    width: 160px;
+    height: 160px;
+  }
+
+  .title {
+    font-size: 19px;
+  }
+}
