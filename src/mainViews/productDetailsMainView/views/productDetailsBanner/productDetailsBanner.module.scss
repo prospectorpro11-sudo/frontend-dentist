@@ -1,6 +1,12 @@
 @import "styles/variables";
 @import "styles/mixins";
 
+.wrapper {
+    @include breakpoint(tablet) {
+        padding: 4rem 0 !important;
+    }
+}
+
 .heroTitle {
     font-size: 2.75rem;
     font-weight: 700;

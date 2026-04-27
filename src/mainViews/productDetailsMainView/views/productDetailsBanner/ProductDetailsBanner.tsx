@@ -81,11 +81,11 @@ const ProductDetailsBanner = (props: IProductDetailsBanner) => {
     };
 
     return (
-        <section className="banner">
+        <section className={classNames("banner", styles.wrapper)}>
             <div className="surface"></div>
             <Container>
                 <Row>
-                    <Col xs={12} lg={5}>
+                    <Col xs={12} lg={5} className="mb-5 mb-lg-0">
                         <Breadcrumb
                             items={breadcrumbs}
                         />
@@ -115,10 +115,10 @@ const ProductDetailsBanner = (props: IProductDetailsBanner) => {
                             </a>
                         </div>
                     </Col>
-                    <Col xs={12} lg={3}>
+                    <Col xs={9} md={5} lg={3} className="mx-auto mx-md-start">
                         <Stats stats={stats} isProductDetails={true} />
                     </Col>
-                    <Col xs={12} lg={4}>
+                    <Col xs={12} md={7} lg={4}>
                         <Image width={450} height={450} style={{ objectFit: "scale-down" }} src="/product-hero-image.png" alt="Product Hero Image" />
                     </Col>
                 </Row>

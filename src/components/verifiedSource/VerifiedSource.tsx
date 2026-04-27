@@ -36,7 +36,7 @@ const VerifiedSource = (props: IVerifiedSourceSeed) => {
                 </div>
                 <Col xs={12} lg={10} className='mx-auto'>
                     <Row>
-                        <Col xs={12} md={8}>
+                        <Col xs={12} md={7} lg={8}>
                             <div className={styles.sourcesListCard}>
                                 <div className={styles.sourcesListTitle}>
                                     <i className="bi bi-check-circle-fill"></i>
@@ -60,7 +60,7 @@ const VerifiedSource = (props: IVerifiedSourceSeed) => {
                                 </a>
                             </div>
                         </Col>
-                        <Col xs={12} md={4}>
+                        <Col xs={12} md={5} lg={4} className='mt-5 mt-lg-0'>
                             <div className={styles.diagramCard}>
                                 <div className={styles.diagramCenter}>
                                     <div className={styles.hubIcon}>
