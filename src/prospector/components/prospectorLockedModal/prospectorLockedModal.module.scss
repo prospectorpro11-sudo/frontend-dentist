@@ -195,8 +195,7 @@
 .panelEyebrow,
 .metricCard,
 .selectionCard,
-.actions,
-.trustNote {
+.actions {
     position: relative;
     z-index: 1;
 }
@@ -329,15 +328,9 @@
     box-shadow: 0 14px 28px rgba(14, 165, 233, 0.16);
 }
 
-.trustNote {
-    margin: 0.95rem 0 0;
-    text-align: center;
-    font-size: 0.82rem;
-    color: var(--text2);
-    letter-spacing: 0.02em;
-}
 
 @keyframes gradientPulse {
+
     0%,
     100% {
         background-position: 0% 50%;

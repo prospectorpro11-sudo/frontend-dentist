@@ -132,9 +132,6 @@ const ProspectorLockedModal = () => {
                             Open Cart
                         </button>
                     </div>
-                    <br />
-                    <br />
-                    <p className={styles.trustNote}>No credit card required {"\u00B7"} Cancel anytime</p>
                 </section>
             </div>
         </UCDModal>
