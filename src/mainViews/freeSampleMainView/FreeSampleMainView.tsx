@@ -95,10 +95,6 @@ const FreeSampleMainView = (props: IFreeSampleMainView) => {
       <section className={styles.heroBanner}>
         <div className={styles.bannerSurface} />
         <Container className={styles.bannerContainer}>
-          <div className={styles.badge}>
-            <HiSparkles size={14} />
-            Free Sample
-          </div>
           <h1 className={styles.mainTitle}>{getTitle[databaseMainTypes]}</h1>
           <p className={styles.subtitle}>
             {getSubtitle[databaseMainTypes]}
