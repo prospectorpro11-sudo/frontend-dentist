@@ -31,7 +31,7 @@ const normalizeRewrittenJson = (value: any) => {
     }
 };
 
-const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainViewProps) => {
+const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainViewProps): any => {
     const rewrittenJson = normalizeRewrittenJson(editorProduct?.rewrittenJson);
     console.log(rewrittenJson, "rewrittenJson");
     const faqList = rewrittenJson?.faqs?.list || [];
@@ -50,7 +50,12 @@ const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainVie
                 description={rewrittenJson.mainHeaderDescription}
             />
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} isProductDetails totalCount={numberWithCommas(product.stats.totalContacts.toString())} />
-            <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} buildListTitle="Ideal Use Cases" />
+            <WhatsIncludedDetails
+                {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails}
+                buildListTitle="Build List"
+                isProductDetails={true}
+                idealUseCases={rewrittenJson?.idealUseCases}
+            />
             <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />
             <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistList} />
             <WhyChooseUs {...PRODUCT_DETAILS_SEED_OBJECT.whyChooseUs} />

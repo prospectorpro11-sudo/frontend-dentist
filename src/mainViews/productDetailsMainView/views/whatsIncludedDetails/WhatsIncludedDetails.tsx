@@ -15,6 +15,8 @@ const WhatsIncludedDetails = (props: IWhatsIncludedDetailsSeed) => {
         verifiedTitle,
         dataCards,
         footerStats,
+        isProductDetails,
+        idealUseCases,
     } = props;
 
     return (
@@ -114,48 +116,75 @@ const WhatsIncludedDetails = (props: IWhatsIncludedDetailsSeed) => {
                         </Col>
                         <Col xs={12} lg={7}>
                             <div className={styles.rightPanel}>
-                                <div className={styles.headerSection}>
-                                    <h1 className={styles.headerTitle}>{header.title}</h1>
-                                    <p className={styles.headerDescription}>{header.description}</p>
-                                </div>
-                                <h3 className={styles.verifiedTitle}>{verifiedTitle}</h3>
-
-                                <div className={styles.dataCards}>
-                                    {dataCards.map(function (card) {
-                                        return (
-                                            <div
-                                                className={classnames(
-                                                    styles.dataCard,
-                                                    card.isLast && styles.dataCardLast
-                                                )}
-                                                key={card.id}
-                                            >
-                                                <div className={styles.dataIcon}></div>
-                                                <div className={styles.dataContent}>
-                                                    <div className={styles.dataCardTitle}>
-                                                        {card.title}{' '}
-                                                        <span className={styles.dataCardTitleSpan}>
-                                                            {card.titleSuffix}
-                                                        </span>
+                                {isProductDetails && idealUseCases ? (
+                                    <>
+                                        <div className={styles.headerSection}>
+                                            <h1 className={styles.headerTitle}>{idealUseCases.title}</h1>
+                                            <p className={styles.headerDescription}>{idealUseCases.description}</p>
+                                        </div>
+                                        <div className={styles.dataCardsGrid}>
+                                            {idealUseCases.features.map(function (feature, index) {
+                                                return (
+                                                    <div className={styles.dataCardGridItem} key={index}>
+                                                        <div className={styles.dataIcon}>
+                                                            <i className="bi bi-check" style={{ color: '#fff', fontSize: '1.2rem' }}></i>
+                                                        </div>
+                                                        <div className={styles.dataContent}>
+                                                            <div className={styles.dataCardTitle}>
+                                                                {feature}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className={styles.dataCardDesc}>
-                                                        {card.description}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className={styles.headerSection}>
+                                            <h1 className={styles.headerTitle}>{header.title}</h1>
+                                            <p className={styles.headerDescription}>{header.description}</p>
+                                        </div>
+                                        <h3 className={styles.verifiedTitle}>{verifiedTitle}</h3>
 
-                                <div className={styles.footerStats}>
-                                    {footerStats.map(function (stat, index) {
-                                        return (
-                                            <span className={styles.footerStat} key={index}>
-                                                {stat}
-                                            </span>
-                                        );
-                                    })}
-                                </div>
+                                        <div className={styles.dataCards}>
+                                            {dataCards.map(function (card) {
+                                                return (
+                                                    <div
+                                                        className={classnames(
+                                                            styles.dataCard,
+                                                            card.isLast && styles.dataCardLast
+                                                        )}
+                                                        key={card.id}
+                                                    >
+                                                        <div className={styles.dataIcon}></div>
+                                                        <div className={styles.dataContent}>
+                                                            <div className={styles.dataCardTitle}>
+                                                                {card.title}{' '}
+                                                                <span className={styles.dataCardTitleSpan}>
+                                                                    {card.titleSuffix}
+                                                                </span>
+                                                            </div>
+                                                            <div className={styles.dataCardDesc}>
+                                                                {card.description}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+
+                                        <div className={styles.footerStats}>
+                                            {footerStats.map(function (stat, index) {
+                                                return (
+                                                    <span className={styles.footerStat} key={index}>
+                                                        {stat}
+                                                    </span>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </Col>
                     </Row>

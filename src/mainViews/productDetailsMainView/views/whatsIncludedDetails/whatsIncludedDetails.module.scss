@@ -331,6 +331,47 @@
     border-bottom: none;
 }
 
+.dataCardsGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--blue-50);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+
+    @media (min-width: 992px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.dataCardGridItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    border-right: none;
+
+    @media (min-width: 992px) {
+        border-right: 1px solid var(--border);
+        &:nth-child(even) {
+            border-right: none;
+        }
+        &:nth-last-child(1) {
+            border-bottom: none;
+        }
+        &:nth-last-child(2):nth-child(odd) {
+            border-bottom: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
 .dataIcon {
     width: 28px;
     height: 28px;

@@ -305,6 +305,12 @@ export interface IWhatsIncludedDetailsSeed {
 	verifiedTitle: string;
 	dataCards: IWhatsIncludedDetailsCard[];
 	footerStats: string[];
+	isProductDetails?: boolean;
+	idealUseCases?: {
+		title: string;
+		description: string;
+		features: string[];
+	};
 }
 
 export interface IProductPriceTier {
