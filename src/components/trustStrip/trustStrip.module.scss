@@ -1,3 +1,6 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
 .trustStripWrapper {
     &.v1 {
         .tsItem {
@@ -52,25 +55,23 @@
 
         .trustStrip2 {
             grid-template-columns: 1fr;
+            gap: 0.7rem;
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+
+            @include breakpoint(mobile) {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
 
         .t2Item {
             justify-content: flex-start;
         }
 
-
-        .trustStrip2 {
-            gap: 0.7rem;
-        }
-
         .trustStrip {
             justify-content: center;
-        }
-
-
-
-        .trustStrip2 {
-            gap: 0.7rem;
         }
 
         .t2Item {
@@ -91,12 +92,6 @@
             font-size: 0.6rem;
         }
 
-
-        .trustStrip2 {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.2rem;
-        }
 
         .t2Item {
             display: flex;
