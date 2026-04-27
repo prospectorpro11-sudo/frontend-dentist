@@ -1,5 +1,6 @@
 import Faq from "@/components/faq/Faq";
 import FreeSample from "@/components/freeSample/FreeSample";
+import { ProductCatalogItem } from "@/shared/productCatalog";
 import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
 import CrmIntegration from "@/components/crmIntegration/CrmIntegration";
 import VerifiedSource from "@/components/verifiedSource/VerifiedSource";
@@ -12,7 +13,6 @@ import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBan
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
 import DentalSpecialtyList from "@/components/dentalSpecialtyList/DentalSpecialtyList";
 import AboutDentistEmailList from "@/components/aboutDentistEmailList/AboutDentistEmailList";
-import { ProductCatalogItem } from "@/shared/productCatalog";
 
 type ProductDetailMainViewProps = {
     product: ProductCatalogItem;
@@ -24,7 +24,12 @@ const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainVie
     console.log("test")
     return (
         <>
-            <ProductDetailsBanner stats={product.stats} />
+            <ProductDetailsBanner
+                stats={product.stats}
+                productId={product.stateId}
+                productName={product.productName}
+                description={product.shortDescription}
+            />
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
             <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} />
             <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />

@@ -1,16 +1,18 @@
-import { Col, Container, Row } from "react-bootstrap";
-import styles from "./productDetailsBanner.module.scss";
-import Stats from "@/components/stats/Stats";
+import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
-import Button from "@/components/button/Button";
-import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
-import { IoMdPricetag } from "react-icons/io";
-import { FiDownload } from "react-icons/fi";
-import { BsCalendarEvent, BsCheckCircleFill, BsCircleFill } from "react-icons/bs";
 import classNames from "classnames";
 import type { ReactNode } from "react";
+import { FiDownload } from "react-icons/fi";
+import Stats from "@/components/stats/Stats";
+import { IoMdPricetag } from "react-icons/io";
+import { COMMON_URLS } from "@/shared/constant";
+import Button from "@/components/button/Button";
+import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import { Col, Container, Row } from "react-bootstrap";
+import styles from "./productDetailsBanner.module.scss";
+import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 import { ProductStats, formatCatalogNumber } from "@/shared/productCatalog";
+import { BsCalendarEvent, BsCheckCircleFill, BsCircleFill } from "react-icons/bs";
 
 type BadgeVariant = "blue" | "amber" | "teal";
 
@@ -22,14 +24,17 @@ interface IBadgeItem {
 
 interface IProductDetailsBanner {
     stats: ProductStats;
+    productName?: string;
+    description?: string;
+    productId?: string;
 }
 const ProductDetailsBanner = (props: IProductDetailsBanner) => {
-    const { stats: productStats } = props;
+    const { stats: productStats, productName, description, productId } = props;
     const breadcrumbs = [
         { label: 'Home', href: '/' },
         { label: 'Products', href: '/products' },
         { label: 'Specialists', href: '/products/specialists' },
-        { label: 'Emergency Medicine Physicians', href: null },
+        { label: productName || productId || "", href: null },
     ]
     const badgeItems: IBadgeItem[] = [
         {
@@ -55,6 +60,26 @@ const ProductDetailsBanner = (props: IProductDetailsBanner) => {
         { icon: 'phone', value: formatCatalogNumber(productStats.directPhones), label: 'Direct Phones', iconClass: 'spIc3' },
         { icon: 'fax', value: formatCatalogNumber(productStats.facilityCount), label: 'Facilities', iconClass: 'spIc4', last: true },
     ]
+
+    const formatTitle = (title: string = "") => {
+        const words = title.split(" ");
+        if (words.length <= 2) return <>{title}</>;
+
+        const emailIndex = words.findIndex(w => w.toLowerCase() === "email");
+        const targetIndex = emailIndex > 0 ? emailIndex - 1 : Math.ceil(words.length / 2) - 1;
+
+        const before = words.slice(0, targetIndex).join(" ");
+        const highlight = words[targetIndex];
+        const after = words.slice(targetIndex + 1).join(" ");
+
+        return (
+            <>
+                {before ? <>{before} <br /></> : null}
+                <span className="shifting-accent">{highlight}</span> {after}
+            </>
+        );
+    };
+
     return (
         <section className="banner">
             <div className="surface"></div>
@@ -76,14 +101,18 @@ const ProductDetailsBanner = (props: IProductDetailsBanner) => {
                             ))}
                         </div>
                         <h1 className={styles.heroTitle}>
-                            Emergency Medicine <br /><span className="shifting-accent">Physicians</span> Email List
+                            {formatTitle(productName || 'Emergency Medicine Physicians Email List')}
                         </h1>
                         <p className={classNames(styles.heroDescription, "mt-4")}>
-                            Precision-targeted database of emergency medicine professionals — verified, CRM-ready, and optimized for 95%+ deliverability.
+                            {description || 'Precision-targeted database of emergency medicine professionals — verified, CRM-ready, and optimized for 95%+ deliverability.'}
                         </p>
                         <div className="d-flex align-items-center gap-3 mt-5">
-                            <Button variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}><IoMdPricetag size={22} /> View Pricing</Button>
-                            <Button variant={BUTTON_VARIANT_ENUM.GLASS}><FiDownload size={22} /> Free Sample</Button>
+                            <Link href={`/prospector?specialization=${productId || 'Nurse'}`}>
+                                <Button variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}><IoMdPricetag size={22} /> Customize List</Button>
+                            </Link>
+                            <a href={COMMON_URLS.freeSample}>
+                                <Button variant={BUTTON_VARIANT_ENUM.GLASS}><FiDownload size={22} /> Free Sample</Button>
+                            </a>
                         </div>
                     </Col>
                     <Col xs={12} lg={3}>
