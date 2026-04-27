@@ -108,6 +108,7 @@ const ProductListMainView = (props: IProductListMainView) => {
 
             return {
                 id: item.stateId || item.slug,
+                slug: item.slug,
                 name: item.productName,
                 npis: item.stats.totalContacts,
                 emails: item.stats.verifiedEmails,
@@ -208,7 +209,7 @@ const ProductListMainView = (props: IProductListMainView) => {
             { key: "emails" as const, label: "Emails", icon: <BsEnvelopeFill />, className: styles.colCenter, width: ".75fr" },
             { key: "phones" as const, label: "Phones", icon: <BsTelephoneFill />, className: styles.colCenter, width: ".75fr" },
             { key: "faxes" as const, label: "Facilities", icon: <BsPrinterFill />, className: styles.colCenter, width: ".75fr" },
-            { key: "action" as const, label: "Action", icon: null, className: styles.colRight, width: "1.3fr" },
+            { key: "action" as const, label: "Action", icon: null, className: styles.colRight, width: "2fr" },
         ],
         [],
     );

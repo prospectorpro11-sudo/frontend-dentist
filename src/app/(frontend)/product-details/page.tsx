@@ -2,7 +2,9 @@ import ProductDetailsMainView from '@/mainViews/productDetailsMainView/ProductDe
 
 const ProductDetailsPage = () => {
     return (
-        <ProductDetailsMainView />
+        <>
+            {/* <ProductDetailsMainView /> */}
+        </>
     );
 };
 

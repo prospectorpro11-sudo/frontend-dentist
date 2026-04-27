@@ -1,6 +1,7 @@
 import { IProductListItem } from "@/shared/interface";
 import classNames from "classnames";
 import { HiMiniArrowUpRight } from "react-icons/hi2";
+import { BsEye } from "react-icons/bs";
 import LogoIcon from "@/components/logoIcon/LogoIcon";
 import Link from "next/link";
 
@@ -54,7 +55,9 @@ const ProductDataViewsSection = ({
                                     </div>
                                     <div className={styles.cardMeta}>
                                         <div className={styles.cardCat}>{item.cat}</div>
-                                        <div className={styles.cardName}>{item.name}</div>
+                                        <Link href={`/products/${item.slug}`} className={styles.cardNameLink}>
+                                            <div className={styles.cardName}>{item.name}</div>
+                                        </Link>
                                     </div>
                                 </div>
 
@@ -83,7 +86,10 @@ const ProductDataViewsSection = ({
                                             </span>
                                         ))}
                                     </div>
-                                    <div className={styles.cardHoverArrow}>{">"}</div>
+                                    <Link href={`/products/${item.slug}`} className={styles.cardViewLink}>
+                                        <BsEye size={13} />
+                                        <span>View Details</span>
+                                    </Link>
                                 </div>
                             </div>
                         );
@@ -121,10 +127,12 @@ const ProductDataViewsSection = ({
                                                         <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                     </div>
                                                     <div>
-                                                        <div className={styles.tSpecName}>
-                                                            {item.name}
-                                                            <span className={styles.tSpecExternal}>{">"}</span>
-                                                        </div>
+                                                        <Link href={`/products/${item.slug}`} className={styles.tSpecNameLink}>
+                                                            <div className={styles.tSpecName}>
+                                                                {item.name}
+                                                                <span className={styles.tSpecExternal}>{">"}</span>
+                                                            </div>
+                                                        </Link>
                                                         <div>
                                                             {item.tags.map((tag) => (
                                                                 <span key={tag} className={classNames(styles.tTag, styles[tagMeta[tag].tcls])}>
@@ -159,7 +167,11 @@ const ProductDataViewsSection = ({
                                     }
 
                                     return (
-                                        <div key={column.key} style={{ display: "flex", justifyContent: "flex-end" }}>
+                                        <div key={column.key} style={{ display: "flex", justifyContent: "flex-end", gap: ".4rem" }}>
+                                            <Link href={`/products/${item.slug}`} className={styles.tViewBtn}>
+                                                <span><BsEye size={14} /></span>
+                                                <span>View Details</span>
+                                            </Link>
                                             <Link href={`/prospector?specialization=${item.id}`} className={styles.tActionBtn}>
                                                 <span>Customize</span>
                                                 <span><HiMiniArrowUpRight size={18} /></span>

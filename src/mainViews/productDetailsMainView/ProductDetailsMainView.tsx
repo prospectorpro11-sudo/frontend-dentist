@@ -12,8 +12,15 @@ import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBan
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
 import DentalSpecialtyList from "@/components/dentalSpecialtyList/DentalSpecialtyList";
 import AboutDentistEmailList from "@/components/aboutDentistEmailList/AboutDentistEmailList";
+import { ProductCatalogItem } from "@/shared/productCatalog";
 
-const ProductDetailsMainView = () => {
+type ProductDetailMainViewProps = {
+    product: ProductCatalogItem;
+    editorProduct?: Record<string, any> | null;
+};
+
+const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainViewProps) => {
+    console.log(product, "Checker")
     return (
         <>
             <ProductDetailsBanner />

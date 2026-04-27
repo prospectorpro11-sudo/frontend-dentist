@@ -250,6 +250,7 @@ export interface IHomeSeeds {
 
 export interface IProductListItem {
 	id: string;
+	slug: string;
 	name: string;
 	npis: number;
 	emails: number;
