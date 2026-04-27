@@ -18,20 +18,38 @@ type ProductDetailMainViewProps = {
     product: ProductCatalogItem;
     editorProduct?: Record<string, any> | null;
 };
+const normalizeRewrittenJson = (value: any) => {
+    if (!value) return {};
+    if (typeof value === "object") return value;
+    if (typeof value !== "string") return {};
+    try {
+        const parsed = JSON.parse(value);
+        return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (_error) {
+        return {};
+    }
+};
 
 const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainViewProps) => {
-    console.log(product, "Checker")
-    console.log("test")
+    const rewrittenJson = normalizeRewrittenJson(editorProduct?.rewrittenJson);
+    console.log(rewrittenJson, "rewrittenJson");
+    const faqList = rewrittenJson?.faqs?.list || [];
+    const midPoint = Math.ceil(faqList.length / 2);
+    const splitFaqList = [
+        faqList.slice(0, midPoint),
+        faqList.slice(midPoint)
+    ];
+
     return (
         <>
             <ProductDetailsBanner
                 stats={product.stats}
                 productId={product.stateId}
-                productName={product.productName}
-                description={product.shortDescription}
+                productName={rewrittenJson.mainHeader}
+                description={rewrittenJson.mainHeaderDescription}
             />
             <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} isProductDetails />
-            <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} />
+            <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} buildListTitle="Ideal Use Cases" />
             <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />
             <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistList} />
             <WhyChooseUs {...PRODUCT_DETAILS_SEED_OBJECT.whyChooseUs} />
@@ -41,7 +59,12 @@ const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainVie
             <DataBeneficiaries {...PRODUCT_DETAILS_SEED_OBJECT.dataBeneficiaries} />
             <ComparisonTable {...PRODUCT_DETAILS_SEED_OBJECT.comparisonTable} />
             <AboutDentistEmailList {...PRODUCT_DETAILS_SEED_OBJECT.aboutDentistEmailList} />
-            <Faq {...PRODUCT_DETAILS_SEED_OBJECT.faq} />
+            <Faq
+                stats={PRODUCT_DETAILS_SEED_OBJECT.faq.stats}
+                title={rewrittenJson?.faqs?.title}
+                description={rewrittenJson?.faqs?.description}
+                columns={splitFaqList}
+            />
         </>
     );
 };

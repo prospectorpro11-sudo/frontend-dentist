@@ -226,6 +226,8 @@ export interface ILocationSegmentation {
 }
 
 export interface IFaq {
+	title?: string;
+	description?: string;
 	stats: IFaqStat[];
 	columns: IFaqItem[][];
 }
