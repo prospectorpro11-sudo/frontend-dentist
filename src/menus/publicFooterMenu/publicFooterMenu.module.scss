@@ -1,6 +1,6 @@
-/* ============================================
-   FOOTER
-   ============================================ */
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
 .siteFooter {
   position: relative;
   background: linear-gradient(180deg, #071018 0%, #071018 5%, #0a1a2e 15%, var(--n900) 30%, #0f2241 100%);
@@ -32,36 +32,74 @@
     height: 200%;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(
-      105deg,
-      transparent 0%,
-      rgba(14, 165, 233, 0.04) 25%,
-      rgba(56, 189, 248, 0.08) 40%,
-      rgba(14, 165, 233, 0.12) 50%,
-      rgba(56, 189, 248, 0.08) 60%,
-      rgba(14, 165, 233, 0.04) 75%,
-      transparent 100%
-    );
+    background: linear-gradient(105deg,
+        transparent 0%,
+        rgba(14, 165, 233, 0.04) 25%,
+        rgba(56, 189, 248, 0.08) 40%,
+        rgba(14, 165, 233, 0.12) 50%,
+        rgba(56, 189, 248, 0.08) 60%,
+        rgba(14, 165, 233, 0.04) 75%,
+        transparent 100%);
     filter: blur(30px);
     animation: lightLeakSweep 8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   }
 }
 
 @keyframes footerLightLeaks {
-  0%   { opacity: 0.8; transform: translate(0, 0) scale(1); }
-  20%  { opacity: 1;   transform: translate(3%, -1%) scale(1.01); }
-  40%  { opacity: 0.9; transform: translate(-2%, 2%) scale(1.02); }
-  60%  { opacity: 1;   transform: translate(-1%, -2%) scale(0.99); }
-  80%  { opacity: 0.85;transform: translate(2%, 1%) scale(1.01); }
-  100% { opacity: 0.9; transform: translate(-1%, 0%) scale(1); }
+  0% {
+    opacity: 0.8;
+    transform: translate(0, 0) scale(1);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(3%, -1%) scale(1.01);
+  }
+
+  40% {
+    opacity: 0.9;
+    transform: translate(-2%, 2%) scale(1.02);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate(-1%, -2%) scale(0.99);
+  }
+
+  80% {
+    opacity: 0.85;
+    transform: translate(2%, 1%) scale(1.01);
+  }
+
+  100% {
+    opacity: 0.9;
+    transform: translate(-1%, 0%) scale(1);
+  }
 }
 
 @keyframes lightLeakSweep {
-  0%   { transform: translateX(0) rotate(5deg) scaleX(0.6); opacity: 0; }
-  15%  { opacity: 0.6; }
-  50%  { transform: translateX(80%) rotate(-3deg) scaleX(1); opacity: 0.4; }
-  85%  { opacity: 0.6; }
-  100% { transform: translateX(160%) rotate(2deg) scaleX(0.8); opacity: 0; }
+  0% {
+    transform: translateX(0) rotate(5deg) scaleX(0.6);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateX(80%) rotate(-3deg) scaleX(1);
+    opacity: 0.4;
+  }
+
+  85% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateX(160%) rotate(2deg) scaleX(0.8);
+    opacity: 0;
+  }
 }
 
 /* ——— LINE-BASED SQUARE GRID PATTERN ——— */
@@ -131,22 +169,47 @@
 }
 
 @keyframes ftBlob1 {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0.9; }
-  35%  { transform: translate(15px, -10px) scale(1.05); opacity: 1; }
-  70%  { transform: translate(-8px, 15px) scale(0.97); opacity: 0.85; }
-  100% { transform: translate(5px, -5px) scale(1.02); opacity: 1; }
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+
+  35% {
+    transform: translate(15px, -10px) scale(1.05);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translate(-8px, 15px) scale(0.97);
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: translate(5px, -5px) scale(1.02);
+    opacity: 1;
+  }
 }
 
 @keyframes ftBlob2 {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0.85; }
-  35%  { transform: translate(-12px, 8px) scale(1.03); opacity: 1; }
-  70%  { transform: translate(10px, -12px) scale(0.96); opacity: 0.8; }
-  100% { transform: translate(-3px, 6px) scale(1.01); opacity: 0.9; }
-}
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.85;
+  }
 
-.ftContainer {
-  position: relative;
-  z-index: 1;
+  35% {
+    transform: translate(-12px, 8px) scale(1.03);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translate(10px, -12px) scale(0.96);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translate(-3px, 6px) scale(1.01);
+    opacity: 0.9;
+  }
 }
 
 /* ——— FOOTER CONTENT STYLES ——— */
@@ -155,6 +218,10 @@
   grid-template-columns: 1.5fr 2fr;
   gap: 4rem;
   padding: 4rem 0 3rem;
+
+  @include breakpoint(mobile) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .ftBrandCol {
@@ -259,20 +326,18 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(14, 165, 233, 0.10) 10%,
-      rgba(14, 165, 233, 0.30) 22%,
-      rgba(14, 165, 233, 0.60) 32%,
-      rgba(56, 189, 248, 1) 43%,
-      rgba(255, 255, 255, 1) 50%,
-      rgba(56, 189, 248, 1) 57%,
-      rgba(14, 165, 233, 0.60) 68%,
-      rgba(14, 165, 233, 0.30) 78%,
-      rgba(14, 165, 233, 0.10) 90%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(14, 165, 233, 0.10) 10%,
+        rgba(14, 165, 233, 0.30) 22%,
+        rgba(14, 165, 233, 0.60) 32%,
+        rgba(56, 189, 248, 1) 43%,
+        rgba(255, 255, 255, 1) 50%,
+        rgba(56, 189, 248, 1) 57%,
+        rgba(14, 165, 233, 0.60) 68%,
+        rgba(14, 165, 233, 0.30) 78%,
+        rgba(14, 165, 233, 0.10) 90%,
+        transparent 100%);
     z-index: 1;
   }
 
@@ -305,12 +370,37 @@
 }
 
 @keyframes ftOrbSweep {
-  0%   { left: -18%; opacity: 0; transform: scale(0.8); }
-  3%   { opacity: 1; transform: scale(1); }
-  45%  { opacity: 1; transform: scale(1); }
-  55%  { opacity: 1; transform: scale(1); }
-  97%  { opacity: 1; transform: scale(1); }
-  100% { left: 100%; opacity: 0; transform: scale(0.8); }
+  0% {
+    left: -18%;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  3% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  55% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  97% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: scale(0.8);
+  }
 }
 
 .ftGlowTail {
@@ -328,12 +418,31 @@
 }
 
 @keyframes ftTailSweep {
-  0%   { left: -18%; opacity: 0; }
-  3%   { opacity: 0.7; }
-  45%  { opacity: 0.7; }
-  55%  { opacity: 0.7; }
-  97%  { opacity: 0.7; }
-  100% { left: 100%; opacity: 0; }
+  0% {
+    left: -18%;
+    opacity: 0;
+  }
+
+  3% {
+    opacity: 0.7;
+  }
+
+  45% {
+    opacity: 0.7;
+  }
+
+  55% {
+    opacity: 0.7;
+  }
+
+  97% {
+    opacity: 0.7;
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
 }
 
 // .ftGlowSparks {
@@ -439,13 +548,42 @@
 }
 
 @keyframes ftRingSweep {
-  0%   { left: -18%; opacity: 0; transform: scale(0.8) rotate(0deg); }
-  3%   { opacity: 0.5; transform: scale(1) rotate(-2deg); }
-  45%  { opacity: 0.5; transform: scale(1) rotate(-2deg); }
-  55%  { opacity: 0.5; transform: scale(1.1) rotate(2deg); }
-  57%  { opacity: 0.5; transform: scale(1) rotate(0deg); }
-  97%  { opacity: 0.5; transform: scale(1) rotate(0deg); }
-  100% { left: 100%; opacity: 0; transform: scale(0.8) rotate(0deg); }
+  0% {
+    left: -18%;
+    opacity: 0;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  3% {
+    opacity: 0.5;
+    transform: scale(1) rotate(-2deg);
+  }
+
+  45% {
+    opacity: 0.5;
+    transform: scale(1) rotate(-2deg);
+  }
+
+  55% {
+    opacity: 0.5;
+    transform: scale(1.1) rotate(2deg);
+  }
+
+  57% {
+    opacity: 0.5;
+    transform: scale(1) rotate(0deg);
+  }
+
+  97% {
+    opacity: 0.5;
+    transform: scale(1) rotate(0deg);
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: scale(0.8) rotate(0deg);
+  }
 }
 
 .ftPulseRing {
@@ -461,17 +599,45 @@
   pointer-events: none;
   z-index: 1;
 
-  &:nth-child(1) { animation-delay: 0s; }
-  &:nth-child(2) { animation-delay: 1.3s; }
-  &:nth-child(3) { animation-delay: 2.6s; }
+  &:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 1.3s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 2.6s;
+  }
 }
 
 @keyframes ftPulseRing {
-  0%   { left: -18%; opacity: 0; transform: scale(0.4); }
-  5%   { opacity: 0.5; }
-  40%  { opacity: 0.2; transform: scale(2); }
-  65%  { opacity: 0.05; transform: scale(3.5); }
-  100% { left: 100%; opacity: 0; transform: scale(0.4); }
+  0% {
+    left: -18%;
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  5% {
+    opacity: 0.5;
+  }
+
+  40% {
+    opacity: 0.2;
+    transform: scale(2);
+  }
+
+  65% {
+    opacity: 0.05;
+    transform: scale(3.5);
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: scale(0.4);
+  }
 }
 
 .ftGlowBeam {
@@ -488,12 +654,31 @@
 }
 
 @keyframes ftBeamSweep {
-  0%   { left: -18%; opacity: 0; }
-  3%   { opacity: 1; }
-  45%  { opacity: 1; }
-  55%  { opacity: 1; }
-  97%  { opacity: 1; }
-  100% { left: 100%; opacity: 0; }
+  0% {
+    left: -18%;
+    opacity: 0;
+  }
+
+  3% {
+    opacity: 1;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  97% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
 }
 
 .ftGlowFloor {
@@ -509,17 +694,37 @@
 }
 
 @keyframes ftFloorGlow {
-  0%   { left: -18%; opacity: 0; }
-  3%   { opacity: 1; }
-  45%  { opacity: 1; }
-  55%  { opacity: 1; }
-  97%  { opacity: 1; }
-  100% { left: 100%; opacity: 0; }
+  0% {
+    left: -18%;
+    opacity: 0;
+  }
+
+  3% {
+    opacity: 1;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  97% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
 }
 
 /* ——— RESPONSIVE ——— */
-@media (max-width: 991px) {
+@include breakpoint (tablet) {
   .ftMain {
+    display: flex;
     flex-direction: column;
     gap: 2rem;
   }
@@ -529,12 +734,15 @@
     max-width: 100%;
     text-align: center;
     align-items: center;
+    max-width: 500px;
+    align-items: start;
   }
 
   .ftBrandDesc {
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    text-align: start;
   }
 
   .ftSocials {
@@ -542,6 +750,7 @@
   }
 
   .ftLinks {
+    margin-top: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
@@ -553,7 +762,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@include breakpoint (mobile) {
   .siteFooter {
     padding-top: 2rem;
   }
@@ -568,8 +777,9 @@
   }
 
   .ftLinks {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
+    margin-top: 1.5rem;
   }
 
   .ftBottom {
