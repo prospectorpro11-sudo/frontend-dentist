@@ -68,16 +68,18 @@ const ForgotPasswordModal = () => {
           <IoClose size={18} />
         </button>
 
-        <div className={styles.kicker}>Password Recovery</div>
+        <div className={styles.header}>
+          <div className={styles.headerIcon}>
+            <FiKey size={24} />
+          </div>
 
-        <div className={styles.iconBadge}>
-          <FiKey size={26} />
+          <div className={styles.headerCopy}>
+            <h2 className={styles.title}>Reset your password</h2>
+            <p className={styles.subTitle}>
+              We’ll email a secure reset link to the address on your account.
+            </p>
+          </div>
         </div>
-
-        <h2 className={styles.title}>Reset your password</h2>
-        <p className={styles.subTitle}>
-          We will email you a secure link to reset your password.
-        </p>
 
         <div className={styles.formGroup}>
           <label className={styles.fieldLabel} htmlFor="forgot-password-email">
@@ -103,7 +105,7 @@ const ForgotPasswordModal = () => {
             <FiShield size={16} />
           </span>
           <p className={styles.helperText}>
-            The reset link expires after 30 minutes for your security.
+            The reset link expires after 30 minutes and can only be used once.
           </p>
         </div>
 
