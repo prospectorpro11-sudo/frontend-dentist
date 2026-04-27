@@ -63,11 +63,11 @@
         padding: 1.5rem;
         position: relative;
         // overflow: hidden;
-        transform: rotateX(-0deg) rotateY(29deg) translateZ(0);
+        transform: rotateX(-0deg) rotateY(20deg) translateZ(0);
         transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
 
         &:hover {
-            transform: rotateX(-0deg) rotateY(20deg) translateZ(0)
+            transform: rotateX(-0deg) rotateY(10deg) translateZ(0)
         }
 
         .chips {
