@@ -1,3 +1,4 @@
+import { COMMON_URLS } from '@/shared/constant';
 import {
     IBeyondEmail,
     IDataDescribe,
@@ -19,7 +20,7 @@ const homeBanner: IHomeBanner = {
         'Get direct access to 930,000+ verified dentist contacts - emails, phones, faxes & licenses - all GDPR compliant, built for precision marketing campaigns.',
     buttons: {
         pricing: { href: '#', text: 'View Pricing', icon: 'currency' },
-        sample: { href: '#', text: 'Download Free Sample', icon: 'gift' },
+        sample: { href: COMMON_URLS.freeSample, text: 'Download Free Sample', icon: 'gift' },
     },
     stats: [
         { icon: 'people', value: '930,285', label: 'Total Contacts', iconClass: 'spIc1', highlight: true },
@@ -99,7 +100,7 @@ const freeSample: IFreeSample = {
         },
     ],
     cta: {
-        href: '#',
+        href: COMMON_URLS.freeSample,
         icon: 'bi bi-download',
         text: 'Get free sample today',
     },
@@ -292,7 +293,7 @@ const whatsIncluded: IWhatsIncluded = {
         subtitle:
             'Get complete and verified dentist contact information for effective, targeted marketing campaigns.',
         ctaText: 'Download Sample Database',
-        websiteUrl: 'clinicalcurator.com/database',
+        websiteUrl: 'dentistemaillist.com',
     },
 };
 

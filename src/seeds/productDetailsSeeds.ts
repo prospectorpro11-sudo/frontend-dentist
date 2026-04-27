@@ -1,3 +1,4 @@
+import { COMMON_URLS } from "@/shared/constant";
 import {
     IAboutDentistEmailListSeed,
     IComparisonTableSeed,
@@ -77,7 +78,7 @@ const freeSample: IFreeSample = {
         },
     ],
     cta: {
-        href: '#',
+        href: COMMON_URLS.freeSample,
         icon: 'bi bi-download',
         text: 'Get free sample today',
     },

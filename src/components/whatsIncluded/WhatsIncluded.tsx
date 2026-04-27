@@ -19,6 +19,7 @@ import { Container } from 'react-bootstrap';
 import { IWhatsIncluded } from '../../shared/interface';
 import Button from '../button/Button';
 import { BUTTON_SIZE_ENUM } from '@/shared/enums';
+import { COMMON_URLS } from '@/shared/constant';
 
 const footerIconMap = {
     check: BiCheckCircle,
@@ -62,7 +63,7 @@ const WhatsIncluded = (props: IWhatsIncluded) => {
                             </div>
                             <br />
                             <br />
-                            <a href="#" className={styles.wiCta}>
+                            <a href={COMMON_URLS.freeSample} className={styles.wiCta}>
                                 <Button size={BUTTON_SIZE_ENUM.LARGE}><BiGift /> {CONTENT.ctaText}</Button>
                             </a>
                         </div>

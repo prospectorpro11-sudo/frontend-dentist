@@ -6,6 +6,7 @@ import styles from './faq.module.scss';
 import { IFaq } from '../../shared/interface';
 import Button from '../button/Button';
 import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
+import { COMMON_URLS } from '@/shared/constant';
 
 const Faq = (props: IFaq) => {
     const { stats: stats, columns: faqColumns } = props;
@@ -301,7 +302,7 @@ const Faq = (props: IFaq) => {
                                 Contact Our Team
                             </Button>
                         </a>
-                        <a href="#">
+                        <a href={COMMON_URLS.freeSample}>
                             <Button variant={BUTTON_VARIANT_ENUM.GLASS}>
                                 <i className="bi bi-download"></i>
                                 Download Free Sample

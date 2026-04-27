@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
 import styles from "./publicFooterMenu.module.scss";
 import { FaFacebookF, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
+import { COMMON_URLS } from "@/shared/constant";
 
 interface FooterLink {
     label: string;
@@ -22,7 +23,7 @@ const footerLinks: FooterLinkSection[] = [
             { label: "Analytics", href: "#" },
             { label: "Product Overview", href: "#" },
             { label: "Pricing", href: "#" },
-            { label: "Free Sample", href: "#" },
+            { label: "Free Sample", href: COMMON_URLS.freeSample },
         ],
     },
     {

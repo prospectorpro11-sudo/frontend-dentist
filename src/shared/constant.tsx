@@ -85,3 +85,11 @@ export function getFriendlyErrorMessage(errorCode: string) {
 }
 
 export const PROSPECTOR_PRODUCT_ID = "/prospector";
+
+export const COMMON_URLS = {
+    home: "/",
+    contactUs: "/contact-us",
+    prospector: "/prospector",
+    freeSample: "/free-sample",
+    support: "/support",
+}
