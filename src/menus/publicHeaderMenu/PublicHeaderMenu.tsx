@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { BiSolidUser, BiMenu } from "react-icons/bi";
@@ -14,11 +15,8 @@ interface MenuItem {
   link: string;
 }
 
-const headerMenu: MenuItem[] = [
-  { label: "Home", link: "/" },
-  { label: "Feature", link: "/" },
-  { label: "Pricing", link: "/" },
-  { label: "Blog", link: "/" },
+const productsMenu: MenuItem[] = [
+  { label: "Specialty", link: "/products/specialities" },
 ];
 
 const dashboardMenuItems: DropdownItem[] = [
@@ -34,6 +32,7 @@ const dashboardMenuItems: DropdownItem[] = [
 
 const PublicHeaderMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProductsMenuOpen, setIsProductsMenuOpen] = useState(false);
   const { loggedInUser, setAuthEnable } = useRootContext();
 
   const toggleMobileMenu = () => {
@@ -42,6 +41,11 @@ const PublicHeaderMenu = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+    setIsProductsMenuOpen(false);
+  };
+
+  const toggleProductsMenu = () => {
+    setIsProductsMenuOpen((prev) => !prev);
   };
 
   const userName = loggedInUser?.displayName || "";
@@ -71,7 +75,17 @@ const PublicHeaderMenu = () => {
                 width={120}
                 height={50}
                 priority
+                className={styles.logoDesktop}
                 style={{ objectFit: "scale-down" }}
+              />
+              <Image
+                src="/logo-icon.png"
+                alt="Dentist Email List"
+                width={40}
+                height={40}
+                priority
+                className={styles.logoMobile}
+                style={{ objectFit: "contain" }}
               />
             </Link>
           </div>
@@ -79,11 +93,34 @@ const PublicHeaderMenu = () => {
           {/* Desktop Navigation */}
           <nav className={styles.desktopNav} role="navigation" aria-label="Main navigation">
             <ul>
-              {headerMenu.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.link}>{item.label}</Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li className={classNames(styles.productsNavItem, { [styles.productsNavItemOpen]: isProductsMenuOpen })}>
+                <button
+                  type="button"
+                  className={styles.productsTrigger}
+                  onClick={toggleProductsMenu}
+                  aria-expanded={isProductsMenuOpen}
+                  aria-haspopup="menu"
+                >
+                  <span>Products</span>
+                  <FaCaretDown size={16} aria-hidden="true" />
+                </button>
+                <div className={classNames(styles.productsDropdown, { [styles.productsDropdownOpen]: isProductsMenuOpen })} role="menu">
+                  {productsMenu.map((item) => (
+                    <Link key={item.label} href={item.link} role="menuitem" onClick={() => setIsProductsMenuOpen(false)}>
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </li>
+              <li>
+                <Link href="/contact-us">Contact Us</Link>
+              </li>
+              <li>
+                <Link href="/about-us">About Us</Link>
+              </li>
             </ul>
           </nav>
 
@@ -142,16 +179,40 @@ const PublicHeaderMenu = () => {
           <div className={styles.mobileMenu} role="menu">
             <nav aria-label="Mobile navigation">
               <ul>
-                {headerMenu.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      href={item.link}
-                      onClick={closeMobileMenu}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link href="/" onClick={closeMobileMenu}>
+                    Home
+                  </Link>
+                </li>
+                <li className={classNames(styles.mobileProductsItem, { [styles.mobileProductsItemOpen]: isProductsMenuOpen })}>
+                  <button
+                    type="button"
+                    className={styles.mobileProductsTrigger}
+                    onClick={toggleProductsMenu}
+                    aria-expanded={isProductsMenuOpen}
+                    aria-haspopup="menu"
+                  >
+                    <span>Products</span>
+                    <FaCaretDown size={16} aria-hidden="true" />
+                  </button>
+                  <div className={styles.mobileProductsDropdown} role="menu">
+                    {productsMenu.map((item) => (
+                      <Link key={item.label} href={item.link} role="menuitem" onClick={closeMobileMenu}>
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </li>
+                <li>
+                  <Link href="/contact-us" onClick={closeMobileMenu}>
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about-us" onClick={closeMobileMenu}>
+                    About Us
+                  </Link>
+                </li>
               </ul>
               {loggedInUser ? (
                 <div className={styles.mobileUserMenu}>
