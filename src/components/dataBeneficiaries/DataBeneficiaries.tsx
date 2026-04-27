@@ -3,12 +3,13 @@ import styles from './dataBeneficiaries.module.scss';
 import { Container } from 'react-bootstrap';
 import LogoIcon from '../logoIcon/LogoIcon';
 import { IDataBeneficiariesSeed } from '@/shared/interface';
+import classNames from 'classnames';
 
 const DataBeneficiaries = (props: IDataBeneficiariesSeed) => {
     const { content, nodes, bgVariant = "white" } = props;
 
     return (
-        <section className={bgVariant}>
+        <section className={classNames(bgVariant, styles.wrapper)}>
             <Container>
                 <div className={styles.mockupContainer}>
                     <div className={classname(styles.blob, styles.blob1)}></div>

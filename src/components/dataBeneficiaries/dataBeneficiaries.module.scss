@@ -1,6 +1,12 @@
 @import "styles/variables";
 @import "styles/_mixins";
 
+.wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
 .mockupContainer {
     height: 500px;
     // background: var(--surface);
@@ -131,7 +137,8 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        width: 850px;
+        width: 100%;
+        max-width: 850px;
         margin: 0 auto;
 
         .connections {
