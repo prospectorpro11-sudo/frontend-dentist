@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { DATABASE_MAIN_TYPES } from "./enums";
+
 export interface ILink {
 	href: string;
 	text: string;
@@ -662,4 +665,162 @@ export interface IUserPrivateInfo {
 	longitude: number;
 	IPv4: string;
 	state: string;
+}
+
+
+
+export interface IMeta {
+	metaTitle: string;
+	metaDescription: string;
+}
+
+export interface IBanner {
+	title: string;
+	plainTitle: string;
+	description: string;
+}
+
+export interface IWhyList {
+	title: string;
+	description: string;
+	contentTitle?: string;
+	content?: string;
+}
+
+export interface IWhy {
+	title: string;
+	description: string;
+	list: IWhyList[];
+}
+
+export interface IFind {
+	title: string;
+	description: string;
+	list?: any;
+}
+
+export interface IDataFields {
+	title: string;
+	description: string;
+	fields: string;
+}
+
+export interface IScreenshot {
+	title: string;
+	description: string;
+	note: string;
+	sampleFileName: string;
+}
+export interface IPriceList {
+	price: number;
+	title: string;
+	description: string;
+	caption: string;
+	includes: string;
+	asTag: string;
+}
+export interface IPrice {
+	title: string;
+	description: string;
+	list: IPriceList[];
+}
+export interface IBeneifitList {
+	title: string;
+	description: string;
+}
+export interface IBeneifits {
+	title: string;
+	description: string;
+	list: IBeneifitList[];
+	plainDescription: string;
+}
+export interface IOtherStateList {
+	url: string;
+	name: string;
+}
+export interface IOtherStates {
+	title: string;
+	description: string;
+	list: IOtherStateList[];
+}
+export interface ISource {
+	title: string;
+	description: string;
+	extraDescription?: string;
+	fields: string;
+}
+export interface ISource {
+	title: string;
+	description: string;
+	extraDescription?: string;
+	fields: string;
+}
+export interface IFAQListItem {
+	title: string;
+	description: string;
+	date: number;
+}
+export interface IFAQs {
+	title: string;
+	description: string;
+	list: IFAQListItem[]
+}
+export interface IAllList {
+	id: string;
+	name: string;
+	url: string;
+}
+export interface IReview {
+	title: string;
+	description?: string;
+}
+export interface IStatsB2B {
+	contactNames?: number;
+	uniqueEmails?: number;
+	uniqueCompanies: number;
+	uniquePhoneNumbers: number;
+	uniqueFaxNumbers: number;
+	uniqueCells: number;
+	uniqueAddresses: number;
+	employeelinkedinProfiles: number;
+	uniqueCompanyUrl: number;
+}
+export interface IMainProductInfo {
+	id?: string;
+	name: string;
+	url: string;
+	breadCrumb: string;
+	stats: IProspectorStats;
+	statsEmail: IProspectorStats;
+	meta: IMeta;
+	banner: IBanner;
+	why: IWhy;
+	find: IFind;
+	dataFields: IDataFields;
+	screenshot: IScreenshot;
+	price: IPrice;
+	beneifits: IBeneifits;
+	otherStates: IOtherStates;
+	sources: ISource;
+	faq: IFAQs;
+	allList: IAllList[];
+	review: IReview;
+	statsB2b?: IStatsB2B;
+	prospector: {
+		title: string;
+		description: string;
+		howItWorks: string;
+		filters: string;
+	}
+}
+
+export interface IDownloadInfo {
+	title: ReactNode;
+	description: ReactNode;
+	sampleFileName: string;
+	databaseMainType: DATABASE_MAIN_TYPES,
+	links: {
+		link: string;
+		name: string;
+	}[];
 }
