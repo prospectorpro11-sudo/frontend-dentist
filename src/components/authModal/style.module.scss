@@ -31,23 +31,6 @@
     0 0 0 1px rgba(255, 255, 255, 0.5) inset;
   overflow: hidden;
   backdrop-filter: blur(10px);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, 
-      var(--blue-400) 0%, 
-      var(--teal-400) 25%, 
-      var(--blue-500) 50%, 
-      var(--teal-500) 75%, 
-      var(--blue-600) 100%);
-    background-size: 200% 100%;
-    animation: shimmerBar 3s linear infinite;
-  }
   
   &::after {
     content: '';
@@ -59,11 +42,6 @@
     background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
-}
-
-@keyframes shimmerBar {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
 
 .closeButton {

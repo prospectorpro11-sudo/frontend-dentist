@@ -364,18 +364,6 @@
   box-shadow: var(--shadow-lg), 0 0 0 1px var(--blue-100), inset 0 2px 6px rgba(255, 255, 255, 0.7);
   position: relative;
   overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--blue-400), var(--teal-400), var(--blue-500));
-    background-size: 200% 100%;
-    animation: shimmer 3s linear infinite;
-  }
 
   .totalLabel {
     font-size: 1.15rem;
