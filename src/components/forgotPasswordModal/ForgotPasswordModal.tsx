@@ -47,7 +47,7 @@ const ForgotPasswordModal = () => {
 
     try {
       resetPassword(email, setLoading);
-    } catch (error) { }
+    } catch { }
   };
 
   return (
@@ -67,6 +67,8 @@ const ForgotPasswordModal = () => {
         >
           <IoClose size={18} />
         </button>
+
+        <div className={styles.kicker}>Password Recovery</div>
 
         <div className={styles.iconBadge}>
           <FiKey size={26} />
