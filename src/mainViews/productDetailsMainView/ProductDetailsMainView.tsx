@@ -13,6 +13,7 @@ import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBan
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
 import DentalSpecialtyList from "@/components/dentalSpecialtyList/DentalSpecialtyList";
 import AboutDentistEmailList from "@/components/aboutDentistEmailList/AboutDentistEmailList";
+import { numberWithCommas } from "@/shared/InternalService";
 
 type ProductDetailMainViewProps = {
     product: ProductCatalogItem;
@@ -48,7 +49,7 @@ const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainVie
                 productName={rewrittenJson.mainHeader}
                 description={rewrittenJson.mainHeaderDescription}
             />
-            <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} isProductDetails />
+            <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} isProductDetails totalCount={numberWithCommas(product.stats.totalContacts.toString())} />
             <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails} buildListTitle="Ideal Use Cases" />
             <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />
             <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistList} />

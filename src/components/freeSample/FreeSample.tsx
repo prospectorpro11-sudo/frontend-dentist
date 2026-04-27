@@ -41,7 +41,7 @@ const mockupData = [
 ]
 
 const FreeSample = (props: IFreeSample) => {
-    const { cta: ctaConfig, card: cardConfig, heading, subtitle, features, headingAccent, isProductDetails } = props;
+    const { cta: ctaConfig, card: cardConfig, heading, subtitle, features, headingAccent, isProductDetails, totalCount } = props;
 
     return (
         <section className={styles.freeSample}>
@@ -135,7 +135,7 @@ const FreeSample = (props: IFreeSample) => {
                                     </div>
                                     {/* Footer: record count + compliance */}
                                     <div className={styles.fsCardFooter}>
-                                        <span className={styles.fsfRecords}><strong>{cardConfig.recordCount}</strong> {cardConfig.recordLabel}</span>
+                                        <span className={styles.fsfRecords}><strong>{totalCount ? totalCount : cardConfig.recordCount}</strong> {cardConfig.recordLabel}</span>
                                         <span className={styles.fsfVerified}>
                                             <i className="bi bi-patch-check-fill"></i> {cardConfig.complianceText}
                                         </span>

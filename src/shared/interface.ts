@@ -146,6 +146,7 @@ export interface IFreeSample {
 		complianceText: string;
 	};
 	isProductDetails?: boolean;
+	totalCount?: string;
 }
 
 export interface IProductList {
