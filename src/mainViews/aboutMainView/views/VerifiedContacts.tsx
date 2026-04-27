@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import { Col, Container, Row } from 'react-bootstrap';
 import styles from './verifiedContacts..module.scss';
+import LogoIcon from '@/components/logoIcon/LogoIcon';
 
 const floatingBadges: Array<{ value: string; label: string; variant: 'badgeDeliverability' | 'badgeAccuracy' | 'badgeGdpr'; icon: string }> = [
     { value: '95%+', label: 'Deliverability', variant: 'badgeDeliverability', icon: 'bi bi-envelope-paper-fill' },
@@ -52,7 +53,7 @@ const VerifiedContacts = () => {
                                 <div className={styles.cardHeader}>
                                     <div className={styles.headerLeft}>
                                         <div className={styles.toothIconWrapper}>
-                                            <i className="bi bi-tooth-fill"></i>
+                                            <LogoIcon width={24} height={24} variant="white" style={{ objectFit: 'scale-down' }} />
                                         </div>
                                         <div className={styles.headerText}>
                                             <h2>Dentist Email List</h2>
