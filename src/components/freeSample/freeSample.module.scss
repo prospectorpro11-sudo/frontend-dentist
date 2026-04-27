@@ -1,3 +1,6 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
 .freeSample {
     position: relative;
     padding: 6rem 0 7rem;
@@ -184,6 +187,7 @@
     line-height: 1.15;
     margin-bottom: 0.22rem;
     margin-top: 0;
+    text-align: start;
 }
 
 .fsFeatText p {
@@ -529,6 +533,10 @@
         max-width: 480px;
         margin-left: auto;
         margin-right: auto;
+
+        @include breakpoint(tablet) {
+            max-width: 100%;
+        }
     }
 
     .fsVisual {

@@ -80,7 +80,7 @@ const HomeBanner = (props: IHomeBanner) => {
                             <TrustStrip variant={TRUST_STRIP_VARIANT.V2} />
                         </div>
                     </Col>
-                    <Col xs={12} lg={5}>
+                    <Col xs={12} lg={5} className='mt-5 mt-lg-0'>
                         <div className={styles.heroImageStats}>
                             <div className={classNames(styles.heroCol, styles.heroColStats)}>
                                 <Stats stats={stats} />
