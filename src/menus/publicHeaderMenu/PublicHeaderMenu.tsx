@@ -174,83 +174,77 @@ const PublicHeaderMenu = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Overlay */}
         {isMobileMenuOpen && (
-          <div className={styles.mobileMenu} role="menu">
-            <nav aria-label="Mobile navigation">
-              <ul>
-                <li>
-                  <Link href="/" onClick={closeMobileMenu}>
-                    Home
-                  </Link>
-                </li>
-                <li className={classNames(styles.mobileProductsItem, { [styles.mobileProductsItemOpen]: isProductsMenuOpen })}>
-                  <button
-                    type="button"
-                    className={styles.mobileProductsTrigger}
-                    onClick={toggleProductsMenu}
-                    aria-expanded={isProductsMenuOpen}
-                    aria-haspopup="menu"
-                  >
-                    <span>Products</span>
-                    <FaCaretDown size={16} aria-hidden="true" />
-                  </button>
-                  <div className={styles.mobileProductsDropdown} role="menu">
-                    {productsMenu.map((item) => (
-                      <Link key={item.label} href={item.link} role="menuitem" onClick={closeMobileMenu}>
-                        {item.label}
-                      </Link>
-                    ))}
+          <>
+            <button
+              type="button"
+              className={styles.mobileMenuBackdrop}
+              aria-label="Close mobile menu"
+              onClick={closeMobileMenu}
+            />
+            <div className={styles.mobileMenu} role="menu">
+              <nav aria-label="Mobile navigation">
+                <ul>
+                  <li>
+                    <Link href="/" onClick={closeMobileMenu}>
+                      Home
+                    </Link>
+                  </li>
+                  <li className={classNames(styles.mobileProductsItem, { [styles.mobileProductsItemOpen]: isProductsMenuOpen })}>
+                    <button
+                      type="button"
+                      className={styles.mobileProductsTrigger}
+                      onClick={toggleProductsMenu}
+                      aria-expanded={isProductsMenuOpen}
+                      aria-haspopup="menu"
+                    >
+                      <span>Products</span>
+                      <FaCaretDown size={16} aria-hidden="true" />
+                    </button>
+                    <div className={styles.mobileProductsDropdown} role="menu">
+                      {productsMenu.map((item) => (
+                        <Link key={item.label} href={item.link} role="menuitem" onClick={closeMobileMenu}>
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </li>
+                  <li>
+                    <Link href="/contact-us" onClick={closeMobileMenu}>
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/about-us" onClick={closeMobileMenu}>
+                      About Us
+                    </Link>
+                  </li>
+                </ul>
+                {loggedInUser ? (
+                  <div className={styles.mobileUserMenu}>
+                    <DropdownMenu
+                      items={dashboardMenuItems}
+                      align="center"
+                      trigger={({ onClick, ariaExpanded, ariaHaspopup }) => (
+                        <button
+                          type="button"
+                          className={styles.userMenu}
+                          onClick={onClick}
+                          aria-expanded={ariaExpanded}
+                          aria-haspopup={ariaHaspopup}
+                        >
+                          <BiSolidUser size={22} aria-hidden="true" />
+                          <span>{displayUserName}</span>
+                          <FaCaretDown size={20} aria-hidden="true" />
+                        </button>
+                      )}
+                    />
                   </div>
-                </li>
-                <li>
-                  <Link href="/contact-us" onClick={closeMobileMenu}>
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about-us" onClick={closeMobileMenu}>
-                    About Us
-                  </Link>
-                </li>
-              </ul>
-              {loggedInUser ? (
-                <div className={styles.mobileUserMenu}>
-                  <DropdownMenu
-                    items={dashboardMenuItems}
-                    align="center"
-                    trigger={({ onClick, ariaExpanded, ariaHaspopup }) => (
-                      <button
-                        type="button"
-                        className={styles.userMenu}
-                        onClick={onClick}
-                        aria-expanded={ariaExpanded}
-                        aria-haspopup={ariaHaspopup}
-                      >
-                        <BiSolidUser size={22} aria-hidden="true" />
-                        <span>{displayUserName}</span>
-                        <FaCaretDown size={20} aria-hidden="true" />
-                      </button>
-                    )}
-                  />
-                </div>
-              ) : (
-                <div className={styles.mobileUserMenu}>
-                  <button
-                    type="button"
-                    className={styles.tertiaryButton}
-                    onClick={() => {
-                      setAuthEnable(true);
-                      closeMobileMenu();
-                    }}
-                    style={{ width: '100%', maxWidth: '200px' }}
-                  >
-                    Login / Register
-                  </button>
-                </div>
-              )}
-            </nav>
-          </div>
+                ) : null}
+              </nav>
+            </div>
+          </>
         )}
       </Container>
     </header>
