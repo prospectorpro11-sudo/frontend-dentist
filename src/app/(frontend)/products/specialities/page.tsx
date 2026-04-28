@@ -6,7 +6,7 @@ import ProductListMainView from "@/mainViews/productListMainView/ProductListMain
 export const metadata = {
     title: `Dentist Email Lists by Specialities | ${WEBSITE_SEO_TITLE}`,
     description:
-        "Browse all 51 state products, compare sample Dentist Email List stats, and explore dedicated product pages built for SEO and user-friendly navigation.",
+        "Browse our dentist email lists by specialities, compare stats, and explore dedicated product pages built for SEO and user-friendly navigation.",
     alternates: {
         canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/products/specialities`,
     },

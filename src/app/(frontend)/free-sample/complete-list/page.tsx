@@ -6,7 +6,7 @@ import instance from "@/services/baseServices";
 
 export const metadata = {
     title: `Complete Free Sample List – ${WEBSITE_SEO_TITLE}`,
-    description: `Access the complete free sample list of nursing professionals from ${WEBSITE_SEO_TITLE}. Get verified healthcare contact data.`,
+    description: `Access the complete free sample list of dentists from ${WEBSITE_SEO_TITLE}. Get verified healthcare contact data.`,
     alternates: {
         canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/free-sample/complete-list`,
     },
@@ -17,7 +17,7 @@ export default async function FreeSampleCompleteList() {
     try {
         const response = (await instance.post(`/home`)).data;
         tableDataSet = response
-            ? [{ ...response, name: "Complete doctor list" }]
+            ? [{ ...response, name: "Complete dentist list" }]
             : null;
     } catch {
         tableDataSet = null;

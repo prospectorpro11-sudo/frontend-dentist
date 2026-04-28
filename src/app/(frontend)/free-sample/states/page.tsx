@@ -5,7 +5,7 @@ import instance from "@/services/baseServices";
 
 export const metadata = {
   title: `Free Sample by States – ${WEBSITE_SEO_TITLE}`,
-  description: `Download free sample lists of nursing professionals by state from ${WEBSITE_SEO_TITLE}. Get verified healthcare contact data.`,
+  description: `Download free sample lists of dental professionals by state from ${WEBSITE_SEO_TITLE}. Get verified healthcare contact data.`,
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/free-sample/states`,
   },

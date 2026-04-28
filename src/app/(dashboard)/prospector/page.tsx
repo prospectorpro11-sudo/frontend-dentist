@@ -1,4 +1,12 @@
+import { Metadata } from 'next';
 import { IProspectorFilter } from "@/shared/interface";
+import { WEBSITE_SEO_TITLE } from "@/shared/constant";
+
+export const metadata: Metadata = {
+    title: `Prospector - ${WEBSITE_SEO_TITLE}`,
+    description: `Search, filter, and build custom dentist email lists and healthcare contact databases using our advanced Prospector tool.`,
+    alternates: { canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/prospector` },
+};
 import ProspectorProvider from "@/contexts/ProspectorProvider";
 import ProspectorMainView from "@/prospector/mainViews/prospectorMainView/ProspectorMainView";
 import { parseCityParam, parseGenericParam, parseStateParam, parseZipParam } from "@/shared/utils";

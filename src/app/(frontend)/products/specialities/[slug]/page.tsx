@@ -89,9 +89,9 @@ export const generateMetadata = async ({
     },
     keywords: [
       product.productName,
-      `${product.stateName} nurse leads`,
-      `${product.stateName} nursing contacts`,
-      "nurse email list",
+      `${product.stateName} dentist leads`,
+      `${product.stateName} dental contacts`,
+      "dentist email list",
       "healthcare outreach data",
     ],
   };
