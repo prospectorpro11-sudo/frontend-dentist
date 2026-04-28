@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FiUser } from "react-icons/fi";
+import { BiSolidUser } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 
 import Login from "./views/Login";
@@ -39,7 +39,7 @@ const AuthModal = () => {
       <div className={styles.authCard}>
         <div className={styles.modalHeader}>
           <div className={styles.iconBadge}>
-            <FiUser className={styles.userIcon} size={28} />
+            <BiSolidUser className={styles.userIcon} size={28} />
           </div>
           <button 
             type="button" 

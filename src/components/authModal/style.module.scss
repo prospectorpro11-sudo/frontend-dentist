@@ -1,6 +1,8 @@
 @use "sass:color";
 @use "styles/variables" as *;
+@use "styles/mixins" as *;
 
+// ── Modal shell ────────────────────────────────────────
 .authModalWrapper {
   :global(.modal-dialog) {
     max-width: min(480px, calc(100vw - 1.5rem));
@@ -19,149 +21,142 @@
   padding: 0 !important;
 }
 
+// ── Card surface ───────────────────────────────────────
 .authCard {
   position: relative;
   border-radius: var(--r-2xl);
-  padding: 3rem 2.5rem 2.75rem;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  background: linear-gradient(135deg, var(--surface) 0%, var(--n50) 100%);
-  box-shadow: 
-    var(--shadow-xl), 
-    var(--shadow-glow),
-    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  padding: 2.5rem 2.25rem 2.25rem;
+  border: 1.5px solid var(--n200);
+  background: var(--surface);
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: -150px;
-    right: -150px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
-    pointer-events: none;
+
+
+
+  @include breakpoint(mobile) {
+    padding: 2.25rem 1.75rem 2rem;
+    border-radius: var(--r-xl);
   }
 }
 
-.closeButton {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  border: 2px solid transparent;
-  border-radius: var(--r-full);
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
+// ── Modal header (icon + close button row) ─────────────
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
   justify-content: center;
-  color: var(--n400);
-  background: linear-gradient(var(--n50), var(--n50)) padding-box,
-              linear-gradient(135deg, var(--n200), var(--n300)) border-box;
-  transition: all var(--t-base);
-  z-index: 10;
-  box-shadow: var(--shadow-sm);
-
-  &:hover {
-    transform: rotate(90deg) scale(1.15);
-    background: linear-gradient(var(--rose-50), var(--rose-50)) padding-box,
-                linear-gradient(135deg, var(--rose-300), var(--rose-400)) border-box;
-    color: var(--rose-600);
-    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.25);
-  }
-  
-  &:active {
-    transform: rotate(90deg) scale(0.95);
-  }
+  margin-bottom: 1.5rem;
 }
 
+// ── User icon badge ────────────────────────────────────
 .iconBadge {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 1.75rem;
-  border-radius: var(--r-2xl);
-  background: linear-gradient(135deg, var(--blue-50) 0%, var(--teal-50) 50%, var(--blue-100) 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 4s ease infinite;
-  border: 2.5px solid transparent;
-  background-clip: padding-box;
-  color: var(--blue-600);
+  width: 72px;
+  height: 72px;
+  border-radius: var(--r-xl);
+  background: var(--blue-100);
+  margin-top: 2rem;
+  border: 1.5px solid var(--blue-200);
+  color: var(--blue-700);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 
-    0 12px 28px rgba(14, 165, 233, 0.2), 
-    0 0 0 1px var(--blue-200),
-    inset 0 2px 6px rgba(255, 255, 255, 0.6);
-  transform: rotate(-5deg);
-  transition: all var(--t-slow);
+  transition: all var(--t-base);
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, var(--blue-300), var(--teal-300), var(--blue-400));
-    opacity: 0.4;
-    z-index: -1;
-    filter: blur(6px);
-  }
 
   &:hover {
-    transform: rotate(5deg) scale(1.08);
-    box-shadow: 
-      0 16px 36px rgba(14, 165, 233, 0.3), 
-      0 0 0 1px var(--blue-300),
-      inset 0 2px 6px rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
+    background: var(--blue-200);
   }
+
+  @include breakpoint(mobile) {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.userIcon {
+  color: var(--blue-700);
+}
+
+// ── Close button ───────────────────────────────────────
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: 1.5px solid var(--n200);
+  border-radius: var(--r-md);
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--n500);
+  background: var(--n50);
+  transition: all var(--t-fast);
+  z-index: 10;
+
+  &:hover {
+    background: var(--rose-50);
+    border-color: var(--rose-300);
+    color: var(--rose-500);
+    transform: scale(1.08);
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+}
+
+// ── Content wrapper ────────────────────────────────────
+.contentWrapper {
+  width: 100%;
+}
+
+// ── Title section ──────────────────────────────────────
+.titleSection {
+  margin-bottom: 1.75rem;
+  text-align: center;
 }
 
 .title {
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.5rem;
   text-align: center;
-  background: linear-gradient(135deg, var(--text) 0%, var(--blue-700) 50%, var(--teal-700) 100%);
-  background-size: 200% 200%;
-  animation: gradientText 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 2rem;
-  font-weight: 900;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--n900);
   line-height: 1.2;
   letter-spacing: -0.03em;
-  filter: drop-shadow(0 2px 4px rgba(14, 165, 233, 0.1));
 }
 
 .subTitle {
-  margin: 0 0 2.25rem;
+  margin: 0;
   text-align: center;
-  color: var(--text2);
-  font-size: 1.05rem;
-  font-weight: 500;
+  color: var(--n600);
+  font-size: 0.9375rem;
+  font-weight: 400;
   line-height: 1.5;
 }
 
+// ── Form ───────────────────────────────────────────────
 .formWrapper {
   width: 100%;
 }
 
 .formContent {
   display: grid;
-  gap: 1.15rem;
+  gap: 1rem;
 }
 
 .formGroup {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .fieldLabel {
-  color: var(--n700);
-  font-size: 0.85rem;
-  font-weight: 600;
+  color: var(--n800);
+  font-size: 0.8125rem;
+  font-weight: 700;
   margin: 0;
-  padding-left: 0.25rem;
+  padding-left: 0.125rem;
+  letter-spacing: 0.01em;
 }
 
 .fieldControl {
@@ -169,35 +164,16 @@
   align-items: center;
   width: 100%;
   border-radius: var(--r-lg);
-  border: 2px solid var(--n200);
-  background: linear-gradient(135deg, var(--n50) 0%, var(--surface) 100%);
-  min-height: 56px;
-  padding: 0 1.15rem;
-  transition: all var(--t-base);
-  box-shadow: 0 2px 6px rgba(12, 25, 41, 0.04), inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(20, 184, 166, 0.05) 100%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-  }
+  border: 1.5px solid var(--n200);
+  background: var(--n50);
+  min-height: 52px;
+  padding: 0 1rem;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
 
   &:focus-within {
-    border-color: var(--blue-400);
+    border-color: var(--blue-500);
     background: var(--surface);
-    box-shadow: 
-      0 0 0 4px rgba(56, 189, 248, 0.15),
-      0 4px 12px rgba(14, 165, 233, 0.1),
-      inset 0 1px 2px rgba(255, 255, 255, 0.8);
-    
-    &::before {
-      opacity: 1;
-    }
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
   }
 }
 
@@ -206,14 +182,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.85rem;
-  transition: all var(--t-base);
-  font-size: 1.1rem;
+  margin-right: 0.75rem;
+  transition: color var(--t-fast);
+  flex-shrink: 0;
 }
 
 .fieldControl:focus-within .fieldIcon {
-  color: var(--blue-500);
-  transform: scale(1.15);
+  color: var(--blue-600);
 }
 
 .fieldInput {
@@ -222,11 +197,11 @@
   outline: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  height: 52px !important;
+  height: 48px !important;
   padding: 0 !important;
-  color: var(--text);
-  font-size: 1rem;
-  font-weight: 600;
+  color: var(--n900);
+  font-size: 0.9375rem;
+  font-weight: 500;
 
   &::placeholder {
     color: var(--n400);
@@ -239,27 +214,27 @@
   background: transparent;
   color: var(--n400);
   padding: 0;
-  margin-left: 0.6rem;
+  margin-left: 0.5rem;
   display: inline-flex;
   align-items: center;
-  transition: all var(--t-fast);
-  font-size: 1.1rem;
+  transition: color var(--t-fast);
+  flex-shrink: 0;
 
   &:hover {
     color: var(--blue-600);
-    transform: scale(1.2);
   }
 }
 
 .errorText {
-  font-size: 0.8rem;
-  color: var(--rose-500);
+  font-size: 0.78rem;
+  color: var(--rose-600);
   margin: 0;
   min-height: 1rem;
   display: flex;
   align-items: center;
-  padding-left: 0.25rem;
-  
+  padding-left: 0.125rem;
+  font-weight: 500;
+
   &::before {
     content: "•";
     margin-right: 4px;
@@ -267,56 +242,38 @@
   }
 }
 
+// ── Primary action button ──────────────────────────────
+// (used by Login.tsx and SignUp.tsx via this same module)
 .socialButton {
   width: 100%;
-  border: 2px solid var(--n200);
-  background: linear-gradient(135deg, var(--surface) 0%, var(--n50) 100%);
-  color: var(--n700);
+  border: 1.5px solid var(--n200);
+  background: var(--n50);
+  color: var(--n800);
   border-radius: var(--r-lg);
-  min-height: 56px;
+  min-height: 50px;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.9375rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--t-base);
-  box-shadow: var(--shadow-sm), inset 0 1px 2px rgba(255, 255, 255, 0.6);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(20, 184, 166, 0.05) 100%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-  }
+  transition: border-color var(--t-fast), background var(--t-fast), box-shadow var(--t-fast);
+  cursor: pointer;
 
   &:hover {
-    background: linear-gradient(135deg, var(--n50) 0%, var(--blue-50) 100%);
-    border-color: var(--blue-300);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md), inset 0 1px 2px rgba(255, 255, 255, 0.8);
-    
-    &::before {
-      opacity: 1;
-    }
+    background: var(--n100);
+    border-color: var(--n300);
+    box-shadow: var(--shadow-sm);
   }
 
   &:focus-visible {
     outline: none;
     border-color: var(--blue-400);
-    box-shadow: 
-      0 0 0 4px rgba(56, 189, 248, 0.15),
-      var(--shadow-sm);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
   }
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.7;
-    transform: none;
-    box-shadow: none;
+    opacity: 0.55;
   }
 }
 
@@ -324,119 +281,99 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.75rem;
+  margin-right: 0.625rem;
 }
 
+// ── Divider ────────────────────────────────────────────
 .socialDivider {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   color: var(--n400);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 800;
-  margin: 1rem 0;
-  position: relative;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin: 0.875rem 0;
 
   &::before,
   &::after {
     content: "";
     flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--n200), transparent);
+    height: 1px;
+    background: var(--n200);
   }
 }
 
+// ── Switch section ─────────────────────────────────────
+.switchSection {
+  margin-top: 1.5rem;
+}
+
 .switchText {
-  margin: 2rem 0 0;
+  margin: 0;
   text-align: center;
   color: var(--n500);
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 400;
 }
 
 .switchButton {
   border: 0;
   padding: 0;
   background: transparent;
-  background: linear-gradient(135deg, var(--blue-600) 0%, var(--teal-600) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 900;
-  text-decoration: none;
-  position: relative;
-  transition: all var(--t-base);
-  margin-left: 0.35rem;
-  filter: drop-shadow(0 1px 2px rgba(14, 165, 233, 0.2));
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2.5px;
-    background: linear-gradient(90deg, var(--blue-500), var(--teal-500));
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform var(--t-base);
-    border-radius: 2px;
-  }
+  color: var(--blue-600);
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  transition: color var(--t-fast), text-decoration-color var(--t-fast);
 
   &:hover {
-    filter: drop-shadow(0 2px 4px rgba(14, 165, 233, 0.3));
-    &::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
+    color: var(--blue-700);
+    text-decoration-color: var(--blue-400);
   }
+}
+
+// ── Terms ──────────────────────────────────────────────
+.termsSection {
+  margin-top: 1.25rem;
 }
 
 .termsText {
-  margin: 1.75rem 0 0;
+  margin: 0;
   text-align: center;
   color: var(--n400);
-  font-size: 0.9rem;
-  line-height: 1.7;
-  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  font-weight: 400;
 
   a {
-    background: linear-gradient(135deg, var(--text2) 0%, var(--blue-600) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
+    color: var(--n600);
+    font-weight: 600;
     text-decoration: underline;
+    text-underline-offset: 2px;
     text-decoration-color: var(--n300);
-    text-underline-offset: 3px;
-    transition: all var(--t-fast);
+    transition: color var(--t-fast);
 
     &:hover {
-      text-decoration-color: var(--blue-600);
-      filter: drop-shadow(0 1px 2px rgba(14, 165, 233, 0.2));
+      color: var(--blue-600);
+      text-decoration-color: var(--blue-400);
     }
   }
 }
 
-@media (max-width: 575px) {
-  .authCard {
-    padding: 2.5rem 1.75rem 2.25rem;
-    border-radius: var(--r-xl);
+// ── Modal exit animation ───────────────────────────────
+.modalExit {
+  :global(.modal-dialog) {
+    animation: modalOut 0.3s ease forwards;
   }
+}
 
-  .title {
-    font-size: 1.75rem;
-  }
-
-  .subTitle {
-    font-size: 1rem;
-    margin-bottom: 1.75rem;
-  }
-  
-  .iconBadge {
-    width: 72px;
-    height: 72px;
-  }
+@keyframes modalOut {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 0; transform: scale(0.97) translateY(8px); }
 }
