@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,6 +47,24 @@ const PublicHeaderMenu = () => {
   const toggleProductsMenu = () => {
     setIsProductsMenuOpen((prev) => !prev);
   };
+
+  const productsMenuRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (productsMenuRef.current && !productsMenuRef.current.contains(event.target as Node)) {
+        setIsProductsMenuOpen(false);
+      }
+    };
+
+    if (isProductsMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isProductsMenuOpen]);
 
   const userName = loggedInUser?.displayName || "";
   const getDisplayName = (name: string): string => {
@@ -96,7 +114,7 @@ const PublicHeaderMenu = () => {
               <li>
                 <Link href="/">Home</Link>
               </li>
-              <li className={classNames(styles.productsNavItem, { [styles.productsNavItemOpen]: isProductsMenuOpen })}>
+              <li ref={productsMenuRef} className={classNames(styles.productsNavItem, { [styles.productsNavItemOpen]: isProductsMenuOpen })}>
                 <button
                   type="button"
                   className={styles.productsTrigger}
