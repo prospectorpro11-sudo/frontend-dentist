@@ -36,7 +36,7 @@ background-color: #6772e5;  // Stripe's classic blue
   border: 1px solid #e2e8f0;
   border-radius: 6px !important;
   font-size: 16px !important;
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: var(--primary-font), system-ui, sans-serif !important;
   color: #32325d !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
   box-sizing: border-box !important;
