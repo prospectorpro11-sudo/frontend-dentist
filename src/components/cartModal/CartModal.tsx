@@ -2,8 +2,9 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { BiSolidCartAlt } from "react-icons/bi";
 import { MdOutlineLock } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
 
 import UCDModal from "../UCDModal/UCDModal";
 import styles from "./cartModal.module.scss";
@@ -29,80 +30,92 @@ const CartModal = () => {
     }
   }, [currentCartItem?.length]);
 
-  const pressClose = () => {
-    setCartEnable(false);
-  };
+  const pressClose = () => setCartEnable(false);
 
   const removeCartItem = (id: string) => {
-    const currentFilters = currentCartItem.filter((element: ICartItem) => {
-      return element.id !== id;
-    });
-
-    setCurrentCartItem(currentFilters);
-    addToCartLocal(currentFilters);
+    const next = currentCartItem.filter((el: ICartItem) => el.id !== id);
+    setCurrentCartItem(next);
+    addToCartLocal(next);
   };
 
-  const pressCheckout = () => {
-    setCartEnable(false);
-  };
+  const pressCheckout = () => setCartEnable(false);
 
   const pressLogin = () => {
     setAuthEnable(true);
     setCartEnable(false);
   };
 
+  const isCheckoutDisabled =
+    !currentCartItem?.length || totalCartAmount < 50 || !loggedInUser;
+
   return (
     <UCDModal
-      bodyClassName="px-4 pb-4 pt-0"
       onHide={pressClose}
       title="Shopping Cart"
       size="lg"
       open={cartEnable}
     >
       <div className={styles.cartBody}>
-        {/* Summary badge */}
-        <div className={styles.summaryBadge}>
-          <span className={styles.badgeCount}>{currentCartItem?.length || 0}</span>
-          {currentCartItem?.length === 1 ? "item" : "items"} in your cart
+
+        {/* ── Header meta row ── */}
+        <div className={styles.cartMeta}>
+          <span className={styles.itemCount}>
+            <span className={styles.countPill}>{currentCartItem?.length || 0}</span>
+            {currentCartItem?.length === 1 ? "Item" : "Items"} in cart
+          </span>
         </div>
 
-        {/* Items list */}
+        {/* ── Item list ── */}
         {currentCartItem?.length > 0 ? (
           <div className={styles.itemsList}>
-            {currentCartItem.map((element: ICartItem, index: number) => (
-              <div className={styles.itemCard} key={element.id} style={{ animationDelay: `${index * 0.05}s` }}>
+            {currentCartItem.map((el: ICartItem, i: number) => (
+              <div
+                className={styles.itemCard}
+                key={el.id}
+                style={{ animationDelay: `${i * 0.04}s` }}
+              >
+                {/* Icon */}
                 <div className={styles.itemIcon}>
-                  <HiOutlineShoppingBag size={22} />
+                  <BiSolidCartAlt size={22} style={{ color: "var(--blue-600)" }} />
                 </div>
+
+                {/* Details */}
                 <div className={styles.itemDetails}>
-                  {typeof element.productName === "string" ? (
+                  {typeof el.productName === "string" ? (
                     <div
                       className={styles.productName}
-                      dangerouslySetInnerHTML={{ __html: element.productName }}
+                      dangerouslySetInnerHTML={{ __html: el.productName }}
                     />
                   ) : (
-                    <div className={styles.productName}>{element.productName}</div>
+                    <div className={styles.productName}>{el.productName}</div>
                   )}
                   <div className={styles.itemMeta}>
                     <span className={styles.metaTag}>
-                      {numberWithCommas(element.contacts?.toString())} Contacts
+                      {numberWithCommas(el.contacts?.toString())} contacts
                     </span>
                   </div>
                 </div>
+
+                {/* Price */}
                 <div className={styles.itemPrice}>
                   {loggedInUser ? (
-                    <>${numberWithCommas(element.price?.toString())}</>
+                    <>${numberWithCommas(el.price?.toString())}</>
                   ) : (
-                    <span className={styles.priceHidden}><MdOutlineLock size={14} /> $<span className={styles.blurPrice}>***</span></span>
+                    <span className={styles.priceHidden}>
+                      <MdOutlineLock size={13} />
+                      <span className={styles.blurPrice}>$***</span>
+                    </span>
                   )}
                 </div>
+
+                {/* Remove */}
                 <button
                   type="button"
                   className={styles.removeBtn}
-                  onClick={() => removeCartItem(element.id)}
+                  onClick={() => removeCartItem(el.id)}
                   aria-label="Remove item"
                 >
-                  <BiTrash size={18} />
+                  <BiTrash size={15} />
                 </button>
               </div>
             ))}
@@ -110,58 +123,75 @@ const CartModal = () => {
         ) : (
           <div className={styles.emptyState}>
             <div className={styles.emptyIcon}>
-              <HiOutlineShoppingBag size={28} />
+              <BiSolidCartAlt size={26} style={{ color: "var(--blue-600)" }} />
             </div>
             <div className={styles.emptyTitle}>Your cart is empty</div>
             <div className={styles.emptyDescription}>
-              Use the Prospector to find and add leads to your cart.
+              Use the Prospector to find and add dentist leads to your cart.
             </div>
           </div>
         )}
 
-        {/* Login prompt */}
-        {!loggedInUser && currentCartItem?.length > 0 && (
-          <div className={styles.loginPrompt}>
-            <div className={styles.loginIcon}>
-              <MdOutlineLock size={18} />
+        {/* ── Order summary panel ── */}
+        {currentCartItem?.length > 0 && (
+          <div className={styles.summaryPanel}>
+            <div className={styles.summaryRow}>
+              <span>Subtotal ({currentCartItem.length} {currentCartItem.length === 1 ? "item" : "items"})</span>
+              <span>
+                {loggedInUser
+                  ? `$${numberWithCommas(totalCartAmount?.toString())}`
+                  : <span className={styles.priceHidden}><MdOutlineLock size={12} /><span className={styles.blurPrice}>$***</span></span>
+                }
+              </span>
             </div>
+            <div className={styles.totalRow}>
+              <span className={styles.totalLabel}>Total</span>
+              <span className={styles.totalAmount}>
+                {loggedInUser
+                  ? `$${numberWithCommas(totalCartAmount?.toString())}`
+                  : <><MdOutlineLock size={18} /><span className={styles.blurPrice}>$***</span></>
+                }
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* ── Login alert ── */}
+        {!loggedInUser && currentCartItem?.length > 0 && (
+          <div className={`${styles.alertBar} ${styles.alertAmber}`}>
+            <span className={styles.alertIcon}><MdInfoOutline size={16} /></span>
             <span>
-              <span className={styles.loginLink} onClick={pressLogin}>Log in</span> to see prices and proceed to checkout.
+              <span className={styles.loginLink} onClick={pressLogin}>Log in</span>
+              {" "}to see prices and proceed to checkout.
             </span>
           </div>
         )}
 
-        <div className={styles.divider} />
-
-        {/* Total */}
-        <div className={styles.totalRow}>
-          <span className={styles.totalLabel}>Total</span>
-          <span className={styles.totalAmount}>
-            {loggedInUser
-              ? `$${numberWithCommas(totalCartAmount?.toString())}`
-              : <><MdOutlineLock size={20} /> $<span className={styles.blurPrice}>***.**</span></>}
-          </span>
-        </div>
-
-        {/* Min order warning */}
-        {totalCartAmount > 0 && totalCartAmount < 50 && (
-          <div className={styles.minOrderWarning}>
-            Minimum order amount is $50. Add more leads to proceed.
+        {/* ── Min order alert ── */}
+        {loggedInUser && totalCartAmount > 0 && totalCartAmount < 50 && (
+          <div className={`${styles.alertBar} ${styles.alertRose}`}>
+            <span className={styles.alertIcon}><MdInfoOutline size={16} /></span>
+            <span>Minimum order is $50. Add more leads to continue.</span>
           </div>
         )}
 
-        {/* Actions */}
+        {/* ── Actions ── */}
         <div className={styles.actionsRow}>
           <button type="button" className={styles.continueShopping} onClick={pressClose}>
-            Continue Shopping <BsArrowRight size={18} />
+            Continue Shopping <BsArrowRight size={15} />
           </button>
-          <Link passHref href="/checkout" className={styles.checkoutBtn} onClick={pressCheckout}
-            style={(!currentCartItem?.length || totalCartAmount < 50 || !loggedInUser) ? { pointerEvents: "none", opacity: 0.45 } : {}}
+          <Link
+            passHref
+            href="/checkout"
+            className={styles.checkoutBtn}
+            onClick={pressCheckout}
+            style={isCheckoutDisabled ? { pointerEvents: "none", opacity: 0.45 } : {}}
           >
-            <MdOutlineLock size={18} />
+            <MdOutlineLock size={15} />
             Secure Checkout
           </Link>
         </div>
+
       </div>
     </UCDModal>
   );

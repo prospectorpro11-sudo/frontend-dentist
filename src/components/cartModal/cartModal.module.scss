@@ -1,759 +1,469 @@
-@use "sass:color";
 @use "styles/variables" as *;
+@use "styles/mixins" as *;
 
-/* ── Cart body wrapper ── */
+// ─────────────────────────────────────────────────────────
+//  CART BODY
+// ─────────────────────────────────────────────────────────
 .cartBody {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  padding: 0.75rem 0 0;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
+  gap: 0;
 }
 
-/* ── Summary badge ── */
-.summaryBadge {
+// ─────────────────────────────────────────────────────────
+//  CART HEADER META  (item count pill)
+// ─────────────────────────────────────────────────────────
+.cartMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.25rem;
+}
+
+.itemCount {
   display: inline-flex;
   align-items: center;
-  gap: 0.85rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--r-full);
-  background: linear-gradient(135deg, var(--blue-50) 0%, var(--teal-50) 100%);
-  color: var(--blue-700);
-  font-size: 0.95rem;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
   font-weight: 700;
-  width: fit-content;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  box-shadow: var(--shadow-md), 0 0 0 1px var(--blue-100);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(20, 184, 166, 0.1) 100%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-  }
-  
-  &:hover::before {
-    opacity: 1;
-  }
+  color: var(--n700);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 
-  .badgeCount {
+  .countPill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 32px;
-    height: 32px;
-    padding: 0 0.5rem;
-    border-radius: var(--r-full);
-    background: linear-gradient(135deg, var(--blue-500) 0%, var(--teal-500) 50%, var(--blue-600) 100%);
-    background-size: 200% 200%;
-    animation: gradientShift 3s ease infinite;
-    color: var(--surface);
-    font-size: 0.9rem;
-    font-weight: 800;
-    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.3);
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%);
-    }
+    min-width: 22px;
+    height: 22px;
+    padding: 0 0.4rem;
+    border-radius: 999px;
+    background: var(--blue-700);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
   }
 }
 
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* ── Items list ── */
+// ─────────────────────────────────────────────────────────
+//  ITEMS LIST
+// ─────────────────────────────────────────────────────────
 .itemsList {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  max-height: 400px;
+  max-height: 320px;
   overflow-y: auto;
-  padding-right: 0.5rem;
-  padding-bottom: 0.5rem;
+  margin: 0 -1.5rem;          // bleed to modal edge
+  padding: 0.5rem 1.5rem;
 
-  &::-webkit-scrollbar {
-    width: 6px;
+  &::-webkit-scrollbar        { width: 4px; }
+  &::-webkit-scrollbar-track  { background: transparent; }
+  &::-webkit-scrollbar-thumb  {
+    background: var(--n300);
+    border-radius: 999px;
+    &:hover { background: var(--n400); }
   }
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--n200);
-    border-radius: var(--r-full);
-    &:hover {
-      background: var(--n300);
-    }
+  @include breakpoint(mobile) {
+    max-height: 240px;
+    margin: 0 -1.25rem;
+    padding: 0.5rem 1.25rem;
   }
 }
 
-/* ── Single cart item card ── */
+// ─────────────────────────────────────────────────────────
+//  SINGLE ITEM ROW
+// ─────────────────────────────────────────────────────────
 .itemCard {
-  position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 40px 1fr auto auto;
   align-items: center;
-  gap: 1.25rem;
-  padding: 1.5rem;
-  border-radius: var(--r-2xl);
-  background: linear-gradient(135deg, var(--surface) 0%, var(--n50) 100%);
-  border: 1.5px solid var(--n200);
-  box-shadow: var(--shadow-card), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-  transition: all var(--t-slow);
-  animation: slideInPremium 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--blue-400) 0%, var(--teal-400) 100%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.03) 0%, rgba(20, 184, 166, 0.03) 100%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-  }
+  gap: 0.875rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--n200);
+  animation: fadeUp 0.22s ease both;
 
-  &:hover {
-    transform: translateY(-6px) scale(1.015);
-    box-shadow: var(--shadow-card-hover), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-    border-color: var(--blue-300);
-    
-    &::before {
-      opacity: 1;
-    }
-    
-    &::after {
-      opacity: 1;
-    }
-    
-    .itemIcon {
-      transform: rotate(-5deg) scale(1.1);
-      box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.6);
-    }
+  &:last-child { border-bottom: none; }
+
+  @include breakpoint(mobile) {
+    grid-template-columns: 36px 1fr auto auto;
+    gap: 0.625rem;
+    padding: 0.75rem 0;
   }
 }
 
-@keyframes slideInPremium {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Item icon circle ── */
+// ── Icon avatar ──
 .itemIcon {
-  flex-shrink: 0;
-  width: 64px;
-  height: 64px;
-  border-radius: var(--r-xl);
-  background: linear-gradient(135deg, var(--n50) 0%, var(--blue-50) 50%, var(--teal-50) 100%);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--blue-100);
+  border: 1px solid var(--blue-200);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--blue-600);
-  font-size: 1.75rem;
-  border: 2px solid var(--n200);
-  box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.6), 0 4px 12px rgba(14, 165, 233, 0.1);
-  transition: all var(--t-slow);
-  position: relative;
-  z-index: 1;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, var(--blue-300), var(--teal-300));
-    opacity: 0;
-    z-index: -1;
-    transition: opacity var(--t-base);
-  }
-  
-  .itemCard:hover &::before {
-    opacity: 0.3;
+  color: var(--blue-700);
+  flex-shrink: 0;
+
+  @include breakpoint(mobile) {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
   }
 }
 
-/* ── Item details ── */
+// ── Product info ──
 .itemDetails {
-  flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .productName {
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: var(--text);
-  line-height: 1.5;
-  word-break: break-word;
-  margin-bottom: 0.6rem;
-  letter-spacing: -0.01em;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--n900);
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include breakpoint(mobile) { font-size: 0.8125rem; }
 }
 
 .itemMeta {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.85rem;
-  color: var(--text2);
-
-  .metaTag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.35rem 0.85rem;
-    border-radius: var(--r-full);
-    background: linear-gradient(135deg, var(--teal-50) 0%, var(--emerald-50) 100%);
-    border: 1.5px solid var(--teal-200);
-    color: var(--teal-600);
-    font-weight: 700;
-    box-shadow: 0 2px 6px rgba(20, 184, 166, 0.15);
-    transition: all var(--t-base);
-    
-    .itemCard:hover & {
-      transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(20, 184, 166, 0.25);
-    }
-  }
+  gap: 0.375rem;
 }
 
-/* ── Item price ── */
+.metaTag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  background: var(--blue-100);
+  border: 1px solid var(--blue-200);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+  white-space: nowrap;
+}
+
+// ── Price ──
 .itemPrice {
-  flex-shrink: 0;
-  font-size: 1.35rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--blue-600) 0%, var(--teal-600) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--n900);
+  white-space: nowrap;
   text-align: right;
-  min-width: 90px;
-  filter: drop-shadow(0 2px 4px rgba(14, 165, 233, 0.15));
 }
 
 .priceHidden {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  color: var(--n400);
-  font-weight: 800;
-  font-size: 1.15rem;
-  background: linear-gradient(135deg, var(--n400) 0%, var(--n500) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  gap: 0.2rem;
+  color: var(--n500);
+  font-weight: 700;
+  font-size: 0.875rem;
 }
 
 .blurPrice {
-  filter: blur(4px);
+  filter: blur(5px);
   user-select: none;
   pointer-events: none;
-  opacity: 0.7;
 }
 
-/* ── Remove button ── */
+// ── Remove ──
 .removeBtn {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--r-full);
-  border: 2px solid transparent;
-  background: linear-gradient(var(--rose-50), var(--rose-50)) padding-box,
-              linear-gradient(135deg, var(--rose-200), var(--rose-300)) border-box;
-  color: var(--rose-500);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--n200);
+  background: transparent;
+  color: var(--n500);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--t-base);
-  margin-left: 0.5rem;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--rose-500) 0%, var(--orange-500) 100%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-    z-index: -1;
-  }
+  flex-shrink: 0;
+  transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast);
 
   &:hover {
-    color: var(--surface);
-    transform: scale(1.15);
-    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.35);
-    border-color: transparent;
-    
-    &::before {
-      opacity: 1;
-    }
+    border-color: var(--rose-300);
+    background: var(--rose-50);
+    color: var(--rose-500);
   }
 
-  &:active {
-    transform: scale(0.95);
+  &:active { transform: scale(0.94); }
+
+  @include breakpoint(mobile) {
+    width: 28px;
+    height: 28px;
   }
 }
 
-/* ── Divider ── */
-.divider {
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    var(--blue-200) 20%, 
-    var(--teal-200) 50%, 
-    var(--blue-200) 80%, 
-    transparent 100%);
-  margin: 0.75rem 0;
-  border-radius: var(--r-full);
-  opacity: 0.6;
+// ─────────────────────────────────────────────────────────
+//  ORDER SUMMARY PANEL
+// ─────────────────────────────────────────────────────────
+.summaryPanel {
+  margin-top: 1rem;
+  border: 1.5px solid var(--n200);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--n100);
 }
 
-/* ── Total row ── */
+.summaryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--n600);
+
+  & + & {
+    border-top: 1px solid var(--n200);
+  }
+
+  span:last-child { font-weight: 700; color: var(--n800); }
+}
+
 .totalRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.75rem 2rem;
-  border-radius: var(--r-2xl);
-  background: linear-gradient(135deg, var(--n50) 0%, var(--blue-50) 50%, var(--teal-50) 100%);
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  box-shadow: var(--shadow-lg), 0 0 0 1px var(--blue-100), inset 0 2px 6px rgba(255, 255, 255, 0.7);
-  position: relative;
-  overflow: hidden;
+  padding: 0.875rem 1rem;
+  border-top: 1.5px solid var(--n200);
+  background: var(--surface);
 
   .totalLabel {
-    font-size: 1.15rem;
+    font-size: 0.8rem;
     font-weight: 800;
-    color: var(--text2);
+    color: var(--n700);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
   }
 
   .totalAmount {
-    font-size: 2.25rem;
+    font-size: 1.5rem;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--blue-600) 0%, var(--teal-600) 50%, var(--blue-700) 100%);
-    background-size: 200% 200%;
-    animation: gradientText 4s ease infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 2px 8px rgba(14, 165, 233, 0.2));
+    color: var(--n900);
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    @include breakpoint(mobile) { font-size: 1.25rem; }
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+// ─────────────────────────────────────────────────────────
+//  ALERTS: LOGIN PROMPT & MIN ORDER WARNING
+// ─────────────────────────────────────────────────────────
+.alertBar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--r-md);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+
+  // icon slot
+  .alertIcon {
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.alertAmber {
+    background: var(--amber-50);
+    border: 1px solid var(--amber-300);
+    color: #92400e;
+
+    .alertIcon { color: var(--amber-500); }
+    .loginLink {
+      color: var(--blue-600);
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      &:hover { color: var(--blue-500); }
+    }
+  }
+
+  &.alertRose {
+    background: var(--rose-50);
+    border: 1px solid var(--rose-300);
+    color: var(--rose-600);
+    font-weight: 600;
+
+    .alertIcon { color: var(--rose-500); }
+  }
 }
 
-@keyframes gradientText {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* ── Actions row ── */
+// ─────────────────────────────────────────────────────────
+//  ACTIONS
+// ─────────────────────────────────────────────────────────
 .actionsRow {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 0.5rem;
+  gap: 0.75rem;
+  margin-top: 1rem;
 
-  @media (max-width: 576px) {
+  @include breakpoint(mobile-landscape) {
     flex-direction: column;
-    .continueShopping, .checkoutBtn {
-      width: 100%;
-      justify-content: center;
-    }
+    .continueShopping,
+    .checkoutBtn { width: 100%; justify-content: center; }
   }
 }
 
 .continueShopping {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--n500);
-  cursor: pointer;
+  gap: 0.4rem;
+  padding: 0.6875rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--n700);
   background: transparent;
-  border: 2px solid transparent;
-  padding: 0.85rem 1.5rem;
-  border-radius: var(--r-xl);
-  transition: all var(--t-base);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--blue-50) 0%, var(--teal-50) 100%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-    z-index: -1;
-  }
+  border: 1.5px solid var(--n200);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
+  white-space: nowrap;
+
+  svg { transition: transform var(--t-fast); }
 
   &:hover {
-    color: var(--blue-600);
-    border-color: var(--blue-200);
-    transform: translateX(-4px);
-    
-    &::before {
-      opacity: 1;
-    }
+    color: var(--n900);
+    border-color: var(--n400);
+    background: var(--n100);
+    svg { transform: translateX(3px); }
   }
 
-  svg {
-    transition: transform var(--t-base);
-  }
+  &:active { transform: scale(0.98); }
 
-  &:hover svg {
-    transform: translateX(8px);
-  }
+  @include breakpoint(mobile) { padding: 0.625rem 1rem; font-size: 0.8125rem; }
 }
 
 .checkoutBtn {
+  flex: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.85rem;
-  padding: 1.15rem 2.25rem;
-  border-radius: var(--r-xl);
-  border: none;
-  background: linear-gradient(135deg, var(--blue-500) 0%, var(--teal-500) 50%, var(--blue-600) 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
-  color: var(--surface);
-  font-weight: 900;
-  font-size: 1.15rem;
-  cursor: pointer;
-  transition: all var(--t-base);
-  box-shadow: 0 8px 28px rgba(14, 165, 233, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-  min-width: 240px;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  letter-spacing: 0.02em;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.6s ease;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity var(--t-base);
-  }
-
-  &:hover:not(:disabled) {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 14px 40px rgba(14, 165, 233, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-    color: var(--surface);
-    
-    &::before {
-      left: 100%;
-    }
-    
-    &::after {
-      opacity: 1;
-    }
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(-1px) scale(1);
-    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.25);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    box-shadow: none;
-    background: var(--n400);
-    animation: none;
-  }
-}
-
-/* ── Login prompt ── */
-.loginPrompt {
-  display: flex;
-  align-items: center;
-  gap: 1.15rem;
-  padding: 1.25rem 1.5rem;
-  border-radius: var(--r-2xl);
-  background: linear-gradient(135deg, var(--amber-50) 0%, var(--orange-100) 100%);
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  font-size: 0.95rem;
-  color: var(--n800);
-  box-shadow: var(--shadow-md), 0 0 0 1px var(--amber-200);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--amber-400) 0%, var(--orange-500) 100%);
-  }
-
-  .loginIcon {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--r-xl);
-    background: linear-gradient(135deg, var(--amber-100) 0%, var(--orange-100) 100%);
-    color: var(--orange-500);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
-    font-size: 1.25rem;
-  }
-
-  .loginLink {
-    color: var(--orange-600);
-    font-weight: 900;
-    cursor: pointer;
-    text-decoration: none;
-    position: relative;
-    transition: all var(--t-base);
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 2.5px;
-      background: linear-gradient(90deg, var(--orange-500), var(--amber-500));
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform var(--t-base);
-      border-radius: 2px;
-    }
-
-    &:hover {
-      color: var(--amber-600);
-      &::after {
-        transform: scaleX(1);
-        transform-origin: left;
-      }
-    }
-  }
-}
-
-/* ── Min order warning ── */
-.minOrderWarning {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 1.15rem 1.5rem;
-  border-radius: var(--r-2xl);
-  background: linear-gradient(135deg, var(--rose-50) 0%, var(--rose-100) 100%);
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  font-size: 0.95rem;
-  color: var(--rose-600);
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;
   font-weight: 700;
-  box-shadow: var(--shadow-md), 0 0 0 1px var(--rose-200);
-  animation: slideInPremium 0.4s ease-out;
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--rose-400) 0%, var(--rose-500) 100%);
+  color: #fff;
+  background: var(--blue-700);
+  border: none;
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: background var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4), 0 6px 16px rgba(2, 132, 199, 0.2);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+
+  &:hover:not([style*="pointer-events: none"]) {
+    background: var(--blue-600);
+    box-shadow: 0 3px 8px rgba(2, 132, 199, 0.45), 0 10px 24px rgba(2, 132, 199, 0.25);
+    color: #fff;
+    transform: translateY(-1px);
   }
-  
-  &::after {
-    content: '⚠';
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    opacity: 0.15;
-  }
+
+  &:active { transform: translateY(0); box-shadow: 0 1px 3px rgba(2, 132, 199, 0.2); }
+
+  @include breakpoint(mobile) { padding: 0.6875rem 1.25rem; font-size: 0.875rem; }
 }
 
-/* ── Empty state ── */
+// ─────────────────────────────────────────────────────────
+//  EMPTY STATE
+// ─────────────────────────────────────────────────────────
 .emptyState {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4.5rem 2.5rem;
+  padding: 3rem 2rem;
   text-align: center;
-  gap: 1.5rem;
-  background: linear-gradient(135deg, var(--n50) 0%, var(--blue-50) 50%, var(--teal-50) 100%);
-  border-radius: var(--r-2xl);
-  border: 2px dashed var(--n300);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
-    pointer-events: none;
-  }
+  gap: 0.75rem;
 
   .emptyIcon {
-    width: 96px;
-    height: 96px;
-    border-radius: var(--r-full);
-    background: linear-gradient(135deg, var(--blue-100) 0%, var(--teal-100) 50%, var(--blue-200) 100%);
-    background-size: 200% 200%;
-    animation: gradientShift 4s ease infinite, float 3s ease-in-out infinite;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--blue-100);
+    border: 1.5px solid var(--blue-200);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--blue-600);
-    font-size: 3rem;
-    box-shadow: 
-      inset 0 3px 6px rgba(255, 255, 255, 0.8), 
-      0 12px 28px rgba(14, 165, 233, 0.2),
-      0 0 0 4px rgba(14, 165, 233, 0.05);
-    margin-bottom: 0.75rem;
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: inherit;
-      background: linear-gradient(135deg, var(--blue-300), var(--teal-300));
-      opacity: 0.3;
-      z-index: -1;
-      filter: blur(8px);
-    }
+    margin-bottom: 0.25rem;
+    animation: iconFloat 3.5s ease-in-out infinite;
   }
 
   .emptyTitle {
-    font-size: 1.65rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--text) 0%, var(--blue-700) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.02em;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--n900);
+    letter-spacing: -0.01em;
   }
 
   .emptyDescription {
-    font-size: 1.1rem;
-    color: var(--text2);
-    max-width: 340px;
-    line-height: 1.6;
-    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--n600);
+    max-width: 260px;
+    line-height: 1.55;
+  }
+
+  @include breakpoint(mobile) {
+    padding: 2.25rem 1.5rem;
+    .emptyIcon { width: 60px; height: 60px; }
+    .emptyTitle { font-size: 0.975rem; }
   }
 }
 
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
 }
 
-/* ── Keep old classes for backward compat ── */
-.action {
-  min-width: 40%;
-}
+// ─────────────────────────────────────────────────────────
+//  LEGACY COMPAT
+// ─────────────────────────────────────────────────────────
+.summaryBadge   { display: none; }  // replaced by cartMeta
+.divider        { display: none; }  // replaced by summaryPanel border
+.loginPrompt    { display: none; }  // replaced by alertBar
+.minOrderWarning{ display: none; }  // replaced by alertBar
+.action         { min-width: 40%; }
 
 .warning {
-  width: max-content;
-  max-width: 100%;
-  background-color: var(--rose-50);
+  background: var(--rose-50);
   color: var(--rose-500);
   font-weight: 700;
   padding: 0.75rem 1.25rem;
   border-radius: var(--r-lg);
-  margin-top: 1rem;
   border: 1px solid var(--rose-300);
-
-  .label {
-    animation: blinkText 1.5s infinite;
-    font-size: 1.125rem;
-  }
-}
-
-@keyframes blinkText {
-  0%, 100% { color: var(--rose-500); }
-  50% { color: var(--rose-300); }
+  font-size: 0.875rem;
 }
 
 .pleaseLogin {
   color: var(--rose-500);
   font-weight: 600;
-  span {
-    text-decoration: underline;
-    cursor: pointer;
-    &:hover {
-      color: var(--rose-600);
-    }
-  }
+  font-size: 0.875rem;
+  span { text-decoration: underline; cursor: pointer; }
 }

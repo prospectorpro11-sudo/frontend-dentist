@@ -21,6 +21,111 @@
     left: -4px !important;
 }
 
+// ─── Bootstrap Modal — Premium Brand Override ──────────────────────────
+
+.modal {
+    // Backdrop
+    & + .modal-backdrop {
+        background-color: rgba(12, 25, 41, 0.55);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+}
+
+.modal-backdrop {
+    background-color: rgba(12, 25, 41, 0.55) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    &.show { opacity: 1 !important; }
+}
+
+.modal-dialog {
+    margin: 1.5rem auto;
+
+    @media (max-width: 575.98px) {
+        margin: 0.75rem;
+        max-width: calc(100vw - 1.5rem) !important;
+    }
+}
+
+.modal-content {
+    border: 1.5px solid var(--border) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 24px 64px rgba(12, 25, 41, 0.18), 0 6px 20px rgba(12, 25, 41, 0.10) !important;
+    background: var(--surface) !important;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 1.25rem 1.5rem !important;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--blue-50) 100%);
+
+    .modal-title {
+        font-size: 1.15rem !important;
+        font-weight: 800 !important;
+        color: var(--text) !important;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .btn-close {
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 10px !important;
+        background-color: var(--n100) !important;
+        opacity: 1 !important;
+        box-shadow: none !important;
+        transition: background-color 150ms ease, transform 150ms ease !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%235b7a9e'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E") !important;
+        background-size: 12px !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+
+        &:hover {
+            background-color: var(--n200) !important;
+            transform: scale(1.08) !important;
+        }
+
+        &:active {
+            transform: scale(0.96) !important;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        padding: 1rem 1.25rem !important;
+
+        .modal-title {
+            font-size: 1.05rem !important;
+        }
+    }
+}
+
+.modal-body {
+    padding: 1.5rem !important;
+
+    @media (max-width: 575.98px) {
+        padding: 1.25rem !important;
+    }
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border) !important;
+    padding: 1rem 1.5rem !important;
+}
+
 // ─── Custom SweetAlert2: close button countdown only ─────────────────
 
 .custom-sweetalert {
