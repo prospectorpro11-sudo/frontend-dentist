@@ -353,7 +353,7 @@
     background:
       radial-gradient(ellipse 36px 32px at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 8%, rgba(210, 240, 255, 0.7) 18%, rgba(100, 205, 255, 0.35) 32%, rgba(14, 165, 233, 0.12) 48%, transparent 65%),
       radial-gradient(ellipse 100% 130% at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(245, 252, 255, 0.82) 5%, rgba(170, 228, 255, 0.45) 12%, rgba(56, 189, 248, 0.18) 24%, rgba(14, 165, 233, 0.06) 38%, transparent 52%);
-    animation: ftOrbSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    animation: ftOrbSweep 5s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
     z-index: 2;
   }
 
@@ -371,7 +371,7 @@
 
 @keyframes ftOrbSweep {
   0% {
-    left: -18%;
+    left: 25%;
     opacity: 0;
     transform: scale(0.8);
   }
@@ -397,7 +397,7 @@
   }
 
   100% {
-    left: 100%;
+    left: 60%;
     opacity: 0;
     transform: scale(0.8);
   }
@@ -413,7 +413,7 @@
   border-radius: 50%;
   background: linear-gradient(90deg, transparent 0%, rgba(14, 165, 233, 0.04) 40%, rgba(56, 189, 248, 0.15) 60%, rgba(180, 230, 255, 0.40) 76%, rgba(255, 255, 255, 0.7) 90%, transparent 100%);
   filter: blur(1px);
-  animation: ftTailSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  animation: ftTailSweep 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
   z-index: 1;
 }
 
@@ -543,7 +543,7 @@
   border-radius: 50%;
   border: 1px solid rgba(130, 210, 255, 0.12);
   box-shadow: inset 0 0 15px 8px rgba(14, 165, 233, 0.06), 0 0 30px 15px rgba(56, 189, 248, 0.08);
-  animation: ftRingSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  animation: ftRingSweep 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
   z-index: 1;
 }
 
@@ -595,7 +595,7 @@
   margin-top: -15px;
   border-radius: 50%;
   border: 1px solid rgba(56, 189, 248, 0.25);
-  animation: ftPulseRing 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  animation: ftPulseRing 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
   pointer-events: none;
   z-index: 1;
 
@@ -649,7 +649,7 @@
   margin-top: -0.5px;
   background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.3) 70%, transparent 100%);
   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.3);
-  animation: ftBeamSweep 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  animation: ftBeamSweep 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
   z-index: 2;
 }
 
@@ -689,7 +689,7 @@
   height: 2px;
   margin-top: 2px;
   background: radial-gradient(ellipse 100% 300% at 50% 0%, rgba(14, 165, 233, 0.2) 0%, rgba(56, 189, 248, 0.08) 30%, transparent 60%);
-  animation: ftFloorGlow 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  animation: ftFloorGlow 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
   z-index: 1;
 }
 
