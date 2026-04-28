@@ -83,7 +83,7 @@ const CustomDentistList = (props: ICustomDentistListSeed) => {
                             </div>
                         </div>
                     </Col>
-                    <Col xs={12} lg={4}>
+                    <Col xs={12} lg={4}  className="mt-5 mt-lg-0">
                         <div className={styles.rightColumn}>
                             <div className={styles.smartFiltersCard}>
                                 <div className={styles.filterHeader}>

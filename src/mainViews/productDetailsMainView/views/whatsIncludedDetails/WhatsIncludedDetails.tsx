@@ -114,7 +114,7 @@ const WhatsIncludedDetails = (props: IWhatsIncludedDetailsSeed) => {
                                 </div>
                             </div>
                         </Col>
-                        <Col xs={12} lg={7}>
+                        <Col xs={12} lg={7} className="mt-4 mt-lg-0">
                             <div className={styles.rightPanel}>
                                 {isProductDetails && idealUseCases ? (
                                     <>

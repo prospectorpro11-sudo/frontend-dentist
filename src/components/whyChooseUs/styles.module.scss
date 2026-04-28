@@ -1,5 +1,5 @@
-@import "styles/variables";
-@import "styles/mixins";
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
 
 .whyChooseUs {
   position: relative;
@@ -20,6 +20,14 @@
     background: $white;
     box-shadow: 0px 0px 60px rgba(167, 203, 228, 0.55);
     border-radius: 32px;
+
+    @include breakpoint(tablet) {
+      padding-right: 2rem;
+    }
+
+    @include breakpoint(mobile) {
+      padding: 1rem;
+    }
   }
 
   .bgBlob {
@@ -183,6 +191,10 @@
     perspective: 1200px;
     min-height: 520px;
     margin-left: 2.5rem;
+
+    @include breakpoint(tablet) {
+      margin-left: 0;
+    }
   }
 
   .mockupGlow {

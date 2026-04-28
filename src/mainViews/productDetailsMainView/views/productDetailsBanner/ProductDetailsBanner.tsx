@@ -118,8 +118,15 @@ const ProductDetailsBanner = (props: IProductDetailsBanner) => {
                     <Col xs={9} md={5} lg={3} className="mx-auto mx-md-start">
                         <Stats stats={stats} isProductDetails={true} />
                     </Col>
-                    <Col xs={12} md={7} lg={4}>
-                        <Image width={450} height={450} style={{ objectFit: "scale-down" }} src="/product-hero-image.png" alt="Product Hero Image" />
+                    <Col xs={12} md={7} lg={4} className="mt-5 mt-md-0">
+                        <Image
+                            width={450}
+                            height={450}
+                            src="/product-hero-image.png"
+                            alt="Product Hero Image"
+                            sizes="100%"
+                            style={{ width: "100%", height: "auto", objectFit: "contain" }}
+                        />
                     </Col>
                 </Row>
             </Container>

@@ -669,3 +669,16 @@
         }
     }
 }
+
+@include breakpoint(mobile) {
+    .wrapper {
+        .aboutLayout {
+            grid-template-columns: 1fr;
+        }
+
+        .mockupContainer {
+            transform: scale(0.8) !important;
+        }
+
+    }
+}

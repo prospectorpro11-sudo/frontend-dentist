@@ -94,7 +94,7 @@ const ProductPriceList = (props: IProductPriceListSeed) => {
                                 </table>
                             </div>
                         </Col>
-                        <Col xs={12} lg={5}>
+                        <Col xs={12} lg={5} className="mt-5 mt-lg-0">
                             <div className={styles.rightPanel}>
                                 <div className={styles.dataFieldsCard}>
                                     <div className={styles.dataFieldsCardTitle}>

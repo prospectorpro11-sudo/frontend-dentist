@@ -141,7 +141,7 @@ const CrmIntegration = (props: ICrmIntegrationSeed) => {
                             </div>
                         </div>
                     </Col>
-                    <Col xs={12} lg={7}>
+                    <Col xs={12} lg={7} className="mt-5 mt-lg-0">
                         <h2 className={styles.heading}>{right.title} <br /> <span className="shifting-accent">{right.titleAccent}</span></h2>
                         <p>{right.description1}</p>
                         <p>{right.description2}</p>
