@@ -10,6 +10,7 @@ import { Col, Container, Row, Form } from "react-bootstrap";
 import { Field, Form as FormikForm, Formik, type FormikHelpers } from "formik";
 import { validateEmail, validateRequired, validURL } from "@/shared/InternalService";
 import styles from "./contactUsMainView.module.scss";
+import LogoIcon from "@/components/logoIcon/LogoIcon";
 
 const pageContent = {
   badge: "Get In Touch",
@@ -356,7 +357,7 @@ const ContactUsMainView = () => {
               <div className={styles.welcomeCard}>
                 <div className={styles.welcomeContent}>
                   <div className={styles.welcomeIcon}>
-                    <i className="bi bi-heart" />
+                    <LogoIcon width={40} height={40} style={{ objectFit: "scale-down" }} variant="white" />
                   </div>
 
                   <h3 className={styles.welcomeTitle}>{pageContent.welcome.title}</h3>
