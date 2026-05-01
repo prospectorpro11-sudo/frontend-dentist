@@ -12,63 +12,24 @@ import {
 } from "react-icons/bs";
 import type { IconType } from "react-icons";
 import { Col, Container, Row } from "react-bootstrap";
+import { ICustomDentistListSeed } from "@/shared/interface";
 
-type Step = {
-    id: number;
-    title: string;
-    desc: string;
-    color: string;
+const ICON_MAP: Record<string, IconType> = {
+    lightning: BsLightning,
+    'check-circle': BsCheckCircle,
+    'shield-check': BsShieldCheck,
+    'geo-alt': BsGeoAlt,
+    'heart-pulse': BsHeartPulse,
+    'person-vcard': BsPersonVcard,
+    building: BsBuilding,
 };
 
-type Feature = {
-    title: string;
-    desc: string;
-    color: string;
-    icon: string;
-};
-
-type SmartFilterItem = {
-    title: string;
-    desc: string;
-    color: string;
-    bg: string;
-    icon: string;
-};
-
-type CustomDentistListData = {
-    header: {
-        title: string;
-        highlight: string;
-        subtitle: string;
-    };
-    howItWorks: {
-        title: string;
-        steps: Step[];
-    };
-    features: Feature[];
-    smartFilters: {
-        title: string;
-        items: SmartFilterItem[];
-    };
-};
-
-const iconMap: Record<string, IconType> = {
-    BsLightning,
-    BsCheckCircle,
-    BsShieldCheck,
-    BsGeoAlt,
-    BsHeartPulse,
-    BsPersonVcard,
-    BsBuilding,
-};
-
-const CustomDentistList = (props: CustomDentistListData) => {
+const CustomDentistList = (props: ICustomDentistListSeed) => {
     const { header, howItWorks, features, smartFilters } = props;
 
     return (
         <section className={styles.dentistLists}>
             <Container>
-                {/* Header */}
                 <div className={styles.header}>
                     <h1 className={styles.title}>
                         {header.title} <span className="shifting-accent">{header.highlight}</span>
@@ -77,10 +38,7 @@ const CustomDentistList = (props: CustomDentistListData) => {
                 </div>
                 <Row>
                     <Col xs={12} lg={8}>
-                        {/* Left Column */}
                         <div className={styles.leftColumn}>
-
-                            {/* How It Works */}
                             <div className={styles.howItWorksCard}>
                                 <h2 className={styles.sectionTitle}>
                                     <BsGear />
@@ -102,10 +60,12 @@ const CustomDentistList = (props: CustomDentistListData) => {
                                 </div>
                             </div>
 
-                            {/* Bottom Features */}
                             <div className={styles.featuresContainer}>
                                 {features.map((feature) => {
-                                    const Icon = iconMap[feature.icon];
+                                    const Icon = ICON_MAP[feature.icon];
+                                    if (!Icon) {
+                                        return null;
+                                    }
 
                                     return (
                                         <div key={feature.title} className={styles.featureCard}>
@@ -123,7 +83,7 @@ const CustomDentistList = (props: CustomDentistListData) => {
                             </div>
                         </div>
                     </Col>
-                    <Col xs={12} lg={4}>
+                    <Col xs={12} lg={4}  className="mt-5 mt-lg-0">
                         <div className={styles.rightColumn}>
                             <div className={styles.smartFiltersCard}>
                                 <div className={styles.filterHeader}>
@@ -135,7 +95,11 @@ const CustomDentistList = (props: CustomDentistListData) => {
 
                                 <div className={styles.filterList}>
                                     {smartFilters.items.map((item, idx) => {
-                                        const Icon = iconMap[item.icon];
+                                        const Icon = ICON_MAP[item.icon];
+                                        if (!Icon) {
+                                            return null;
+                                        }
+
                                         return (
                                             <div key={idx} className={styles.filterItem}>
                                                 <div

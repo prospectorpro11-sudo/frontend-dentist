@@ -1,22 +1,92 @@
+import Faq from "@/components/faq/Faq";
+import { numberWithCommas } from "@/shared/InternalService";
 import FreeSample from "@/components/freeSample/FreeSample";
-import { PRODUCT_DETAILS_SEED_OBJECT } from "@/shared/seeds/productDetailsSeeds";
+import { ProductCatalogItem } from "@/shared/productCatalog";
+import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
+import CrmIntegration from "@/components/crmIntegration/CrmIntegration";
+import VerifiedSource from "@/components/verifiedSource/VerifiedSource";
+import ProductPriceList from "./views/productPriceList/ProductPriceList";
+import ComparisonTable from "@/components/comparisonTable/ComparisonTable";
+import { PRODUCT_DETAILS_SEED_OBJECT } from "@/seeds/productDetailsSeeds";
+import CustomDentistList from "@/components/customDentistList/CustomDentistList";
+import DataBeneficiaries from "@/components/dataBeneficiaries/DataBeneficiaries";
 import ProductDetailsBanner from "./views/productDetailsBanner/ProductDetailsBanner";
 import WhatsIncludedDetails from "./views/whatsIncludedDetails/WhatsIncludedDetails";
-import ProductPriceList from "./views/productPriceList/ProductPriceList";
-import CustomDentistList from "@/components/customDentistList/CustomDentistList";
-import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
 import DentalSpecialtyList from "@/components/dentalSpecialtyList/DentalSpecialtyList";
+import AboutDentistEmailList from "@/components/aboutDentistEmailList/AboutDentistEmailList";
 
-const ProductDetailsMainView = () => {
+type ProductDetailMainViewProps = {
+    product: ProductCatalogItem;
+    editorProduct?: Record<string, any> | null;
+};
+const normalizeRewrittenJson = (value: any) => {
+    if (!value) return {};
+    if (typeof value === "object") return value;
+    if (typeof value !== "string") return {};
+    try {
+        const parsed = JSON.parse(value);
+        return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (_error) {
+        return {};
+    }
+};
+
+const ProductDetailsMainView = ({ product, editorProduct }: ProductDetailMainViewProps): any => {
+    const rewrittenJson = normalizeRewrittenJson(editorProduct?.rewrittenJson);
+    const faqList = rewrittenJson?.faqs?.list || [];
+    const midPoint = Math.ceil(faqList.length / 2);
+    const splitFaqList = [
+        faqList.slice(0, midPoint),
+        faqList.slice(midPoint)
+    ];
+
     return (
         <>
-            <ProductDetailsBanner />
-            <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} />
-            <WhatsIncludedDetails {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetailsData} />
-            <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceListData} />
-            <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistListData} />
-            <WhyChooseUs {...PRODUCT_DETAILS_SEED_OBJECT.whyChooseUsData} />
-            <DentalSpecialtyList {...PRODUCT_DETAILS_SEED_OBJECT.dentalSpecialtyListData} />
+            <ProductDetailsBanner
+                stats={product.stats}
+                productId={product.stateId}
+                productName={rewrittenJson.mainHeader}
+                description={rewrittenJson.mainHeaderDescription}
+            />
+            <FreeSample {...PRODUCT_DETAILS_SEED_OBJECT.freeSample} isProductDetails totalCount={numberWithCommas(product.stats.totalContacts.toString())} />
+            <WhatsIncludedDetails
+                {...PRODUCT_DETAILS_SEED_OBJECT.whatsIncludedDetails}
+                buildListTitle="Build List"
+                isProductDetails={true}
+                idealUseCases={rewrittenJson?.idealUseCases}
+            />
+            <ProductPriceList {...PRODUCT_DETAILS_SEED_OBJECT.productPriceList} />
+            <CustomDentistList {...PRODUCT_DETAILS_SEED_OBJECT.customDentistList} />
+            <WhyChooseUs {...PRODUCT_DETAILS_SEED_OBJECT.whyChooseUs} />
+            <DentalSpecialtyList {...PRODUCT_DETAILS_SEED_OBJECT.dentalSpecialtyList} />
+            <CrmIntegration {...PRODUCT_DETAILS_SEED_OBJECT.crmIntegration} />
+            <VerifiedSource
+                {...PRODUCT_DETAILS_SEED_OBJECT.verifiedSource}
+                content={{
+                    ...PRODUCT_DETAILS_SEED_OBJECT.verifiedSource.content,
+                    title: rewrittenJson?.trustedDataSources?.title,
+                    titleAccent: '',
+                    subtitle: rewrittenJson?.trustedDataSources?.description
+                }}
+                verifiedDataSources={
+                    (rewrittenJson?.trustedDataSources?.sources || []).map((source: string, index: number) => {
+                        const colors = ['blue', 'teal', 'indigo', 'amber', 'emerald'] as const;
+                        return {
+                            label: source,
+                            color: colors[index % colors.length]
+                        };
+                    })
+                }
+            />
+            <DataBeneficiaries {...PRODUCT_DETAILS_SEED_OBJECT.dataBeneficiaries} />
+            <ComparisonTable {...PRODUCT_DETAILS_SEED_OBJECT.comparisonTable} />
+            <AboutDentistEmailList {...PRODUCT_DETAILS_SEED_OBJECT.aboutDentistEmailList} />
+            <Faq
+                stats={PRODUCT_DETAILS_SEED_OBJECT.faq.stats}
+                title={rewrittenJson?.faqs?.title}
+                description={rewrittenJson?.faqs?.description}
+                columns={splitFaqList}
+            />
         </>
     );
 };

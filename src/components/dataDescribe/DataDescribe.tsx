@@ -84,7 +84,7 @@ const DataDescribe = (props: IDataDescribe) => {
                 <div className={classNames(styles.pdBlob, styles.pdBlob3)}></div>
                 <div className={classNames(styles.decoOrb, styles.decoOrb7)}></div>
 
-                <Row className="align-items-center">
+                <Row className="align-items-center mb-5">
                     <Col xs={12} lg={7}>
                         <h2 className={styles.pdHeading}>
                             {TOP_SECTION.heading}<br /><span dangerouslySetInnerHTML={{ __html: TOP_SECTION.headingLine2 }} />
@@ -104,6 +104,7 @@ const DataDescribe = (props: IDataDescribe) => {
                                 height={480}
                                 className={styles.pdIllImage}
                                 priority
+                                style={{ objectFit: "scale-down" }}
                             />
                         </div>
                     </Col>

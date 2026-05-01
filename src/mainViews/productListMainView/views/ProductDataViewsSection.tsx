@@ -1,7 +1,9 @@
 import { IProductListItem } from "@/shared/interface";
 import classNames from "classnames";
-import type { IconType } from "react-icons";
 import { HiMiniArrowUpRight } from "react-icons/hi2";
+import { BsEye } from "react-icons/bs";
+import LogoIcon from "@/components/logoIcon/LogoIcon";
+import Link from "next/link";
 
 type TagMeta = Record<string, { lbl: string; cls: string; tcls: string }>;
 
@@ -15,7 +17,6 @@ type HeaderColumn = {
 type ProductDataViewsSectionProps = {
     view: "grid" | "list";
     filteredData: IProductListItem[];
-    itemIcons: IconType[];
     iconGradients: Record<string, string>;
     featured: Set<string>;
     fmt: (n: number) => string;
@@ -28,7 +29,6 @@ type ProductDataViewsSectionProps = {
 const ProductDataViewsSection = ({
     view,
     filteredData,
-    itemIcons,
     iconGradients,
     featured,
     fmt,
@@ -42,8 +42,7 @@ const ProductDataViewsSection = ({
             {view === "grid" && (
                 <div className={styles.grid} id="gridView">
                     {filteredData.length === 0 && <div>No results found.</div>}
-                    {filteredData.map((item, index) => {
-                        const Icon = itemIcons[index % itemIcons.length];
+                    {filteredData.map((item) => {
                         return (
                             <div
                                 key={item.name}
@@ -52,11 +51,13 @@ const ProductDataViewsSection = ({
                                 <div className={styles.cardTop}>
                                     <div className={styles.cardIcon} style={{ background: iconGradients[item.color], position: "relative" }}>
                                         <div className={styles.cardIconGlow}></div>
-                                        <Icon />
+                                        <LogoIcon width={28} height={28} variant="white" style={{ objectFit: "scale-down" }} />
                                     </div>
                                     <div className={styles.cardMeta}>
                                         <div className={styles.cardCat}>{item.cat}</div>
-                                        <div className={styles.cardName}>{item.name}</div>
+                                        <Link href={`/products/specialities/${item.slug}`} className={styles.cardNameLink}>
+                                            <div className={styles.cardName}>{item.name}</div>
+                                        </Link>
                                     </div>
                                 </div>
 
@@ -85,7 +86,10 @@ const ProductDataViewsSection = ({
                                             </span>
                                         ))}
                                     </div>
-                                    <div className={styles.cardHoverArrow}>{">"}</div>
+                                    <Link href={`/products/specialities/${item.slug}`} className={styles.cardViewLink}>
+                                        <BsEye size={13} />
+                                        <span>View Details</span>
+                                    </Link>
                                 </div>
                             </div>
                         );
@@ -103,7 +107,6 @@ const ProductDataViewsSection = ({
                 </div>
                 <div id="listBody">
                     {view === "list" && filteredData.map((item, index) => {
-                        const Icon = itemIcons[index % itemIcons.length];
                         const serial = index + 1;
                         return (
                             <div key={item.name} className={styles.trow} style={{ gridTemplateColumns: listGridTemplateColumns }}>
@@ -121,13 +124,15 @@ const ProductDataViewsSection = ({
                                             <div key={column.key}>
                                                 <div className={styles.tSpec}>
                                                     <div className={styles.tSpecIcon} style={{ background: iconGradients[item.color] }}>
-                                                        <Icon />
+                                                        <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                     </div>
                                                     <div>
-                                                        <div className={styles.tSpecName}>
-                                                            {item.name}
-                                                            <span className={styles.tSpecExternal}>{">"}</span>
-                                                        </div>
+                                                        <Link href={`/products/specialities/${item.slug}`} className={styles.tSpecNameLink}>
+                                                            <div className={styles.tSpecName}>
+                                                                {item.name}
+                                                                <span className={styles.tSpecExternal}>{">"}</span>
+                                                            </div>
+                                                        </Link>
                                                         <div>
                                                             {item.tags.map((tag) => (
                                                                 <span key={tag} className={classNames(styles.tTag, styles[tagMeta[tag].tcls])}>
@@ -162,11 +167,15 @@ const ProductDataViewsSection = ({
                                     }
 
                                     return (
-                                        <div key={column.key} style={{ display: "flex", justifyContent: "flex-end" }}>
-                                            <a href="#" className={styles.tActionBtn}>
+                                        <div key={column.key} style={{ display: "flex", justifyContent: "flex-end", gap: ".4rem" }}>
+                                            <Link href={`/products/specialities/${item.slug}`} className={styles.tViewBtn}>
+                                                <span><BsEye size={14} /></span>
+                                                <span>View Details</span>
+                                            </Link>
+                                            <Link href={`/prospector?specialization=${item.id}`} className={styles.tActionBtn}>
                                                 <span>Customize</span>
                                                 <span><HiMiniArrowUpRight size={18} /></span>
-                                            </a>
+                                            </Link>
                                         </div>
                                     );
                                 })}

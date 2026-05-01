@@ -1,0 +1,12 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.link {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.messageWrapper {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}

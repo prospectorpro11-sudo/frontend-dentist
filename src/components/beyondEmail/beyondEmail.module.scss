@@ -8,10 +8,6 @@
     background: $white;
 }
 
-.beyondEmailContainer {
-    position: relative;
-}
-
 /* Soft blobs */
 .beBlob {
     position: absolute;
@@ -50,20 +46,6 @@
     top: 35%;
     left: 40%;
     animation: gbFloatC 15s ease-in-out infinite alternate;
-}
-
-.beRow {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-}
-
-/* --- LEFT Content --- */
-.beContent {
-    flex: 0 0 42%;
-    max-width: 560px;
 }
 
 .beHeading {
@@ -145,11 +127,6 @@
     font-size: 0.8rem;
     color: #8ba4be;
     line-height: 1.55;
-}
-
-/* --- RIGHT Visual: 2x2 Card Grid --- */
-.beVisual {
-    flex: 1;
 }
 
 .beCardGrid {

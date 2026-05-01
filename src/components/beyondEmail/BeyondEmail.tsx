@@ -7,6 +7,7 @@ import {
     BsShieldLockFill,
 } from 'react-icons/bs';
 import { IBeyondEmail } from '../../shared/interface';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const featureCardIcons = {
     download: BsCloudArrowDownFill,
@@ -20,16 +21,16 @@ const BeyondEmail = (props: IBeyondEmail) => {
 
     return (
         <section className={styles.beyondEmail}>
-            <div className={classNames('container', styles.beyondEmailContainer)}>
+            <Container>
 
                 {/* Background decorations */}
                 <div className={classNames(styles.beBlob, styles.beBlob1)}></div>
                 <div className={classNames(styles.beBlob, styles.beBlob2)}></div>
                 <div className={classNames(styles.beBlob, styles.beBlob3)}></div>
 
-                <div className={styles.beRow}>
+                <Row className='justify-content-center'>
                     {/* LEFT: Content */}
-                    <div className={styles.beContent}>
+                    <Col xs={12} lg={5}>
                         <h2 className={styles.beHeading}>
                             {sectionInfo.headingLine}<br /><span className={sectionInfo.headingAccentClassName}>{sectionInfo.headingAccent}</span>
                         </h2>
@@ -48,10 +49,10 @@ const BeyondEmail = (props: IBeyondEmail) => {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </Col>
 
                     {/* RIGHT: Feature Cards Grid */}
-                    <div className={styles.beVisual}>
+                    <Col xs={12} lg={6} className='mt-5 mt-lg-0'>
                         <div className={styles.beCardGrid}>
                             {featureCards.map((card) => {
                                 const Icon = featureCardIcons[card.icon as keyof typeof featureCardIcons];
@@ -88,10 +89,10 @@ const BeyondEmail = (props: IBeyondEmail) => {
                                 </defs>
                             </svg>
                         </div>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
 
-            </div>
+            </Container>
         </section>
     );
 };

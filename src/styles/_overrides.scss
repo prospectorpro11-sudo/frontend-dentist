@@ -12,11 +12,257 @@
 
 
 .leaflet-tooltip {
-    background-color: #fff !important;
+    background-color: var(--surface) !important;
     border: none !important;
     border-radius: 12px !important;
     padding: 0 !important;
     box-shadow: none !important;
     top: -20px !important;
     left: -4px !important;
+}
+
+// ─── Bootstrap Modal — Premium Brand Override ──────────────────────────
+
+.modal {
+    // Backdrop
+    & + .modal-backdrop {
+        background-color: rgba(12, 25, 41, 0.55);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+}
+
+.modal-backdrop {
+    background-color: rgba(12, 25, 41, 0.55) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    &.show { opacity: 1 !important; }
+}
+
+.modal-dialog {
+    margin: 1.5rem auto;
+
+    @media (max-width: 575.98px) {
+        margin: 0.75rem;
+        max-width: calc(100vw - 1.5rem) !important;
+    }
+}
+
+.modal-content {
+    border: 1.5px solid var(--border) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 24px 64px rgba(12, 25, 41, 0.18), 0 6px 20px rgba(12, 25, 41, 0.10) !important;
+    background: var(--surface) !important;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 1.25rem 1.5rem !important;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--blue-50) 100%);
+
+    .modal-title {
+        font-size: 1.15rem !important;
+        font-weight: 800 !important;
+        color: var(--text) !important;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .btn-close {
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 10px !important;
+        background-color: var(--n100) !important;
+        opacity: 1 !important;
+        box-shadow: none !important;
+        transition: background-color 150ms ease, transform 150ms ease !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%235b7a9e'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E") !important;
+        background-size: 12px !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+
+        &:hover {
+            background-color: var(--n200) !important;
+            transform: scale(1.08) !important;
+        }
+
+        &:active {
+            transform: scale(0.96) !important;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        padding: 1rem 1.25rem !important;
+
+        .modal-title {
+            font-size: 1.05rem !important;
+        }
+    }
+}
+
+.modal-body {
+    padding: 1.5rem !important;
+
+    @media (max-width: 575.98px) {
+        padding: 1.25rem !important;
+    }
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border) !important;
+    padding: 1rem 1.5rem !important;
+}
+
+// ─── Custom SweetAlert2: close button countdown only ─────────────────
+
+.custom-sweetalert {
+    .custom-sweetalert-popup {
+        border: none !important;
+        border-radius: 24px;
+        padding: 2rem 2rem 1.5rem;
+        background: radial-gradient(120% 120% at 10% 0%, var(--surface) 0%, var(--n50) 45%, var(--n100) 100%);
+        box-shadow: 0 26px 60px -30px rgba(15, 23, 42, 0.6), 0 14px 30px -22px rgba(15, 23, 42, 0.4);
+    }
+
+    .swal2-title {
+        margin: 0.6rem 0 0.25rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        color: var(--n900);
+    }
+
+    .swal2-html-container {
+        margin: 0.5rem 0 0;
+        font-size: 0.98rem;
+        color: var(--text2);
+    }
+
+    .swal2-actions {
+        margin-top: 1.25rem;
+    }
+
+    .swal2-confirm {
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 0.55rem 1.5rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, var(--blue-500) 0%, var(--blue-600) 55%, var(--blue-700) 100%);
+        box-shadow: 0 12px 24px -16px color-mix(in srgb, var(--blue-700) 55%, transparent);
+        min-width: 120px;
+    }
+
+    .swal2-confirm:focus {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue-500) 25%, transparent);
+    }
+
+    .swal2-icon {
+        border: none !important;
+        color: var(--surface) !important;
+        width: 4.25rem;
+        height: 4.25rem;
+        margin: 0 auto 1rem;
+        border-radius: 50%;
+        display: grid !important;
+        place-items: center;
+        box-shadow: 0 18px 36px -22px rgba(15, 23, 42, 0.65), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
+
+    .swal2-icon.swal2-success {
+        background: linear-gradient(135deg, var(--emerald-500) 0%, var(--teal-500) 100%);
+    }
+
+    .swal2-icon.swal2-error {
+        background: linear-gradient(135deg, var(--orange-500) 0%, var(--rose-500) 100%);
+    }
+
+    .swal2-icon.swal2-warning {
+        background: linear-gradient(135deg, var(--amber-500) 0%, var(--orange-500) 100%);
+    }
+
+    .swal2-icon.swal2-info {
+        background: linear-gradient(135deg, var(--blue-400) 0%, var(--blue-500) 100%);
+    }
+
+    .swal2-icon.swal2-question {
+        background: linear-gradient(135deg, var(--teal-500) 0%, var(--blue-500) 100%);
+    }
+
+    .swal2-icon-content {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 1rem;
+        line-height: 0;
+        color: var(--surface) !important;
+    }
+
+    .nr-swal-icon {
+        width: 2.1rem;
+        height: 2.1rem;
+        display: block;
+    }
+
+    .swal2-success-ring {
+        border: none !important;
+        opacity: 0;
+    }
+
+    .swal2-success-line-tip,
+    .swal2-success-line-long {
+        background-color: var(--surface) !important;
+    }
+
+    .swal2-success-fix,
+    .swal2-success-circular-line-left,
+    .swal2-success-circular-line-right {
+        background-color: transparent !important;
+    }
+
+    .swal2-x-mark-line-left,
+    .swal2-x-mark-line-right {
+        background-color: var(--surface) !important;
+    }
+
+    // ── Close button with circular countdown ──
+    .swal2-close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+
+        .nr-close-timer-ring {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    }
+
+    // Hide the default bottom progress bar
+    .swal2-timer-progress-bar-container {
+        display: none !important;
+    }
 }

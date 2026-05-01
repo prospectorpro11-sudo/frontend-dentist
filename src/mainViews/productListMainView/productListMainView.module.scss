@@ -1055,6 +1055,30 @@
         transition: transform var(--t-base);
     }
 
+    /* View Details link in card footer */
+    .cardViewLink {
+        display: inline-flex;
+        align-items: center;
+        gap: .3rem;
+        font-size: .76rem;
+        font-weight: 600;
+        color: var(--blue-500);
+        text-decoration: none;
+        padding: .3rem .65rem;
+        border-radius: var(--r-full);
+        border: 1.5px solid var(--blue-100);
+        background: transparent;
+        transition: all var(--t-base);
+        white-space: nowrap;
+    }
+
+    .cardViewLink:hover {
+        background: var(--blue-50);
+        border-color: var(--blue-300);
+        color: var(--blue-700);
+        transform: translateY(-1px);
+    }
+
     /* ========================================================================
            LIST / TABLE VIEW
            ======================================================================== */
@@ -1409,6 +1433,76 @@
         transform: translateX(3px);
     }
 
+    /* View Details Button (outline style) */
+    .tViewBtn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .35rem;
+        font-weight: 600;
+        font-size: .78rem;
+        color: var(--blue-600);
+        text-decoration: none;
+        padding: .52rem 1rem;
+        border-radius: var(--r-full);
+        background: transparent;
+        border: 1.5px solid var(--blue-200);
+        cursor: pointer;
+        transition: all var(--t-base);
+        white-space: nowrap;
+    }
+
+    .tViewBtn:hover {
+        background: var(--blue-50);
+        border-color: var(--blue-400);
+        color: var(--blue-700);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(14, 165, 233, .12);
+    }
+
+    .tViewBtn:active {
+        transform: translateY(0);
+    }
+
+    .tViewBtn span {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Clickable product name in grid cards */
+    .cardNameLink {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        transition: color var(--t-base);
+    }
+
+    .cardNameLink:hover {
+        color: var(--blue-600);
+    }
+
+    .cardNameLink:hover .cardName {
+        color: var(--blue-600);
+    }
+
+    /* Clickable product name in list rows */
+    .tSpecNameLink {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        transition: color var(--t-base);
+    }
+
+    .tSpecNameLink:hover {
+        color: var(--blue-600);
+    }
+
+    .tSpecNameLink:hover .tSpecName {
+        color: var(--blue-600);
+    }
+
     .tActionIconBtn {
         width: 28px;
         height: 28px;
@@ -1455,7 +1549,7 @@
 
         .thead,
         .trow {
-            min-width: 760px;
+            min-width: 900px;
             padding-left: .8rem;
             padding-right: .8rem;
         }

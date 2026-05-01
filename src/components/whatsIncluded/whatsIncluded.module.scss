@@ -59,15 +59,7 @@
 }
 
 .wiInner {
-    display: flex;
-    align-items: center;
-    gap: 4rem;
     padding: 3.5rem 3.5rem 2.5rem;
-}
-
-.wiContent {
-    flex: 0 0 46%;
-    max-width: 540px;
 }
 
 .wiHeading {
@@ -110,11 +102,10 @@
 
 /* -------- RIGHT: Isometric 3D Scene -------- */
 .wiVisual {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transform: scale(1.125);
+    @include breakpoint(mobile) {
+        transform: scale(0.8);
+    }
 }
 
 .wiIsoScene {

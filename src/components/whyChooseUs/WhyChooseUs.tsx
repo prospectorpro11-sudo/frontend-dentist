@@ -19,77 +19,26 @@ import {
     BsXCircleFill,
 } from "react-icons/bs";
 import type { IconType } from "react-icons";
+import { IWhyChooseUsSeed } from "@/shared/interface";
 
-type PainPoint = {
-    title: string;
-    desc: string;
-    icon: string;
-    delayClass: string;
+const ICON_MAP: Record<string, IconType> = {
+    'envelope-x': BsEnvelopeXFill,
+    'person-x': BsPersonXFill,
+    'graph-down': BsGraphDownArrow,
+    cash: BsCashStack,
+    'send-x': BsSendXFill,
+    warning: BsExclamationOctagonFill,
+    'x-circle': BsXCircleFill,
+    'shield-x': BsShieldX,
+    envelope: BsEnvelopeFill,
+    telephone: BsTelephoneFill,
+    vcard: BsPersonVcardFill,
+    calendar: BsCalendarEventFill,
+    send: BsSendFill,
+    download: BsDownload,
 };
 
-type FloatingBadge = {
-    title: string;
-    subtitle: string;
-    icon: string;
-    positionClass: string;
-};
-
-type MockupField = {
-    label: string;
-    value: string;
-    icon: string;
-    masked?: boolean;
-    danger?: boolean;
-};
-
-type MockupAction = {
-    label: string;
-    icon: string;
-    secondary?: boolean;
-};
-
-type ContentProfile = {
-    initials: string;
-    name: string;
-    specialty: string;
-    status: string;
-};
-
-type Content = {
-    badge: string;
-    title: string;
-    highlight: string;
-    subtitle: string;
-    profile: ContentProfile;
-};
-
-type WhyChooseUsData = {
-    content: Content;
-    painPoints: PainPoint[];
-    floatingBadges: FloatingBadge[];
-    mockupFields: MockupField[];
-    mockupActions: MockupAction[];
-};
-
-const iconMap: Record<string, IconType> = {
-    BsEnvelopeXFill,
-    BsPersonXFill,
-    BsGraphDownArrow,
-    BsCashStack,
-    BsSendXFill,
-    BsExclamationOctagonFill,
-    BsXCircleFill,
-    BsShieldX,
-    BsEnvelopeFill,
-    BsTelephoneFill,
-    BsPersonVcardFill,
-    BsCalendarEventFill,
-    BsSendFill,
-    BsDownload,
-    BsExclamationTriangleFill,
-};
-
-const WhyChooseUs = (props: WhyChooseUsData) => {
+const WhyChooseUs = (props: IWhyChooseUsSeed) => {
     const { content, painPoints, floatingBadges, mockupFields, mockupActions } = props;
 
     return (
@@ -100,131 +49,145 @@ const WhyChooseUs = (props: WhyChooseUsData) => {
                 <div className={styles.bgGrid}></div>
             </div>
 
-            <Container className={styles.container}>
-                <header className={classnames(styles.sectionHeader, styles.fadeIn, styles.visible)}>
-                    <div className={styles.sectionBadge}>
-                        <BsExclamationTriangleFill />
-                        {content.badge}
-                    </div>
-                    <h2>
-                        {content.title} <span className="shifting-accent-danger">{content.highlight}</span>
-                    </h2>
-                    <p>{content.subtitle}</p>
-                </header>
-
-                <Row className={styles.sectionLayout}>
-                    <Col lg={7}>
-                        <div className={styles.painContent}>
-                            {painPoints.map((item) => {
-                                const Icon = iconMap[item.icon];
-
-                                return (
-                                    <div
-                                        key={item.title}
-                                        className={classnames(
-                                            styles.painCard,
-                                            styles[item.delayClass],
-                                            styles.fadeIn,
-                                            styles.visible
-                                        )}
-                                    >
-                                        <div className={styles.painCardIcon}>
-                                            <Icon />
-                                        </div>
-                                        <div className={styles.painCardContent}>
-                                            <h4>{item.title}</h4>
-                                            <p>{item.desc}</p>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+            <Container>
+                <div className={styles.contentWrapper}>
+                    <header className={classnames(styles.sectionHeader, styles.fadeIn, styles.visible)}>
+                        <div className={styles.sectionBadge}>
+                            <BsExclamationTriangleFill />
+                            {content.badge}
                         </div>
-                    </Col>
-                    <Col lg={5}>
-                        <div className={styles.mockupScene}>
-                            <div className={styles.mockupGlow}></div>
+                        <h2>
+                            {content.title} <span className="shifting-accent-danger">{content.highlight}</span>
+                        </h2>
+                        <p>{content.subtitle}</p>
+                    </header>
+                    <Row className={styles.sectionLayout}>
+                        <Col lg={6}>
+                            <div className={styles.painContent}>
+                                {painPoints.map((item) => {
+                                    const Icon = ICON_MAP[item.icon];
+                                    if (!Icon) {
+                                        return null;
+                                    }
 
-                            {floatingBadges.map((badge) => {
-                                const Icon = iconMap[badge.icon];
+                                    return (
+                                        <article
+                                            key={item.title}
+                                            className={classnames(
+                                                styles.painItem,
+                                                styles.fadeIn,
+                                                styles.visible,
+                                                item.delayClass && styles[item.delayClass]
+                                            )}
+                                        >
+                                            <div className={styles.painIconWrap}>
+                                                <Icon />
+                                            </div>
+                                            <div className={styles.painText}>
+                                                <h3>{item.title}</h3>
+                                                <p>{item.desc}</p>
+                                            </div>
+                                        </article>
+                                    );
+                                })}
+                            </div>
+                        </Col>
 
-                                return (
-                                    <div
-                                        key={badge.title}
-                                        className={classnames(styles.floatingBadge, styles[badge.positionClass])}
-                                    >
-                                        <div className={styles.floatingBadgeIcon}>
-                                            <Icon />
+                        <Col lg={6}>
+                            <div className={classnames(styles.mockupScene, styles.fadeIn, styles.visible)}>
+                                <div className={styles.mockupGlow}></div>
+
+                                {floatingBadges.map((badge) => {
+                                    const Icon = ICON_MAP[badge.icon];
+                                    if (!Icon) {
+                                        return null;
+                                    }
+
+                                    return (
+                                        <div
+                                            key={badge.title}
+                                            className={classnames(styles.floatingBadge, badge.positionClass && styles[badge.positionClass])}
+                                        >
+                                            <div className={styles.floatingBadgeIcon}>
+                                                <Icon />
+                                            </div>
+                                            <div className={styles.floatingBadgeText}>
+                                                {badge.title}
+                                                <span>{badge.subtitle}</span>
+                                            </div>
                                         </div>
-                                        <div className={styles.floatingBadgeText}>
-                                            {badge.title}
-                                            <span>{badge.subtitle}</span>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
 
-                            <div className={styles.mockupCard}>
-                                <div className={styles.mockupCardInner}>
-                                    <div className={styles.mockupUserHeader}>
-                                        <div className={styles.mockupAvatar}>{content.profile.initials}</div>
-                                        <div className={styles.mockupUserInfo}>
-                                            <h4>{content.profile.name}</h4>
-                                            <span>{content.profile.specialty}</span>
+                                <div className={styles.mockupCard}>
+                                    <div className={styles.mockupCardInner}>
+                                        <div className={styles.mockupUserHeader}>
+                                            <div className={styles.mockupAvatar}>{content.profile.initials}</div>
+                                            <div className={styles.mockupUserInfo}>
+                                                <h4>{content.profile.name}</h4>
+                                                <span>{content.profile.specialty}</span>
+                                            </div>
+                                            <div className={styles.mockupStatus}>
+                                                <div className={styles.pulseDot}></div>
+                                                {content.profile.status}
+                                            </div>
                                         </div>
-                                        <div className={styles.mockupStatus}>
-                                            <div className={styles.pulseDot}></div>
-                                            {content.profile.status}
-                                        </div>
-                                    </div>
 
-                                    <div className={styles.mockupFields}>
-                                        {mockupFields.map((field) => {
-                                            const Icon = iconMap[field.icon];
+                                        <div className={styles.mockupFields}>
+                                            {mockupFields.map((field) => {
+                                                const Icon = ICON_MAP[field.icon];
+                                                if (!Icon) {
+                                                    return null;
+                                                }
 
-                                            return (
-                                                <div key={field.label} className={styles.mockupField}>
-                                                    <div className={styles.mockupFieldLabel}>
-                                                        <Icon />
-                                                        {field.label}
+                                                return (
+                                                    <div key={field.label} className={styles.mockupField}>
+                                                        <div className={styles.mockupFieldLabel}>
+                                                            <Icon />
+                                                            {field.label}
+                                                        </div>
+                                                        <div
+                                                            className={classnames(
+                                                                styles.mockupFieldValue,
+                                                                field.masked && styles.masked,
+                                                                field.danger && styles.danger
+                                                            )}
+                                                        >
+                                                            {field.value}
+                                                        </div>
                                                     </div>
-                                                    <div
+                                                );
+                                            })}
+                                        </div>
+
+                                        <div className={styles.mockupActions}>
+                                            {mockupActions.map((action) => {
+                                                const Icon = ICON_MAP[action.icon];
+                                                if (!Icon) {
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <button
+                                                        key={action.label}
+                                                        type="button"
                                                         className={classnames(
-                                                            styles.mockupFieldValue,
-                                                            field.masked && styles.masked,
-                                                            field.danger && styles.danger
+                                                            styles.mockupBtn,
+                                                            action.secondary ? styles.mockupBtnSecondary : styles.mockupBtnPrimary
                                                         )}
                                                     >
-                                                        {field.value}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-
-                                    <div className={styles.mockupActions}>
-                                        {mockupActions.map((action) => {
-                                            const Icon = iconMap[action.icon];
-
-                                            return (
-                                                <button
-                                                    key={action.label}
-                                                    type="button"
-                                                    className={classnames(
-                                                        styles.mockupBtn,
-                                                        action.secondary ? styles.mockupBtnSecondary : styles.mockupBtnPrimary
-                                                    )}
-                                                >
-                                                    <Icon />
-                                                    {action.label}
-                                                </button>
-                                            );
-                                        })}
+                                                        <Icon />
+                                                        {action.label}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
+                </div>
             </Container>
         </section>
     );

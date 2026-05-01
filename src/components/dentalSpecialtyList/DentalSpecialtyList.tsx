@@ -13,52 +13,34 @@ import {
 } from "react-icons/bs";
 import Button from "../button/Button";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import { IDentalSpecialtySeed } from "@/shared/interface";
 
-type SpecialtyCard = {
-    id: string;
-    title: string;
-    description: string;
-    icon: string;
-    iconColor: "blue" | "teal" | "indigo" | "amber";
-    contactCount: string;
-    verificationRate: string;
+const ICON_MAP: Record<string, IconType> = {
+    'person-badge': BsPersonBadge,
+    scissors: BsScissors,
+    'check-circle': BsCheckCircle,
+    'emoji-smile': BsEmojiSmile,
 };
 
-type PageContent = {
-    sectionTitle: string;
-    sectionSubtitle: string;
-    ctaTitle: string;
-    ctaDescription: string;
-    ctaButtonText: string;
-};
-
-type DentalSpecialtyListData = {
-    pageContent: PageContent;
-    specialtyCards: SpecialtyCard[];
-};
-
-const iconMap: Record<string, IconType> = {
-    BsPersonBadge,
-    BsScissors,
-    BsCheckCircle,
-    BsEmojiSmile,
-};
-
-const DentalSpecialtyList = (props: DentalSpecialtyListData) => {
-    const { pageContent, specialtyCards } = props;
+const DentalSpecialtyList = (props: IDentalSpecialtySeed) => {
+    const { content, specialtyCards } = props;
 
     return (
         <section className={styles.mainContent}>
-            {/* Section Header */}
             <Container>
                 <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle} dangerouslySetInnerHTML={{ __html: pageContent.sectionTitle }} />
-                    <p className={styles.sectionSubtitle}>{pageContent.sectionSubtitle}</p>
+                    <h2 className={styles.sectionTitle}>
+                        {content.sectionTitle} <span className="shifting-accent">{content.sectionTitleAccent}</span>
+                    </h2>
+                    <p className={styles.sectionSubtitle}>{content.sectionSubtitle}</p>
                 </div>
-                {/* Specialty Cards Grid */}
                 <div className={styles.specialtyGrid}>
                     {specialtyCards.map((card) => {
-                        const Icon = iconMap[card.icon];
+                        const Icon = ICON_MAP[card.icon];
+                        if (!Icon) {
+                            return null;
+                        }
+
                         return (
                             <div key={card.id} className={styles.specialtyCard}>
                                 <div className={styles.specialtyHeader}>
@@ -92,15 +74,14 @@ const DentalSpecialtyList = (props: DentalSpecialtyListData) => {
                         );
                     })}
                 </div>
-                {/* CTA Section */}
                 <div className={styles.ctaSection}>
                     <div className={styles.ctaContent}>
-                        <h3 className={styles.ctaTitle}>{pageContent.ctaTitle}</h3>
-                        <p className={styles.ctaDescription}>{pageContent.ctaDescription}</p>
+                        <h3 className={styles.ctaTitle}>{content.ctaTitle}</h3>
+                        <p className={styles.ctaDescription}>{content.ctaDescription}</p>
                     </div>
                     <a href="#">
                         <Button variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}>
-                            {pageContent.ctaButtonText}
+                            {content.ctaButtonText}
                             <BsArrowRight />
                         </Button>
                     </a>

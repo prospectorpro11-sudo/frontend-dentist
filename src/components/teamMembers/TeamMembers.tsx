@@ -1,0 +1,66 @@
+import styles from "./teamMembers.module.scss";
+import { Col, Container, Row } from "react-bootstrap";
+
+const TEAM_MEMBERS = [
+    {
+        name: "Grayson Aldermont",
+        role: "Chief Executive Officer",
+        description:
+            "Leads the company's mission to revolutionize healthcare marketing with verified physician contacts and cutting-edge data solutions.",
+    },
+    {
+        name: "Elena Rostova",
+        role: "Chief Operations Officer",
+        description:
+            "Oversees daily operations and ensures our data verification processes maintain the industry-leading 95%+ accuracy guarantee.",
+    },
+    {
+        name: "Marcus Chen",
+        role: "Head of Data Engineering",
+        description:
+            "Architects the AI-driven data pipelines that constantly refresh our records, ensuring total compliance and maximum deliverability.",
+    },
+];
+
+const TeamMembers = () => {
+    return (
+        <section className={styles.teamMembers}>
+            <Container>
+                <header className={styles.sectionHeader}>
+                    <h2>
+                        Meet Our <span className="shifting-accent">Leadership Team</span>
+                    </h2>
+                    <p>
+                        At Dentist Email List, we have a dedicated team of data experts, engineers, and
+                        marketing professionals ensuring the highest quality service and 95%+ deliverability.
+                    </p>
+                </header>
+
+                <Row className={styles.cardRow}>
+                    {TEAM_MEMBERS.map((member, index) => (
+                        <Col key={`${member.name}-${index}`} lg={4} md={6}>
+                            <article className={styles.memberCard}>
+                                <div className={styles.avatarWrap}>
+                                    <div className={styles.avatarRing}>
+                                        <div className={styles.avatarCore}>
+                                            <span className={styles.avatarHead}></span>
+                                            <span className={styles.avatarBody}></span>
+                                        </div>
+                                        <span className={styles.statusDot}></span>
+                                    </div>
+                                </div>
+
+                                <span className={styles.roleTag}>{member.role}</span>
+                                <h3>{member.name}</h3>
+
+                                <blockquote className={styles.bio}>{member.description}</blockquote>
+                            </article>
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
+        </section>
+    );
+};
+
+export default TeamMembers;

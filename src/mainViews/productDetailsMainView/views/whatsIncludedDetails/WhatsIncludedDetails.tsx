@@ -1,99 +1,23 @@
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./whatsIncludedDetails.module.scss";
 import classnames from "classnames";
+import { IWhatsIncludedDetailsSeed } from "@/shared/interface";
 
-type Tag = {
-    id: number;
-    label: string;
-    removable: boolean;
-    className: string;
-};
-
-type FilterSection = {
-    label: string;
-    tags: Tag[];
-};
-
-type DentistDataItem = {
-    id: number;
-    initials: string;
-    name: string;
-    specialty: string;
-    verified: boolean;
-    avatarClass: string;
-};
-
-type LoadingContent = {
-    text: string;
-    count: string;
-    suffix: string;
-};
-
-type PersonalizeSection = {
-    label: string;
-    tags: Tag[];
-};
-
-type DataCard = {
-    id: number;
-    title: string;
-    titleSuffix: string;
-    description: string;
-    isLast: boolean;
-};
-
-type HeaderContent = {
-    title: string;
-    description: string;
-};
-
-type WhatsIncludedDetailsData = {
-    headerContent: HeaderContent;
-    buildListTitle: string;
-    filterSections: FilterSection[];
-    dentistData: DentistDataItem[];
-    loadingContent: LoadingContent;
-    personalizeTitle: string;
-    personalizeSections: PersonalizeSection[];
-    verifiedTitle: string;
-    dataCards: DataCard[];
-    footerStats: string[];
-};
-
-const styleClassMap: Record<string, string> = {
-    filterTagState: styles.filterTagState,
-    filterTagSpecialty: styles.filterTagSpecialty,
-    filterTagSpecialtyPurple: styles.filterTagSpecialtyPurple,
-    filterTagPractice: styles.filterTagPractice,
-    avatarBlue: styles.avatarBlue,
-    avatarGreen: styles.avatarGreen,
-    avatarPurple: styles.avatarPurple,
-    pTagBlue: styles.pTagBlue,
-    pTagGreen: styles.pTagGreen,
-    pTagPurple: styles.pTagPurple,
-    genderTagMale: styles.genderTagMale,
-    genderTagFemale: styles.genderTagFemale,
-    associationTag: styles.associationTag,
-    associationTagPurple: styles.associationTagPurple,
-};
-
-const WhatsIncludedDetails = (props: WhatsIncludedDetailsData) => {
+const WhatsIncludedDetails = (props: IWhatsIncludedDetailsSeed) => {
     const {
-        headerContent,
         buildListTitle,
         filterSections,
         dentistData,
         loadingContent,
         personalizeTitle,
         personalizeSections,
+        header,
         verifiedTitle,
         dataCards,
         footerStats,
+        isProductDetails,
+        idealUseCases,
     } = props;
-
-    const resolveClassName = (className: string): string => {
-        return styleClassMap[className] || className;
-    };
 
     return (
         <>
@@ -117,7 +41,7 @@ const WhatsIncludedDetails = (props: WhatsIncludedDetailsData) => {
                                                     {section.tags.map(function (tag) {
                                                         return (
                                                             <span
-                                                                className={classnames(styles.filterTag, resolveClassName(tag.className))}
+                                                                className={classnames(styles.filterTag, styles[tag.variant])}
                                                                 key={tag.id}
                                                             >
                                                                 {tag.label}
@@ -138,8 +62,8 @@ const WhatsIncludedDetails = (props: WhatsIncludedDetailsData) => {
                                     <div className={styles.dentistList}>
                                         {dentistData.map(function (dentist) {
                                             return (
-                                                <div className={styles.dentistItem} key={dentist.id}>
-                                                    <div className={classnames(styles.dentistAvatar, resolveClassName(dentist.avatarClass))}>
+                                                <div className={styles.dentistCard} key={dentist.id}>
+                                                    <div className={classnames(styles.dentistAvatar, styles[dentist.avatarVariant])}>
                                                         {dentist.initials}
                                                     </div>
                                                     <div className={styles.dentistInfo}>
@@ -176,7 +100,7 @@ const WhatsIncludedDetails = (props: WhatsIncludedDetailsData) => {
                                                     {section.tags.map(function (tag) {
                                                         return (
                                                             <span
-                                                                className={classnames(styles.personalizeTag, resolveClassName(tag.className))}
+                                                                className={classnames(styles.personalizeTag, styles[tag.variant])}
                                                                 key={tag.id}
                                                             >
                                                                 {tag.label}{' '}
@@ -193,58 +117,77 @@ const WhatsIncludedDetails = (props: WhatsIncludedDetailsData) => {
                                 </div>
                             </div>
                         </Col>
-                        <Col xs={12} lg={7}>
+                        <Col xs={12} lg={7} className="mt-4 mt-lg-0">
                             <div className={styles.rightPanel}>
-
-                                {/* Section Title Description */}
-                                <div className={styles.headerSection}>
-                                    <h1 className={styles.headerTitle}>
-                                        {headerContent.title}
-                                    </h1>
-                                    <p className={styles.headerDescription}>
-                                        {headerContent.description}
-                                    </p>
-                                </div>
-                                {/* Section Content */}
-                                <h3 className={styles.verifiedTitle}>{verifiedTitle}</h3>
-
-                                <div className={styles.dataCards}>
-                                    {dataCards.map(function (card) {
-                                        return (
-                                            <div
-                                                className={classnames(
-                                                    styles.dataCard,
-                                                    card.isLast && styles.dataCardLast
-                                                )}
-                                                key={card.id}
-                                            >
-                                                <div className={styles.dataIcon}>
-                                                </div>
-                                                <div className={styles.dataContent}>
-                                                    <div className={styles.dataCardTitle}>
-                                                        {card.title}{' '}
-                                                        <span className={styles.dataCardTitleSpan}>
-                                                            {card.titleSuffix}
-                                                        </span>
+                                {isProductDetails && idealUseCases ? (
+                                    <>
+                                        <div className={styles.headerSection}>
+                                            <h1 className={styles.headerTitle}>{idealUseCases.title}</h1>
+                                            <p className={styles.headerDescription}>{idealUseCases.description}</p>
+                                        </div>
+                                        <div className={styles.dataCardsGrid}>
+                                            {idealUseCases.features.map(function (feature, index) {
+                                                return (
+                                                    <div className={styles.dataCardGridItem} key={index}>
+                                                        <div className={styles.dataIcon}>
+                                                            <i className="bi bi-check" style={{ color: '#fff', fontSize: '1.2rem' }}></i>
+                                                        </div>
+                                                        <div className={styles.dataContent}>
+                                                            <div className={styles.dataCardTitle}>
+                                                                {feature}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className={styles.dataCardDesc}>
-                                                        {card.description}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className={styles.headerSection}>
+                                            <h1 className={styles.headerTitle}>{header.title}</h1>
+                                            <p className={styles.headerDescription}>{header.description}</p>
+                                        </div>
+                                        <h3 className={styles.verifiedTitle}>{verifiedTitle}</h3>
 
-                                <div className={styles.footerStats}>
-                                    {footerStats.map(function (stat, index) {
-                                        return (
-                                            <span className={styles.footerStat} key={index}>
-                                                {stat}
-                                            </span>
-                                        );
-                                    })}
-                                </div>
+                                        <div className={styles.dataCards}>
+                                            {dataCards.map(function (card) {
+                                                return (
+                                                    <div
+                                                        className={classnames(
+                                                            styles.dataCard,
+                                                            card.isLast && styles.dataCardLast
+                                                        )}
+                                                        key={card.id}
+                                                    >
+                                                        <div className={styles.dataIcon}></div>
+                                                        <div className={styles.dataContent}>
+                                                            <div className={styles.dataCardTitle}>
+                                                                {card.title}{' '}
+                                                                <span className={styles.dataCardTitleSpan}>
+                                                                    {card.titleSuffix}
+                                                                </span>
+                                                            </div>
+                                                            <div className={styles.dataCardDesc}>
+                                                                {card.description}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+
+                                        <div className={styles.footerStats}>
+                                            {footerStats.map(function (stat, index) {
+                                                return (
+                                                    <span className={styles.footerStat} key={index}>
+                                                        {stat}
+                                                    </span>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </Col>
                     </Row>

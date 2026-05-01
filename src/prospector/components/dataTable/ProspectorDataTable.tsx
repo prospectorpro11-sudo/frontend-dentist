@@ -1,0 +1,380 @@
+import Avatar from "react-avatar";
+import Skeleton from "react-loading-skeleton";
+import { IProspectorData } from "@/shared/interface";
+import styles from "./prospectorDataTable.module.scss";
+import { CSSProperties, useEffect, useMemo, useState } from "react";
+import Pagination from "@/components/pagination/Pagination";
+import { FaEnvelope, FaPhone, FaSort } from "react-icons/fa6";
+import { useProspectorContext } from "@/contexts/ProspectorContext";
+import { FaCheckCircle, FaSearch, FaSyncAlt, FaThList } from "react-icons/fa";
+
+const PAGE_SIZE = 10;
+const AVATAR_COLORS = [
+    "#0284C7",
+    "#0EA5E9",
+    "#6366F1",
+    "#14B8A6",
+    "#EA580C",
+    "#F43F5E",
+    "#10B981",
+    "#0EA5E9",
+    "#EA580C",
+    "#F43F5E",
+];
+
+const SPECIALTY_BADGE_COLORS = [
+    { text: "#0F766E", border: "#99F6E4", background: "#F0FDFA" },
+    { text: "#1D4ED8", border: "#BFDBFE", background: "#EFF6FF" },
+    { text: "#9A3412", border: "#FDBA74", background: "#FFF7ED" },
+    { text: "#7C3AED", border: "#DDD6FE", background: "#F5F3FF" },
+    { text: "#BE123C", border: "#FDA4AF", background: "#FFF1F2" },
+    { text: "#166534", border: "#BBF7D0", background: "#F0FDF4" },
+    { text: "#0C4A6E", border: "#BAE6FD", background: "#F0F9FF" },
+    { text: "#A21CAF", border: "#F5D0FE", background: "#FDF4FF" },
+];
+
+const getAvatarColor = (name: string) => {
+    const safeName = name.trim();
+    const hash = safeName.split("").reduce((accumulator, character) => accumulator + character.charCodeAt(0), 0);
+    return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+};
+
+const getSpecialtyBadgeStyle = (seed: string): CSSProperties => {
+    const safeSeed = seed.trim();
+    const hash = safeSeed.split("").reduce((accumulator, character) => accumulator + character.charCodeAt(0), 0);
+    const color = SPECIALTY_BADGE_COLORS[hash % SPECIALTY_BADGE_COLORS.length];
+
+    return {
+        color: color.text,
+        borderColor: color.border,
+        background: color.background,
+    };
+};
+
+type ColumnConfig = {
+    key: keyof IProspectorData;
+    label: string;
+    required?: boolean;
+    render: (row: IProspectorData) => string;
+};
+
+const columns: ColumnConfig[] = [
+    { key: "Full Name", label: "Full Name", required: true, render: (row) => row["Full Name"] },
+    { key: "Email", label: "Email", required: true, render: (row) => row.Email },
+    { key: "NPI", label: "NPI", render: (row) => row.NPI ?? "-" },
+    { key: "First Name", label: "First Name", render: (row) => row["First Name"] },
+    { key: "Middle Name", label: "Middle Name", render: (row) => row["Middle Name"] ?? "-" },
+    { key: "Last Name", label: "Last Name", render: (row) => row["Last Name"] },
+    { key: "Suffix", label: "Suffix", render: (row) => row.Suffix ?? "-" },
+    { key: "Title", label: "Title", render: (row) => row.Title ?? "-" },
+    { key: "Gender", label: "Gender", render: (row) => row.Gender },
+    { key: "Specialty Code", label: "Specialty Code", render: (row) => row["Specialty Code"] },
+    { key: "Specialty", label: "Specialty", render: (row) => row.Specialty },
+    { key: "Specialty2", label: "Specialty2", render: (row) => row.Specialty2 ?? "-" },
+    { key: "Address1", label: "Address1", render: (row) => row.Address1 },
+    { key: "Address2", label: "Address2", render: (row) => row.Address2 ?? "-" },
+    { key: "City", label: "City", render: (row) => row.City },
+    { key: "State", label: "State", render: (row) => row.State },
+    { key: "Zip Code", label: "Zip Code", render: (row) => row["Zip Code"] },
+    { key: "Phone", label: "Phone", render: (row) => row.Phone },
+    { key: "Fax", label: "Fax", render: (row) => row.Fax || "-" },
+    { key: "License Number", label: "License Number", render: (row) => row["License Number"] ?? "-" },
+    { key: "License State", label: "License State", render: (row) => row["License State"] },
+    { key: "Certifications", label: "Certifications", render: (row) => row.Certifications ?? "-" },
+    { key: "Category", label: "Category", render: (row) => row.Category },
+    { key: "Address", label: "Address", render: (row) => row.Address },
+    { key: "FullName", label: "FullName", render: (row) => row.FullName },
+    { key: "County", label: "County", render: (row) => row.County ?? "-" },
+    { key: "Office", label: "Office", render: (row) => row.Office ?? "-" },
+    { key: "Cell Number", label: "Cell Number", render: (row) => row["Cell Number"] ?? "-" },
+    { key: "Cell Numbers", label: "Cell Numbers", render: (row) => row["Cell Numbers"] ?? "-" },
+];
+
+const getInitialVisibility = () =>
+    columns.reduce<Record<string, boolean>>((accumulator, column) => {
+        accumulator[column.key] = true;
+        return accumulator;
+    }, {});
+
+type ProspectorDataTableProps = {
+    currentPage: number;
+    onPageChange: (page: number) => void;
+    pageAccessLimit?: number;
+};
+
+const ProspectorDataTable = ({ currentPage, onPageChange, pageAccessLimit }: ProspectorDataTableProps) => {
+    const { data, stats, prospectorLoading, setIsProspectorLocked } = useProspectorContext();
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [columnPanelOpen, setColumnPanelOpen] = useState<boolean>(false);
+    const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(getInitialVisibility);
+
+    const exposedRows = useMemo(() => data ?? [], [data]);
+    const exposedTotal = exposedRows.length;
+    const parsedTotalContacts = Number(stats?.totalContacts);
+    const totalContacts = Number.isFinite(parsedTotalContacts) && parsedTotalContacts >= 0 ? parsedTotalContacts : exposedTotal;
+    const totalPages = Math.max(1, Math.ceil(totalContacts / PAGE_SIZE));
+    const maxAccessiblePage = typeof pageAccessLimit === "number" && pageAccessLimit > 0 ? pageAccessLimit : totalPages;
+    const safeCurrentPage = Math.max(1, Math.min(currentPage, totalPages, maxAccessiblePage));
+    const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
+    const currentPageRows = useMemo(() => {
+        if (exposedRows.length > PAGE_SIZE) {
+            return exposedRows.slice(startIndex, startIndex + PAGE_SIZE);
+        }
+
+        return exposedRows;
+    }, [exposedRows, startIndex]);
+    const endIndex = Math.min(startIndex + currentPageRows.length, totalContacts);
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+    const rows = useMemo(() => {
+        if (!normalizedSearch) {
+            return currentPageRows;
+        }
+
+        return currentPageRows.filter((row) =>
+            columns.some((column) => {
+                const value = column.render(row);
+                return String(value ?? "").toLowerCase().includes(normalizedSearch);
+            })
+        );
+    }, [currentPageRows, normalizedSearch]);
+
+    const visibleColumnsList = columns.filter((column) => visibleColumns[column.key]);
+    const hasHiddenColumns = columns.some((column) => !visibleColumns[column.key]);
+
+    const visibleCount = visibleColumnsList.length + 1;
+    const totalColumnCount = columns.length + 1;
+
+    const toggleColumn = (column: ColumnConfig) => {
+        if (column.required) {
+            return;
+        }
+
+        setVisibleColumns((current) => ({
+            ...current,
+            [column.key]: !current[column.key],
+        }));
+    };
+
+    const resetColumns = () => {
+        setVisibleColumns(getInitialVisibility());
+    };
+
+    useEffect(() => {
+        if (safeCurrentPage !== currentPage) {
+            onPageChange(safeCurrentPage);
+        }
+    }, [currentPage, onPageChange, safeCurrentPage]);
+
+    return (
+        <div className={styles.gridSec}>
+            <div className={styles.gtbar}>
+                <div className={styles.gtleft}>
+                    <div className={styles.gsearch}>
+                        <i><FaSearch /></i>
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(event) => setSearchTerm(event.target.value)}
+                            placeholder="Search contacts..."
+                        />
+                    </div>
+                    <button
+                        className={`${styles.tblbtn} ${columnPanelOpen ? styles.active : ""}`}
+                        type="button"
+                        onClick={() => setColumnPanelOpen((current) => !current)}
+                    >
+                        <FaThList /> Columns <span className={styles.cnt}>{visibleCount}/{totalColumnCount}</span>
+                    </button>
+                </div>
+                <div className={styles.gtright}>
+                    {hasHiddenColumns && (
+                        <button className={styles.gtact} type="button" title="Reset columns" onClick={resetColumns}>
+                            <FaSyncAlt />
+                        </button>
+                    )}
+                </div>
+            </div>
+
+            {columnPanelOpen && (
+                <div className={styles.colpan}>
+                    {columns.map((column) => {
+                        const isVisible = Boolean(visibleColumns[column.key]);
+                        const isRequired = Boolean(column.required);
+
+                        return (
+                            <button
+                                key={column.key}
+                                className={`${styles.coltgl} ${isVisible ? styles.on : styles.off} ${isRequired ? styles.required : ""}`}
+                                type="button"
+                                onClick={() => toggleColumn(column)}
+                                disabled={isRequired}
+                                title={isRequired ? `${column.label} is always visible` : `Toggle ${column.label}`}
+                            >
+                                <FaCheckCircle /> {column.label}
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+
+            <div className={styles.gridWrap}>
+                <table className={styles.grid}>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div className={styles.thInner}>
+                                    # <i className={styles.sico}><FaSort /></i>
+                                </div>
+                            </th>
+                            {visibleColumnsList.map((column) => (
+                                <th key={column.key}>
+                                    <div className={styles.thInner}>
+                                        {column.label} <i className={styles.sico}><FaSort /></i>
+                                    </div>
+                                    <div className={styles.rhandle} />
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {prospectorLoading ? (
+                            Array.from({ length: PAGE_SIZE }).map((_, rowIndex) => (
+                                <tr key={`skeleton-row-${rowIndex}`}>
+                                    <td>
+                                        <Skeleton width={20} height={16} />
+                                    </td>
+                                    {visibleColumnsList.map((column) => (
+                                        <td key={`${column.key}-${rowIndex}`}>
+                                            <Skeleton width="100%" height={16} />
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))
+                        ) : rows.length > 0 ? (
+                            rows.map((row, rowIndex) => {
+                                const serial = startIndex + rowIndex + 1;
+
+                                return (
+                                    <tr key={`${row.FullName}-${serial}`}>
+                                        <td>
+                                            <div className={styles.rnum}>{serial}</div>
+                                        </td>
+                                        {visibleColumnsList.map((column) => {
+                                            const value = column.render(row);
+
+                                            if (column.key === "Full Name") {
+                                                return (
+                                                    <td key={column.key}>
+                                                        <div className={`${styles.cell} ${styles.ncell}`}>
+                                                            <Avatar
+                                                                name={value || "NA"}
+                                                                size="22"
+                                                                round
+                                                                maxInitials={2}
+                                                                textSizeRatio={2}
+                                                                color={getAvatarColor(value || "NA")}
+                                                                fgColor="#FFFFFF"
+                                                                title={value || "NA"}
+                                                            />
+                                                            <div className={styles.nname}>{value || "NA"}</div>
+                                                        </div>
+                                                    </td>
+                                                );
+                                            }
+
+                                            if (column.key === "Email") {
+                                                return (
+                                                    <td key={column.key}>
+                                                        <span className={styles.emText}>
+                                                            <span className={styles.ei}><FaEnvelope /></span> {value}
+                                                            {value && value !== "-" && (
+                                                                <span className={styles.vbadge}>
+                                                                    <i><FaCheckCircle /></i> Verified
+                                                                </span>
+                                                            )}
+                                                        </span>
+                                                    </td>
+                                                );
+                                            }
+
+                                            if (column.key === "Phone" || column.key === "Cell Number" || column.key === "Cell Numbers") {
+                                                return (
+                                                    <td key={column.key}>
+                                                        <span className={styles.phText}><span className={styles.pi}><FaPhone /></span> {value}</span>
+                                                    </td>
+                                                );
+                                            }
+
+                                            if (column.key === "State") {
+                                                return (
+                                                    <td key={column.key}>
+                                                        <span className={styles.sbdg}>{value}</span>
+                                                    </td>
+                                                );
+                                            }
+
+                                            if (column.key === "License State") {
+                                                return (
+                                                    <td key={column.key}>
+                                                        <span className={styles.sbdg} style={{ ...getSpecialtyBadgeStyle(`${column.key}-${value || "-"}`), border: "none" }}>{value}</span>
+                                                    </td>
+                                                );
+                                            }
+
+                                            if (column.key === "Specialty" || column.key === "Specialty2" || column.key === "Category") {
+                                                return (
+                                                    <td key={column.key}>
+                                                        <span className={styles.spbdg} style={getSpecialtyBadgeStyle(`${column.key}-${value || "-"}`)}>{value}</span>
+                                                    </td>
+                                                );
+                                            }
+
+                                            return (
+                                                <td key={column.key}>
+                                                    <span className={styles.ctText}>{value}</span>
+                                                </td>
+                                            );
+                                        })}
+                                    </tr>
+                                );
+                            })
+                        ) : (
+                            <tr>
+                                <td colSpan={visibleColumnsList.length + 1}>
+                                    <div className={styles.emptyState}>{normalizedSearch ? "No contacts found on this page." : "No contacts available."}</div>
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
+            <div className={styles.gprog}>
+                <div className={styles.gprogress}>
+                    <div className={styles.gfill} style={{ width: `${totalPages > 0 ? (safeCurrentPage / totalPages) * 100 : 0}%` }} />
+                </div>
+            </div>
+
+            <div className={styles.gfoot}>
+                <Pagination
+                    currentPage={safeCurrentPage}
+                    totalPages={totalPages}
+                    pageEndIndex={endIndex}
+                    totalResults={totalContacts}
+                    perPage={PAGE_SIZE}
+                    perPageOptions={[PAGE_SIZE]}
+                    showPerPage={false}
+                    loading={prospectorLoading}
+                    fullWidth
+                    pageAccessLimit={pageAccessLimit}
+                    onLimitExceed={() => setIsProspectorLocked(true)}
+                    onPageChange={(page) => onPageChange(Math.min(totalPages, Math.max(1, page)))}
+                    onPerPageChange={() => undefined}
+                    className="p-0"
+                />
+            </div>
+        </div>
+    );
+};
+
+export default ProspectorDataTable;

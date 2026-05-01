@@ -1,15 +1,18 @@
-import { Col, Container, Row } from "react-bootstrap";
-import styles from "./productDetailsBanner.module.scss";
-import Stats from "@/components/stats/Stats";
+import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
-import Button from "@/components/button/Button";
-import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
-import { IoMdPricetag } from "react-icons/io";
-import { FiDownload } from "react-icons/fi";
-import { BsCalendarEvent, BsCheckCircleFill, BsCircleFill } from "react-icons/bs";
 import classNames from "classnames";
 import type { ReactNode } from "react";
+import { FiDownload } from "react-icons/fi";
+import Stats from "@/components/stats/Stats";
+import { IoMdPricetag } from "react-icons/io";
+import { COMMON_URLS } from "@/shared/constant";
+import Button from "@/components/button/Button";
+import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import { Col, Container, Row } from "react-bootstrap";
+import styles from "./productDetailsBanner.module.scss";
+import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
+import { ProductStats, formatCatalogNumber } from "@/shared/productCatalog";
+import { BsCalendarEvent, BsCheckCircleFill, BsCircleFill } from "react-icons/bs";
 
 type BadgeVariant = "blue" | "amber" | "teal";
 
@@ -18,20 +21,20 @@ interface IBadgeItem {
     icon: ReactNode;
     label: string;
 }
-const stats = [
-    { icon: 'people', value: '930,285', label: 'Total Contacts', iconClass: 'spIc1', highlight: true },
-    { icon: 'email', value: '930,285', label: 'Emails', iconClass: 'spIc2' },
-    { icon: 'phone', value: '930,285', label: 'Phones', iconClass: 'spIc3' },
-    { icon: 'fax', value: '930,285', label: 'Faxes', iconClass: 'spIc4' },
-    { icon: 'license', value: '930,285', label: 'Licenses', iconClass: 'spIc5', last: true },
-]
 
-const ProductDetailsBanner = () => {
+interface IProductDetailsBanner {
+    stats: ProductStats;
+    productName?: string;
+    description?: string;
+    productId?: string;
+}
+const ProductDetailsBanner = (props: IProductDetailsBanner) => {
+    const { stats: productStats, productName, description, productId } = props;
     const breadcrumbs = [
         { label: 'Home', href: '/' },
         { label: 'Products', href: '/products' },
         { label: 'Specialists', href: '/products/specialists' },
-        { label: 'Emergency Medicine Physicians', href: null },
+        { label: productName || productId || "", href: null },
     ]
     const badgeItems: IBadgeItem[] = [
         {
@@ -50,12 +53,39 @@ const ProductDetailsBanner = () => {
             label: 'Verified Database',
         },
     ];
+
+    const stats = [
+        { icon: 'people', value: formatCatalogNumber(productStats.totalContacts), label: 'Total Contacts', iconClass: 'spIc1', highlight: true },
+        { icon: 'email', value: formatCatalogNumber(productStats.verifiedEmails), label: 'Verified Emails', iconClass: 'spIc2' },
+        { icon: 'phone', value: formatCatalogNumber(productStats.directPhones), label: 'Direct Phones', iconClass: 'spIc3' },
+        { icon: 'fax', value: formatCatalogNumber(productStats.facilityCount), label: 'Facilities', iconClass: 'spIc4', last: true },
+    ]
+
+    const formatTitle = (title: string = "") => {
+        const words = title.split(" ");
+        if (words.length <= 2) return <>{title}</>;
+
+        const emailIndex = words.findIndex(w => w.toLowerCase() === "email");
+        const targetIndex = emailIndex > 0 ? emailIndex - 1 : Math.ceil(words.length / 2) - 1;
+
+        const before = words.slice(0, targetIndex).join(" ");
+        const highlight = words[targetIndex];
+        const after = words.slice(targetIndex + 1).join(" ");
+
+        return (
+            <>
+                {before ? <>{before} <br /></> : null}
+                <span className="shifting-accent">{highlight}</span> {after}
+            </>
+        );
+    };
+
     return (
-        <section className="banner">
+        <section className={classNames("banner", styles.wrapper)}>
             <div className="surface"></div>
             <Container>
                 <Row>
-                    <Col xs={12} lg={5}>
+                    <Col xs={12} lg={5} className="mb-5 mb-lg-0">
                         <Breadcrumb
                             items={breadcrumbs}
                         />
@@ -71,21 +101,32 @@ const ProductDetailsBanner = () => {
                             ))}
                         </div>
                         <h1 className={styles.heroTitle}>
-                            Emergency Medicine <br /><span className="shifting-accent">Physicians</span> Email List
+                            {formatTitle(productName || 'Emergency Medicine Physicians Email List')}
                         </h1>
                         <p className={classNames(styles.heroDescription, "mt-4")}>
-                            Precision-targeted database of emergency medicine professionals — verified, CRM-ready, and optimized for 95%+ deliverability.
+                            {description || 'Precision-targeted database of emergency medicine professionals — verified, CRM-ready, and optimized for 95%+ deliverability.'}
                         </p>
                         <div className="d-flex align-items-center gap-3 mt-5">
-                            <Button variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}><IoMdPricetag size={22} /> View Pricing</Button>
-                            <Button variant={BUTTON_VARIANT_ENUM.GLASS}><FiDownload size={22} /> Free Sample</Button>
+                            <Link href={`/prospector?specialization=${productId || 'Nurse'}`}>
+                                <Button variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}><IoMdPricetag size={22} /> Customize List</Button>
+                            </Link>
+                            <a href={COMMON_URLS.freeSample}>
+                                <Button variant={BUTTON_VARIANT_ENUM.GLASS}><FiDownload size={22} /> Free Sample</Button>
+                            </a>
                         </div>
                     </Col>
-                    <Col xs={12} lg={3}>
+                    <Col xs={9} md={5} lg={3} className="mx-auto mx-md-start">
                         <Stats stats={stats} isProductDetails={true} />
                     </Col>
-                    <Col xs={12} lg={4}>
-                        <Image width={450} height={450} style={{ objectFit: "scale-down" }} src="/product-hero-image.png" alt="Product Hero Image" />
+                    <Col xs={12} md={7} lg={4} className="mt-5 mt-md-0">
+                        <Image
+                            width={450}
+                            height={450}
+                            src="/product-hero-image.png"
+                            alt="Product Hero Image"
+                            sizes="100%"
+                            style={{ width: "100%", height: "auto", objectFit: "contain" }}
+                        />
                     </Col>
                 </Row>
             </Container>

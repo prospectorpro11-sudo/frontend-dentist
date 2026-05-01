@@ -6,9 +6,10 @@ import styles from './faq.module.scss';
 import { IFaq } from '../../shared/interface';
 import Button from '../button/Button';
 import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
+import { COMMON_URLS } from '@/shared/constant';
 
 const Faq = (props: IFaq) => {
-    const { stats: stats, columns: faqColumns } = props;
+    const { stats: stats, columns: faqColumns, title, description } = props;
     const [openItems, setOpenItems] = useState<Record<string, boolean>>(() =>
         faqColumns.flat().reduce((acc, item) => {
             acc[item.question] = true;
@@ -39,13 +40,15 @@ const Faq = (props: IFaq) => {
                             </span>
                         </div>
                         <h2 className={styles.faqHeading}>
-                            Got Questions?
-                            <br />
-                            We&apos;ve Got <span>Answers.</span>
+                            {title ? title : <>
+                                Got Questions?
+                                <br />
+                                We&apos;ve Got <span>Answers.</span>
+                            </>}
                         </h2>
                         <p className={styles.faqSub}>
-                            Find quick answers about our dentist email database, targeted lead
-                            sourcing with the Prospector tool, and everything in between.
+                            {description ? description : <>Find quick answers about our dentist email database, targeted lead
+                                sourcing with the Prospector tool, and everything in between.</>}
                         </p>
 
                         <div className={styles.faqStatsRow}>
@@ -301,7 +304,7 @@ const Faq = (props: IFaq) => {
                                 Contact Our Team
                             </Button>
                         </a>
-                        <a href="#">
+                        <a href={COMMON_URLS.freeSample}>
                             <Button variant={BUTTON_VARIANT_ENUM.GLASS}>
                                 <i className="bi bi-download"></i>
                                 Download Free Sample

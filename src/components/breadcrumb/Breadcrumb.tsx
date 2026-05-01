@@ -2,21 +2,22 @@
 import React from 'react';
 import styles from "./breadcrumb.module.scss";
 import classnames from 'classnames';
-export type BreadcrumbVariant = 'default' | 'light' | 'compact' | 'large';
+export type BreadcrumbVariant = 'default' | 'light' | 'compact' | 'large' | 'dashboard';
 export interface BreadcrumbItem {
   label: string;
-  href: string | null;
-  icon?: string;
+  href?: string | null;
+  icon?: React.ReactNode;
   className?: string;
+  current?: boolean;
 }
 export interface BreadcrumbProps {
   items: BreadcrumbItem[];
-  separator?: string;
+  separator?: React.ReactNode;
   className?: string;
   ariaLabel?: string;
-  variant?: 'default' | 'light' | 'compact' | 'large';
+  variant?: BreadcrumbVariant;
   maxItems?: number;
-  collapsedLabel?: string;
+  collapsedLabel?: React.ReactNode;
 }
 
 export interface BreadcrumbItemProps {
@@ -40,8 +41,10 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
     return null;
   }
 
+  type DisplayItem = BreadcrumbItem & { isCollapsed?: boolean };
+
   // Handle maxItems for long breadcrumb trails
-  const displayItems = (() => {
+  const displayItems: DisplayItem[] = (() => {
     if (!maxItems || items.length <= maxItems) {
       return items;
     }
@@ -52,16 +55,24 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
 
     return [
       firstItem,
-      { label: collapsedLabel, href: null },
+      { label: String(collapsedLabel), href: null, isCollapsed: true },
       ...remainingItems,
     ];
   })();
+
+  const variantClassName = {
+    default: styles.breadcrumbDefault,
+    light: styles.breadcrumbLight,
+    compact: styles.breadcrumbCompact,
+    large: styles.breadcrumbLarge,
+    dashboard: styles.breadcrumbDashboard,
+  }[variant];
 
   return (
     <nav
       className={classnames(
         styles.breadcrumb,
-        styles[`breadcrumb${variant.charAt(0).toUpperCase() + variant.slice(1)}`],
+        variantClassName,
         className
       )}
       aria-label={ariaLabel}
@@ -69,7 +80,8 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
       <ol className={styles.breadcrumbList}>
         {displayItems.map((item, index) => {
           const isLast = index === displayItems.length - 1;
-          const hasLink = item.href && !isLast;
+          const href = typeof item.href === 'string' ? item.href : undefined;
+          const hasLink = Boolean(href) && !isLast;
 
           return (
             <li
@@ -77,9 +89,13 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
               className={styles.breadcrumbItem}
               aria-current={isLast ? 'page' : undefined}
             >
-              {hasLink ? (
+              {item.isCollapsed ? (
+                <span className={styles.breadcrumbEllipsis} aria-hidden="true">
+                  {item.label}
+                </span>
+              ) : hasLink ? (
                 <a
-                  href={item.href}
+                  href={href}
                   className={styles.breadcrumbLink}
                 >
                   {item.icon && (

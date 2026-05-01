@@ -1,14 +1,10 @@
+import { ReactNode } from "react";
+import { DATABASE_MAIN_TYPES } from "./enums";
+
 export interface ILink {
 	href: string;
 	text: string;
 	icon?: string;
-}
-
-export interface IFreeSampleRow {
-	specialty: string;
-	email: string;
-	phone: string;
-	dotClass: string;
 }
 
 export interface IFreeSampleFeature {
@@ -132,7 +128,6 @@ export interface IHomeBanner {
 		pricing: ILink & { icon: string };
 		sample: ILink & { icon: string };
 	};
-	trustItems: Array<{ icon: string; label: string; iconClass: string }>;
 	stats: IStat[];
 	chamberPills: IBannerPill[];
 }
@@ -141,7 +136,6 @@ export interface IFreeSample {
 	heading: string;
 	headingAccent: string;
 	subtitle: string;
-	dentistData: IFreeSampleRow[];
 	features: IFreeSampleFeature[];
 	cta: ILink & { icon: string };
 	card: {
@@ -151,6 +145,8 @@ export interface IFreeSample {
 		recordLabel: string;
 		complianceText: string;
 	};
+	isProductDetails?: boolean;
+	totalCount?: string;
 }
 
 export interface IProductList {
@@ -231,6 +227,8 @@ export interface ILocationSegmentation {
 }
 
 export interface IFaq {
+	title?: string;
+	description?: string;
 	stats: IFaqStat[];
 	columns: IFaqItem[][];
 }
@@ -247,6 +245,8 @@ export interface IHomeSeeds {
 }
 
 export interface IProductListItem {
+	id: string;
+	slug: string;
 	name: string;
 	npis: number;
 	emails: number;
@@ -257,3 +257,572 @@ export interface IProductListItem {
 	tags: Array<"hot" | "popular" | "new" | "verified">;
 	cat: string;
 };
+
+export interface IWhatsIncludedDetailsTag {
+	id: number;
+	label: string;
+	removable: boolean;
+	variant: string;
+}
+
+export interface IWhatsIncludedDetailsSection {
+	label: string;
+	tags: IWhatsIncludedDetailsTag[];
+}
+
+export interface IWhatsIncludedDetailsDentist {
+	id: number;
+	initials: string;
+	name: string;
+	specialty: string;
+	verified: boolean;
+	avatarVariant: string;
+}
+
+export interface IWhatsIncludedDetailsCard {
+	id: number;
+	title: string;
+	titleSuffix: string;
+	description: string;
+	isLast: boolean;
+}
+
+export interface IWhatsIncludedDetailsSeed {
+	header: {
+		title: string;
+		description: string;
+	};
+	buildListTitle: string;
+	filterSections: IWhatsIncludedDetailsSection[];
+	dentistData: IWhatsIncludedDetailsDentist[];
+	loadingContent: {
+		text: string;
+		count: string;
+		suffix: string;
+	};
+	personalizeTitle: string;
+	personalizeSections: IWhatsIncludedDetailsSection[];
+	verifiedTitle: string;
+	dataCards: IWhatsIncludedDetailsCard[];
+	footerStats: string[];
+	isProductDetails?: boolean;
+	idealUseCases?: {
+		title: string;
+		description: string;
+		features: string[];
+	};
+}
+
+export interface IProductPriceTier {
+	leads: string;
+	costPerLead: string;
+	totalPrice: string;
+	isPopular?: boolean;
+}
+
+export interface IProductPriceField {
+	label: string;
+	fullWidth?: boolean;
+}
+
+export interface IProductPriceBadge {
+	label: string;
+	icon: string;
+}
+
+export interface IProductPriceListSeed {
+	content: {
+		title: string;
+		description: string;
+		tableTitle: string;
+		tableSubtitle: string;
+		tableHeaders: string[];
+		tabs: string[];
+		includedTitle: string;
+		starterOfferTitle: string;
+		starterSubtitle: string;
+		starterLeads: string;
+		starterLeadsLabel: string;
+		starterPrice: string;
+		starterDescription: string;
+		starterButtonLabel: string;
+		guaranteeLabel: string;
+		footerBulkPricing: string;
+	};
+	pricingTiers: IProductPriceTier[];
+	includedDataFields: IProductPriceField[];
+	trustBadges: IProductPriceBadge[];
+}
+
+export interface ICustomDentistListStep {
+	id: number;
+	title: string;
+	desc: string;
+	color: string;
+}
+
+export interface ICustomDentistListFeature {
+	title: string;
+	desc: string;
+	color: string;
+	icon: string;
+}
+
+export interface ICustomDentistListFilterItem {
+	title: string;
+	desc: string;
+	color: string;
+	bg: string;
+	icon: string;
+}
+
+export interface ICustomDentistListSeed {
+	header: {
+		title: string;
+		highlight: string;
+		subtitle: string;
+	};
+	howItWorks: {
+		title: string;
+		steps: ICustomDentistListStep[];
+	};
+	features: ICustomDentistListFeature[];
+	smartFilters: {
+		title: string;
+		items: ICustomDentistListFilterItem[];
+	};
+}
+
+export interface IWhyChooseUsItem {
+	title: string;
+	desc: string;
+	icon: string;
+	delayClass?: string;
+	positionClass?: string;
+	subtitle?: string;
+}
+
+export interface IWhyChooseUsField {
+	label: string;
+	value: string;
+	icon: string;
+	masked?: boolean;
+	danger?: boolean;
+}
+
+export interface IWhyChooseUsAction {
+	label: string;
+	icon: string;
+	secondary?: boolean;
+}
+
+export interface IWhyChooseUsSeed {
+	content: {
+		badge: string;
+		title: string;
+		highlight: string;
+		subtitle: string;
+		profile: {
+			initials: string;
+			name: string;
+			specialty: string;
+			status: string;
+		};
+	};
+	painPoints: IWhyChooseUsItem[];
+	floatingBadges: IWhyChooseUsItem[];
+	mockupFields: IWhyChooseUsField[];
+	mockupActions: IWhyChooseUsAction[];
+}
+
+export interface IDentalSpecialtyCard {
+	id: string;
+	title: string;
+	description: string;
+	icon: string;
+	iconColor: "blue" | "teal" | "indigo" | "amber";
+	contactCount: string;
+	verificationRate: string;
+}
+
+export interface IDentalSpecialtySeed {
+	content: {
+		sectionTitle: string;
+		sectionTitleAccent: string;
+		sectionSubtitle: string;
+		ctaTitle: string;
+		ctaDescription: string;
+		ctaButtonText: string;
+	};
+	specialtyCards: IDentalSpecialtyCard[];
+}
+
+export interface ICrmIntegrationSeed {
+	left: {
+		chips: string[];
+		headerTitle: string;
+		headerSubtitle: string;
+		dataPanelTitle: string;
+		contacts: Array<{ initials: string; name: string; color: "blue" | "teal" | "indigo" }>;
+		csvText: string;
+		integrationPanelTitle: string;
+		platforms: Array<{ name: string; icon: string; color: "sf" | "hub" | "mc" }>;
+		featuresFooter: string[];
+	};
+	right: {
+		title: string;
+		titleAccent: string;
+		description1: string;
+		description2: string;
+		buttonText: string;
+	};
+}
+
+export interface IVerifiedSourceItem {
+	label: string;
+	color: "blue" | "teal" | "indigo" | "amber" | "emerald";
+	iconClass?: string;
+}
+
+export interface IVerifiedSourceSeed {
+	content: {
+		badge: string;
+		title: string;
+		titleAccent: string;
+		subtitle: string;
+		sourcesListTitle: string;
+		ctaText: string;
+		diagramLabel: string;
+	};
+	verifiedDataSources: IVerifiedSourceItem[];
+}
+
+export interface IDataBeneficiaryNode {
+	iconClass: string;
+	label: string;
+	color: "blue" | "teal" | "indigo" | "amber" | "emerald" | "rose";
+	positionClass: "node1" | "node2" | "node3" | "node4" | "node5" | "node6";
+}
+
+export interface IDataBeneficiariesSeed {
+	content: {
+		title: string;
+		titleAccent: string;
+		titleSuffix: string;
+		subtitle: string;
+		dataHubText: string;
+	};
+	nodes: IDataBeneficiaryNode[];
+	bgVariant?: "white" | "fill";
+}
+
+export interface IComparisonRow {
+	feature: string;
+	featureIcon: string;
+	featureColor: "blue" | "teal" | "indigo" | "emerald" | "amber" | "rose";
+	oursStatus: "yes" | "no" | "soon";
+	oursLabel: string;
+	oursDetail?: string;
+	otherLabel: string;
+	otherDetail?: string;
+}
+
+export interface IComparisonTableSeed {
+	content: {
+		badge: string;
+		title: string;
+		titleAccent: string;
+		subtitle: string;
+		featuresHeader: string;
+		recommendedLabel: string;
+		oursTitle: string;
+		oursSubtitle: string;
+		othersTitle: string;
+		othersSubtitle: string;
+		ctaTitle: string;
+		ctaDescription: string;
+		ctaButtonText: string;
+	};
+	rows: IComparisonRow[];
+}
+
+export interface IAboutTrustCard {
+	iconClass: string;
+	title: string;
+	description: string;
+	color: "blue" | "teal" | "indigo";
+}
+
+export interface IAboutStatCard {
+	iconClass: string;
+	value: string;
+	label: string;
+	color: "blue" | "teal" | "indigo" | "emerald";
+	positionClass: "card1" | "card2" | "card3" | "card4";
+}
+
+export interface IAboutCategory {
+	name: string;
+	color: "blue" | "teal" | "indigo" | "amber" | "emerald" | "rose";
+}
+
+export interface IAboutDentistEmailListSeed {
+	content: {
+		title: string;
+		titleAccent: string;
+		subtitle: string;
+		mockupTitle: string;
+		mockupSubtitle: string;
+		verifyTitle: string;
+		verifySubtitle: string;
+		verifyBadge: string;
+		ctaButtonText: string;
+	};
+	trustCards: IAboutTrustCard[];
+	// statCards: IAboutStatCard[];
+	// categories: IAboutCategory[];
+}
+export interface IBuilFilteList {
+	field: string;
+	value: string | null;
+}
+export interface ICartItem {
+	id: string;
+	productName: string;
+	contacts: number;
+	price: number;
+	databaseMainType?: "DATABASE_MAIN_TYPES" | null;
+	filterItems?: IBuilFilteList[] | null;
+}
+
+export interface IProspectorFilter {
+	id: string;
+	modifiedLabel?: string;
+	label: string;
+	value: string;
+	city?: string;
+	state?: string;
+	category?: string;
+	subCategory?: string;
+}
+export interface InitialProspectorFilters {
+	states?: IProspectorFilter[];
+	counties?: IProspectorFilter[];
+	cities?: IProspectorFilter[];
+	zipCodes?: IProspectorFilter[];
+	jobTitles?: IProspectorFilter[];
+	specialties?: IProspectorFilter[];
+	offices?: IProspectorFilter[];
+	gender?: IProspectorFilter[];
+	// associations?: IProspectorFilter[];
+	licenseStates?: IProspectorFilter[];
+};
+export interface IProspectorStats {
+	totalContacts: number;
+	Unique_Emails: number;
+	Unique_Phones: number;
+	Unique_Faxes: number;
+	Unique_License_Numbers: number;
+	Unique_NPI: number;
+}
+
+export interface IProspectorData {
+	NPI: null | string;
+	"Full Name": string;
+	"First Name": string;
+	"Middle Name": null | string;
+	"Last Name": string;
+	Email: string;
+	Suffix: null | string;
+	Title: null | string;
+	Gender: string;
+	"Specialty Code": string;
+	Specialty: string;
+	Specialty2: null | string;
+	Address1: string;
+	Address2: null | string;
+	City: string;
+	State: string;
+	"Zip Code": string;
+	Phone: string;
+	Fax: string;
+	"License Number": null | string;
+	"License State": string;
+	Certifications: null | string;
+	Category: string;
+	Address: string;
+	FullName: string;
+	County?: string | null;
+	Office?: string | null;
+	"Cell Number"?: string | null;
+	"Cell Numbers"?: string | null;
+}
+
+export interface IUserPrivateInfo {
+	country_code: string;
+	country_name: string;
+	city: string;
+	postal: string;
+	latitude: number;
+	longitude: number;
+	IPv4: string;
+	state: string;
+}
+
+
+
+export interface IMeta {
+	metaTitle: string;
+	metaDescription: string;
+}
+
+export interface IBanner {
+	title: string;
+	plainTitle: string;
+	description: string;
+}
+
+export interface IWhyList {
+	title: string;
+	description: string;
+	contentTitle?: string;
+	content?: string;
+}
+
+export interface IWhy {
+	title: string;
+	description: string;
+	list: IWhyList[];
+}
+
+export interface IFind {
+	title: string;
+	description: string;
+	list?: any;
+}
+
+export interface IDataFields {
+	title: string;
+	description: string;
+	fields: string;
+}
+
+export interface IScreenshot {
+	title: string;
+	description: string;
+	note: string;
+	sampleFileName: string;
+}
+export interface IPriceList {
+	price: number;
+	title: string;
+	description: string;
+	caption: string;
+	includes: string;
+	asTag: string;
+}
+export interface IPrice {
+	title: string;
+	description: string;
+	list: IPriceList[];
+}
+export interface IBeneifitList {
+	title: string;
+	description: string;
+}
+export interface IBeneifits {
+	title: string;
+	description: string;
+	list: IBeneifitList[];
+	plainDescription: string;
+}
+export interface IOtherStateList {
+	url: string;
+	name: string;
+}
+export interface IOtherStates {
+	title: string;
+	description: string;
+	list: IOtherStateList[];
+}
+export interface ISource {
+	title: string;
+	description: string;
+	extraDescription?: string;
+	fields: string;
+}
+export interface ISource {
+	title: string;
+	description: string;
+	extraDescription?: string;
+	fields: string;
+}
+export interface IFAQListItem {
+	title: string;
+	description: string;
+	date: number;
+}
+export interface IFAQs {
+	title: string;
+	description: string;
+	list: IFAQListItem[]
+}
+export interface IAllList {
+	id: string;
+	name: string;
+	url: string;
+}
+export interface IReview {
+	title: string;
+	description?: string;
+}
+export interface IStatsB2B {
+	contactNames?: number;
+	uniqueEmails?: number;
+	uniqueCompanies: number;
+	uniquePhoneNumbers: number;
+	uniqueFaxNumbers: number;
+	uniqueCells: number;
+	uniqueAddresses: number;
+	employeelinkedinProfiles: number;
+	uniqueCompanyUrl: number;
+}
+export interface IMainProductInfo {
+	id?: string;
+	name: string;
+	url: string;
+	breadCrumb: string;
+	stats: IProspectorStats;
+	statsEmail: IProspectorStats;
+	meta: IMeta;
+	banner: IBanner;
+	why: IWhy;
+	find: IFind;
+	dataFields: IDataFields;
+	screenshot: IScreenshot;
+	price: IPrice;
+	beneifits: IBeneifits;
+	otherStates: IOtherStates;
+	sources: ISource;
+	faq: IFAQs;
+	allList: IAllList[];
+	review: IReview;
+	statsB2b?: IStatsB2B;
+	prospector: {
+		title: string;
+		description: string;
+		howItWorks: string;
+		filters: string;
+	}
+}
+
+export interface IDownloadInfo {
+	title: ReactNode;
+	description: ReactNode;
+	sampleFileName: string;
+	databaseMainType: DATABASE_MAIN_TYPES,
+	links: {
+		link: string;
+		name: string;
+	}[];
+}

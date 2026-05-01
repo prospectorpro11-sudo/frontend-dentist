@@ -1,7 +1,7 @@
 import Faq from "@/components/faq/Faq";
 import HomeBanner from "./views/homeBanner/HomeBanner";
 import FreeSample from "@/components/freeSample/FreeSample";
-import { HOME_SEED_OBJECT } from "@/shared/seeds/homeSeeds";
+import { HOME_SEED_OBJECT } from "@/seeds/homeSeeds";
 import ProductList from "@/components/productList/ProductList";
 import BeyondEmail from "@/components/beyondEmail/BeyondEmail";
 import WhatsIncluded from "@/components/whatsIncluded/WhatsIncluded";

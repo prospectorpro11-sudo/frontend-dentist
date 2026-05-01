@@ -1,0 +1,537 @@
+[
+  {
+    "id": "Salesperson",
+    "label": "Salesperson",
+    "value": "salesperson"
+  },
+  {
+    "id": "Broker",
+    "label": "Broker",
+    "value": "broker"
+  },
+  {
+    "id": "Corporation",
+    "label": "Corporation",
+    "value": "corporation"
+  },
+  {
+    "id": "Associate Broker",
+    "label": "Associate Broker",
+    "value": "associate-broker"
+  },
+  {
+    "id": "Principal Broker",
+    "label": "Principal Broker",
+    "value": "principal-broker"
+  },
+  {
+    "id": "Managing Broker",
+    "label": "Managing Broker",
+    "value": "managing-broker"
+  },
+  {
+    "id": "Designated Broker",
+    "label": "Designated Broker",
+    "value": "designated-broker"
+  },
+  {
+    "id": "Broker/Salesperson",
+    "label": "Broker/Salesperson",
+    "value": "brokersalesperson"
+  },
+  {
+    "id": "Broker Of Record",
+    "label": "Broker Of Record",
+    "value": "broker-of-record"
+  },
+  {
+    "id": "Individual Broker",
+    "label": "Individual Broker",
+    "value": "individual-broker"
+  },
+  {
+    "id": "Salesperson-Standard",
+    "label": "Salesperson-Standard",
+    "value": "salespersonstandard"
+  },
+  {
+    "id": "Associate Broker (AB)-Standard",
+    "label": "Associate Broker (AB)-Standard",
+    "value": "associate-broker-abstandard"
+  },
+  {
+    "id": "Broker Multi-Licensee-Standard",
+    "label": "Broker Multi-Licensee-Standard",
+    "value": "broker-multilicenseestandard"
+  },
+  {
+    "id": "Broker In Charge",
+    "label": "Broker In Charge",
+    "value": "broker-in-charge"
+  },
+  {
+    "id": "Provisional Broker",
+    "label": "Provisional Broker",
+    "value": "provisional-broker"
+  },
+  {
+    "id": "Broker in Charge",
+    "label": "Broker in Charge",
+    "value": "broker-in-charge"
+  },
+  {
+    "id": "Qualifying Broker",
+    "label": "Qualifying Broker",
+    "value": "qualifying-broker"
+  },
+  {
+    "id": "Broker Sales Associate",
+    "label": "Broker Sales Associate",
+    "value": "broker-sales-associate"
+  },
+  {
+    "id": "Sales Associate",
+    "label": "Sales Associate",
+    "value": "sales-associate"
+  },
+  {
+    "id": "Affiliate Broker",
+    "label": "Affiliate Broker",
+    "value": "affiliate-broker"
+  },
+  {
+    "id": "Real Estate Broker",
+    "label": "Real Estate Broker",
+    "value": "real-estate-broker"
+  },
+  {
+    "id": "Management Level Salesperson",
+    "label": "Management Level Salesperson",
+    "value": "management-level-salesperson"
+  },
+  {
+    "id": "Management Level Broker",
+    "label": "Management Level Broker",
+    "value": "management-level-broker"
+  },
+  {
+    "id": "Sales",
+    "label": "Sales",
+    "value": "sales"
+  },
+  {
+    "id": "Prin Associate Broker",
+    "label": "Prin Associate Broker",
+    "value": "prin-associate-broker"
+  },
+  {
+    "id": "Non Prin Associate Broker",
+    "label": "Non Prin Associate Broker",
+    "value": "non-prin-associate-broker"
+  },
+  {
+    "id": "Broker Individual",
+    "label": "Broker Individual",
+    "value": "broker-individual"
+  },
+  {
+    "id": "Broker Officer",
+    "label": "Broker Officer",
+    "value": "broker-officer"
+  },
+  {
+    "id": "Broker Associate",
+    "label": "Broker Associate",
+    "value": "broker-associate"
+  },
+  {
+    "id": "Resident Real Estate Salesperson",
+    "label": "Resident Real Estate Salesperson",
+    "value": "resident-real-estate-salesperson"
+  },
+  {
+    "id": "Resident Real Estate Broker",
+    "label": "Resident Real Estate Broker",
+    "value": "resident-real-estate-broker"
+  },
+  {
+    "id": "Salesperson License",
+    "label": "Salesperson License",
+    "value": "salesperson-license"
+  },
+  {
+    "id": "Broker License",
+    "label": "Broker License",
+    "value": "broker-license"
+  },
+  {
+    "id": "Broker Salesperson",
+    "label": "Broker Salesperson",
+    "value": "broker-salesperson"
+  },
+  {
+    "id": "Professional Corporation Salesperson",
+    "label": "Professional Corporation Salesperson",
+    "value": "professional-corporation-salesperson"
+  },
+  {
+    "id": "Professional Corporation Broker Salesperson",
+    "label": "Professional Corporation Broker Salesperson",
+    "value": "professional-corporation-broker-salesperson"
+  },
+  {
+    "id": "Executive Broker",
+    "label": "Executive Broker",
+    "value": "executive-broker"
+  },
+  {
+    "id": "Branch Broker",
+    "label": "Branch Broker",
+    "value": "branch-broker"
+  },
+  {
+    "id": "Broker Proprietor",
+    "label": "Broker Proprietor",
+    "value": "broker-proprietor"
+  },
+  {
+    "id": "Broker Associate (Employing)",
+    "label": "Broker Associate (Employing)",
+    "value": "broker-associate-employing"
+  },
+  {
+    "id": "Responsible Broker (Employing)",
+    "label": "Responsible Broker (Employing)",
+    "value": "responsible-broker-employing"
+  },
+  {
+    "id": "Individual Broker (Independent)",
+    "label": "Individual Broker (Independent)",
+    "value": "individual-broker-independent"
+  },
+  {
+    "id": "Individual Broker (Employing)",
+    "label": "Individual Broker (Employing)",
+    "value": "individual-broker-employing"
+  },
+  {
+    "id": "Broker Associate (Independent)",
+    "label": "Broker Associate (Independent)",
+    "value": "broker-associate-independent"
+  },
+  {
+    "id": "Responsible Broker (Independent)",
+    "label": "Responsible Broker (Independent)",
+    "value": "responsible-broker-independent"
+  },
+  {
+    "id": "Sales Agent",
+    "label": "Sales Agent",
+    "value": "sales-agent"
+  },
+  {
+    "id": "Manager, Assoc. Broker PLC",
+    "label": "Manager, Assoc. Broker PLC",
+    "value": "manager-assoc-broker-plc"
+  },
+  {
+    "id": "Self Employed Broker PLC",
+    "label": "Self Employed Broker PLC",
+    "value": "self-employed-broker-plc"
+  },
+  {
+    "id": "Salesperson PLC",
+    "label": "Salesperson PLC",
+    "value": "salesperson-plc"
+  },
+  {
+    "id": "Associate Broker PLC",
+    "label": "Associate Broker PLC",
+    "value": "associate-broker-plc"
+  },
+  {
+    "id": "Associate Broker PC",
+    "label": "Associate Broker PC",
+    "value": "associate-broker-pc"
+  },
+  {
+    "id": "Self Employed Broker",
+    "label": "Self Employed Broker",
+    "value": "self-employed-broker"
+  },
+  {
+    "id": "Manager, Salesperson",
+    "label": "Manager, Salesperson",
+    "value": "manager-salesperson"
+  },
+  {
+    "id": "Manager, Associate Broker",
+    "label": "Manager, Associate Broker",
+    "value": "manager-associate-broker"
+  },
+  {
+    "id": "Manager, Salesperson PLC",
+    "label": "Manager, Salesperson PLC",
+    "value": "manager-salesperson-plc"
+  },
+  {
+    "id": "Salesperson PC",
+    "label": "Salesperson PC",
+    "value": "salesperson-pc"
+  },
+  {
+    "id": "Designated Broker PC",
+    "label": "Designated Broker PC",
+    "value": "designated-broker-pc"
+  },
+  {
+    "id": "Designated Broker PLC",
+    "label": "Designated Broker PLC",
+    "value": "designated-broker-plc"
+  },
+  {
+    "id": "Broker-Salesperson",
+    "label": "Broker-Salesperson",
+    "value": "brokersalesperson"
+  },
+  {
+    "id": "Real Estate Managing Broker",
+    "label": "Real Estate Managing Broker",
+    "value": "real-estate-managing-broker"
+  },
+  {
+    "id": "Salesperson-Reciprocal",
+    "label": "Salesperson-Reciprocal",
+    "value": "salespersonreciprocal"
+  },
+  {
+    "id": "Associate Broker (AB)-Reciprocal",
+    "label": "Associate Broker (AB)-Reciprocal",
+    "value": "associate-broker-abreciprocal"
+  },
+  {
+    "id": "Reciprocal Salesperson",
+    "label": "Reciprocal Salesperson",
+    "value": "reciprocal-salesperson"
+  },
+  {
+    "id": "Community Association Manager",
+    "label": "Community Association Manager",
+    "value": "community-association-manager"
+  },
+  {
+    "id": "SL",
+    "label": "SL",
+    "value": "sl"
+  },
+  {
+    "id": "Temporary Salesperson",
+    "label": "Temporary Salesperson",
+    "value": "temporary-salesperson"
+  },
+  {
+    "id": "Sole Proprietor",
+    "label": "Sole Proprietor",
+    "value": "sole-proprietor"
+  },
+  {
+    "id": "Broker Sales",
+    "label": "Broker Sales",
+    "value": "broker-sales"
+  },
+  {
+    "id": "Additional Broker Officer",
+    "label": "Additional Broker Officer",
+    "value": "additional-broker-officer"
+  },
+  {
+    "id": "Responsible Broker License",
+    "label": "Responsible Broker License",
+    "value": "responsible-broker-license"
+  },
+  {
+    "id": "Leasing Agent",
+    "label": "Leasing Agent",
+    "value": "leasing-agent"
+  },
+  {
+    "id": "Real Estate Salesperson",
+    "label": "Real Estate Salesperson",
+    "value": "real-estate-salesperson"
+  },
+  {
+    "id": "Transaction Broker",
+    "label": "Transaction Broker",
+    "value": "transaction-broker"
+  },
+  {
+    "id": "Provisional Sales Associate",
+    "label": "Provisional Sales Associate",
+    "value": "provisional-sales-associate"
+  },
+  {
+    "id": "Responsible Broker",
+    "label": "Responsible Broker",
+    "value": "responsible-broker"
+  },
+  {
+    "id": "Real Estate Salesperson License",
+    "label": "Real Estate Salesperson License",
+    "value": "real-estate-salesperson-license"
+  },
+  {
+    "id": "Dual Broker",
+    "label": "Dual Broker",
+    "value": "dual-broker"
+  },
+  {
+    "id": "Property Manager",
+    "label": "Property Manager",
+    "value": "property-manager"
+  },
+  {
+    "id": "Managing Associate Broker",
+    "label": "Managing Associate Broker",
+    "value": "managing-associate-broker"
+  },
+  {
+    "id": "Manager, Salesperson PC",
+    "label": "Manager, Salesperson PC",
+    "value": "manager-salesperson-pc"
+  },
+  {
+    "id": "Manager, Associate Broker PC",
+    "label": "Manager, Associate Broker PC",
+    "value": "manager-associate-broker-pc"
+  },
+  {
+    "id": "License Type",
+    "label": "License Type",
+    "value": "license-type"
+  },
+  {
+    "id": "Broker Sole Proprietor",
+    "label": "Broker Sole Proprietor",
+    "value": "broker-sole-proprietor"
+  },
+  {
+    "id": "Non-Resident Real Estate Salesperson",
+    "label": "Non-Resident Real Estate Salesperson",
+    "value": "nonresident-real-estate-salesperson"
+  },
+  {
+    "id": "Broker Partner",
+    "label": "Broker Partner",
+    "value": "broker-partner"
+  },
+  {
+    "id": "Saleperson",
+    "label": "Saleperson",
+    "value": "saleperson"
+  },
+  {
+    "id": "BK",
+    "label": "BK",
+    "value": "bk"
+  },
+  {
+    "id": "Closing Agent",
+    "label": "Closing Agent",
+    "value": "closing-agent"
+  },
+  {
+    "id": "Non-Resident Real Estate Broker",
+    "label": "Non-Resident Real Estate Broker",
+    "value": "nonresident-real-estate-broker"
+  },
+  {
+    "id": "Partnership Broker",
+    "label": "Partnership Broker",
+    "value": "partnership-broker"
+  },
+  {
+    "id": "Associate Real Estate Broker Temporary License",
+    "label": "Associate Real Estate Broker Temporary License",
+    "value": "associate-real-estate-broker-temporary-license"
+  },
+  {
+    "id": "Certified General Appraiser Permit",
+    "label": "Certified General Appraiser Permit",
+    "value": "certified-general-appraiser-permit"
+  },
+  {
+    "id": "Associate Broker License",
+    "label": "Associate Broker License",
+    "value": "associate-broker-license"
+  },
+  {
+    "id": "Associate Broke",
+    "label": "Associate Broke",
+    "value": "associate-broke"
+  },
+  {
+    "id": "Broker Multi-Licensee-Reciprocal",
+    "label": "Broker Multi-Licensee-Reciprocal",
+    "value": "broker-multilicenseereciprocal"
+  },
+  {
+    "id": "Temporary Principal Broker",
+    "label": "Temporary Principal Broker",
+    "value": "temporary-principal-broker"
+  },
+  {
+    "id": "Reciprocal Broker",
+    "label": "Reciprocal Broker",
+    "value": "reciprocal-broker"
+  },
+  {
+    "id": "Property Manager License",
+    "label": "Property Manager License",
+    "value": "property-manager-license"
+  },
+  {
+    "id": "Reciprocal Associate Broker",
+    "label": "Reciprocal Associate Broker",
+    "value": "reciprocal-associate-broker"
+  },
+  {
+    "id": "Certified Residential Appraiser Permit",
+    "label": "Certified Residential Appraiser Permit",
+    "value": "certified-residential-appraiser-permit"
+  },
+  {
+    "id": "Branch",
+    "label": "Branch",
+    "value": "branch"
+  },
+  {
+    "id": "Limited Liability Broker",
+    "label": "Limited Liability Broker",
+    "value": "limited-liability-broker"
+  },
+  {
+    "id": "BL",
+    "label": "BL",
+    "value": "bl"
+  },
+  {
+    "id": "Real Estate Instructor",
+    "label": "Real Estate Instructor",
+    "value": "real-estate-instructor"
+  },
+  {
+    "id": "Active Military Exemption",
+    "label": "Active Military Exemption",
+    "value": "active-military-exemption"
+  },
+  {
+    "id": "Associate",
+    "label": "Associate",
+    "value": "associate"
+  },
+  {
+    "id": "Real Estate Salesperson-Standard",
+    "label": "Real Estate Salesperson-Standard",
+    "value": "real-estate-salespersonstandard"
+  }
+]

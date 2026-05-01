@@ -1,8 +1,10 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
 .whyChooseUs {
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, var(--bg) 0%, var(--n50) 100%);
-  background-color: red;
 
   .bgDecoration {
     position: absolute;
@@ -10,6 +12,22 @@
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
+  }
+
+  .contentWrapper {
+    padding: 2rem;
+    padding-right: 5rem;
+    background: $white;
+    box-shadow: 0px 0px 60px rgba(167, 203, 228, 0.55);
+    border-radius: 32px;
+
+    @include breakpoint(tablet) {
+      padding-right: 2rem;
+    }
+
+    @include breakpoint(mobile) {
+      padding: 1rem;
+    }
   }
 
   .bgBlob {
@@ -42,14 +60,6 @@
     inset: 0;
     background-image: radial-gradient(circle, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
     background-size: 36px 36px;
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 96px 24px;
   }
 
   .sectionHeader {
@@ -181,6 +191,10 @@
     perspective: 1200px;
     min-height: 520px;
     margin-left: 2.5rem;
+
+    @include breakpoint(tablet) {
+      margin-left: 0;
+    }
   }
 
   .mockupGlow {
@@ -319,7 +333,6 @@
 
   .masked {
     color: var(--n500);
-    font-family: "Courier New", monospace;
   }
 
   .danger {
@@ -554,9 +567,6 @@
 
 @media (max-width: 768px) {
   .whyChooseUs {
-    .container {
-      padding: 60px 16px;
-    }
 
     .sectionHeader h2 {
       font-size: 30px;

@@ -83,7 +83,7 @@
   --text3: #8ba4be;
 
   /* Typography */
-  --font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font: var(--primary-font), system-ui, -apple-system, sans-serif;
 
   /* Shadows */
   --shadow-xs: 0 1px 2px rgba(12, 25, 41, .04);
@@ -113,6 +113,15 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: var(--primary-font);
+  font-weight: 400; /* Normal weight for paragraphs and general text */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700; /* Bold weight for headings */
+}
+
+p {
+  font-weight: 400;
 }
 
 * {
@@ -161,6 +170,12 @@ a {
 }
 
 section {
+  padding: 5rem 0;
+
+  &.fill {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--n50) 100%);
+  }
+
   &.banner {
     position: relative;
     padding: 7rem 0;

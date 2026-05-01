@@ -134,38 +134,44 @@ const ProductControlsSection = ({
                             {chip.icon} {chip.label} <span className={styles.count}>{chip.count}</span>
                         </div>
                     ))}
-                    <button
-                        type="button"
-                        className={classNames(styles.chip, styles.columnsChipBtn, isColumnsMenuOpen && styles.active)}
-                        onClick={onToggleColumnsMenu}
-                    >
-                        <BsListUl /> Columns
-                    </button>
+                    {view === "list" && (
+                        <button
+                            type="button"
+                            className={classNames(styles.chip, styles.columnsChipBtn, isColumnsMenuOpen && styles.active)}
+                            onClick={onToggleColumnsMenu}
+                        >
+                            <BsListUl /> Columns
+                        </button>
+                    )}
                 </div>
 
-                <div className={classNames(styles.columnsRow, isColumnsMenuOpen && styles.visible)}>
-                    {hideableColumns.map((column) => {
-                        const checked = visibleColumns[column.key];
+                {view === "list" && (
+                    <div className={classNames(styles.columnsRow, isColumnsMenuOpen && styles.visible)}>
+                        {hideableColumns.map((column) => {
+                            const checked = visibleColumns[column.key];
 
-                        return (
+                            return (
+                                <button
+                                    key={column.key}
+                                    type="button"
+                                    className={classNames(styles.columnBadge, checked && styles.active)}
+                                    onClick={() => onToggleColumnVisibility(column.key)}
+                                >
+                                    <BsCheck2 className={styles.columnCheckIcon} /> {column.label || "#"}
+                                </button>
+                            );
+                        })}
+                        {Object.values(visibleColumns).some((isVisible) => !isVisible) && (
                             <button
-                                key={column.key}
                                 type="button"
-                                className={classNames(styles.columnBadge, checked && styles.active)}
-                                onClick={() => onToggleColumnVisibility(column.key)}
+                                className={classNames(styles.columnBadge, styles.resetBadge)}
+                                onClick={onResetColumns}
                             >
-                                <BsCheck2 className={styles.columnCheckIcon} /> {column.label || "#"}
+                                <BsArrowClockwise className={styles.columnCheckIcon} /> Reset
                             </button>
-                        );
-                    })}
-                    <button
-                        type="button"
-                        className={classNames(styles.columnBadge, styles.resetBadge)}
-                        onClick={onResetColumns}
-                    >
-                        <BsArrowClockwise className={styles.columnCheckIcon} /> Reset
-                    </button>
-                </div>
+                        )}
+                    </div>
+                )}
 
                 <div className={classNames(styles.filterTags, filter !== "all" && styles.visible)} id="filterTags">
                     <BsFunnel className={styles.filterIcon} />

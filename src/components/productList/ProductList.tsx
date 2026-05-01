@@ -1,32 +1,22 @@
+import Link from 'next/link';
+import { fetchEditorProducts, toCatalogItem } from "@/server/editorProducts";
+import { productCatalog } from "@/shared/productCatalog";
 import classNames from 'classnames';
+import Button from '../button/Button';
+import { COLORS } from '@/shared/colors';
 import styles from './productList.module.scss';
-import { FaTeeth, FaTooth } from 'react-icons/fa';
+import { Col, Container } from 'react-bootstrap';
+import { BUTTON_VARIANT_ENUM } from '@/shared/enums';
+import { HiMiniArrowUpRight } from 'react-icons/hi2';
+import LogoIcon from '@/components/logoIcon/LogoIcon';
+import { IProductList } from '../../shared/interface';
 import {
-    BsEmojiSmile,
-    BsHospital,
-    BsScissors,
-    BsBalloonHeartFill,
     BsGrid3X3GapFill,
     BsPeopleFill,
-    BsCartPlus,
     BsCheckCircleFill,
     BsFunnelFill,
     BsEnvelopeCheckFill,
 } from 'react-icons/bs';
-import { IProductList } from '../../shared/interface';
-import { COLORS } from '@/shared/colors';
-import Button from '../button/Button';
-import { BUTTON_SIZE_ENUM, BUTTON_VARIANT_ENUM } from '@/shared/enums';
-import { Col, Container } from 'react-bootstrap';
-
-const productIcons = {
-    tooth: FaTooth,
-    smile: BsEmojiSmile,
-    balloon: BsBalloonHeartFill,
-    hospital: BsHospital,
-    teeth: FaTeeth,
-    scissors: BsScissors,
-} as const;
 
 const trustIcons = {
     check: BsCheckCircleFill,
@@ -34,9 +24,19 @@ const trustIcons = {
     deliverability: BsEnvelopeCheckFill,
 } as const;
 
-const ProductList = (props: IProductList) => {
-    const { products: products, trustPills: trustPills, heading, headingAccent, subtitle } = props;
+const ProductList = async (props: IProductList) => {
+    const { trustPills: trustPills, heading, headingAccent, subtitle } = props;
 
+    let displayProducts = productCatalog;
+
+    try {
+        const editorProducts = await fetchEditorProducts();
+        if (editorProducts.length > 0) {
+            displayProducts = editorProducts.map((item: any, index: number) => toCatalogItem(item, index));
+        }
+    } catch (_error) {
+        displayProducts = productCatalog;
+    }
     return (
         <section className={styles.productList}>
             <Container>
@@ -87,28 +87,34 @@ const ProductList = (props: IProductList) => {
                             {/* Table Body */}
                             <div className={styles.plNewTableBody}>
 
-                                {products.map((product, index) => {
-                                    const Icon = productIcons[product.icon as keyof typeof productIcons];
+                                {displayProducts.slice(0, 6).map((product, index) => {
+                                    const colorKeys = ["Blue", "Teal", "Indigo", "Rose", "Amber", "Purple", "Cyan", "Emerald"];
+                                    const color = colorKeys[index % colorKeys.length];
+
                                     return (
                                         <div key={index} className={styles.plNewRow}>
                                             <div className={styles.plNewCell} style={{ flex: 1.2 }}>
-                                                <div className={classNames(styles.plCatIcon, styles[product.colorClass])}>
-                                                    <Icon />
+                                                <div className={classNames(styles.plCatIcon, styles[`plCat${color}`])}>
+                                                    <LogoIcon width={24} height={24} variant="white" style={{ objectFit: "scale-down" }} />
                                                 </div>
                                                 <div className={styles.plCatInfo}>
-                                                    <strong>{product.category}</strong>
-                                                    <span>{product.description}</span>
+                                                    <Link href={`/products/specialities/${product.slug}`} style={{ textDecoration: 'none' }}>
+                                                        <strong>{product.productName}</strong>
+                                                    </Link>
+                                                    {/* <span>{product.stateName || "Specialists"}</span> */}
                                                 </div>
                                             </div>
                                             <div className={styles.plNewCell} style={{ flex: 0.8 }}>
                                                 <div className={styles.plCountBadge}>
                                                     <BsPeopleFill color={COLORS.PRIMARY} />
-                                                    <strong>{product.count}</strong>
+                                                    <strong>{product.stats.totalContacts.toLocaleString("en-US")}</strong>
                                                 </div>
                                             </div>
                                             <div className={classNames(styles.plNewCell, styles.plActionCell)} style={{ flex: 0.8 }}>
-                                                <a href="#"><Button size={BUTTON_SIZE_ENUM.SMALL} variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}><BsCartPlus /> Add to Cart</Button></a>
-                                                <a href="#" className={styles.plCustomizeLink}>Customize</a>
+                                                <Link href={`/prospector?specialization=${encodeURIComponent(product.stateId || product.slug || product.productName)}`} className={styles.plCustomizeLink}>
+                                                    <span>Customize</span>
+                                                    <span><HiMiniArrowUpRight size={18} /></span>
+                                                </Link>
                                             </div>
                                         </div>
                                     );
@@ -116,6 +122,11 @@ const ProductList = (props: IProductList) => {
 
                             </div>
                         </div>
+                    </div>
+                    <div className="d-flex justify-content-center mt-5">
+                        <Link href="/products/specialities">
+                            <Button variant={BUTTON_VARIANT_ENUM.PRIMARY_LIGHT}>Show More</Button>
+                        </Link>
                     </div>
                 </Col>
             </Container>

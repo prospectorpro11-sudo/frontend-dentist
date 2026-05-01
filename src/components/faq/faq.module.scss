@@ -1,6 +1,6 @@
-/* ============================================
-   FAQ SECTION
-   ============================================ */
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
 .faqSection {
     position: relative;
     padding: 7rem 0 6rem;
@@ -684,6 +684,12 @@
     color: #5b7a9e;
     position: relative;
     z-index: 1;
+
+    @include breakpoint(tablet) {
+        padding: 1rem;
+        padding-top: 0;
+    }
+
 }
 
 .faqItem.open .faqAnswer {
@@ -787,7 +793,7 @@
     }
 }
 
-@media (max-width: 991px) {
+@include breakpoint(tablet) {
     .faqSection {
         padding: 4.5rem 0 4rem;
     }
@@ -830,7 +836,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@include breakpoint(mobile) {
     .faqSection {
         padding: 3rem 0 2.5rem;
     }
@@ -861,7 +867,8 @@
     }
 
     .faqAnswerInner {
-        padding: 0 1.1rem 1.1rem 3rem;
+        padding: 1rem;
+        padding-top: 0;
         font-size: 0.78rem;
     }
 

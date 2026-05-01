@@ -1,0 +1,96 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.item {
+  border: 1px solid rgba($color: $primary, $alpha: 0.16);
+  border-radius: 10px;
+  margin-bottom: 0.65rem;
+  padding: 0.7rem 0.75rem;
+  // background: rgba($color: $fill, $alpha: 0.5);
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.08);
+
+
+  svg {
+    color: var(--danger);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
+}
+
+.total {
+  font-size: 1rem;
+  color: #426489;
+}
+
+.totalRow {
+  @include breakpoint(tab-landscape-up) {
+    padding: 0;
+  }
+}
+
+.divider {
+  background-color: rgba($color: $primary, $alpha: 0.26);
+  margin: 0.9rem 0;
+}
+
+.cost {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: right;
+
+  @include breakpoint(tab-landscape-up) {
+    padding: 0;
+  }
+
+}
+
+.productNameWrapper {
+  word-break: break-word;
+  color: #173e66;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.button {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+}
+
+.promoInput {
+  width: 100%;
+  height: 40px;
+  border: 1px solid rgba($color: $primary, $alpha: 0.23);
+  border-radius: 8px;
+  padding: 0 0.75rem;
+  font-size: 0.84rem;
+  color: #15395f;
+
+  &::placeholder {
+    color: #97adc4;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #2aa7ea;
+    box-shadow: 0 0 0 3px rgba(42, 167, 234, 0.13);
+  }
+}
+
+.summaryHeader {
+  margin-bottom: 0.5rem;
+  color: #21476d;
+  font-size: 0.83rem;
+}
+
+.lineMuted {
+  color: #6d87a5;
+  font-size: 0.8rem;
+}

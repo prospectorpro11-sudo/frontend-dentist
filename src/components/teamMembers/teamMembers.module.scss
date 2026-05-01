@@ -1,0 +1,275 @@
+@import "styles/variables";
+@import "styles/_mixins";
+
+.teamMembers {
+    background: linear-gradient(180deg, var(--n100) 0%, #eaf2fb 100%);
+
+    .sectionHeader {
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto 2.75rem;
+
+        h2 {
+            font-size: 2.25rem;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--n900);
+            margin-bottom: 0.95rem;
+        }
+
+        p {
+            margin: 0 auto;
+            max-width: 650px;
+            color: var(--n500);
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+    }
+
+    .cardRow {
+        row-gap: 1.5rem;
+    }
+
+    .memberCard {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(186, 230, 253, 0.55);
+        border-radius: 24px;
+        padding: 1.5rem 1.25rem 1.25rem;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 12px 30px rgba(12, 25, 41, 0.08);
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        transition: transform var(--t-base), box-shadow var(--t-base);
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 36px rgba(12, 25, 41, 0.12);
+        }
+
+        h3 {
+            margin: 0 0 0.9rem;
+            text-align: center;
+            color: var(--n900);
+            font-size: 1.25rem;
+            letter-spacing: -0.03em;
+            font-weight: 900;
+        }
+    }
+
+    .avatarWrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .avatarRing {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, #ffffff 0%, #ebf4ff 68%, #d8eef9 100%);
+        border: 6px solid rgba(56, 189, 248, 0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        animation: avatarRingPulse 2.8s ease-in-out infinite;
+        box-shadow:
+            0 0 0 5px rgba(56, 189, 248, 0.12),
+            0 0 0 11px rgba(45, 212, 191, 0.1);
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(45, 212, 191, 0.12);
+            animation: avatarRingHalo 2.8s ease-out infinite;
+            pointer-events: none;
+        }
+    }
+
+    .avatarCore {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 4px solid var(--blue-500);
+        position: relative;
+        background: #f5faff;
+    }
+
+    .avatarHead {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        left: 50%;
+        top: 10px;
+        transform: translateX(-50%);
+        background: var(--blue-600);
+    }
+
+    .avatarBody {
+        position: absolute;
+        left: 50%;
+        bottom: 5px;
+        transform: translateX(-50%);
+        width: 42px;
+        height: 20px;
+        border-radius: 50% 50% 46% 46%;
+        background: var(--blue-600);
+    }
+
+    .statusDot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        position: absolute;
+        right: 3px;
+        bottom: 14px;
+        background: var(--emerald-500);
+        border: 3px solid #ffffff;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+    }
+
+    .roleTag {
+        display: block;
+        margin: 0 auto 0.85rem;
+        width: fit-content;
+        text-align: center;
+        border-radius: var(--r-full);
+        padding: 0.38rem 1rem;
+        color: var(--blue-700);
+        background: rgba(14, 165, 233, 0.12);
+        border: 1px solid rgba(14, 165, 233, 0.24);
+        font-size: 0.62rem;
+        line-height: 1;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .bio {
+        margin: 0;
+        background: var(--n50);
+        border: 1px solid var(--n100);
+        border-radius: 14px;
+        padding: 1rem 0.95rem 0.85rem;
+        color: var(--n500);
+        font-size: 0.92rem;
+        line-height: 1.75;
+        position: relative;
+        min-height: auto;
+
+        &::before {
+            content: "''";
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: rgba(56, 189, 248, 0.35);
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.12em;
+        }
+    }
+}
+
+@keyframes avatarRingPulse {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 5px rgba(56, 189, 248, 0.12),
+            0 0 0 11px rgba(45, 212, 191, 0.1);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 5px rgba(56, 189, 248, 0.2),
+            0 0 0 11px rgba(45, 212, 191, 0.16);
+    }
+}
+
+@keyframes avatarRingHalo {
+    0% {
+        opacity: 0.25;
+    }
+
+    70% {
+        opacity: 0.06;
+    }
+
+    100% {
+        opacity: 0.25;
+    }
+}
+
+@include breakpoint(tablet) {
+    .teamMembers {
+        .sectionHeader {
+            margin-bottom: 2.2rem;
+
+            h2 {
+                font-size: 1.9rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+        }
+
+        .memberCard {
+            padding: 1.35rem 1rem 1.1rem;
+
+            h3 {
+                font-size: 1.65rem;
+            }
+        }
+
+        .avatarRing {
+            width: 118px;
+            height: 118px;
+        }
+
+        .avatarCore {
+            width: 86px;
+            height: 86px;
+        }
+
+        .avatarHead {
+            width: 24px;
+            height: 24px;
+        }
+
+        .avatarBody {
+            width: 48px;
+            height: 24px;
+            bottom: 8px;
+        }
+
+        .bio {
+            min-height: auto;
+        }
+    }
+}
+
+@include breakpoint(mobile) {
+    .teamMembers {
+        .sectionHeader {
+            h2 {
+                font-size: 1.65rem;
+            }
+        }
+
+        .memberCard {
+            h3 {
+                font-size: 1.45rem;
+            }
+        }
+
+        .bio {
+            font-size: 0.86rem;
+            line-height: 1.65;
+        }
+    }
+}

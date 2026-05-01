@@ -1,3 +1,6 @@
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
 .hero {
     position: relative;
     padding-top: 7rem;
@@ -9,16 +12,14 @@
 .heroBgLayer {
     position: absolute;
     inset: 0;
-    z-index: 0;
-    background: linear-gradient(
-        160deg,
-        #edf6ff 0%,
-        #e8f4fd 20%,
-        #f0f7ff 40%,
-        #f8f6ff 60%,
-        #f0f7ff 80%,
-        #e8f4fd 100%
-    );
+    z-index: -1;
+    background: linear-gradient(160deg,
+            #edf6ff 0%,
+            #e8f4fd 20%,
+            #f0f7ff 40%,
+            #f8f6ff 60%,
+            #f0f7ff 80%,
+            #e8f4fd 100%);
 }
 
 .gb {
@@ -30,12 +31,10 @@
 .gb1 {
     width: 500px;
     height: 500px;
-    background: radial-gradient(
-        circle,
-        rgba(56, 189, 248, 0.12) 0%,
-        rgba(125, 211, 252, 0.03) 50%,
-        transparent 70%
-    );
+    background: radial-gradient(circle,
+            rgba(56, 189, 248, 0.12) 0%,
+            rgba(125, 211, 252, 0.03) 50%,
+            transparent 70%);
     top: -120px;
     right: -100px;
     animation: gbFloat 16s ease-in-out infinite alternate;
@@ -44,12 +43,10 @@
 .gb2 {
     width: 400px;
     height: 400px;
-    background: radial-gradient(
-        circle,
-        rgba(45, 212, 191, 0.1) 0%,
-        rgba(45, 212, 191, 0.02) 50%,
-        transparent 70%
-    );
+    background: radial-gradient(circle,
+            rgba(45, 212, 191, 0.1) 0%,
+            rgba(45, 212, 191, 0.02) 50%,
+            transparent 70%);
     bottom: 5%;
     left: 2%;
     animation: gbFloatB 14s ease-in-out infinite alternate;
@@ -58,12 +55,10 @@
 .gb3 {
     width: 300px;
     height: 300px;
-    background: radial-gradient(
-        circle,
-        rgba(129, 140, 248, 0.08) 0%,
-        rgba(99, 102, 241, 0.01) 50%,
-        transparent 70%
-    );
+    background: radial-gradient(circle,
+            rgba(129, 140, 248, 0.08) 0%,
+            rgba(99, 102, 241, 0.01) 50%,
+            transparent 70%);
     top: 30%;
     left: 45%;
     animation: gbFloatC 12s ease-in-out infinite alternate;
@@ -72,44 +67,64 @@
 .gb4 {
     width: 200px;
     height: 200px;
-    background: radial-gradient(
-        circle,
-        rgba(251, 191, 36, 0.06) 0%,
-        rgba(245, 158, 11, 0.01) 50%,
-        transparent 70%
-    );
+    background: radial-gradient(circle,
+            rgba(251, 191, 36, 0.06) 0%,
+            rgba(245, 158, 11, 0.01) 50%,
+            transparent 70%);
     bottom: 30%;
     right: 30%;
     animation: gbFloat 10s ease-in-out infinite alternate;
 }
 
 @keyframes gbFloat {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(25px, -20px) scale(1.03); }
-    100% { transform: translate(-15px, 15px) scale(0.97); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(25px, -20px) scale(1.03);
+    }
+
+    100% {
+        transform: translate(-15px, 15px) scale(0.97);
+    }
 }
 
 @keyframes gbFloatB {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-20px, 15px) scale(1.04); }
-    100% { transform: translate(15px, -20px) scale(0.96); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-20px, 15px) scale(1.04);
+    }
+
+    100% {
+        transform: translate(15px, -20px) scale(0.96);
+    }
 }
 
 @keyframes gbFloatC {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(18px, -15px) scale(1.05); }
-    100% { transform: translate(-12px, 12px) scale(0.95); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(18px, -15px) scale(1.05);
+    }
+
+    100% {
+        transform: translate(-12px, 12px) scale(0.95);
+    }
 }
 
 /* Dot grid */
 .gbGrid {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(
-        circle,
-        rgba(14, 165, 233, 0.06) 1px,
-        transparent 1px
-    );
+    background-image: radial-gradient(circle,
+            rgba(14, 165, 233, 0.06) 1px,
+            transparent 1px);
     background-size: 48px 48px;
     pointer-events: none;
 }
@@ -144,56 +159,97 @@
 }
 
 .hero .decoOrb1 {
-    width: 420px; height: 420px;
+    width: 420px;
+    height: 420px;
     background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, transparent 70%);
-    top: -10%; right: 15%;
+    top: -10%;
+    right: 15%;
     filter: blur(30px);
     animation: decoFloat1 12s ease-in-out infinite alternate;
 }
 
 .hero .decoOrb2 {
-    width: 280px; height: 280px;
+    width: 280px;
+    height: 280px;
     background: radial-gradient(circle, rgba(45, 212, 191, 0.10) 0%, transparent 70%);
-    bottom: 10%; left: 5%;
+    bottom: 10%;
+    left: 5%;
     filter: blur(25px);
     animation: decoFloat2 10s ease-in-out infinite alternate;
 }
 
 .hero .decoOrb3 {
-    width: 180px; height: 180px;
+    width: 180px;
+    height: 180px;
     background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-    top: 40%; left: 50%;
+    top: 40%;
+    left: 50%;
     filter: blur(20px);
     animation: decoFloat3 8s ease-in-out infinite alternate;
 }
 
 .hero .decoOrb4 {
-    width: 120px; height: 120px;
+    width: 120px;
+    height: 120px;
     background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
-    bottom: 25%; right: 40%;
+    bottom: 25%;
+    right: 40%;
     filter: blur(15px);
     animation: decoFloat1 7s ease-in-out infinite alternate;
     animation-delay: -3s;
 }
 
 @keyframes decoFloat1 {
-    0%   { transform: translate(0, 0) scale(1); }
-    33%  { transform: translate(20px, -15px) scale(1.03); }
-    66%  { transform: translate(-10px, 10px) scale(0.98); }
-    100% { transform: translate(8px, -8px) scale(1.02); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(20px, -15px) scale(1.03);
+    }
+
+    66% {
+        transform: translate(-10px, 10px) scale(0.98);
+    }
+
+    100% {
+        transform: translate(8px, -8px) scale(1.02);
+    }
 }
 
 @keyframes decoFloat2 {
-    0%   { transform: translate(0, 0) scale(1); }
-    40%  { transform: translate(-18px, 12px) scale(1.04); }
-    70%  { transform: translate(14px, -8px) scale(0.96); }
-    100% { transform: translate(-5px, 6px) scale(1.01); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    40% {
+        transform: translate(-18px, 12px) scale(1.04);
+    }
+
+    70% {
+        transform: translate(14px, -8px) scale(0.96);
+    }
+
+    100% {
+        transform: translate(-5px, 6px) scale(1.01);
+    }
 }
 
 @keyframes decoFloat3 {
-    0%   { transform: translate(0, 0); opacity: 0.85; }
-    50%  { transform: translate(15px, -10px); opacity: 1; }
-    100% { transform: translate(-12px, 8px); opacity: 0.9; }
+    0% {
+        transform: translate(0, 0);
+        opacity: 0.85;
+    }
+
+    50% {
+        transform: translate(15px, -10px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-12px, 8px);
+        opacity: 0.9;
+    }
 }
 
 /* ============================================
@@ -201,11 +257,11 @@
    ============================================ */
 .heroContainer {
     position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.5rem;
+    // z-index: 2;
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // gap: 1.5rem;
 }
 
 .heroCol {
@@ -239,11 +295,9 @@
 }
 
 .badgeLive {
-    background: linear-gradient(
-        135deg,
-        rgba(14, 165, 233, 0.08),
-        rgba(56, 189, 248, 0.05)
-    );
+    background: linear-gradient(135deg,
+            rgba(14, 165, 233, 0.08),
+            rgba(56, 189, 248, 0.05));
     color: var(--blue-600);
     border: 1px solid rgba(56, 189, 248, 0.15);
     transition: box-shadow 0.3s ease;
@@ -263,18 +317,25 @@
 }
 
 .badgeDate {
-    background: linear-gradient(
-        135deg,
-        rgba(251, 191, 36, 0.06),
-        rgba(245, 158, 11, 0.04)
-    );
+    background: linear-gradient(135deg,
+            rgba(251, 191, 36, 0.06),
+            rgba(245, 158, 11, 0.04));
     color: #b45309;
     border: 1px solid rgba(245, 158, 11, 0.12);
 }
 
 @keyframes pulseDot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.65); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(0.65);
+    }
 }
 
 .heroH1 {
@@ -289,12 +350,10 @@
 }
 
 .h1Accent {
-    background: linear-gradient(
-        135deg,
-        var(--blue-500),
-        var(--blue-400),
-        var(--teal-500)
-    );
+    background: linear-gradient(135deg,
+            var(--blue-500),
+            var(--blue-400),
+            var(--teal-500));
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -303,9 +362,17 @@
 }
 
 @keyframes accentShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .heroP {
@@ -313,7 +380,7 @@
     font-size: 0.96rem;
     line-height: 1.72;
     margin-top: 1rem;
-    max-width: 410px;
+    max-width: 550px;
 }
 
 .heroP strong {
@@ -328,53 +395,40 @@
     margin-top: 1.6rem;
 }
 
-.trustStrip {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 1.6rem;
+.heroImageStats {
+    position: relative;
+    width: 100%;
+    min-height: 430px;
+
+    @include breakpoint(mobile) {
+        padding-bottom: 15rem;
+    }
 }
 
-.tsItem {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #8ba4be;
-}
-
-.tsIcon {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    color: #fff;
-}
-
-.tsI1 {
-    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
-}
-
-.tsI2 {
-    background: linear-gradient(135deg, var(--blue-600), var(--indigo-500));
-}
-
-.tsI3 {
-    background: linear-gradient(135deg, var(--amber-500), var(--amber-400));
-}
 
 /* ============================================
    COL 2: STATS PANEL
    ============================================ */
 .heroColStats {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 0.5rem;
-    position: relative;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 0 0.5rem;
+    // position: relative;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    min-width: 290px;
+    z-index: 55;
+    transform: translateY(-50%);
+    // background-color: white;
+
+    @include breakpoint(mobile) {
+        left: 50%;
+        transform: translateX(-50%);
+        top: unset;
+        bottom: 0;
+    }
 }
 
 /* ============================================
@@ -385,6 +439,24 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+    position: absolute;
+    left: -4rem;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+
+    @include breakpoint(tablet) {
+        left: -5rem;
+        width: 100%;
+        height: 100%;
+    }
+
+    @include breakpoint(mobile) {
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: static;
+    }
 }
 
 .chamberScene {
@@ -409,22 +481,25 @@
     position: absolute;
     inset: -30px;
     border-radius: 28px;
-    background: conic-gradient(
-        from 180deg,
-        rgba(14, 165, 233, 0.18),
-        rgba(45, 212, 191, 0.14),
-        rgba(129, 140, 248, 0.12),
-        rgba(56, 189, 248, 0.14),
-        rgba(14, 165, 233, 0.18)
-    );
+    background: conic-gradient(from 180deg,
+            rgba(14, 165, 233, 0.18),
+            rgba(45, 212, 191, 0.14),
+            rgba(129, 140, 248, 0.12),
+            rgba(56, 189, 248, 0.14),
+            rgba(14, 165, 233, 0.18));
     filter: blur(40px);
     z-index: -1;
     animation: glowSpin 8s linear infinite;
 }
 
 @keyframes glowSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .chamberImage {
@@ -503,8 +578,13 @@
 }
 
 @keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-12px) rotate(8deg); }
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(-12px) rotate(8deg);
+    }
 }
 
 .elCircle {
@@ -534,13 +614,26 @@
 }
 
 @keyframes pillFloat {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-8px);
+    }
 }
 
-.chamberPill:nth-child(5) { animation-delay: -1s; }
-.chamberPill:nth-child(6) { animation-delay: -0.8s; }
-.chamberPill:nth-child(7) { animation-delay: -1.6s; }
+.chamberPill:nth-child(5) {
+    animation-delay: -1s;
+}
+
+.chamberPill:nth-child(6) {
+    animation-delay: -0.8s;
+}
+
+.chamberPill:nth-child(7) {
+    animation-delay: -1.6s;
+}
 
 .cpIcon {
     width: 36px;
@@ -554,16 +647,24 @@
     flex-shrink: 0;
 }
 
-.cpIc1 { background: linear-gradient(135deg, var(--blue-500), var(--blue-400)); }
-.cpIc2 { background: linear-gradient(135deg, var(--rose-500), var(--rose-400)); }
-.cpIc3 { background: linear-gradient(135deg, var(--indigo-500), var(--indigo-400)); }
+.cpIc1 {
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+}
 
-.chamberPill > div:last-child {
+.cpIc2 {
+    background: linear-gradient(135deg, var(--rose-500), var(--rose-400));
+}
+
+.cpIc3 {
+    background: linear-gradient(135deg, var(--indigo-500), var(--indigo-400));
+}
+
+.chamberPill>div:last-child {
     display: flex;
     flex-direction: column;
 }
 
-.chamberPill > div:last-child strong {
+.chamberPill>div:last-child strong {
     font-size: 0.85rem;
     font-weight: 800;
     color: var(--n700);
@@ -571,7 +672,7 @@
     letter-spacing: -0.3px;
 }
 
-.chamberPill > div:last-child span {
+.chamberPill>div:last-child span {
     font-size: 0.55rem;
     font-weight: 700;
     color: #8ba4be;
@@ -601,17 +702,18 @@
     .heroH1 {
         font-size: 2.3rem;
     }
-    .heroContainer {
-        gap: 1rem;
-    }
+
+    // .heroContainer {
+    //     gap: 1rem;
+    // }
 }
 
 @media (max-width: 991px) {
-    .heroContainer {
-        flex-direction: column;
-        min-height: auto;
-        padding-bottom: 2rem;
-    }
+    // .heroContainer {
+    //     flex-direction: column;
+    //     min-height: auto;
+    //     padding-bottom: 2rem;
+    // }
 
     .heroColText {
         text-align: center;
@@ -630,9 +732,6 @@
         justify-content: center;
     }
 
-    .trustStrip {
-        justify-content: center;
-    }
 
     .heroColChamber {
         order: -1;
@@ -670,15 +769,6 @@
         gap: 0.6rem;
     }
 
-    .trustStrip {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .tsItem {
-        font-size: 0.68rem;
-    }
 
     .statsPanel {
         max-width: 100%;
@@ -696,11 +786,11 @@
         padding: 0.45rem 0.6rem;
     }
 
-    .chamberPill > div:last-child strong {
+    .chamberPill>div:last-child strong {
         font-size: 0.75rem;
     }
 
-    .chamberPill > div:last-child span {
+    .chamberPill>div:last-child span {
         font-size: 0.5rem;
     }
 

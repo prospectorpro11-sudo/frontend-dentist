@@ -14,65 +14,24 @@ import {
 } from "react-icons/bs";
 import type { IconType } from "react-icons";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
+import { IProductPriceListSeed } from "@/shared/interface";
+import type { IconType } from "react-icons";
 
-type PricingTier = {
-    leads: string;
-    costPerLead: string;
-    totalPrice: string;
-    isPopular?: boolean;
+const TRUST_ICON_MAP: Record<string, IconType> = {
+    'shield-check': BsShieldCheck,
+    lock: BsLock,
+    'patch-check': BsPatchCheck,
 };
 
-type DataField = {
-    label: string;
-    fullWidth?: boolean;
-};
-
-type TrustBadge = {
-    label: string;
-    icon: string;
-};
-
-type PageContent = {
-    title: string;
-    description: string;
-    tableTitle: string;
-    tableSubtitle: string;
-    tableHeaders: string[];
-    tabs: string[];
-    includedTitle: string;
-    starterOfferTitle: string;
-    starterSubtitle: string;
-    starterLeads: string;
-    starterLeadsLabel: string;
-    starterPrice: string;
-    starterDescription: string;
-    starterButtonLabel: string;
-    guaranteeLabel: string;
-    footerBulkPricing: string;
-};
-
-type ProductPriceListData = {
-    pageContent: PageContent;
-    pricingTiers: PricingTier[];
-    includedDataFields: DataField[];
-    trustBadges: TrustBadge[];
-};
-
-const iconMap: Record<string, IconType> = {
-    BsShieldCheck,
-    BsLock,
-    BsPatchCheck,
-};
-
-const ProductPriceList = (props: ProductPriceListData) => {
-    const { pageContent, pricingTiers, includedDataFields, trustBadges } = props;
+const ProductPriceList = (props: IProductPriceListSeed) => {
+    const { content, pricingTiers, includedDataFields, trustBadges } = props;
 
     return (
         <section className={styles.pricingTiers}>
             <Container>
                 <div className={styles.header}>
-                    <h1 className={styles.headerTitle}>{pageContent.title}</h1>
-                    <p className={styles.headerDescription}>{pageContent.description}</p>
+                    <h1 className={styles.headerTitle}>{content.title}</h1>
+                    <p className={styles.headerDescription}>{content.description}</p>
                 </div>
                 <Col xs={12} lg={9} className="mx-auto" >
                     <Row>
@@ -82,13 +41,13 @@ const ProductPriceList = (props: ProductPriceListData) => {
                                     <div>
                                         <div className={styles.pricingCardHeaderTitle}>
                                             <BsCashCoin className={styles.pricingCardHeaderTitleIcon} />
-                                            {pageContent.tableTitle}
+                                            {content.tableTitle}
                                         </div>
-                                        <div className={styles.pricingCardHeaderSubtitle}>{pageContent.tableSubtitle}</div>
+                                        <div className={styles.pricingCardHeaderSubtitle}>{content.tableSubtitle}</div>
                                     </div>
 
                                     <div className={styles.tabGroup}>
-                                        {pageContent.tabs.map((tab, index) => (
+                                        {content.tabs.map((tab, index) => (
                                             <button
                                                 key={tab}
                                                 type="button"
@@ -103,8 +62,10 @@ const ProductPriceList = (props: ProductPriceListData) => {
                                 <table className={styles.table}>
                                     <thead className={styles.tableHeader}>
                                         <tr>
-                                            {pageContent.tableHeaders.map((header) => (
-                                                <th key={header} className={classnames(styles.tableCell, header === "Leads" && styles.leftCell)}>{header}</th>
+                                            {content.tableHeaders.map((header, index) => (
+                                                <th key={header} className={classnames(styles.tableCell, index === 0 ? styles.leftCell : styles.centerCell)}>
+                                                    {header}
+                                                </th>
                                             ))}
                                         </tr>
                                     </thead>
@@ -127,20 +88,20 @@ const ProductPriceList = (props: ProductPriceListData) => {
                                         <tr>
                                             <td className={classnames(styles.tableCell, styles.leftCell, styles.primaryCell)}>&gt; 100,000</td>
                                             <td className={classnames(styles.tableCell, styles.centerCell)}>-</td>
-                                            <td className={classnames(styles.tableCell, styles.centerCell, styles.bulkCell)}>{pageContent.footerBulkPricing}</td>
+                                            <td className={classnames(styles.tableCell, styles.centerCell, styles.bulkCell)}>{content.footerBulkPricing}</td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                         </Col>
-                        <Col xs={12} lg={5}>
+                        <Col xs={12} lg={5} className="mt-5 mt-lg-0">
                             <div className={styles.rightPanel}>
                                 <div className={styles.dataFieldsCard}>
                                     <div className={styles.dataFieldsCardTitle}>
                                         <div className={styles.dataFieldsCardIcon}>
                                             <BsFileEarmarkText />
                                         </div>
-                                        {pageContent.includedTitle}
+                                        {content.includedTitle}
                                     </div>
 
                                     <div className={styles.dataFieldsCardGrid}>
@@ -164,28 +125,31 @@ const ProductPriceList = (props: ProductPriceListData) => {
                                 <div className={styles.starterCard}>
                                     <div className={styles.starterCardOffer}>
                                         <BsStars className={styles.starterCardOfferSparkle} />
-                                        {pageContent.starterOfferTitle}
+                                        {content.starterOfferTitle}
                                     </div>
-                                    <div className={styles.starterCardSubtitle}>{pageContent.starterSubtitle}</div>
-                                    <div className={styles.starterCardLeads}>{pageContent.starterLeads}</div>
-                                    <div className={styles.starterCardLeadsLabel}>{pageContent.starterLeadsLabel}</div>
-                                    <div className={styles.starterCardPrice}>{pageContent.starterPrice}</div>
-                                    <p className={styles.starterCardDescription}>{pageContent.starterDescription}</p>
+                                    <div className={styles.starterCardSubtitle}>{content.starterSubtitle}</div>
+                                    <div className={styles.starterCardLeads}>{content.starterLeads}</div>
+                                    <div className={styles.starterCardLeadsLabel}>{content.starterLeadsLabel}</div>
+                                    <div className={styles.starterCardPrice}>{content.starterPrice}</div>
+                                    <p className={styles.starterCardDescription}>{content.starterDescription}</p>
 
                                     <Button variant={BUTTON_VARIANT_ENUM.PRIMARY} className={styles.starterCardButton}>
                                         <BsSliders />
-                                        {pageContent.starterButtonLabel}
+                                        {content.starterButtonLabel}
                                     </Button>
 
                                     <div className={styles.starterCardGuarantee}>
                                         <BsPatchCheck />
-                                        {pageContent.guaranteeLabel}
+                                        {content.guaranteeLabel}
                                     </div>
                                 </div>
 
                                 <div className={styles.badges}>
                                     {trustBadges.map((badge) => {
-                                        const Icon = iconMap[badge.icon];
+                                        const Icon = TRUST_ICON_MAP[badge.icon];
+                                        if (!Icon) {
+                                            return null;
+                                        }
 
                                         return (
                                             <div key={badge.label} className={styles.badge}>
