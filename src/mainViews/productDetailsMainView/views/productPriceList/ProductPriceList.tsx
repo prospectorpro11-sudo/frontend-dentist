@@ -15,7 +15,6 @@ import {
 import type { IconType } from "react-icons";
 import { BUTTON_VARIANT_ENUM } from "@/shared/enums";
 import { IProductPriceListSeed } from "@/shared/interface";
-import type { IconType } from "react-icons";
 
 const TRUST_ICON_MAP: Record<string, IconType> = {
     'shield-check': BsShieldCheck,

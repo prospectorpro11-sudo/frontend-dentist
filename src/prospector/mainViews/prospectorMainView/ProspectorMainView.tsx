@@ -37,8 +37,19 @@ const ProspectorMainView = () => {
     ]
 
     const fetchProspectorsData = async () => {
-        const response = await prospectorInstance.post("/nurse/public/getDataByConditions", {
-            filterList,
+        const hasSpecialization = filterList.some(
+            ({ field, value }) =>
+                field.trim().toLowerCase() === "specialization" &&
+                typeof value === "string" &&
+                value.trim().length > 0
+        );
+
+        const requestFilterList = hasSpecialization
+            ? filterList
+            : [...filterList, { field: "Specialization", value: "Dentist" }];
+
+        const response = await prospectorInstance.post("/dentist/public/getDataByConditions", {
+            filterList: requestFilterList,
             page: currentPage,
         });
 
