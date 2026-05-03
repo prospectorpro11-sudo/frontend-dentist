@@ -14,6 +14,13 @@ export interface IFreeSampleFeature {
 	description: string;
 }
 
+export interface IFreeSampleDentistData {
+	specialty: string;
+	email: string;
+	phone: string;
+	dotClass: string;
+}
+
 export interface IProductItem {
 	category: string;
 	description: string;
@@ -136,6 +143,7 @@ export interface IFreeSample {
 	heading: string;
 	headingAccent: string;
 	subtitle: string;
+	dentistData?: IFreeSampleDentistData[];
 	features: IFreeSampleFeature[];
 	cta: ILink & { icon: string };
 	card: {
