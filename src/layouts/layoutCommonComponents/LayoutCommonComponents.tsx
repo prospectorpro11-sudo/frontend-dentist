@@ -13,13 +13,6 @@ interface ILayoutCommonComponents {
 }
 
 const QUERY_CACHE_VERSION = process.env.NEXT_PUBLIC_QUERY_CACHE_VERSION ?? "1";
-
-declare global {
-    interface Window {
-        __TANSTACK_QUERY_CLIENT__: import("@tanstack/query-core").QueryClient;
-        __CACHE_VERSION__?: string;
-    }
-}
 const AuthModal = dynamic(
     () => import("@/components/authModal/AuthModal")
 );
