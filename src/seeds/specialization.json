@@ -1,10 +1,5 @@
 [
   {
-    "id": "dentist",
-    "value": "Dentist",
-    "label": "All Dentists"
-  },
-  {
     "id": "dental-general-practice",
     "value": "DentalGeneralPractice",
     "label": "Dental General Practice"

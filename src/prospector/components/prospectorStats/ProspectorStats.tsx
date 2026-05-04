@@ -8,6 +8,7 @@ import Skeleton from "react-loading-skeleton";
 
 const ProspectorStats = () => {
     const { stats, prospectorLoading } = useProspectorContext();
+    const toneClasses = [styles.tone1, styles.tone2, styles.tone3, styles.tone4];
     const statsData = [
         { label: "Contacts", value: stats?.totalContacts, Icon: FaAddressBook },
         { label: "Emails", value: stats?.Unique_Emails, Icon: FaEnvelope },
@@ -17,8 +18,8 @@ const ProspectorStats = () => {
 
     return (
         <div className={styles.stats}>
-            {statsData.map(({ label, value, Icon }) => (
-                <div key={label} className={styles.stat}>
+            {statsData.map(({ label, value, Icon }, idx) => (
+                <div key={label} className={`${styles.stat} ${toneClasses[idx] || ""}`.trim()}>
                     <div className={styles.sico}>
                         <Icon />
                     </div>
