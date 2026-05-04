@@ -340,9 +340,22 @@ const FilterDropdown = ({
             <div className={`${styles.dropdown} ${isZipFilter ? styles.dropdownZip : ""}`.trim()} ref={containerRef} style={dropdownStyle}>
                 <div className={styles.header}>
                     <h4>{title}</h4>
-                    <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close filter dropdown">
-                        <FaTimes />
-                    </button>
+                    <div className={styles.headerActions}>
+                        {selectedCount > 0 && (
+                            <button
+                                type="button"
+                                className={styles.clearIconBtn}
+                                onClick={clearAll}
+                                aria-label={`Clear selected ${title} values`}
+                            >
+                                <FaTimes />
+                                <span>Clear</span>
+                            </button>
+                        )}
+                        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close filter dropdown">
+                            <FaTimes />
+                        </button>
+                    </div>
                 </div>
 
                 <div
@@ -384,7 +397,10 @@ const FilterDropdown = ({
                                                 const checked = selectedStateSet.has(option.value.toLowerCase());
 
                                                 return (
-                                                    <label key={option.id || option.value} className={styles.inlineOptionRow}>
+                                                    <label
+                                                        key={option.id || option.value}
+                                                        className={`${styles.inlineOptionRow} ${checked ? styles.inlineOptionRowSelected : ""}`.trim()}
+                                                    >
                                                         <input
                                                             type="checkbox"
                                                             checked={checked}
@@ -419,7 +435,10 @@ const FilterDropdown = ({
                                                     const checked = selectedCitySet.has(option.value.toLowerCase());
 
                                                     return (
-                                                        <label key={option.id || option.value} className={styles.inlineOptionRow}>
+                                                        <label
+                                                            key={option.id || option.value}
+                                                            className={`${styles.inlineOptionRow} ${checked ? styles.inlineOptionRowSelected : ""}`.trim()}
+                                                        >
                                                             <input
                                                                 type="checkbox"
                                                                 checked={checked}
@@ -452,7 +471,10 @@ const FilterDropdown = ({
                                 const checked = selectedKeys.has(optionKey);
 
                                 return (
-                                    <label key={option.id || option.value} className={styles.optionRow}>
+                                    <label
+                                        key={option.id || option.value}
+                                        className={`${styles.optionRow} ${checked ? styles.optionRowSelected : ""}`.trim()}
+                                    >
                                         <input type="checkbox" checked={checked} onChange={() => toggleSelection(option)} />
                                         <span>{option.label}</span>
                                     </label>

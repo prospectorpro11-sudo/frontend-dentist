@@ -64,19 +64,27 @@
 }
 
 .resetBtn {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: var(--rose-500);
-    background: rgba(244, 63, 94, 0.07);
-    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #9f1239;
+    background: linear-gradient(135deg, #ffe4e6, #fecdd3);
+    padding: 4px 11px;
     border-radius: 12px;
-    border: 1px solid rgba(244, 63, 94, 0.15);
+    border: 1px solid rgba(244, 63, 94, 0.38);
+    box-shadow: 0 1px 4px rgba(244, 63, 94, 0.2);
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
-        background: rgba(244, 63, 94, 0.15);
+        background: linear-gradient(135deg, #fecdd3, #fda4af);
+        border-color: rgba(225, 29, 72, 0.5);
+        color: #881337;
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba(225, 29, 72, 0.35);
+        outline-offset: 1px;
     }
 }
 
@@ -92,26 +100,26 @@
     align-items: center;
     gap: 5px;
     padding: 5.5px 12px;
-    background: #fff;
-    border: 1.5px solid rgba(14, 165, 233, 0.13);
+    background: #f8fbff;
+    border: 1.5px solid rgba(14, 165, 233, 0.28);
     border-radius: var(--r-sm);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
-    color: #475569;
+    color: #1e293b;
     cursor: pointer;
     transition: all 0.22s;
     user-select: none;
 }
 
 .chip:hover {
-    border-color: rgba(14, 165, 233, 0.3);
-    background: var(--blue-100);
+    border-color: rgba(14, 165, 233, 0.5);
+    background: #eaf4ff;
     transform: translateY(-1px);
 }
 
 .chip i {
     font-size: 11px;
-    color: var(--blue-500);
+    color: var(--blue-600);
 }
 
 .chip .cnt {
@@ -136,12 +144,14 @@
 }
 
 .chip.on .cnt {
-    background: rgba(255, 255, 255, 0.18);
+    background: #ea580c;
+    color: #fff;
+    border: none;
 }
 
 .chip .arr {
     font-size: 9px;
-    opacity: 0.4;
+    opacity: 0.65;
 }
 
 .tags {
@@ -149,39 +159,45 @@
     flex-wrap: wrap;
     gap: 5px;
     align-items: center;
+    margin-top: 2rem;
 }
 
 .tag {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 3px 5px 3px 10px;
+    padding: 5px 7px 5px 11px;
     background: linear-gradient(90deg,
-            rgba(14, 165, 233, 0.06),
-            rgba(14, 165, 233, 0.02));
-    border: 1px solid rgba(14, 165, 233, 0.13);
+            rgba(14, 165, 233, 0.18),
+            rgba(14, 165, 233, 0.1));
+    border: 1px solid rgba(14, 165, 233, 0.28);
     border-radius: 16px;
-    font-size: 11px;
-    font-weight: 500;
-    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0f172a;
+    box-shadow: 0 1px 4px rgba(14, 165, 233, 0.12);
 }
 
 .tag b {
-    color: var(--blue-600);
-    font-weight: 700;
+    color: #0c4a6e;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
 }
 
 .tag .rx {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     cursor: pointer;
-    color: #94a3b8;
+    color: #334155;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(148, 163, 184, 0.35);
     transition: 0.15s;
-    font-size: 14px;
+    font-size: 13px;
     flex-shrink: 0;
 }
 
@@ -317,8 +333,8 @@
         flex: 0 0 auto; // key change (no stretching)
         min-width: 0;
         padding: 5.5px 8px;
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 13px;
+        font-weight: 700;
         background: transparent;
         color: var(--text2);
         border: none;
@@ -388,7 +404,7 @@
 
     .chip {
         padding: 4.5px 10px;
-        font-size: 11px;
+        font-size: 12px;
         gap: 4px;
     }
 
@@ -402,14 +418,14 @@
     }
 
     .tag {
-        font-size: 10.5px;
+        font-size: 11px;
         gap: 5px;
-        padding: 2px 4px 2px 8px;
+        padding: 3px 5px 3px 9px;
     }
 
     .emailTabs .emailTab {
-        padding: 4.5px 7px;
-        font-size: 11px;
+        padding: 4.5px 8px;
+        font-size: 12px;
     }
 }
 
@@ -438,7 +454,7 @@
     .chip {
         flex-shrink: 0;
         padding: 5px 10px;
-        font-size: 11.5px;
+        font-size: 12px;
     }
 
     .tags {
@@ -446,7 +462,7 @@
     }
 
     .tag {
-        font-size: 10px;
+        font-size: 10.5px;
     }
 }
 
@@ -502,7 +518,7 @@
     .chip {
         flex-shrink: 0;
         padding: 4.5px 8px;
-        font-size: 11px;
+        font-size: 11.5px;
         gap: 4px;
     }
 
@@ -520,16 +536,16 @@
     }
 
     .tag {
-        font-size: 9.5px;
+        font-size: 10px;
         gap: 4px;
-        padding: 2px 4px 2px 7px;
+        padding: 2px 4px 2px 8px;
         border-radius: 12px;
     }
 
     .tag .rx {
-        width: 16px;
-        height: 16px;
-        font-size: 12px;
+        width: 17px;
+        height: 17px;
+        font-size: 11px;
     }
 
     .emailTabs {
@@ -544,8 +560,8 @@
         }
 
         .emailTab {
-            padding: 4px 6px;
-            font-size: 10.5px;
+            padding: 4px 7px;
+            font-size: 11.5px;
         }
     }
 }
@@ -562,7 +578,7 @@
 
     .chip {
         padding: 4px 7px;
-        font-size: 10.5px;
+        font-size: 11px;
     }
 
     .tag {
@@ -571,6 +587,6 @@
 
     .emailTabs .emailTab {
         padding: 3.5px 5px;
-        font-size: 10px;
+        font-size: 11px;
     }
 }

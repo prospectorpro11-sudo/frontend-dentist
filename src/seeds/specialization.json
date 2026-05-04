@@ -1,312 +1,72 @@
 [
   {
-    "id": "nurse",
-    "value": "Nurse",
-    "label": "Nurse"
+    "id": "dentist",
+    "value": "Dentist",
+    "label": "All Dentists"
   },
   {
-    "id": "nurse-practitioner",
-    "value": "NursePractitioner",
-    "label": "Nurse Practitioner"
+    "id": "dental-general-practice",
+    "value": "DentalGeneralPractice",
+    "label": "Dental General Practice"
   },
   {
-    "id": "registered-nurse",
-    "value": "NurseRegisteredNurse",
-    "label": "Registered Nurse"
+    "id": "dental-public-health",
+    "value": "DentalPublicHealth",
+    "label": "Dental Public Health"
   },
   {
-    "id": "family",
-    "value": "NurseFamily",
-    "label": "Family"
+    "id": "dentist-anesthesiologist",
+    "value": "DentistAnesthesiologist",
+    "label": "Dentist Anesthesiologist"
   },
   {
-    "id": "nurse-anesthetist-certified-registered",
-    "value": "NurseNurseAnesthetistCertifiedRegistered",
-    "label": "Nurse Anesthetist, Certified Registered"
+    "id": "endodontics",
+    "value": "Endodontics",
+    "label": "Endodontics"
   },
   {
-    "id": "licensed-practical-nurse",
-    "value": "NurseLicensedPracticalNurse",
-    "label": "Licensed Practical Nurse"
+    "id": "oral-and-maxillofacial-pathology",
+    "value": "OralAndMaxillofacialPathology",
+    "label": "Oral and Maxillofacial Pathology"
   },
   {
-    "id": "psychiatric-mental-health",
-    "value": "NursePsychiatricMentalHealth",
-    "label": "Psychiatric/Mental Health"
+    "id": "oral-and-maxillofacial-radiology",
+    "value": "OralAndMaxillofacialRadiology",
+    "label": "Oral and Maxillofacial Radiology"
   },
   {
-    "id": "psychiatric-mental-health-adult",
-    "value": "NursePsychiatricMentalHealthAdult",
-    "label": "Psychiatric/Mental Health, Adult"
+    "id": "oral-and-maxillofacial-surgery",
+    "value": "OralAndMaxillofacialSurgery",
+    "label": "Oral and Maxillofacial Surgery"
   },
   {
-    "id": "psychiatric-mental-health-child-adolescent",
-    "value": "NursePsychiatricMentalHealthChildAdolescent",
-    "label": "Psychiatric/Mental Health, Child & Adolescent"
+    "id": "orofacial-pain",
+    "value": "OrofacialPain",
+    "label": "Orofacial Pain"
   },
   {
-    "id": "psychiatric-mental-health-child-family",
-    "value": "NursePsychiatricMentalHealthChildFamily",
-    "label": "Psychiatric/Mental Health, Child & Family"
+    "id": "orthodontics-and-dentofacial-orthopedics",
+    "value": "OrthodonticsAndDentofacialOrthopedics",
+    "label": "Orthodontics and Dentofacial Orthopedics"
   },
   {
-    "id": "adult-health",
-    "value": "NurseAdultHealth",
-    "label": "Adult Health"
+    "id": "pediatric-dentistry",
+    "value": "PediatricDentistry",
+    "label": "Pediatric Dentistry"
   },
   {
-    "id": "acute-care",
-    "value": "NurseAcuteCare",
-    "label": "Acute Care"
+    "id": "periodontics",
+    "value": "Periodontics",
+    "label": "Periodontics"
   },
   {
-    "id": "pediatrics",
-    "value": "NursePediatrics",
-    "label": "Pediatrics"
+    "id": "prosthodontics",
+    "value": "Prosthodontics",
+    "label": "Prosthodontics"
   },
   {
-    "id": "pediatrics-critical-care",
-    "value": "NursePediatricsCriticalCare",
-    "label": "Pediatrics, Critical Care"
-  },
-  {
-    "id": "licensed-vocational-nurse",
-    "value": "NurseLicensedVocationalNurse",
-    "label": "Licensed Vocational Nurse"
-  },
-  {
-    "id": "advanced-practice-midwife",
-    "value": "NurseAdvancedPracticeMidwife",
-    "label": "Advanced Practice Midwife"
-  },
-  {
-    "id": "primary-care",
-    "value": "NursePrimaryCare",
-    "label": "Primary Care"
-  },
-  {
-    "id": "women-s-health",
-    "value": "NurseWomensHealth",
-    "label": "Women's Health"
-  },
-  {
-    "id": "clinical-nurse-specialist",
-    "value": "NurseClinicalNurseSpecialist",
-    "label": "Clinical Nurse Specialist"
-  },
-  {
-    "id": "school",
-    "value": "NurseSchool",
-    "label": "School"
-  },
-  {
-    "id": "anesthesiologist-assistant",
-    "value": "NurseAnesthesiologistAssistant",
-    "label": "Anesthesiologist Assistant"
-  },
-  {
-    "id": "licensed-psychiatric-technician",
-    "value": "NurseLicensedPsychiatricTechnician",
-    "label": "Licensed Psychiatric Technician"
-  },
-  {
-    "id": "gerontology",
-    "value": "NurseGerontology",
-    "label": "Gerontology"
-  },
-  {
-    "id": "community-health",
-    "value": "NurseCommunityHealth",
-    "label": "Community Health"
-  },
-  {
-    "id": "home-health",
-    "value": "NurseHomeHealth",
-    "label": "Home Health"
-  },
-  {
-    "id": "neonatal",
-    "value": "NurseNeonatal",
-    "label": "Neonatal"
-  },
-  {
-    "id": "neonatal-critical-care",
-    "value": "NurseNeonatalCriticalCare",
-    "label": "Neonatal, Critical Care"
-  },
-  {
-    "id": "neonatal-intensive-care",
-    "value": "NurseNeonatalIntensiveCare",
-    "label": "Neonatal Intensive Care"
-  },
-  {
-    "id": "case-management",
-    "value": "NurseCaseManagement",
-    "label": "Case Management"
-  },
-  {
-    "id": "critical-care-medicine",
-    "value": "NurseCriticalCareMedicine",
-    "label": "Critical Care Medicine"
-  },
-  {
-    "id": "general-practice",
-    "value": "NurseGeneralPractice",
-    "label": "General Practice"
-  },
-  {
-    "id": "obstetrics-gynecology",
-    "value": "NurseObstetricsGynecology",
-    "label": "Obstetrics & Gynecology"
-  },
-  {
-    "id": "lactation-consultant",
-    "value": "NurseLactationConsultant",
-    "label": "Lactation Consultant"
-  },
-  {
-    "id": "medical-surgical",
-    "value": "NurseMedicalSurgical",
-    "label": "Medical-Surgical"
-  },
-  {
-    "id": "registered-nurse-first-assistant",
-    "value": "NurseRegisteredNurseFirstAssistant",
-    "label": "Registered Nurse First Assistant"
-  },
-  {
-    "id": "ambulatory-care",
-    "value": "NurseAmbulatoryCare",
-    "label": "Ambulatory Care"
-  },
-  {
-    "id": "emergency",
-    "value": "NurseEmergency",
-    "label": "Emergency"
-  },
-  {
-    "id": "diabetes-educator",
-    "value": "NurseDiabetesEducator",
-    "label": "Diabetes Educator"
-  },
-  {
-    "id": "addiction-substance-use-disorder",
-    "value": "NurseAddictionSubstanceUseDisorder",
-    "label": "Addiction (Substance Use Disorder)"
-  },
-  {
-    "id": "administrator",
-    "value": "NurseAdministrator",
-    "label": "Administrator"
-  },
-  {
-    "id": "occupational-health",
-    "value": "NurseOccupationalHealth",
-    "label": "Occupational Health"
-  },
-  {
-    "id": "oncology",
-    "value": "NurseOncology",
-    "label": "Oncology"
-  },
-  {
-    "id": "maternal-newborn",
-    "value": "NurseMaternalNewborn",
-    "label": "Maternal Newborn"
-  },
-  {
-    "id": "infusion-therapy",
-    "value": "NurseInfusionTherapy",
-    "label": "Infusion Therapy"
-  },
-  {
-    "id": "wound-care",
-    "value": "NurseWoundCare",
-    "label": "Wound Care"
-  },
-  {
-    "id": "college-health",
-    "value": "NurseCollegeHealth",
-    "label": "College Health"
-  },
-  {
-    "id": "rehabilitation",
-    "value": "NurseRehabilitation",
-    "label": "Rehabilitation"
-  },
-  {
-    "id": "obstetric-inpatient",
-    "value": "NurseObstetricInpatient",
-    "label": "Obstetric, Inpatient"
-  },
-  {
-    "id": "gastroenterology",
-    "value": "NurseGastroenterology",
-    "label": "Gastroenterology"
-  },
-  {
-    "id": "hospice",
-    "value": "NurseHospice",
-    "label": "Hospice"
-  },
-  {
-    "id": "continuing-education-staff-development",
-    "value": "NurseContinuingEducationStaffDevelopment",
-    "label": "Continuing Education/Staff Development"
-  },
-  {
-    "id": "perinatal",
-    "value": "NursePerinatal",
-    "label": "Perinatal"
-  },
-  {
-    "id": "neuroscience",
-    "value": "NurseNeuroscience",
-    "label": "Neuroscience"
-  },
-  {
-    "id": "infection-control",
-    "value": "NurseInfectionControl",
-    "label": "Infection Control"
-  },
-  {
-    "id": "orthopedic",
-    "value": "NurseOrthopedic",
-    "label": "Orthopedic"
-  },
-  {
-    "id": "long-term-care",
-    "value": "NurseLongTermCare",
-    "label": "Long-Term Care"
-  },
-  {
-    "id": "hemodialysis",
-    "value": "NurseHemodialysis",
-    "label": "Hemodialysis"
-  },
-  {
-    "id": "pain-management",
-    "value": "NursePainManagement",
-    "label": "Pain Management"
-  },
-  {
-    "id": "cardiac-rehabilitation",
-    "value": "NurseCardiacRehabilitation",
-    "label": "Cardiac Rehabilitation"
-  },
-  {
-    "id": "community-health-public-health",
-    "value": "NurseCommunityHealthPublicHealth",
-    "label": "Community Health/Public Health"
-  },
-  {
-    "id": "nurse-massage-therapist-nmt",
-    "value": "NurseNurseMassageTherapistNMT",
-    "label": "Nurse Massage Therapist (NMT)"
-  },
-  {
-    "id": "plastic-surgery",
-    "value": "NursePlasticSurgery",
-    "label": "Plastic Surgery"
+    "id": "dental-surgeon",
+    "value": "DentalSurgeon",
+    "label": "Dental Surgeon"
   }
 ]
