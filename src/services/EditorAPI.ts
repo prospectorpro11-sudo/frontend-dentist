@@ -72,6 +72,15 @@ export class EditorAPI {
     return response.data;
   }
 
+  async syncEstateProductStats(productId: string) {
+    const response = await instance.post(
+      `/editor/syncEstateProductStats/${encodeURIComponent(productId)}`,
+      undefined,
+      { timeout: 120000 },
+    );
+    return response.data;
+  }
+
   async getAllProductTemplates() {
     const response = await instance.get("/editor/getAllProductTemplate");
     return response.data;
